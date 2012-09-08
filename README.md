@@ -6,11 +6,11 @@ __The first arg are the rules and the second arg contains the data__
 
 '''js
 	var validation = new Validator({
-		name: 'required|size:3'
-		email: 'required'
+		name: "required|"
+		email: "required|email"
 	}, {
-		email: 'dtang@usc.edu',
-		name: 'David'
+		email: "dtang@usc.edu",
+		name: "David"
 	});
 
 	if (validation.passes()) {
