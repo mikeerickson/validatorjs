@@ -1,10 +1,14 @@
 ##Validator usage:
 
 Include the script onto your page
+
+'''html
 <script src="validator.js"></script>
+'''
 
 Invoke Validator as shown below. The first arg are the rules and the second arg contains the data
-<script>
+
+'''js
 	var validation = new Validator({
 		name: 'required|size:3'
 		email: 'required'
@@ -18,5 +22,4 @@ Invoke Validator as shown below. The first arg are the rules and the second arg 
 	} else if(validation.fails()) {
 		console.log(validation.errors);
 	}
-
-</script>
+'''
