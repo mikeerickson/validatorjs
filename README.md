@@ -4,7 +4,7 @@ Include the validator.js script onto your page
 Invoke Validator as shown below:
 __The first arg are the rules and the second arg contains the data__
 
-'''js
+```js
 	var validation = new Validator({
 		name: "required|"
 		email: "required|email"
@@ -18,4 +18,4 @@ __The first arg are the rules and the second arg contains the data__
 	} else if(validation.fails()) {
 		console.log(validation.errors);
 	}
-'''
+```
