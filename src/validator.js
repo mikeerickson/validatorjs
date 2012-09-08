@@ -72,24 +72,58 @@ Validator.prototype = {
 			}
 		},
 
-		size: function(val, len) {
-			if (val.length === len) {
-				return true;
+		// compares the size of strings
+		// with numbers, compares the value
+		size: function(val, req) {
+			if (typeof val === 'number') {
+				if (val === req) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				return false;
+				if (val.length === req) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		},
 
-		min: function(val, len) {
-			if (val.length >= len) {
-				return true;
+		// compares the size of strings
+		// with numbers, compares the value
+		min: function(val, req) {
+			if (typeof val === 'number') {
+				if (val >= req) {
+					return true;
+				} else {
+					return false;
+				}
 			} else {
-				return false;
+				if (val.length >= req) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		},
 
-		max: function(val, len) {
-
+		// compares the size of strings
+		// with numbers, compares the value
+		max: function(val, req) {
+			if (typeof val === 'number') {
+				if (val <= req) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (val.length <= req) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 		},
 
 		email: function(val) {
