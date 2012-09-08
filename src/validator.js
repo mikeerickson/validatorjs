@@ -10,7 +10,7 @@ Validator.prototype = {
 	constructor: Validator,
 
 	check: function() {
-		var key, val, curRules, curRulesLen, i, rule, passes;
+		var key, val, curRules, curRulesLen, i, rule, ruleVal, passes;
 
 		for (key in this.input) {
 			if (this.input.hasOwnProperty(key)) { // make sure property is not inherited
@@ -22,7 +22,19 @@ Validator.prototype = {
 
 					for (i = 0; i < curRulesLen; i++) { //iterate over rules
 						rule = curRules[i];
-						passes = this.validate[rule](val);
+
+						if (rule.indexOf(':') >= 0) {
+							rule = rule.split(':');
+						}
+
+						if (rule instanceof Array) {
+							ruleVal = rule[1];
+							rule = rule[0];
+
+							passes = this.validate[rule](val, ruleVal);
+						} else {
+							passes = this.validate[rule](val);
+						}
 
 						if (!passes) {
 							this.errors = this.errors || [];
@@ -54,6 +66,15 @@ Validator.prototype = {
 	validate: {
 		required: function(val) {
 			if (String(val).length > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		size: function(val, len) {
+			len = parseInt(len, 10);
+			if (val.length === len) {
 				return true;
 			} else {
 				return false;

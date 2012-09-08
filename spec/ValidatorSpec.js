@@ -105,5 +105,31 @@ describe('email validator flag', function() {
 
 		expect(validator.fails()).toBeTruthy();
 	});
+});
+
+
+describe('size validator flag', function() {
+	var validator;
+
+	it('should fail with the state = C. Size must be 2 letters.', function() {
+		validator = new Validator({
+			state: 'size:2'
+		}, {
+			state: 'C'
+		});
+
+		expect(validator.fails()).toBeTruthy();
+	});
 	
+	it('should pass with the state = CA. Size must be 2 letters.', function() {
+		validator = new Validator({
+			state: 'size:2'
+		}, {
+			state: 'CA'
+		});
+
+		expect(validator.passes()).toBeTruthy();
+		console.log(validator.errors);
+	});
+
 });
