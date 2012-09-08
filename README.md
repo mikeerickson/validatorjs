@@ -1,11 +1,7 @@
 ##Validator usage:
-####Include the script onto your page####
+Include the validator.js script onto your page
 
-'''bash
-<script src="validator.js"></script>
-'''
-
-####Invoke Validator as shown below:####
+Invoke Validator as shown below:
 __The first arg are the rules and the second arg contains the data__
 
 '''js
