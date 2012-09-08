@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:FB-API-Wrapper.json>',
+    pkg: '<json:Validator.json>',
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -15,9 +15,7 @@ module.exports = function(grunt) {
       dist: {
         src: [
           '<banner:meta.banner>',
-          '<file_strip_banner:src/FacebookSDK.js>',
-          'src/FacebookShare.js',
-          'src/FacebookGraph.js'
+          '<file_strip_banner:src/validator.js>'
         ],
         dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.js'
       }
