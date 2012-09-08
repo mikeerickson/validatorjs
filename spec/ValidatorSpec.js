@@ -131,5 +131,30 @@ describe('size validator flag', function() {
 		expect(validator.passes()).toBeTruthy();
 		console.log(validator.errors);
 	});
+});
+
+
+describe('min validator flag', function() {
+	var validator;
+
+	it('should fail with the name "D". Minimum size is 2 letters.', function() {
+		validator = new Validator({
+			name: 'min:2'
+		}, {
+			name: 'D'
+		});
+
+		expect(validator.passes()).toBeFalsy();
+	});
+
+	it('should pass with the name "Da". Minimum size is 2 letters.', function() {
+		validator = new Validator({
+			name: 'min:2'
+		}, {
+			name: 'Da'
+		});
+
+		expect(validator.passes()).toBeTruthy();
+	});
 
 });

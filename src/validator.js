@@ -28,7 +28,7 @@ Validator.prototype = {
 						}
 
 						if (rule instanceof Array) {
-							ruleVal = rule[1];
+							ruleVal = parseInt(rule[1], 10);
 							rule = rule[0];
 
 							passes = this.validate[rule](val, ruleVal);
@@ -73,7 +73,6 @@ Validator.prototype = {
 		},
 
 		size: function(val, len) {
-			len = parseInt(len, 10);
 			if (val.length === len) {
 				return true;
 			} else {
@@ -81,11 +80,15 @@ Validator.prototype = {
 			}
 		},
 
-		min: function(val) {
-
+		min: function(val, len) {
+			if (val.length >= len) {
+				return true;
+			} else {
+				return false;
+			}
 		},
 
-		max: function(val) {
+		max: function(val, len) {
 
 		},
 
