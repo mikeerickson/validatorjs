@@ -1,0 +1,13 @@
+{
+  "name": "Facebook-API-Wrapper",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.12"
+  }
+}

@@ -1,0 +1,18 @@
+<script src="validator.js"></script>
+<script>
+
+	var validation = new Validator({
+		name: 'required|size:3'
+		email: 'required'
+	}, {
+		email: 'dtang@usc.edu',
+		name: 'David'
+	});
+
+	if (validation.passes()) {
+
+	} else if(validation.fails()) {
+		console.log(validation.errors);
+	}
+
+</script>
