@@ -1,4 +1,4 @@
-/*! Laravel inspired Validator constructor function - v0.0.1 - 2012-10-11
+/*! Laravel inspired Validator constructor function - v0.0.2 - 2012-10-11
 * https://github.com/skaterdav85/Validator
 * Copyright (c) 2012 David; Licensed MIT, GPL */
 
