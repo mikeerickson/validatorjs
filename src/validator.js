@@ -171,4 +171,4 @@
 
 	window.Validator = Validator;
 	
-})(window);
+}(window));
