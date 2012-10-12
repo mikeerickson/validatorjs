@@ -10,7 +10,7 @@
 		def: 'The :attribute attribute has errors.'
 	};
 
-	var Validator = function(rules, input) {
+	var Validator = function(input, rules) {
 		this.rules = rules;
 		this.input = input;
 		this.errors = {};
@@ -21,14 +21,6 @@
 
 	Validator.prototype = {
 		constructor: Validator,
-		
-		hasErrors: function() {
-			if (this.errorCount > 0) {
-				return true;
-			} else {
-				return false;
-			}
-		},
 
 		check: function() {
 			var key, val, curRules, curRulesLen, i, rule, ruleVal, passes, msg;
@@ -60,7 +52,7 @@
 
 							if (!passes) {
 								if ( !this.errors.hasOwnProperty(key) ) {
-									this.errors[key] = {};
+									this.errors[key] = [];
 								}
 
 								if (messages.hasOwnProperty(rule)) {
@@ -70,7 +62,7 @@
 								}
 
 								msg = msg.replace(/:attribute/, key);
-								this.errors[key][rule] = msg;
+								this.errors[key].push(msg);
 
 								this.errorCount++;
 							}
@@ -81,7 +73,7 @@
 		},
 
 		passes: function() {
-			if (!this.errors) {
+			if (this.errorCount === 0) {
 				return true;
 			} else {
 				return false;
@@ -89,7 +81,7 @@
 		},
 
 		fails: function() {
-			if (this.errors) {
+			if (this.errorCount > 0) {
 				return true;
 			} else {
 				return false;

@@ -1,4 +1,4 @@
-<script src="src/validator.js"></script>
+<script src="dist/validator.0.0.2.min.js"></script>
 <script>
 
 	var rules = {
@@ -11,14 +11,12 @@
 		email: ''
 	};
 
-	var validation = new Validator(rules, data);
+	var validation = new Validator(data, rules);
 
 	if (validation.passes()) {
 		console.log('passes');
-	} else if(validation.fails()) {
-		if (validation.hasErrors()) {
-			console.log(validation.errorCount + ' errors', validation.errors);
-		}
+	} else if (validation.fails()) {
+		console.log(validation.errorCount + ' errors', validation.errors);
 	}
 
 </script>

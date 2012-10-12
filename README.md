@@ -1,21 +1,7 @@
 ##Validator usage:
-Include the validator.js script onto your page
+Include the validator.js script onto your page. Minified version in the _dist_ folder.
 
-Invoke Validator as shown below:
-__The first arg are the rules and the second arg contains the data__
+Invoke Validator constructor function:
+__The first arg contains the data and the 2nd arg contains the rules.__ 
 
-```js
-	var validation = new Validator({
-		name: "required|"
-		email: "required|email"
-	}, {
-		email: "dtang@usc.edu",
-		name: "David"
-	});
-
-	if (validation.passes()) {
-
-	} else if(validation.fails()) {
-		console.log(validation.errors);
-	}
-```
+See demo.html for an example
