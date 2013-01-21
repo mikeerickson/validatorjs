@@ -3,11 +3,11 @@ describe('Validator()', function() {
 
 	beforeEach(function() {
 		validator = new Validator({
-			name: 'required',
-			email: 'required'
-		}, {
 			name: 'David',
 			email: 'dtang@usc.edu'
+		}, {
+			name: 'required',
+			email: 'required'
 		});
 	});
 	
@@ -42,11 +42,11 @@ describe('required validator flag', function() {
 
 	it('should pass with non-empty strings for required data fields', function() {
 		validator = new Validator({
-			name: 'required',
-			email: 'required'
-		}, {
 			name: 'David',
 			email: 'dtang@usc.edu'
+		}, {
+			name: 'required',
+			email: 'required'
 		});
 
 		expect(validator.passes()).toBeTruthy();
@@ -54,11 +54,11 @@ describe('required validator flag', function() {
 
 	it('should fail with empty strings for required data fields', function() {
 		validator = new Validator({
-			name: 'required',
-			email: 'required'
-		}, {
 			name: 'David',
 			email: ''
+		}, {
+			name: 'required',
+			email: 'required'
 		});
 
 		expect(validator.fails()).toBeTruthy();
@@ -71,11 +71,11 @@ describe('email validator flag', function() {
 
 	it('should pass with the email address: dtang85@gmail.com', function() {
 		validator = new Validator({
-			name: 'required',
-			email: 'required|email'
-		}, {
 			name: 'David',
 			email: 'dtang85@gmail.com'
+		}, {
+			name: 'required',
+			email: 'required|email'
 		});
 
 		expect(validator.passes()).toBeTruthy();
@@ -83,11 +83,11 @@ describe('email validator flag', function() {
 
 	it ('should fail with the email address: dtang85.gmail.com', function() {
 		validator = new Validator({
-			name: 'required',
-			email: 'required|email'
-		}, {
 			name: 'David',
 			email: 'dtang85.gmail.com'
+		}, {
+			name: 'required',
+			email: 'required|email'
 		});
 
 		expect(validator.fails()).toBeTruthy();
@@ -96,11 +96,11 @@ describe('email validator flag', function() {
 
 	it('should fail with the email address: dtang85@gmail', function() {
 		validator = new Validator({
-			name: 'required',
-			email: 'required|email'
-		}, {
 			name: 'David',
 			email: 'dtang85@gmail'
+		}, {
+			name: 'required',
+			email: 'required|email'
 		});
 
 		expect(validator.fails()).toBeTruthy();
@@ -113,9 +113,9 @@ describe('size validator flag', function() {
 
 	it('should fail with the state = C. Size must be 2 letters.', function() {
 		validator = new Validator({
-			state: 'size:2'
-		}, {
 			state: 'C'
+		}, {
+			state: 'size:2'
 		});
 
 		expect(validator.fails()).toBeTruthy();
@@ -123,9 +123,9 @@ describe('size validator flag', function() {
 	
 	it('should pass with the state = CA. Size must be 2 letters.', function() {
 		validator = new Validator({
-			state: 'size:2'
-		}, {
 			state: 'CA'
+		}, {
+			state: 'size:2'
 		});
 
 		expect(validator.passes()).toBeTruthy();
@@ -134,9 +134,9 @@ describe('size validator flag', function() {
 
 	it('should pass with the age 65. Size must be 65', function() {
 		validator = new Validator({
-			age: 'size:65'
-		}, {
 			age: 65
+		}, {
+			age: 'size:65'
 		});
 
 		expect(validator.passes()).toBeTruthy();
@@ -144,9 +144,9 @@ describe('size validator flag', function() {
 
 	it('should fail with the age 64. Size must be 65.', function() {
 		validator = new Validator({
-			age: 'size:65'
-		}, {
 			age: 64
+		}, {
+			age: 'size:65'
 		});
 
 		expect(validator.fails()).toBeTruthy();
@@ -159,9 +159,9 @@ describe('min validator flag', function() {
 
 	it('should fail with the name "D". Minimum size is 2 letters.', function() {
 		validator = new Validator({
-			name: 'min:2'
-		}, {
 			name: 'D'
+		}, {
+			name: 'min:2'
 		});
 
 		expect(validator.passes()).toBeFalsy();
@@ -169,9 +169,9 @@ describe('min validator flag', function() {
 
 	it('should pass with the name "Da". Minimum is 2 letters.', function() {
 		validator = new Validator({
-			name: 'min:2'
-		}, {
 			name: 'Da'
+		}, {
+			name: 'min:2'
 		});
 
 		expect(validator.passes()).toBeTruthy();
@@ -179,9 +179,9 @@ describe('min validator flag', function() {
 
 	it('should pass with the age "18". Minimum is 18.', function() {
 		validator = new Validator({
-			age: 'min:18'
-		}, {
 			age: 18
+		}, {
+			age: 'min:18'
 		});
 
 		expect(validator.passes()).toBeTruthy();
@@ -189,9 +189,19 @@ describe('min validator flag', function() {
 
 	it('should fail with the age "17". Minimum is 18.', function() {
 		validator = new Validator({
-			age: 'min:18'
-		}, {
 			age: 17
+		}, {
+			age: 'min:18'
+		});
+
+		expect(validator.fails()).toBeTruthy();
+	});
+
+	it('should fail with value of 0.04', function() {
+		validator = new Validator({
+			val: 0.04
+		}, {
+			val: 'min:0.05'
 		});
 
 		expect(validator.fails()).toBeTruthy();
@@ -204,9 +214,9 @@ describe('max validator flag', function() {
 
 	it('should fail with the name "David". Maximum size is 3 letters.', function() {
 		validator = new Validator({
-			name: 'max:3'
-		}, {
 			name: 'David'
+		}, {
+			name: 'max:3'
 		});
 
 		expect(validator.passes()).toBeFalsy();
@@ -214,9 +224,9 @@ describe('max validator flag', function() {
 
 	it('should pass with the name "David". Maximum size is 5 letters.', function() {
 		validator = new Validator({
-			name: 'max:5'
-		}, {
 			name: 'Da'
+		}, {
+			name: 'max:5'
 		});
 
 		expect(validator.passes()).toBeTruthy();
@@ -224,9 +234,9 @@ describe('max validator flag', function() {
 
 	it('should fail with the age "18". Max is 12.', function() {
 		validator = new Validator({
-			age: 'max:12'
-		}, {
 			age: 18
+		}, {
+			age: 'max:12'
 		});
 
 		expect(validator.fails()).toBeTruthy();
@@ -234,9 +244,9 @@ describe('max validator flag', function() {
 
 	it('should pass with the age "12". Max is 12.', function() {
 		validator = new Validator({
-			age: 'max:12'
-		}, {
 			age: 12
+		}, {
+			age: 'max:12'
 		});
 
 		expect(validator.passes()).toBeTruthy();

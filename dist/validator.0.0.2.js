@@ -1,6 +1,6 @@
-/*! Laravel inspired Validator constructor function - v0.0.2 - 2012-10-11
+/*! Laravel inspired Validator constructor function - v0.0.2 - 2013-01-21
 * https://github.com/skaterdav85/Validator
-* Copyright (c) 2012 David; Licensed MIT, GPL */
+* Copyright (c) 2013 David; Licensed MIT, GPL */
 
 (function (window) {
 
@@ -41,7 +41,7 @@
 							}
 
 							if (rule instanceof Array) {
-								ruleVal = parseInt(rule[1], 10);
+								ruleVal = parseFloat(rule[1]);
 								rule = rule[0];
 
 								passes = this.validate[rule](val, ruleVal);

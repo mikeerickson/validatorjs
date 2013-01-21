@@ -2,7 +2,7 @@
   "name": "validator",
   "title": "Laravel inspired Validator constructor function",
   "description": "A simple validator class for client side validation. API similar to Laravel's Validator class",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/skaterdav85/Validator",
   "author": {
     "name": "David",
