@@ -78,4 +78,11 @@ To apply validation rules to the _input_ object, use the same object key names f
 
 __Note: All minimum and maximum checks are inclusive.__
 
+####Public Instance Methods
+
+* passes() - returns boolean
+* fails() - returns boolean
+* first(_string_ attribute_name) - returns first error message for attribute_name, or _null_ if no error message exists
+
+
 See SpecRunner.html for Jasmine tests and examples

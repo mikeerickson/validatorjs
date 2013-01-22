@@ -1,3 +1,7 @@
+/*! Laravel inspired Validator constructor function - v0.0.4 - 2013-01-22
+* https://github.com/skaterdav85/Validator
+* Copyright (c) 2013 David; Licensed  */
+
 (function (window) {
 
 	var messages = {

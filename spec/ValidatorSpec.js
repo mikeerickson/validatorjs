@@ -252,3 +252,32 @@ describe('max validator flag', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 });
+
+describe('error messages', function() {
+	var validator;
+
+	it('should return an error message that states the email is required', function() {
+		validator = new Validator({
+			email: ''
+		}, {
+			email: 'required|email'
+		});
+
+		expect(validator.first('email')).toEqual('The email field is required.');
+	});
+
+	it('should return an error message that states the email is required', function() {
+		validator = new Validator({
+			email: 'john@yahoo'
+		}, {
+			email: 'required|email'
+		});
+
+		expect(validator.first('email')).toEqual('The email field must be a valid email address.');
+	});
+
+	it('should return null for a key without an error message', function() {
+		validator = new Validator({ name: 'David' }, { name: 'required' });
+		expect(validator.first('name')).toBeFalsy();
+	});
+});
