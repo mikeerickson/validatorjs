@@ -82,7 +82,7 @@ __Note: All minimum and maximum checks are inclusive.__
 
 * passes() - returns boolean
 * fails() - returns boolean
-* first(_string_ attribute_name) - returns first error message for attribute_name, or _null_ if no error message exists
+* first(attribute_name) - returns first error message for _string_ attribute_name, or _null_ if no error message exists
 
 
 See SpecRunner.html for Jasmine tests and examples

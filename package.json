@@ -1,13 +1,25 @@
 {
   "name": "validator",
-  "version": "0.0.2",
-  "engines": {
-    "node": ">= 0.6.0"
+  "title": "Laravel inspired Validator constructor function",
+  "description": "A simple validator class for client side validation. API similar to Laravel's Validator class",
+  "version": "0.1.0",
+  "homepage": "https://github.com/skaterdav85/Validator",
+  "author": {
+    "name": "David",
+    "email": "dtang85@gmail.com"
   },
-  "scripts": {
-    "test": "grunt qunit"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skaterdav85/Validator.git"
   },
+  "bugs": {
+    "url": ""
+  },
+  "keywords": ["Laravel Validator"],
   "devDependencies": {
     "grunt": "~0.3.12"
+  },
+  "engines": {
+    "node": ">= 0.6.0"
   }
 }
