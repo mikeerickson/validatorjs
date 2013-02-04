@@ -75,6 +75,11 @@ To apply validation rules to the _input_ object, use the same object key names f
 	cost: 'max:100'
 ```
 
+* numeric - Validate that an attribute is numeric. The string representation of a number will pass.
+
+```
+	age: 'numeric'
+```
 
 __Note: All minimum and maximum checks are inclusive.__
 

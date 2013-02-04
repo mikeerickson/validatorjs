@@ -4,7 +4,7 @@ describe('Validator()', function() {
 	beforeEach(function() {
 		validator = new Validator({
 			name: 'David',
-			email: 'dtang@usc.edu'
+			email: 'johndoe@gmail.com'
 		}, {
 			name: 'required',
 			email: 'required'
@@ -43,7 +43,7 @@ describe('required validator flag', function() {
 	it('should pass with non-empty strings for required data fields', function() {
 		validator = new Validator({
 			name: 'David',
-			email: 'dtang@usc.edu'
+			email: 'johndoe@gmail.com'
 		}, {
 			name: 'required',
 			email: 'required'
@@ -69,10 +69,10 @@ describe('required validator flag', function() {
 describe('email validator flag', function() {
 	var validator;
 
-	it('should pass with the email address: dtang85@gmail.com', function() {
+	it('should pass with the email address: johndoe@gmail.com', function() {
 		validator = new Validator({
 			name: 'David',
-			email: 'dtang85@gmail.com'
+			email: 'johndoe@gmail.com'
 		}, {
 			name: 'required',
 			email: 'required|email'
@@ -81,10 +81,10 @@ describe('email validator flag', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 
-	it ('should fail with the email address: dtang85.gmail.com', function() {
+	it ('should fail with the email address: johndoe.gmail.com', function() {
 		validator = new Validator({
 			name: 'David',
-			email: 'dtang85.gmail.com'
+			email: 'johndoe.gmail.com'
 		}, {
 			name: 'required',
 			email: 'required|email'
@@ -94,10 +94,10 @@ describe('email validator flag', function() {
 		console.log(validator.errors);
 	});
 
-	it('should fail with the email address: dtang85@gmail', function() {
+	it('should fail with the email address: johndoe@gmail', function() {
 		validator = new Validator({
 			name: 'David',
-			email: 'dtang85@gmail'
+			email: 'johndoe@gmail'
 		}, {
 			name: 'required',
 			email: 'required|email'
@@ -250,6 +250,40 @@ describe('max validator flag', function() {
 		});
 
 		expect(validator.passes()).toBeTruthy();
+	});
+});
+
+describe('numeric flag', function() {
+	var validator;
+
+	it('should pass with a numeric value', function() {
+		validator = new Validator({ age: 44 }, { age: 'numeric' });
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should pass with a decimal numeric value', function() {
+		validator = new Validator({ measurement: 0.5454 }, { measurement: 'numeric' });
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should pass with a string numeric value', function() {
+		validator = new Validator({ age: '44' }, { age: 'numeric' });
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should pass with a string decimal numeric value', function() {
+		validator = new Validator({ measurement: '0.5454' }, { measurement: 'numeric' });
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should fail with a string value', function() {
+		validator = new Validator({ age: 'something' }, { age: 'numeric' });
+		expect(validator.fails()).toBeTruthy('something is not a number');
+	});
+
+	it('should fail with a boolean value', function() {
+		validator = new Validator({ age: true }, { age: 'numeric' });
+		expect(validator.fails()).toBeTruthy('age is a boolean, not a number');
 	});
 });
 
