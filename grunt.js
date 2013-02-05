@@ -17,13 +17,13 @@ module.exports = function(grunt) {
           '<banner:meta.banner>',
           '<file_strip_banner:src/validator.js>'
         ],
-        dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.js'
+        dest: 'dist/<%= pkg.name %>.js'
       }
     },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.min.js'
+        dest: 'dist/<%= pkg.name %>.min.js'
       }
     },
     qunit: {

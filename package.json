@@ -1,8 +1,8 @@
 {
   "name": "validator",
   "title": "Laravel inspired Validator constructor function",
-  "description": "A simple validator class for client side validation. API similar to Laravel's Validator class",
-  "version": "0.1.1",
+  "description": "A simple validator constructor function for client side validation. The API is very similar to the Laravel Validator class",
+  "version": "0.1.2",
   "homepage": "https://github.com/skaterdav85/Validator",
   "author": {
     "name": "David",
@@ -15,7 +15,7 @@
   "bugs": {
     "url": ""
   },
-  "keywords": ["Laravel Validator"],
+  "keywords": ["A port of the Laravel Validator to JavaScript"],
   "devDependencies": {
     "grunt": "~0.3.12"
   },

@@ -1,4 +1,4 @@
-/*! Laravel inspired Validator constructor function - v0.1.1 - 2013-02-03
+/*! Laravel inspired Validator constructor function - v0.1.2 - 2013-02-04
 * https://github.com/skaterdav85/Validator
 * Copyright (c) 2013 David; Licensed  */
 
@@ -6,7 +6,7 @@
 
 	var messages = {
 		required: 'The :attribute field is required.',
-		email: 'The :attribute field must be a valid email address.',
+		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
 		min: {
 			numeric: 'The :attribute must be at least :min.',
@@ -19,7 +19,8 @@
 		size: {
 			numeric: 'The :attribute must be :size.',
 			string: 'The :attribute must be :size characters.'
-		}
+		},
+		numeric: 'The :attribute must be a number.'
 	};
 
 	var Validator = function(input, rules) {

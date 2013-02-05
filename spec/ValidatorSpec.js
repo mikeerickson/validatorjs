@@ -285,6 +285,11 @@ describe('numeric flag', function() {
 		validator = new Validator({ age: true }, { age: 'numeric' });
 		expect(validator.fails()).toBeTruthy('age is a boolean, not a number');
 	});
+
+	it('should return a customized numeric error message', function() {
+		validator = new Validator({ age: true }, { age: 'numeric' });
+		expect(validator.first('age')).toEqual('The age must be a number.');
+	});
 });
 
 describe('Error messages', function() {
@@ -307,7 +312,7 @@ describe('Error messages', function() {
 			email: 'required|email'
 		});
 
-		expect(validator.first('email')).toEqual('The email field must be a valid email address.');
+		expect(validator.first('email')).toEqual('The email format is invalid.');
 	});
 
 	it('should return null for a key without an error message', function() {
