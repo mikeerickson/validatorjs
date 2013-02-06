@@ -6,19 +6,19 @@
 2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
 
 ##### Node.js Usage:
-1. Install the Validator package from the NPM registry [https://npmjs.org/package/laravel-validator-for-js](https://npmjs.org/package/laravel-validator-for-js)
+* Install the Validator package from the NPM registry [https://npmjs.org/package/laravel-validator-for-js](https://npmjs.org/package/laravel-validator-for-js)
 
 ```
 	npm install laravel-validator-for-js
 ```
 
-2. On your node.js script, require the module.
+* On your node.js script, require the module.
 
 ```js
-	var ValidationModule = require('validator');
+	var ValidationModule = require('laravel-validator-for-js');
 ```
 
-3. Invoke the Validator constructor function.
+* Invoke the Validator constructor function.
 
 ### Examples
 
