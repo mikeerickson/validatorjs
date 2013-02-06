@@ -16,6 +16,16 @@
 
 ```js
 	var ValidationModule = require('laravel-validator-for-js');
+
+	var validation = new ValidationModule.Validator({
+		name: 'John',
+		age: 45,
+		email: 'johndoe.gmail.com'
+	}, {
+		name: 'required',
+		age: 'numeric',
+		email: 'required|email'
+	});
 ```
 
 * Invoke the Validator constructor function.

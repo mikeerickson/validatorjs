@@ -1,5 +1,5 @@
-/*! Validator constructor function for easy data validation - v0.2.1 - 2013-02-05
-* https://github.com/skaterdav85/Validator
+/*! Validator constructor function for easy data validation on both the client and server side. - v0.2.0 - 2013-02-05
+* https://github.com/skaterdav85/Validator.js
 * Copyright (c) 2013 ; Licensed  */
 
 (function(exports) {
