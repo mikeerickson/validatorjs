@@ -1,10 +1,33 @@
-###Validator usage:
-1. Include the validator.js script onto your page. Minified version in the __dist__ folder.
+##validator.js
+### Setup
 
-2. Invoke the Validator constructor function. The first argument is an object that contains the data you want to validate. The 2nd argument is an object that contains the validation rules.
+##### Browser usage:
+1. Include __validator.js__ or __validator.min.js__ script onto your page from the distribution folder (_dist_).
+2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
 
-####Example 1:
+##### Node.js Usage:
+1. Install the Validator package from the NPM registry [https://npmjs.org/package/laravel-validator-for-js](https://npmjs.org/package/laravel-validator-for-js)
+
 ```
+	npm install laravel-validator-for-js
+```
+
+2. On your node.js script, require the module.
+
+```js
+	var ValidationModule = require('validator');
+```
+
+3. Invoke the Validator constructor function.
+
+### Examples
+
+The __1st argument__ to the constructor is an object that contains the data you want to validate. 
+
+The __2nd argument__ is an object that contains the validation rules. 
+
+#####Example 1:
+```js
 	var data = {
 		email: 'johndoe@gmail.com'
 	};
@@ -22,8 +45,8 @@
 
 To apply validation rules to the _input_ object, use the same object key names for the _rules_ object.
 
-####Example 2:
-```
+#####Example 2:
+```js
 	var rules = {
 		name: 'required|size:3',
 		email: 'required|email'
@@ -40,7 +63,7 @@ To apply validation rules to the _input_ object, use the same object key names f
 
 ```
 
-####Validation Rules
+###Validation Rules
 
 * required - Checks if the length of the String representation of the value is > 0
 
@@ -83,7 +106,7 @@ To apply validation rules to the _input_ object, use the same object key names f
 
 __Note: All minimum and maximum checks are inclusive.__
 
-####Public Instance Methods
+###Public Instance Methods
 
 * passes() - returns boolean
 * fails() - returns boolean

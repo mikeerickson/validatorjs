@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: '<json:package.json>',
     meta: {
-      banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
+      banner: '/*! <%= pkg.title || pkg.buildname %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
         '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
         '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
@@ -17,13 +17,13 @@ module.exports = function(grunt) {
           '<banner:meta.banner>',
           '<file_strip_banner:src/validator.js>'
         ],
-        dest: 'dist/<%= pkg.name %>.js'
+        dest: 'dist/<%= pkg.buildname %>.js'
       }
     },
     min: {
       dist: {
         src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>.min.js'
+        dest: 'dist/<%= pkg.buildname %>.min.js'
       }
     },
     qunit: {

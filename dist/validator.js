@@ -1,8 +1,8 @@
-/*! Laravel inspired Validator constructor function - v0.1.2 - 2013-02-04
+/*! Validator constructor function for easy data validation - v0.2.1 - 2013-02-05
 * https://github.com/skaterdav85/Validator
-* Copyright (c) 2013 David; Licensed  */
+* Copyright (c) 2013 ; Licensed  */
 
-(function (window) {
+(function(exports) {
 
 	var messages = {
 		required: 'The :attribute field is required.',
@@ -237,6 +237,6 @@
 		}
 	};
 
-	window.Validator = Validator;
+	exports.Validator = Validator;
 	
-}(window));
+}(typeof exports === 'undefined' ? window : exports));

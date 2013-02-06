@@ -1,4 +1,4 @@
-(function (window) {
+(function(exports) {
 
 	var messages = {
 		required: 'The :attribute field is required.',
@@ -233,6 +233,6 @@
 		}
 	};
 
-	window.Validator = Validator;
+	exports.Validator = Validator;
 	
-}(window));
+}(typeof exports === 'undefined' ? window : exports));
