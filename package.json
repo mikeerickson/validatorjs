@@ -3,7 +3,7 @@
   "buildname": "validator",
   "title": "Validator constructor function for easy data validation on both the client and server side.",
   "description": "A constructor function for data validation on both the server and client, inspired by the Laravel PHP framework. The API is very similar to that of the Laravel Validator class.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/skaterdav85/Validator.js",
   "author": "David <dtang85@gmail.com>",
   "repository": {

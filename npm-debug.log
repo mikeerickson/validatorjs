@@ -1,0 +1,124 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@1.2.2
+3 info using node@v0.8.18
+4 verbose publish [ '.' ]
+5 verbose read json /Users/dtang85/Sites/Validator.js/package.json
+6 verbose cache add [ '.', null ]
+7 verbose cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { pathname: '.', path: '.', href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . /Users/dtang85/.npm/3a52ce78-.lock
+11 verbose read json package.json
+12 verbose tar pack [ '/var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/tmp.tgz',
+12 verbose tar pack   '.' ]
+13 verbose tarball /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/tmp.tgz
+14 verbose folder .
+15 info prepublish laravel-validator-for-js@0.2.0
+16 silly lockFile b420dd3f-90345-0-7287211404182017-tmp-tgz /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/tmp.tgz
+17 verbose lock /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/tmp.tgz /Users/dtang85/.npm/b420dd3f-90345-0-7287211404182017-tmp-tgz.lock
+18 silly lockFile b420dd3f-90345-0-7287211404182017-tmp-tgz /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/tmp.tgz
+19 verbose tar unpack /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/tmp.tgz
+20 silly lockFile 224a0f15-90345-0-7287211404182017-package /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/package
+21 verbose lock /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/package /Users/dtang85/.npm/224a0f15-90345-0-7287211404182017-package.lock
+22 silly gunzTarPerm modes [ '755', '644' ]
+23 silly gunzTarPerm extractEntry package.json
+24 silly gunzTarPerm extractEntry .npmignore
+25 silly gunzTarPerm extractEntry README.md
+26 silly gunzTarPerm extractEntry grunt.js
+27 silly gunzTarPerm extractEntry dist/validator.js
+28 silly gunzTarPerm extractEntry dist/validator.min.js
+29 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/jasmine-html.js
+30 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/jasmine.js
+31 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/jasmine.css
+32 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/MIT.LICENSE
+33 silly gunzTarPerm extractEntry spec/SpecHelper.js
+34 silly gunzTarPerm extractEntry spec/validator.spec.js
+35 silly gunzTarPerm extractEntry SpecRunner.html
+36 silly gunzTarPerm extractEntry src/validator.js
+37 verbose read json /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/package/package.json
+38 silly lockFile 224a0f15-90345-0-7287211404182017-package /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/package
+39 verbose from cache /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/package/package.json
+40 verbose tar pack [ '/Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz',
+40 verbose tar pack   '/var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/package' ]
+41 verbose tarball /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz
+42 verbose folder /var/folders/ht/6p8wdsqn66d4_l_1xhd3vznr0000gn/T/npm-3104/1360320390345-0.7287211404182017/package
+43 silly lockFile 8826fdcf-lidator-for-js-0-2-0-package-tgz /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz
+44 verbose lock /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz /Users/dtang85/.npm/8826fdcf-lidator-for-js-0-2-0-package-tgz.lock
+45 silly lockFile 8826fdcf-lidator-for-js-0-2-0-package-tgz /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz
+46 silly lockFile 695bdf87-l-validator-for-js-0-2-0-package /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package
+47 verbose lock /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package /Users/dtang85/.npm/695bdf87-l-validator-for-js-0-2-0-package.lock
+48 silly lockFile 695bdf87-l-validator-for-js-0-2-0-package /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package
+49 verbose tar unpack /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz
+50 silly lockFile 695bdf87-l-validator-for-js-0-2-0-package /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package
+51 verbose lock /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package /Users/dtang85/.npm/695bdf87-l-validator-for-js-0-2-0-package.lock
+52 silly gunzTarPerm modes [ '755', '644' ]
+53 silly gunzTarPerm extractEntry package.json
+54 silly gunzTarPerm extractEntry .npmignore
+55 silly gunzTarPerm extractEntry README.md
+56 silly gunzTarPerm extractEntry grunt.js
+57 silly gunzTarPerm extractEntry dist/validator.js
+58 silly gunzTarPerm extractEntry dist/validator.min.js
+59 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/jasmine-html.js
+60 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/jasmine.js
+61 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/jasmine.css
+62 silly gunzTarPerm extractEntry lib/jasmine-1.2.0/MIT.LICENSE
+63 silly gunzTarPerm extractEntry spec/SpecHelper.js
+64 silly gunzTarPerm extractEntry spec/validator.spec.js
+65 silly gunzTarPerm extractEntry SpecRunner.html
+66 silly gunzTarPerm extractEntry src/validator.js
+67 verbose read json /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package/package.json
+68 silly lockFile 695bdf87-l-validator-for-js-0-2-0-package /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package
+69 silly shasum updated bytes 28506
+70 info shasum 641de8f0c994364aaf34a7db13f6a3943324dca2
+70 info shasum /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz
+71 verbose from cache /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package/package.json
+72 verbose chmod /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz 644
+73 verbose chown /Users/dtang85/.npm/laravel-validator-for-js/0.2.0/package.tgz [ 501, 20 ]
+74 silly lockFile 3a52ce78- .
+75 silly publish { name: 'laravel-validator-for-js',
+75 silly publish   buildname: 'validator',
+75 silly publish   title: 'Validator constructor function for easy data validation on both the client and server side.',
+75 silly publish   description: 'A constructor function for data validation on both the server and client, inspired by the Laravel PHP framework. The API is very similar to that of the Laravel Validator class.',
+75 silly publish   version: '0.2.0',
+75 silly publish   homepage: 'https://github.com/skaterdav85/Validator.js',
+75 silly publish   author: { name: 'David', email: 'dtang85@gmail.com' },
+75 silly publish   repository:
+75 silly publish    { type: 'git',
+75 silly publish      url: 'https://github.com/skaterdav85/Validator.js' },
+75 silly publish   bugs: { url: '' },
+75 silly publish   keywords: [ 'A port of the Validator class in the Laravel PHP MVC framework to JavaScript' ],
+75 silly publish   devDependencies: { grunt: '~0.3.12' },
+75 silly publish   engines: { node: '>= 0.6.0' },
+75 silly publish   gitHead: '301ebbe9afe949a4233606d3a5f16e14be5c820e',
+75 silly publish   readmeFilename: 'README.md',
+75 silly publish   main: 'dist/validator.js',
+75 silly publish   scripts: { test: ' ' },
+75 silly publish   license: 'BSD',
+75 silly publish   readme: '##validator.js\n### Setup\n\n##### Browser usage:\n1. Include __validator.js__ or __validator.min.js__ script onto your page from the distribution folder (_dist_).\n2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.\n\n##### Node.js Usage:\n* Install the Validator package from the NPM registry [https://npmjs.org/package/laravel-validator-for-js](https://npmjs.org/package/laravel-validator-for-js)\n\n```\n\tnpm install laravel-validator-for-js\n```\n\n* On your node.js script, require the module.\n\n```js\n\tvar ValidationModule = require(\'laravel-validator-for-js\');\n\n\tvar validation = new ValidationModule.Validator({\n\t\tname: \'John\',\n\t\tage: 45,\n\t\temail: \'johndoe.gmail.com\'\n\t}, {\n\t\tname: \'required\',\n\t\tage: \'numeric\',\n\t\temail: \'required|email\'\n\t});\n```\n\n* Invoke the Validator constructor function.\n\n### Examples\n\nThe __1st argument__ to the constructor is an object that contains the data you want to validate. \n\nThe __2nd argument__ is an object that contains the validation rules. \n\n#####Example 1:\n```js\n\tvar data = {\n\t\temail: \'johndoe@gmail.com\'\n\t};\n\t\n\tvar rules = {\n\t\temail: \'email\'\n\t};\n\n\tvar validation = new Validator(data, rules);\n\t\n\tvalidation.passes() // true\n\tvalidation.fails() // false\n\t\n```\n\nTo apply validation rules to the _input_ object, use the same object key names for the _rules_ object.\n\n#####Example 2:\n```js\n\tvar rules = {\n\t\tname: \'required|size:3\',\n\t\temail: \'required|email\'\n\t};\n\n\tvar data = {\n\t\tname: \'\',\n\t\temail: \'\'\n\t};\n\n\tvar validation = new Validator(data, rules);\n\n\tvalidation.fails(); // true\n\n```\n\n###Validation Rules\n\n* required - Checks if the length of the String representation of the value is > 0\n\n```\n\tusername: \'required\'\n```\n\n* email - Checks for an @ symbol followed by a period\n\n\n```\n\taddress: \'email\'\n```\n\n* size - Validate that an attribute is a given length, or, if an attribute is numeric, is a given value\n\n\n```\n\tduration: \'size:2\'\n```\n\n* min - Validate that an attribute is at least a given size.\n\n```\n\tpayment: \'min:10\'\n\t\n```\n\n* max - Validate that an attribute is no greater than a given size\n\n```\n\tcost: \'max:100\'\n```\n\n* numeric - Validate that an attribute is numeric. The string representation of a number will pass.\n\n```\n\tage: \'numeric\'\n```\n\n__Note: All minimum and maximum checks are inclusive.__\n\n###Public Instance Methods\n\n* passes() - returns boolean\n* fails() - returns boolean\n* first(attribute_name) - returns first error message for _string_ attribute_name, or _null_ if no error message exists\n\n\nSee SpecRunner.html for Jasmine tests in the browser. You can also run the jasmine tests once you\'ve installed the NPM package jasmine-node.\n\n```\n\tjasmine-node spec/validator.spec.js\n```',
+75 silly publish   _id: 'laravel-validator-for-js@0.2.0',
+75 silly publish   dist: { shasum: '641de8f0c994364aaf34a7db13f6a3943324dca2' },
+75 silly publish   _from: '.' }
+76 verbose url raw laravel-validator-for-js
+77 verbose url resolving [ 'https://registry.npmjs.org/', './laravel-validator-for-js' ]
+78 verbose url resolved https://registry.npmjs.org/laravel-validator-for-js
+79 info trying registry request attempt 1 at 02:46:32
+80 http PUT https://registry.npmjs.org/laravel-validator-for-js
+81 http 409 https://registry.npmjs.org/laravel-validator-for-js
+82 verbose url raw laravel-validator-for-js
+83 verbose url resolving [ 'https://registry.npmjs.org/', './laravel-validator-for-js' ]
+84 verbose url resolved https://registry.npmjs.org/laravel-validator-for-js
+85 info trying registry request attempt 1 at 02:46:32
+86 http GET https://registry.npmjs.org/laravel-validator-for-js
+87 http 200 https://registry.npmjs.org/laravel-validator-for-js
+88 error publish fail Cannot publish over existing version.
+88 error publish fail Bump the 'version' field, set the --force flag, or
+88 error publish fail     npm unpublish 'laravel-validator-for-js@0.2.0'
+88 error publish fail and try again
+89 error System Darwin 12.2.1
+90 error command "node" "/usr/local/bin/npm" "publish"
+91 error cwd /Users/dtang85/Sites/Validator.js
+92 error node -v v0.8.18
+93 error npm -v 1.2.2
+94 error code EPUBLISHCONFLICT
+95 verbose exit [ 1, true ]
