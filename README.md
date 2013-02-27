@@ -1,4 +1,7 @@
 ##validator.js
+
+[![Build Status](https://travis-ci.org/skaterdav85/Validator.js.png?branch=master)](https://travis-ci.org/skaterdav85/Validator.js)
+
 ### Setup
 
 ##### Browser usage:

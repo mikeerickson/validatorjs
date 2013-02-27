@@ -17,7 +17,8 @@
     "A port of the Validator class in the Laravel PHP MVC framework to JavaScript"
   ],
   "devDependencies": {
-    "grunt": "~0.3.12"
+    "grunt": "0.4.0rc7",
+    "grunt-contrib-jshint": "~0.1.1"
   },
   "engines": {
     "node": ">= 0.6.0"
@@ -27,6 +28,5 @@
   "main": "dist/validator.js",
   "scripts": {
     "test": "grunt travis --verbose"
-  },
-  "license": "BSD"
+  }
 }
