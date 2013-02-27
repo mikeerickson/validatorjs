@@ -17,7 +17,7 @@ describe('Validator()', function() {
 	});
 	
 	it('should have a rules property containing all the validation rules', function() {
-		expect(validator.rules).toBeTruthy();
+		expect(validator.rules4).toBeTruthy();
 	});
 
 	it('should have an input property containing the input data to be validated', function() {
