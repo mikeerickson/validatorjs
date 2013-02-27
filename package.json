@@ -27,6 +27,6 @@
   "readmeFilename": "README.md",
   "main": "dist/validator.js",
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "jasmine-node spec/validator.spec.js"
   }
 }
