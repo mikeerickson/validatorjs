@@ -26,7 +26,7 @@
   "readmeFilename": "README.md",
   "main": "dist/validator.js",
   "scripts": {
-    "test": " "
+    "test": "grunt travis --verbose"
   },
   "license": "BSD"
 }
