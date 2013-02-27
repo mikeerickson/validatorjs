@@ -21,7 +21,7 @@
     "grunt-contrib-jshint": "~0.1.1"
   },
   "engines": {
-    "node": ">= 0.6.0"
+    "node": ">= 0.8.0"
   },
   "gitHead": "301ebbe9afe949a4233606d3a5f16e14be5c820e",
   "readmeFilename": "README.md",
