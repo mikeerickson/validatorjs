@@ -5,7 +5,7 @@
 ### Setup
 
 ##### Browser usage:
-1. Include __validator.js__ or __validator.min.js__ script onto your page from the distribution folder (_dist_).
+1. Include __validator.min.js__ script onto your page from the distribution folder (_dist_).
 2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
 
 ##### Node.js Usage:
@@ -125,8 +125,9 @@ __Note: All minimum and maximum checks are inclusive.__
 * fails() - returns boolean
 * first(attribute_name) - returns first error message for _string_ attribute_name, or _null_ if no error message exists
 
+###Testing
 
-See SpecRunner.html for Jasmine tests in the browser. 
+See __SpecRunner.html__ for Jasmine tests in the browser. 
 
 You can also run the jasmine tests via Node.js once you've installed the NPM package jasmine-node.
 
@@ -136,4 +137,9 @@ You can also run the jasmine tests via Node.js once you've installed the NPM pac
 	//OR
 
 	npm test (which calls the above command)
+```
+
+Once the above test passes, run the following command which will in turn run JSHint and minify the source
+```
+	grunt
 ```
