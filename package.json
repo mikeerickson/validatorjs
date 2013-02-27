@@ -27,6 +27,6 @@
   "readmeFilename": "README.md",
   "main": "dist/validator.js",
   "scripts": {
-    "test": "jasmine-node spec/validator.spec.js --verbose --color"
+    "test": "jasmine-node spec/ --verbose --color"
   }
 }
