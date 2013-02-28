@@ -16,7 +16,8 @@
 			numeric: 'The :attribute must be :size.',
 			string: 'The :attribute must be :size characters.'
 		},
-		numeric: 'The :attribute must be a number.'
+		numeric: 'The :attribute must be a number.',
+		url: 'The :attribute format is invalid.'
 	};
 
 	var Validator = function(input, rules) {
@@ -70,9 +71,8 @@
 							}
 
 							if (rule instanceof Array) {
-								ruleVal = parseFloat(rule[1]);
+								ruleVal = rule[1];
 								rule = rule[0];
-
 								passes = this.validate[rule](val, ruleVal);
 							} else {
 								ruleVal = null;
@@ -123,54 +123,33 @@
 		},
 
 		passes: function() {
-			if (this.errorCount === 0) {
-				return true;
-			} else {
-				return false;
-			}
+			return this.errorCount === 0 ? true : false;
 		},
 
 		fails: function() {
-			if (this.errorCount > 0) {
-				return true;
-			} else {
-				return false;
-			}
+			return this.errorCount > 0 ? true : false;
 		},
 
 		first: function(key) {
-			if (this.errors.hasOwnProperty(key)) {
-				return this.errors[key][0];
-			} else {
-				return null;
-			}
+			return this.errors.hasOwnProperty(key) ? this.errors[key][0] : null;
 		},
 
 		// validate functions should return T/F
 		validate: {
 			required: function(val) {
-				if (String(val).length > 0) {
-					return true;
-				} else {
-					return false;
-				}
+				var str = val.replace(/\s/g, "");
+				return String(str).length > 0 ? true : false;
 			},
 
 			// compares the size of strings
 			// with numbers, compares the value
 			size: function(val, req) {
+				req = parseFloat(req);
+
 				if (typeof val === 'number') {
-					if (val === req) {
-						return true;
-					} else {
-						return false;
-					}
+					return val === req ? true : false;
 				} else {
-					if (val.length === req) {
-						return true;
-					} else {
-						return false;
-					}
+					return val.length === req ? true : false;
 				}
 			},
 
@@ -178,17 +157,9 @@
 			// with numbers, compares the value
 			min: function(val, req) {
 				if (typeof val === 'number') {
-					if (val >= req) {
-						return true;
-					} else {
-						return false;
-					}
+					return val >= req ? true : false;
 				} else {
-					if (val.length >= req) {
-						return true;
-					} else {
-						return false;
-					}
+					return val.length >= req ? true : false;
 				}
 			},
 
@@ -196,29 +167,15 @@
 			// with numbers, compares the value
 			max: function(val, req) {
 				if (typeof val === 'number') {
-					if (val <= req) {
-						return true;
-					} else {
-						return false;
-					}
+					return val <= req ? true : false;
 				} else {
-					if (val.length <= req) {
-						return true;
-					} else {
-						return false;
-					}
+					return val.length <= req ? true : false;
 				}
 			},
 
 			email: function(val) {
-				var atPos = val.indexOf('@');
-				var periodPos = val.indexOf('.', atPos + 2);
-
-				if (atPos !== -1 && periodPos !== -1) {
-					return true;
-				} else {
-					return false;
-				}
+				var re = /\w+@\w{2,}\.\w{2,}/;
+				return val.match(re) ? true : false;
 			},
 
 			numeric: function(val) {
@@ -229,8 +186,18 @@
 				} else {
 					return false;
 				}
+			},
+
+			url: function(val) {
+				var re = /^http:\/\/\S+/;
+				return val.match(re);
 			}
 		}
+	};
+
+	// static methods
+	Validator.register = function(rule, fn) {
+		this.prototype.validate[rule] = fn;
 	};
 
 	exports.Validator = Validator;

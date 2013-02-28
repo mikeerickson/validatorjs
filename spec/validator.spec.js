@@ -3,7 +3,7 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('../src/validator.js').Validator;
 }
 
-describe('Validator()', function() {
+describe('Validator constructor', function() {
 	var validator;
 
 	beforeEach(function() {
@@ -42,10 +42,10 @@ describe('Validator()', function() {
 }); // Page constructor
 
 
-describe('required validator flag', function() {
+describe('require validation rule', function() {
 	var validator;
 
-	it('should pass with non-empty strings for required data fields', function() {
+	it('should pass with non-empty strings', function() {
 		validator = new Validator({
 			name: 'David',
 			email: 'johndoe@gmail.com'
@@ -57,7 +57,7 @@ describe('required validator flag', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 
-	it('should fail with empty strings for required data fields', function() {
+	it('should fail with empty strings', function() {
 		validator = new Validator({
 			name: 'David',
 			email: ''
@@ -67,15 +67,22 @@ describe('required validator flag', function() {
 		});
 
 		expect(validator.fails()).toBeTruthy();
-		console.log(validator.errors);
+	});
+
+	it('should fail with strings containing only white space', function() {
+		validator = new Validator({
+			name: '      	'
+		}, {
+			name: 'required'
+		});
+
+		expect(validator.fails()).toBeTruthy();
 	});
 });
 
-describe('email validator flag', function() {
-	var validator;
-
+describe('email validation rule', function() {
 	it('should pass with the email address: johndoe@gmail.com', function() {
-		validator = new Validator({
+		var validator = new Validator({
 			name: 'David',
 			email: 'johndoe@gmail.com'
 		}, {
@@ -87,7 +94,7 @@ describe('email validator flag', function() {
 	});
 
 	it ('should fail with the email address: johndoe.gmail.com', function() {
-		validator = new Validator({
+		var validator = new Validator({
 			name: 'David',
 			email: 'johndoe.gmail.com'
 		}, {
@@ -96,11 +103,10 @@ describe('email validator flag', function() {
 		});
 
 		expect(validator.fails()).toBeTruthy();
-		console.log(validator.errors);
 	});
 
 	it('should fail with the email address: johndoe@gmail', function() {
-		validator = new Validator({
+		var validator = new Validator({
 			name: 'David',
 			email: 'johndoe@gmail'
 		}, {
@@ -113,11 +119,9 @@ describe('email validator flag', function() {
 });
 
 
-describe('size validator flag', function() {
-	var validator;
-
+describe('size validation rule', function() {
 	it('should fail with the state = C. Size must be 2 letters.', function() {
-		validator = new Validator({
+		var validator = new Validator({
 			state: 'C'
 		}, {
 			state: 'size:2'
@@ -127,18 +131,17 @@ describe('size validator flag', function() {
 	});
 	
 	it('should pass with the state = CA. Size must be 2 letters.', function() {
-		validator = new Validator({
+		var validator = new Validator({
 			state: 'CA'
 		}, {
 			state: 'size:2'
 		});
 
 		expect(validator.passes()).toBeTruthy();
-		console.log(validator.errors);
 	});
 
 	it('should pass with the age 65. Size must be 65', function() {
-		validator = new Validator({
+		var validator = new Validator({
 			age: 65
 		}, {
 			age: 'size:65'
@@ -148,7 +151,7 @@ describe('size validator flag', function() {
 	});
 
 	it('should fail with the age 64. Size must be 65.', function() {
-		validator = new Validator({
+		var validator = new Validator({
 			age: 64
 		}, {
 			age: 'size:65'
@@ -159,7 +162,7 @@ describe('size validator flag', function() {
 });
 
 
-describe('min validator flag', function() {
+describe('min validation rule', function() {
 	var validator;
 
 	it('should fail with the name "D". Minimum size is 2 letters.', function() {
@@ -214,7 +217,7 @@ describe('min validator flag', function() {
 });
 
 
-describe('max validator flag', function() {
+describe('max validation rule', function() {
 	var validator;
 
 	it('should fail with the name "David". Maximum size is 3 letters.', function() {
@@ -258,7 +261,7 @@ describe('max validator flag', function() {
 	});
 });
 
-describe('numeric flag', function() {
+describe('numeric validation rule', function() {
 	var validator;
 
 	it('should pass with a numeric value', function() {
@@ -294,6 +297,46 @@ describe('numeric flag', function() {
 	it('should return a customized numeric error message', function() {
 		validator = new Validator({ age: true }, { age: 'numeric' });
 		expect(validator.first('age')).toEqual('The age must be a number.');
+	});
+});
+
+describe('url validation rule', function() {
+	it('should fail with a url only containing http://', function() {
+		var link = 'http://';
+		var validator = new Validator({ link: link }, { link: 'url' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.first('link')).toEqual('The link format is invalid.');
+	});
+
+	it('should pass with a url starting with http:// followed by 1 or more characters', function() {
+		var link = 'http://g';
+		var validator = new Validator({ link: link }, { link: 'url' });
+		expect(validator.passes()).toBeTruthy();
+	});
+});
+
+describe('register a custom validation rule', function() {
+	beforeEach(function() {
+		Validator.register('telephone', function(val) {
+			return val.match(/^\d{3}-\d{3}-\d{4}$/);
+		});
+	});
+	
+	it('should have a telephone method on obj.validate.prototype', function() {
+		var validator = new Validator();
+		expect(typeof validator.validate.telephone).toEqual('function');
+	});
+
+	it('should pass the custom telephone rule registration', function() {
+		var validator = new Validator({ phone: '213-454-9988' }, { phone: 'telephone' });
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should fail the custom telephone rule registration', function() {
+		var validator = new Validator({ phone: '4213-454-9988' }, { phone: 'telephone' });
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.fails()).toBeTruthy();
 	});
 });
 
@@ -368,5 +411,4 @@ describe('_createMessage', function() {
 
 		expect(msg).toEqual('The age must be at least 18.');
 	});
-
 });

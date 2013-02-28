@@ -111,19 +111,35 @@ To apply validation rules to the _input_ object, use the same object key names f
 	cost: 'max:100'
 ```
 
+__Note: All minimum and maximum checks are inclusive.__
+
 * numeric - Validate that an attribute is numeric. The string representation of a number will pass.
 
 ```
 	age: 'numeric'
 ```
 
-__Note: All minimum and maximum checks are inclusive.__
+* url - Validate that an attribute is a URL
+
+```
+	link: 'url'
+```
 
 ###Public Instance Methods
 
 * passes() - returns boolean
 * fails() - returns boolean
 * first(attribute_name) - returns first error message for _string_ attribute_name, or _null_ if no error message exists
+
+###Static Methods
+
+* register(custom_rule_name, callbackFn) - register a custom validation rule
+
+```js
+	Validator.register('telephone', function(val) {
+		return val.match(/^\d{3}-\d{3}-\d{4}$/);
+	});
+```
 
 ###Testing
 
