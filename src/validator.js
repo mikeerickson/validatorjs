@@ -196,8 +196,12 @@
 	};
 
 	// static methods
-	Validator.register = function(rule, fn) {
+	Validator.register = function(rule, fn, errMsg) {
 		this.prototype.validate[rule] = fn;
+
+		if (typeof errMsg === 'string') {
+			messages[rule] = errMsg;
+		}
 	};
 
 	exports.Validator = Validator;

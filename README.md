@@ -133,12 +133,14 @@ __Note: All minimum and maximum checks are inclusive.__
 
 ###Static Methods
 
-* register(custom_rule_name, callbackFn) - register a custom validation rule
+* register(custom_rule_name, callbackFn, errorMessage) - register a custom validation rule. 
+
+If __callbackFn__ returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. __errorMessage__ is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
 	Validator.register('telephone', function(val) {
 		return val.match(/^\d{3}-\d{3}-\d{4}$/);
-	});
+	}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
 
 ###Testing
