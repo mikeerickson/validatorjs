@@ -4,15 +4,10 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    pkg: grunt.file.readJSON('package.json'),
     meta: {
       src   : 'src/*.js',
-      specs : 'spec/*.js',
-      banner: '/*! <%= pkg.title || pkg.buildname %> - v<%= pkg.version %> - ' +
-        '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-        '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' +
-        '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+      specs : 'spec/*.js'
     },
     jshint: {
       all: [
@@ -24,6 +19,10 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - ' +
+          '<%= grunt.template.today("yyyy-mm-dd") %> */'
+      },
       my_target: {
         files: {
           'dist/validator.min.js': ['src/validator.js']
