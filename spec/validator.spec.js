@@ -314,6 +314,12 @@ describe('url validation rule', function() {
 		var validator = new Validator({ link: link }, { link: 'url' });
 		expect(validator.passes()).toBeTruthy();
 	});
+
+	it('should pass with an https url', function() {
+		var link = 'https://google.com';
+		var validator = new Validator({ link: link }, { link: 'url' });
+		expect(validator.passes()).toBeTruthy();
+	});
 });
 
 describe('register a custom validation rule', function() {

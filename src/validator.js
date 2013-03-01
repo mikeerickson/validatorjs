@@ -189,7 +189,7 @@
 			},
 
 			url: function(val) {
-				var re = /^http:\/\/\S+/;
+				var re = /^https?:\/\/\S+/;
 				return val.match(re);
 			}
 		}
