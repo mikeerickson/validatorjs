@@ -5,7 +5,7 @@
 ### Setup
 
 ##### Browser usage:
-1. Include __validator.min.js__ script onto your page from the distribution folder (_dist_).
+1. Include __validator.min.js__ script onto your page from the distribution folder _dist_.
 2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
 
 ##### Node.js Usage:
@@ -102,7 +102,6 @@ To apply validation rules to the _input_ object, use the same object key names f
 
 ```
 	payment: 'min:10'
-	
 ```
 
 * max - Validate that an attribute is no greater than a given size
@@ -124,6 +123,11 @@ __Note: All minimum and maximum checks are inclusive.__
 ```
 	link: 'url'
 ```
+
+###Error Messages
+This contructor will automatically generate error messages for validation rules that failed. You can use the __first__ method to fetch the first error message of a failing attribute. You can access all of the errors through the __errors__ property on the Validator instance. 
+
+There is also an __errorCount__ property on the validation instance to specify the number of validation errors.
 
 ###Public Instance Methods
 
