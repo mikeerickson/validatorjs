@@ -1,6 +1,6 @@
 // for jasmine-node support
 if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('../src/validator.js').Validator;
+	var Validator = require('./../src/validator');
 }
 
 describe('Validator constructor', function() {

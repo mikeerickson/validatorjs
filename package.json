@@ -2,8 +2,8 @@
   "name": "laravel-validator-for-js",
   "buildname": "validator",
   "title": "Validator constructor function for easy data validation on both the client and server side.",
-  "description": "A constructor function for data validation on both the server and client, inspired by the Laravel PHP framework. The API is very similar to that of the Laravel Validator class.",
-  "version": "0.3.3",
+  "description": "A constructor function for data validation on both the server and client, inspired by the Laravel PHP framework. The API is very similar to that of the Laravel 3 Validator class.",
+  "version": "0.4.0",
   "homepage": "https://github.com/skaterdav85/Validator.js",
   "author": "David <dtang85@gmail.com>",
   "repository": {
@@ -14,10 +14,10 @@
     "url": ""
   },
   "keywords": [
-    "data validation, validator, validate, validation, data, laravel"
+    "data validation, validator, validate, validation, data, laravel, laravel 3"
   ],
   "devDependencies": {
-    "grunt": "0.4.0rc7",
+    "grunt": "0.4.1",
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-uglify": "~0.1.1"
   },

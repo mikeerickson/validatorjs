@@ -1,8 +1,8 @@
-##Validator.js
+#Validator.js
 
 [![Build Status](https://travis-ci.org/skaterdav85/Validator.js.png?branch=master)](https://travis-ci.org/skaterdav85/Validator.js)
 
-### Setup
+## Setup
 
 ##### Browser usage:
 1. Include __validator.min.js__ script onto your page from the distribution folder _dist_.
@@ -17,10 +17,12 @@
 
 * On your node.js script, require the module.
 
-```js
-	var ValidationModule = require('laravel-validator-for-js');
+__Since version 0.4, the Validator constructor is immediately returned from the require call. I.e. You no longer have to do require('laravel-validator-for-js').Validator__
 
-	var validation = new ValidationModule.Validator({
+```js
+	var Validator = require('laravel-validator-for-js');
+
+	var validation = new Validator({
 		name: 'John',
 		age: 45,
 		email: 'johndoe.gmail.com'
@@ -76,7 +78,7 @@ To apply validation rules to the _input_ object, use the same object key names f
 
 ```
 
-###Validation Rules
+##Validation Rules
 
 * required - Checks if the length of the String representation of the value is > 0
 
@@ -124,12 +126,12 @@ __Note: All minimum and maximum checks are inclusive.__
 	link: 'url'
 ```
 
-###Error Messages
+##Error Messages
 This contructor will automatically generate error messages for validation rules that failed. You can use the __first__ method to fetch the first error message of a failing attribute. You can access all of the errors through the __errors__ property on the Validator instance. 
 
 There is also an __errorCount__ property on the validation instance to specify the number of validation errors.
 
-###Public Instance Methods
+##Public Instance Methods
 
 * passes() - returns boolean
 * fails() - returns boolean
@@ -147,7 +149,7 @@ If __callbackFn__ returns a truthy value, the validation will pass for this rule
 	}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
 
-###Testing
+##Testing
 
 See __SpecRunner.html__ for Jasmine tests in the browser. 
 
