@@ -1,14 +1,14 @@
-#Validator.js
+# Validator.js
 
 [![Build Status](https://travis-ci.org/skaterdav85/Validator.js.png?branch=master)](https://travis-ci.org/skaterdav85/Validator.js)
 
 ## Setup
 
-##### Browser usage:
+#### Browser:
 1. Include __validator.min.js__ script onto your page from the distribution folder _dist_.
 2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
 
-##### Node.js Usage:
+#### Node.js:
 Install the Validator package from the NPM registry [https://npmjs.org/package/laravel-validator-for-js](https://npmjs.org/package/laravel-validator-for-js)
 
 ```
@@ -21,13 +21,13 @@ Install the Validator package from the NPM registry [https://npmjs.org/package/l
 
 __Since version 0.4, the Validator constructor is immediately returned from the require call. I.e. You no longer have to do require('laravel-validator-for-js').Validator__
 
-### Examples
+## Usage and Examples
 
 The __1st argument__ to the constructor is an object that contains the data you want to validate. 
 
 The __2nd argument__ is an object that contains the validation rules. 
 
-#####Example 1:
+#### Example 1:
 ```js
 	var data = {
 		email: 'johndoe@gmail.com'
@@ -46,7 +46,7 @@ The __2nd argument__ is an object that contains the validation rules.
 
 To apply validation rules to the _input_ object, use the same object key names for the _rules_ object.
 
-#####Example 2:
+#### Example 2:
 ```js
 	var rules = {
 		name: 'required|size:3',
@@ -64,7 +64,7 @@ To apply validation rules to the _input_ object, use the same object key names f
 
 ```
 
-##Validation Rules
+## Validation Rules
 
 * required - Checks if the length of the String representation of the value is > 0
 
@@ -112,18 +112,18 @@ __Note: All minimum and maximum checks are inclusive.__
 	link: 'url'
 ```
 
-##Error Messages
+## Error Messages
 This contructor will automatically generate error messages for validation rules that failed. You can use the __first__ method to fetch the first error message of a failing attribute. You can access all of the errors through the __errors__ property on the Validator instance. 
 
 There is also an __errorCount__ property on the validation instance to specify the number of validation errors.
 
-##Public Instance Methods
+## Public Instance Methods
 
 * passes() - returns boolean
 * fails() - returns boolean
 * first(attribute_name) - returns first error message for _string_ attribute_name, or _null_ if no error message exists
 
-###Static Methods
+## Static Methods
 
 * register(custom_rule_name, callbackFn, errorMessage) - register a custom validation rule. 
 
@@ -135,7 +135,7 @@ If __callbackFn__ returns a truthy value, the validation will pass for this rule
 	}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
 
-##Testing
+## Testing
 
 See __SpecRunner.html__ for Jasmine tests in the browser. 
 
