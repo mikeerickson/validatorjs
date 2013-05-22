@@ -137,6 +137,12 @@ If __callbackFn__ returns a truthy value, the validation will pass for this rule
 
 ## Testing
 
+Install node module dependencies
+
+```
+	npm install
+```
+
 See __SpecRunner.html__ for Jasmine tests in the browser. 
 
 You can also run the jasmine tests via Node.js once you've installed the NPM package jasmine-node.
