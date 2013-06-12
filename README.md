@@ -64,6 +64,10 @@ To apply validation rules to the _data_ object, use the same object key names fo
 
 ## Validation Rules
 
+####alpha
+
+The field under validation must be entirely alphabetic characters.
+
 ####alpha_num
 
 The field under validation must be entirely alpha-numeric characters.

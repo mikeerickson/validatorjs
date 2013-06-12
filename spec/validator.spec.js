@@ -300,6 +300,25 @@ describe('numeric validation rule', function() {
 	});
 });
 
+describe('alpha validation rule', function() {
+	it('should fail with non-alphabetic characters', function() {
+		validator = new Validator({ name: '12' }, { name: 'alpha' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+	});
+
+	it('should pass with only alphabetic characters', function() {
+		validator = new Validator({ name: 'abc' }, { name: 'alpha' });
+		expect(validator.fails()).toBeFalsy();
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should return a customized alpha error message', function() {
+		validator = new Validator({ name: '12' }, { name: 'alpha' });
+		expect(validator.errors.first('name')).toEqual('The name field must contain only alphabetic characters.');
+	});
+});
+
 describe('alpha_num validation rule', function() {
 	it('should fail with non-alphanumeric characters', function() {
 		validator = new Validator({ age: '$' }, { age: 'alpha_num' });

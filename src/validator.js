@@ -1,6 +1,7 @@
 (function() {
 
 	var messages = {
+		alpha: 'The :attribute field must contain only alphabetic characters.',
 		alpha_num: 'The :attribute field must be alphanumeric.',
 		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
@@ -206,6 +207,10 @@
 
 			url: function(val) {
 				return (/^https?:\/\/\S+/).test(val);
+			},
+
+			alpha: function(val) {
+				return (/^[a-zA-Z]+$/).test(val);
 			},
 
 			alpha_num: function(val) {
