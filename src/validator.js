@@ -20,18 +20,36 @@
 		url: 'The :attribute format is invalid.'
 	};
 
-	var Validator = function(input, rules) {
-		this.rules = rules;
-		this.input = input;
-		this.errors = {};
-		this.errorCount = 0;
 
+	var Validator = function(input, rules) {
+		this.input = input;
+		this.rules = rules;
+
+		this.errors = {
+			get: function(attribute) {
+				if (this[attribute]) {
+					return this[attribute];	
+				}
+
+				return [];
+			},
+			first: function(attribute) {
+				if (this[attribute]) {
+					return this[attribute][0];	
+				}
+				
+				return false;
+			}
+		};
+
+		this.errorCount = 0;
 		this.check();
 	};
 
 	Validator.prototype = {
 		constructor: Validator,
 
+		// replaces placeholders in tmpl with actual data
 		_createMessage: function(tmpl, data) {
 			var message, key;
 
@@ -43,16 +61,13 @@
 						message = message.replace(':' + key, data[key]);
 					}
 				}
-
-			} else {
-				message = tmpl.replace(/:attribute/, data);
 			}
 
 			return message;
 		},
 
 		check: function() {
-			var key, val, curRules, curRulesLen, i, rule, ruleVal, passes, msg, msgTmpl, data;
+			var key, val, curRules, curRulesLen, i, rule, ruleVal, passes, msg, msgTmpl, dataForMessageTemplate = {};
 
 			for (key in this.input) {
 				if (this.input.hasOwnProperty(key)) { // make sure property is not inherited
@@ -64,7 +79,6 @@
 
 						for (i = 0; i < curRulesLen; i++) { //iterate over rules
 							rule = curRules[i];
-							data = [];
 
 							if (rule.indexOf(':') >= 0) {
 								rule = rule.split(':');
@@ -84,42 +98,44 @@
 									this.errors[key] = [];
 								}
 
-								// if the custom error message template exists in messages variable
-								if (messages.hasOwnProperty(rule)) {
-									msgTmpl = messages[rule];
+								msgTmpl = this._selectMessageTemplate(rule, val);
+								dataForMessageTemplate = { attribute: key };
+								dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
 
-									if (typeof msgTmpl === 'object') {
-										switch (typeof val) {
-											case 'number':
-												msgTmpl = msgTmpl['numeric'];
-												break;
-											case 'string':
-												msgTmpl = msgTmpl['string'];
-												break;
-										}
-
-										data['attribute'] = key;
-										data[rule] = ruleVal;
-
-										msg = this._createMessage(msgTmpl, data);
-
-									} else {
-										msg = this._createMessage(msgTmpl, key);
-									}
-
-								} else { // default error message
-									msgTmpl = messages.def;
-									msg = this._createMessage(msgTmpl, key);
-								}
+								msg = this._createMessage(msgTmpl, dataForMessageTemplate);
 
 								this.errors[key].push(msg);
-
 								this.errorCount++;
 							}
 						}
 					}
 				}
 			}
+		},
+
+		// selects the correct message template from the messages variable based on the rule and the value
+		_selectMessageTemplate: function(rule, val) {
+			var msgTmpl;
+
+			// if the custom error message template exists in messages variable
+			if (messages.hasOwnProperty(rule)) {
+				msgTmpl = messages[rule];
+
+				if (typeof msgTmpl === 'object') {
+					switch (typeof val) {
+						case 'number':
+							msgTmpl = msgTmpl['numeric'];
+							break;
+						case 'string':
+							msgTmpl = msgTmpl['string'];
+							break;
+					}
+				}
+			} else { // default error message
+				msgTmpl = messages.def;
+			}
+
+			return msgTmpl;
 		},
 
 		passes: function() {

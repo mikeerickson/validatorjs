@@ -42,7 +42,7 @@ The __2nd argument__ is an object that contains the validation rules.
 	
 ```
 
-To apply validation rules to the _input_ object, use the same object key names for the _rules_ object.
+To apply validation rules to the _data_ object, use the same object key names for the _rules_ object.
 
 #### Example 2:
 ```js
@@ -115,6 +115,30 @@ This contructor will automatically generate error messages for validation rules 
 
 There is also an __errorCount__ property on the validation instance to specify the number of validation errors.
 
+Here are the default error messages. If you want to change these error messages, modify the file in the _src_ directory.
+
+```js
+	var messages = {
+		required: 'The :attribute field is required.',
+		email: 'The :attribute format is invalid.',
+		def: 'The :attribute attribute has errors.',
+		min: {
+			numeric: 'The :attribute must be at least :min.',
+			string: 'The :attribute must be at least :min characters.'
+		},
+		max: {
+			numeric: 'The :attribute must be less than :max.',
+			string: 'The :attribute must be less than :max characters.'
+		},
+		size: {
+			numeric: 'The :attribute must be :size.',
+			string: 'The :attribute must be :size characters.'
+		},
+		numeric: 'The :attribute must be a number.',
+		url: 'The :attribute format is invalid.'
+	};
+```
+
 ## Public Instance Methods
 
 * passes() - returns boolean
@@ -125,7 +149,9 @@ There is also an __errorCount__ property on the validation instance to specify t
 
 * register(custom_rule_name, callbackFn, errorMessage) - register a custom validation rule. 
 
-If __callbackFn__ returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. __errorMessage__ is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
+If __callbackFn__ returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. 
+
+__errorMessage__ is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
 	Validator.register('telephone', function(val) {
