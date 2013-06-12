@@ -64,33 +64,46 @@ To apply validation rules to the _data_ object, use the same object key names fo
 
 ## Validation Rules
 
-* required - Checks if the length of the String representation of the value is > 0
+####alpha_num
+
+The field under validation must be entirely alpha-numeric characters.
+
+####required
+
+Checks if the length of the String representation of the value is >
 
 ```
 	username: 'required'
 ```
 
-* email - Checks for an @ symbol followed by a period
+####email
+
+The field under validation must be formatted as an e-mail address.
 
 
 ```
 	address: 'email'
 ```
 
-* size - Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
+####size
+
+Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
 
 
 ```
 	duration: 'size:2'
 ```
 
-* min - Validate that an attribute is at least a given size.
+####min
+
+Validate that an attribute is at least a given size.
 
 ```
 	payment: 'min:10'
 ```
 
-* max - Validate that an attribute is no greater than a given size
+####max
+Validate that an attribute is no greater than a given size
 
 ```
 	cost: 'max:100'
@@ -98,22 +111,45 @@ To apply validation rules to the _data_ object, use the same object key names fo
 
 __Note: All minimum and maximum checks are inclusive.__
 
-* numeric - Validate that an attribute is numeric. The string representation of a number will pass.
+####numeric
+
+Validate that an attribute is numeric. The string representation of a number will pass.
 
 ```
 	age: 'numeric'
 ```
 
-* url - Validate that an attribute is a URL
+####url
+
+Validate that an attribute has a valid URL format
 
 ```
 	link: 'url'
 ```
 
 ## Error Messages
-This contructor will automatically generate error messages for validation rules that failed. You can use the __first__ method to fetch the first error message of a failing attribute. You can access all of the errors through the __errors__ property on the Validator instance. 
+This contructor will automatically generate error messages for validation rules that failed. 
 
-There is also an __errorCount__ property on the validation instance to specify the number of validation errors.
+If there are errors, the Validator instance will have its __errors__ property object populated with the error messages for all failing attributes. The methods and properties on the __errors__ property object are:
+
+####.first(attribute)
+
+returns the first error message for an attribute, false otherwise
+
+####.get(attribute)
+returns an array of error messages for an attribute, or an empty array if there are no errors
+
+####.errorCount
+
+the number of validation errors
+
+####Example:
+
+```js
+	var validation = new Validator(input, rules);
+	validation.errors.first('email'); // returns first error message for email attribute
+	validator.errors.get('email'); // returns an array of error messages for the email attribute
+```
 
 Here are the default error messages. If you want to change these error messages, modify the file in the _src_ directory.
 
@@ -141,17 +177,26 @@ Here are the default error messages. If you want to change these error messages,
 
 ## Public Instance Methods
 
-* passes() - returns boolean
-* fails() - returns boolean
-* first(attribute_name) - returns first error message for _string_ attribute_name, or _null_ if no error message exists
+####.passes()
+returns boolean
+
+####.fails()
+returns boolean
+
+####.first(attribute_name)
+returns first error message for _string_ attribute_name, or _null_ if no error message exists. 
+
+__This will be deprecated in the future.__ Use _validation_instance_.errors.first(attribute) instead
 
 ## Static Methods
 
-* register(custom_rule_name, callbackFn, errorMessage) - register a custom validation rule. 
+####.register(custom_rule_name, callbackFn, errorMessage)
 
-If __callbackFn__ returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. 
+Register a custom validation rule
 
-__errorMessage__ is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
+* __custom_rule_name__ - string
+* callbackFn - function. If __callbackFn__ returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. 
+* __errorMessage__ is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
 	Validator.register('telephone', function(val) {

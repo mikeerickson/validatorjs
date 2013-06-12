@@ -300,6 +300,21 @@ describe('numeric validation rule', function() {
 	});
 });
 
+describe('alpha_num validation rule', function() {
+	it('should fail with non-alphanumeric characters', function() {
+		validator = new Validator({ age: '$' }, { age: 'alpha_num' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.errors.first('age')).toEqual('The age field must be alphanumeric.');
+	});
+
+	it('should pass with only alphanumeric characters', function() {
+		validator = new Validator({ age: 'abc123' }, { age: 'alpha_num' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
+});
+
 describe('url validation rule', function() {
 	it('should fail with a url only containing http://', function() {
 		var link = 'http://';

@@ -1,6 +1,7 @@
 (function() {
 
 	var messages = {
+		alpha_num: 'The :attribute field must be alphanumeric.',
 		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
@@ -190,8 +191,7 @@
 			},
 
 			email: function(val) {
-				var re = /\w+@\w{2,}\.\w{2,}/;
-				return val.match(re) ? true : false;
+				return (/\w+@\w{2,}\.\w{2,}/).test(val);
 			},
 
 			numeric: function(val) {
@@ -205,8 +205,11 @@
 			},
 
 			url: function(val) {
-				var re = /^https?:\/\/\S+/;
-				return val.match(re);
+				return (/^https?:\/\/\S+/).test(val);
+			},
+
+			alpha_num: function(val) {
+				return (/^[a-zA-Z0-9]+$/).test(val);
 			}
 		}
 	};
