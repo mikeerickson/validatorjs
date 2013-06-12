@@ -334,6 +334,21 @@ describe('alpha_num validation rule', function() {
 	});
 });
 
+describe('alpha_dash validation rule', function() {
+	it('should fail with non alpha dash characters', function() {
+		validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.errors.first('name')).toEqual('The name field may only contain alpha-numeric characters, as well as dashes and underscores.');
+	});
+
+	it('should pass with only alpha dash characters', function() {
+		validator = new Validator({ name: 'David9_-' }, { name: 'alpha_dash' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
+});
+
 describe('url validation rule', function() {
 	it('should fail with a url only containing http://', function() {
 		var link = 'http://';

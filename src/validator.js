@@ -2,6 +2,7 @@
 
 	var messages = {
 		alpha: 'The :attribute field must contain only alphabetic characters.',
+		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
 		alpha_num: 'The :attribute field must be alphanumeric.',
 		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
@@ -211,6 +212,10 @@
 
 			alpha: function(val) {
 				return (/^[a-zA-Z]+$/).test(val);
+			},
+
+			alpha_dash: function(val) {
+				return (/^[a-zA-Z0-9_\-]+$/).test(val);
 			},
 
 			alpha_num: function(val) {

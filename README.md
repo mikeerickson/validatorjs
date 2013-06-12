@@ -1,4 +1,4 @@
-# validatorjs
+# validatorjs v0.6.0
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
@@ -67,6 +67,10 @@ To apply validation rules to the _data_ object, use the same object key names fo
 ####alpha
 
 The field under validation must be entirely alphabetic characters.
+
+####alpha_dash
+
+The field under validation may have alpha-numeric characters, as well as dashes and underscores.
 
 ####alpha_num
 
