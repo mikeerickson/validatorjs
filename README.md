@@ -1,4 +1,4 @@
-# validatorjs v0.6.0
+# validatorjs v0.7.0
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
@@ -76,14 +76,6 @@ The field under validation may have alpha-numeric characters, as well as dashes 
 
 The field under validation must be entirely alpha-numeric characters.
 
-####required
-
-Checks if the length of the String representation of the value is >
-
-```
-	username: 'required'
-```
-
 ####email
 
 The field under validation must be formatted as an e-mail address.
@@ -93,16 +85,7 @@ The field under validation must be formatted as an e-mail address.
 	address: 'email'
 ```
 
-####size
-
-Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
-
-
-```
-	duration: 'size:2'
-```
-
-####min
+####min:value
 
 Validate that an attribute is at least a given size.
 
@@ -110,7 +93,8 @@ Validate that an attribute is at least a given size.
 	payment: 'min:10'
 ```
 
-####max
+####max:value
+
 Validate that an attribute is no greater than a given size
 
 ```
@@ -125,6 +109,30 @@ Validate that an attribute is numeric. The string representation of a number wil
 
 ```
 	age: 'numeric'
+```
+
+####required
+
+Checks if the length of the String representation of the value is >
+
+```
+	username: 'required'
+```
+
+
+
+####same:field
+
+The given field must match the field under validation.
+
+
+####size:value
+
+Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
+
+
+```
+	duration: 'size:2'
 ```
 
 ####url
@@ -163,6 +171,9 @@ Here are the default error messages. If you want to change these error messages,
 
 ```js
 	var messages = {
+		alpha: 'The :attribute field must contain only alphabetic characters.',
+		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
+		alpha_num: 'The :attribute field must be alphanumeric.',
 		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
@@ -174,6 +185,7 @@ Here are the default error messages. If you want to change these error messages,
 			numeric: 'The :attribute must be less than :max.',
 			string: 'The :attribute must be less than :max characters.'
 		},
+		same: 'The :attribute and :same fields must match.',
 		size: {
 			numeric: 'The :attribute must be :size.',
 			string: 'The :attribute must be :size characters.'

@@ -349,6 +349,21 @@ describe('alpha_dash validation rule', function() {
 	});
 });
 
+describe('same validation rule', function() {
+	it('should fail when the 2 attributes are not the same', function() {
+		validation = new Validator({ pw: 'abc123', pw2: 'abc1234' }, { pw2: 'same:pw' });
+		expect(validation.fails()).toBeTruthy();
+		expect(validation.passes()).toBeFalsy();
+		expect(validation.errors.first('pw2')).toEqual('The pw2 and pw fields must match.');
+	});
+
+	it('should pass when the 2 attributes are equal', function() {
+		validation = new Validator({ pw: 'abc123', pw2: 'abc123' }, { pw2: 'same:pw' });
+		expect(validation.passes()).toBeTruthy();
+		expect(validation.fails()).toBeFalsy();
+	});
+});
+
 describe('url validation rule', function() {
 	it('should fail with a url only containing http://', function() {
 		var link = 'http://';

@@ -15,6 +15,7 @@
 			numeric: 'The :attribute must be less than :max.',
 			string: 'The :attribute must be less than :max characters.'
 		},
+		same: 'The :attribute and :same fields must match.',
 		size: {
 			numeric: 'The :attribute must be :size.',
 			string: 'The :attribute must be :size characters.'
@@ -90,7 +91,7 @@
 							if (rule instanceof Array) {
 								ruleVal = rule[1];
 								rule = rule[0];
-								passes = this.validate[rule](val, ruleVal);
+								passes = this.validate[rule].call(this, val, ruleVal);
 							} else {
 								ruleVal = null;
 								passes = this.validate[rule](val);
@@ -220,6 +221,17 @@
 
 			alpha_num: function(val) {
 				return (/^[a-zA-Z0-9]+$/).test(val);
+			},
+
+			same: function(val, req) {
+				var val1 = this.input[req];
+				var val2 = val;
+
+				if (val1 === val2) {
+					return true;
+				}
+				
+				return false;
 			}
 		}
 	};
