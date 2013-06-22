@@ -8,6 +8,7 @@
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
 		different: 'The :attribute and :different must be different.',
+		'in': 'The selected :attribute is invalid.',
 		min: {
 			numeric: 'The :attribute must be at least :min.',
 			string: 'The :attribute must be at least :min characters.'
@@ -250,6 +251,21 @@
 				}
 
 				return false;
+			},
+
+			in: function(val, req) {
+				var list = req.split(',');
+				var len = list.length
+				var returnVal = false;
+
+				for(var i = 0; i < len; i++) {
+					if (val === list[i]) {
+						returnVal = true;
+						break;
+					}
+				}
+
+				return returnVal;
 			}
 		}
 	};

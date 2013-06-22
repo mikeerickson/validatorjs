@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
+The validatorjs library makes for easy data validation on both the client and server side. This library was inspired by the Laravel framework's Validator class.
+
 ## Setup
 
 #### Browser:
@@ -98,6 +100,10 @@ The field under validation must be formatted as an e-mail address.
 	address: 'email'
 ```
 
+####in:foo,bar,...
+
+The field under validation must be included in the given list of values.
+
 ####min:value
 
 Validate that an attribute is at least a given size.
@@ -190,6 +196,8 @@ Here are the default error messages. If you want to change these error messages,
 		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
+		different: 'The :attribute and :different must be different.',
+		'in': 'The selected :attribute is invalid.',
 		min: {
 			numeric: 'The :attribute must be at least :min.',
 			string: 'The :attribute must be at least :min characters.'
