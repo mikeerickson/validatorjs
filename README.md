@@ -84,6 +84,11 @@ The field under validation may have alpha-numeric characters, as well as dashes 
 
 The field under validation must be entirely alpha-numeric characters.
 
+####different:attribute
+
+The given field must be different than the field under validation.
+
+
 ####email
 
 The field under validation must be formatted as an e-mail address.
@@ -129,7 +134,7 @@ Checks if the length of the String representation of the value is >
 
 
 
-####same:field
+####same:attribute
 
 The given field must match the field under validation.
 
