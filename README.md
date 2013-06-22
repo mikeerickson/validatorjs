@@ -28,11 +28,15 @@ The __2nd argument__ is an object that contains the validation rules.
 #### Example 1:
 ```js
 	var data = {
-		email: 'johndoe@gmail.com'
+		name: 'David',
+		email: 'david@gmail.com',
+		age: 27
 	};
 	
 	var rules = {
-		email: 'email'
+		name: 'required',
+		email: 'email',
+		age: 'min:18'
 	};
 
 	var validation = new Validator(data, rules);
@@ -46,20 +50,24 @@ To apply validation rules to the _data_ object, use the same object key names fo
 
 #### Example 2:
 ```js
+	var data = {
+		name: '',
+		email: 'not an email address.com'
+	};
+	
 	var rules = {
 		name: 'required|size:3',
 		email: 'required|email'
 	};
 
-	var data = {
-		name: '',
-		email: ''
-	};
-
 	var validation = new Validator(data, rules);
 
 	validation.fails(); // true
+	validation.passes(); // false
 
+	// Error messages
+	validation.errors.first('email'); // 'The email format is invalid.'
+	validation.errors.get('email'); // returns an array of all email error messages
 ```
 
 ## Validation Rules
