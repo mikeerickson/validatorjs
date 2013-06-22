@@ -7,6 +7,7 @@
 		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
+		different: 'The :attribute and :different must be different.',
 		min: {
 			numeric: 'The :attribute must be at least :min.',
 			string: 'The :attribute must be at least :min characters.'
@@ -97,11 +98,11 @@
 							if (rule instanceof Array) {
 								ruleVal = rule[1];
 								rule = rule[0];
-								passes = this.validate[rule].call(this, val, ruleVal);
 							} else {
 								ruleVal = null;
-								passes = this.validate[rule](val);
 							}
+
+							passes = this.validate[rule].call(this, val, ruleVal);
 
 							if (!passes) {
 								if ( !this.errors.hasOwnProperty(key) ) {
@@ -237,6 +238,17 @@
 					return true;
 				}
 				
+				return false;
+			},
+
+			different: function(val, req) {
+				var val1 = this.input[req];
+				var val2 = val;
+
+				if (val1 !== val2) {
+					return true;
+				}
+
 				return false;
 			}
 		}
