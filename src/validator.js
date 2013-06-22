@@ -24,27 +24,33 @@
 		url: 'The :attribute format is invalid.'
 	};
 
+	var ValidatorErrors = function() {};
+
+	ValidatorErrors.prototype = {
+		constructor: ValidatorErrors,
+
+		get: function(attribute) {
+			if (this[attribute]) {
+				return this[attribute];	
+			}
+
+			return [];
+		},
+
+		first: function(attribute) {
+			if (this[attribute]) {
+				return this[attribute][0];	
+			}
+			
+			return false;
+		}
+	};
 
 	var Validator = function(input, rules) {
 		this.input = input;
 		this.rules = rules;
 
-		this.errors = {
-			get: function(attribute) {
-				if (this[attribute]) {
-					return this[attribute];	
-				}
-
-				return [];
-			},
-			first: function(attribute) {
-				if (this[attribute]) {
-					return this[attribute][0];	
-				}
-				
-				return false;
-			}
-		};
+		this.errors = new ValidatorErrors();
 
 		this.errorCount = 0;
 		this.check();
