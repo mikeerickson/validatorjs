@@ -259,6 +259,8 @@
 				var len = list.length;
 				var returnVal = false;
 
+				val = String(val); // convert val to a string if it is a number
+
 				for (var i = 0; i < len; i++) {
 					if (val === list[i]) {
 						returnVal = true;
