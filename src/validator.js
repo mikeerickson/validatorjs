@@ -17,6 +17,7 @@
 			numeric: 'The :attribute must be less than :max.',
 			string: 'The :attribute must be less than :max characters.'
 		},
+		not_in: 'The selected :attribute is invalid.',
 		same: 'The :attribute and :same fields must match.',
 		size: {
 			numeric: 'The :attribute must be :size.',
@@ -253,14 +254,29 @@
 				return false;
 			},
 
-			in: function(val, req) {
+			"in": function(val, req) {
 				var list = req.split(',');
-				var len = list.length
+				var len = list.length;
 				var returnVal = false;
 
-				for(var i = 0; i < len; i++) {
+				for (var i = 0; i < len; i++) {
 					if (val === list[i]) {
 						returnVal = true;
+						break;
+					}
+				}
+
+				return returnVal;
+			},
+
+			not_in: function(val, req) {
+				var list = req.split(',');
+				var len = list.length;
+				var returnVal = true;
+
+				for (var i = 0; i < len; i++) {
+					if (val === list[i]) {
+						returnVal = false;
 						break;
 					}
 				}

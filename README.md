@@ -1,4 +1,4 @@
-# validatorjs v0.7.0
+# validatorjs v0.8.0
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
@@ -104,6 +104,15 @@ The field under validation must be formatted as an e-mail address.
 
 The field under validation must be included in the given list of values.
 
+####max:value
+
+Validate that an attribute is no greater than a given size
+
+```
+	cost: 'max:100'
+```
+__Note: Maximum checks are inclusive.__
+
 ####min:value
 
 Validate that an attribute is at least a given size.
@@ -112,15 +121,11 @@ Validate that an attribute is at least a given size.
 	payment: 'min:10'
 ```
 
-####max:value
+__Note: Minimum checks are inclusive.__
 
-Validate that an attribute is no greater than a given size
+####not_in:foo,bar,...
 
-```
-	cost: 'max:100'
-```
-
-__Note: All minimum and maximum checks are inclusive.__
+The field under validation must not be included in the given list of values.
 
 ####numeric
 
