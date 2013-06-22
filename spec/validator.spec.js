@@ -42,43 +42,7 @@ describe('Validator constructor', function() {
 }); // Page constructor
 
 
-describe('require validation rule', function() {
-	var validator;
 
-	it('should pass with non-empty strings', function() {
-		validator = new Validator({
-			name: 'David',
-			email: 'johndoe@gmail.com'
-		}, {
-			name: 'required',
-			email: 'required'
-		});
-
-		expect(validator.passes()).toBeTruthy();
-	});
-
-	it('should fail with empty strings', function() {
-		validator = new Validator({
-			name: 'David',
-			email: ''
-		}, {
-			name: 'required',
-			email: 'required'
-		});
-
-		expect(validator.fails()).toBeTruthy();
-	});
-
-	it('should fail with strings containing only white space', function() {
-		validator = new Validator({
-			name: '      	'
-		}, {
-			name: 'required'
-		});
-
-		expect(validator.fails()).toBeTruthy();
-	});
-});
 
 describe('email validation rule', function() {
 	it('should pass with the email address: johndoe@gmail.com', function() {
@@ -350,19 +314,27 @@ describe('alpha_dash validation rule', function() {
 });
 
 describe('same validation rule', function() {
-	it('should fail when the 2 attributes are not the same', function() {
-		validation = new Validator({ pw: 'abc123', pw2: 'abc1234' }, { pw2: 'same:pw' });
-		expect(validation.fails()).toBeTruthy();
-		expect(validation.passes()).toBeFalsy();
-		expect(validation.errors.first('pw2')).toEqual('The pw2 and pw fields must match.');
+	it('should fail when the 2 attributes are different', function() {
+		validator = new Validator({ pw: 'abc123', pw2: 'abc1234' }, { pw2: 'same:pw' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.errors.first('pw2')).toEqual('The pw2 and pw fields must match.');
 	});
 
 	it('should pass when the 2 attributes are equal', function() {
-		validation = new Validator({ pw: 'abc123', pw2: 'abc123' }, { pw2: 'same:pw' });
-		expect(validation.passes()).toBeTruthy();
-		expect(validation.fails()).toBeFalsy();
+		validator = new Validator({ pw: 'abc123', pw2: 'abc123' }, { pw2: 'same:pw' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
 	});
 });
+
+
+describe('different validation rule', function() {
+	it('should fail when the 2 attributes are the same', function() {
+		validator = new Validator({  }, {  });
+	});
+});
+
 
 describe('url validation rule', function() {
 	it('should fail with a url only containing http://', function() {
