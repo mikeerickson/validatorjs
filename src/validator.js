@@ -80,7 +80,7 @@
 		},
 
 		check: function() {
-			var key, val, curRules, curRulesLen, i, rule, ruleVal, passes, msg, msgTmpl, dataForMessageTemplate = {};
+			var key, val, curRules, curRulesLen, i, rule, ruleVal, passes, msg, msgTmpl, dataForMessageTemplate;
 
 			for (key in this.input) {
 				if (this.input.hasOwnProperty(key)) { // make sure property is not inherited
@@ -111,19 +111,28 @@
 									this.errors[key] = [];
 								}
 
+								dataForMessageTemplate = this._createErrorMessageTemplateData(key, rule, ruleVal);
 								msgTmpl = this._selectMessageTemplate(rule, val);
-								dataForMessageTemplate = { attribute: key };
-								dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
-
 								msg = this._createMessage(msgTmpl, dataForMessageTemplate);
 
-								this.errors[key].push(msg);
-								this.errorCount++;
+								this._addErrorMessage(key, msg);
 							}
 						}
 					}
 				}
 			}
+		},
+
+		_addErrorMessage: function(key, msg) {
+			this.errors[key].push(msg);
+			this.errorCount++;
+		},
+
+		_createErrorMessageTemplateData: function(key, rule, ruleVal) {
+			var dataForMessageTemplate = { attribute: key };
+			dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
+			
+			return dataForMessageTemplate;
 		},
 
 		// selects the correct message template from the messages variable based on the rule and the value
