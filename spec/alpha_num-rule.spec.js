@@ -18,4 +18,10 @@ describe('alpha_num validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
 	});
+
+	it('should pass with only numeric characters', function() {
+		validator = new Validator({ age: 123 }, { age: 'alpha_num' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
 });
