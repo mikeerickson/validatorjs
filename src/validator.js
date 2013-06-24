@@ -95,9 +95,7 @@
 
 							if (rule.indexOf(':') >= 0) {
 								rule = rule.split(':');
-							}
 
-							if (rule instanceof Array) {
 								ruleVal = rule[1];
 								rule = rule[0];
 							} else {
