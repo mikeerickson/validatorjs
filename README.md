@@ -123,7 +123,7 @@ Validate that an attribute is no greater than a given size
 ```
 	cost: 'max:100'
 ```
-__Note: Maximum checks are inclusive.__
+_Note: Maximum checks are inclusive._
 
 ####min:value
 
@@ -133,7 +133,7 @@ Validate that an attribute is at least a given size.
 	payment: 'min:10'
 ```
 
-__Note: Minimum checks are inclusive.__
+_Note: Minimum checks are inclusive._
 
 ####not_in:foo,bar,...
 
@@ -178,6 +178,23 @@ Validate that an attribute has a valid URL format
 ```
 	link: 'url'
 ```
+
+## Register a custom validation rule
+
+```js
+	Validator.register(custom_rule_name, callbackFn, errorMessage);
+```
+
+* custom_rule_name - string
+* callbackFn - function. If callbackFn returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. 
+* errorMessage is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
+
+```js
+	Validator.register('telephone', function(value, requirement, attribute) { // requirement paramter defaults to null
+		return val.match(/^\d{3}-\d{3}-\d{4}$/);
+	}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
+```
+
 
 ## Error Messages
 This contructor will automatically generate error messages for validation rules that failed. 
@@ -250,21 +267,6 @@ returns first error message for _string_ attribute_name, or _null_ if no error m
 
 __This will be deprecated in the future.__ Use _validation_instance_.errors.first(attribute) instead
 
-## Static Methods
-
-####.register(custom_rule_name, callbackFn, errorMessage)
-
-Register a custom validation rule
-
-* __custom_rule_name__ - string
-* callbackFn - function. If __callbackFn__ returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. 
-* __errorMessage__ is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
-
-```js
-	Validator.register('telephone', function(val) {
-		return val.match(/^\d{3}-\d{3}-\d{4}$/);
-	}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
-```
 
 ## Testing
 
