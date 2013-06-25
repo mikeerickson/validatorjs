@@ -1,0 +1,37 @@
+// for jasmine-node support
+if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
+	var Validator = require('./../src/validator');
+}
+
+describe('accepted validation rule', function() {
+	it('should pass if the value is yes', function() {
+		var validator = new Validator({ terms: 'yes' }, { terms: 'accepted' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
+
+	it('should pass if the value is on', function() {
+		var validator = new Validator({ terms: 'on' }, { terms: 'accepted' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
+
+	it('should pass if the value is 1', function() {
+		var validator = new Validator({ terms: 1 }, { terms: 'accepted' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
+
+	it('should pass if the value is the string 1', function() {
+		var validator = new Validator({ terms: '1' }, { terms: 'accepted' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
+
+	it('should fail if the value is not 1, on, or yes', function() {
+		var validator = new Validator({ terms: '10' }, { terms: 'accepted' });
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.errors.first('terms')).toEqual('The terms must be accepted.');
+	});
+});

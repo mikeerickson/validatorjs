@@ -1,6 +1,7 @@
 (function() {
 
 	var messages = {
+		accepted: 'The :attribute must be accepted.',
 		alpha: 'The :attribute field must contain only alphabetic characters.',
 		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
 		alpha_num: 'The :attribute field must be alphanumeric.',
@@ -293,6 +294,14 @@
 				}
 
 				return returnVal;
+			},
+
+			accepted: function(val) {
+				if (val === 'on' || val === 'yes' || val === 1 || val === '1') {
+					return true;
+				}
+
+				return false;
 			}
 		}
 	};
