@@ -6,11 +6,11 @@
 		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
 		alpha_num: 'The :attribute field must be alphanumeric.',
 		confirmed: 'The :attribute confirmation does not match.',
-		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
 		different: 'The :attribute and :different must be different.',
 		'in': 'The selected :attribute is invalid.',
+		integer: 'The :attribute must be an integer.',
 		min: {
 			numeric: 'The :attribute must be at least :min.',
 			string: 'The :attribute must be at least :min characters.'
@@ -20,12 +20,13 @@
 			string: 'The :attribute must be less than :max characters.'
 		},
 		not_in: 'The selected :attribute is invalid.',
+		numeric: 'The :attribute must be a number.',
+		required: 'The :attribute field is required.',
 		same: 'The :attribute and :same fields must match.',
 		size: {
 			numeric: 'The :attribute must be :size.',
 			string: 'The :attribute must be :size characters.'
 		},
-		numeric: 'The :attribute must be a number.',
 		url: 'The :attribute format is invalid.'
 	};
 
@@ -313,6 +314,10 @@
 				}
 
 				return false;
+			},
+
+			integer: function(val) {
+				return (/^\d+$/).test(val);
 			}
 		}
 	};

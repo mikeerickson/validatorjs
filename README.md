@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes for easy data validation on both the client and server side. This library was inspired by the Laravel framework's Validator class.
+The validatorjs library makes data validation in JavaScript very easy on both the client and server side (Node.js). This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation#rule-integer) so you will see a lot of similarities in the library's API.
 
 ## Setup
 
@@ -112,6 +112,10 @@ The field under validation must be formatted as an e-mail address.
 
 The field under validation must be included in the given list of values.
 
+####integer
+
+The field under validation must have an integer value.
+
 ####max:value
 
 Validate that an attribute is no greater than a given size
@@ -203,14 +207,16 @@ Here are the default error messages. If you want to change these error messages,
 
 ```js
 	var messages = {
+		accepted: 'The :attribute must be accepted.',
 		alpha: 'The :attribute field must contain only alphabetic characters.',
 		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
 		alpha_num: 'The :attribute field must be alphanumeric.',
-		required: 'The :attribute field is required.',
+		confirmed: 'The :attribute confirmation does not match.',
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
 		different: 'The :attribute and :different must be different.',
 		'in': 'The selected :attribute is invalid.',
+		integer: 'The :attribute must be an integer.',
 		min: {
 			numeric: 'The :attribute must be at least :min.',
 			string: 'The :attribute must be at least :min characters.'
@@ -219,12 +225,14 @@ Here are the default error messages. If you want to change these error messages,
 			numeric: 'The :attribute must be less than :max.',
 			string: 'The :attribute must be less than :max characters.'
 		},
+		not_in: 'The selected :attribute is invalid.',
+		numeric: 'The :attribute must be a number.',
+		required: 'The :attribute field is required.',
 		same: 'The :attribute and :same fields must match.',
 		size: {
 			numeric: 'The :attribute must be :size.',
 			string: 'The :attribute must be :size characters.'
 		},
-		numeric: 'The :attribute must be a number.',
 		url: 'The :attribute format is invalid.'
 	};
 ```
