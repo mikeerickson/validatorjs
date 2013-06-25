@@ -5,6 +5,7 @@
 		alpha: 'The :attribute field must contain only alphabetic characters.',
 		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
 		alpha_num: 'The :attribute field must be alphanumeric.',
+		confirmed: 'The :attribute confirmation does not match.',
 		required: 'The :attribute field is required.',
 		email: 'The :attribute format is invalid.',
 		def: 'The :attribute attribute has errors.',
@@ -103,7 +104,7 @@
 								ruleVal = null;
 							}
 
-							passes = this.validate[rule].call(this, val, ruleVal);
+							passes = this.validate[rule].call(this, val, ruleVal, key);
 
 							if (!passes) {
 								if ( !this.errors.hasOwnProperty(key) ) {
@@ -298,6 +299,16 @@
 
 			accepted: function(val) {
 				if (val === 'on' || val === 'yes' || val === 1 || val === '1') {
+					return true;
+				}
+
+				return false;
+			},
+
+			confirmed: function(val, req, key) {
+				console.log('confirmed', val, req, key);
+				var confirmedKey = key + '_confirmation';
+				if (this.input[confirmedKey] === val) {
 					return true;
 				}
 
