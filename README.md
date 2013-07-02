@@ -1,4 +1,4 @@
-# validatorjs v0.9.0
+# validatorjs v0.9.1
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
