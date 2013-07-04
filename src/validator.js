@@ -222,8 +222,14 @@
 		// validate functions should return T/F
 		validate: {
 			required: function(val) {
-				var str = val.replace(/\s/g, "");
-				return String(str).length > 0 ? true : false;
+				var str;
+
+				if (val === undefined || val === null) {
+					return false;
+				}
+
+				str = String(val).replace(/\s/g, "");
+				return str.length > 0 ? true : false;
 			},
 
 			// compares the size of strings
@@ -233,9 +239,9 @@
 
 				if (typeof val === 'number') {
 					return val === req ? true : false;
-				} else {
-					return val.length === req ? true : false;
 				}
+				
+				return val.length === req ? true : false;
 			},
 
 			// compares the size of strings
