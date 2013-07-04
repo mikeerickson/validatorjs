@@ -13,6 +13,8 @@ describe('Validator constructor', function() {
 		}, {
 			name: 'required',
 			email: 'required'
+		}, {
+			required: 'You\'re missing :required'
 		});
 	});
 	
@@ -22,6 +24,10 @@ describe('Validator constructor', function() {
 
 	it('should have an input property containing the input data to be validated', function() {
 		expect(validator.input).toBeTruthy();
+	});
+
+	it('should have a messages property containing the combined messages for validation', function() {
+		expect(validator.messages).toBeTruthy();
 	});
 
 	it('should have a passes() method', function() {
