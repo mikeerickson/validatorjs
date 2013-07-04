@@ -30,6 +30,49 @@
 		url: 'The :attribute format is invalid.'
 	};
 
+	// Based on jquery's extend function
+	function extend() {
+		var src, copy, name, options, clone,
+			target = arguments[0] || {},
+			i = 1,
+			length = arguments.length;
+
+		for ( ; i < length; i++ ) {
+			// Only deal with non-null/undefined values
+			if ( (options = arguments[ i ]) != null ) {
+				// Extend the base object
+				for ( name in options ) {
+					src = target[ name ];
+					copy = options[ name ];
+
+					// Prevent never-ending loop
+					if ( target === copy ) {
+						continue;
+					}
+
+					// Recurse if we're merging plain objects or arrays
+					if ( copy && typeof copy === "object" ) {
+						clone = src && typeof src === "object" ? src : {};
+
+						// Never move original objects, clone them
+						target[ name ] = extend( clone, copy );
+
+					// Don't bring in undefined values
+					} else if ( copy !== undefined ) {
+						target[ name ] = copy;
+					}
+				}
+			}
+		}
+
+		// Return the modified object
+		return target;
+	}
+
+	function mergeMessages(basic, custom) {
+		return extend({}, basic, custom);
+	}
+
 	var ValidatorErrors = function() {};
 
 	ValidatorErrors.prototype = {
@@ -52,9 +95,10 @@
 		}
 	};
 
-	var Validator = function(input, rules) {
+	var Validator = function(input, rules, customMessages) {
 		this.input = input;
 		this.rules = rules;
+		this.messages = mergeMessages(messages, customMessages || {});
 
 		this.errors = new ValidatorErrors();
 
@@ -113,7 +157,7 @@
 								}
 
 								dataForMessageTemplate = this._createErrorMessageTemplateData(key, rule, ruleVal);
-								msgTmpl = this._selectMessageTemplate(rule, val);
+								msgTmpl = this._selectMessageTemplate(rule, val, key);
 								msg = this._createMessage(msgTmpl, dataForMessageTemplate);
 
 								this._addErrorMessage(key, msg);
@@ -137,11 +181,13 @@
 		},
 
 		// selects the correct message template from the messages variable based on the rule and the value
-		_selectMessageTemplate: function(rule, val) {
-			var msgTmpl;
+		_selectMessageTemplate: function(rule, val, key) {
+			var msgTmpl, messages = this.messages;
 
 			// if the custom error message template exists in messages variable
-			if (messages.hasOwnProperty(rule)) {
+			if (messages.hasOwnProperty(rule+'.'+key)) {
+				msgTmpl = messages[rule+'.'+key];
+			} else if (messages.hasOwnProperty(rule)) {
 				msgTmpl = messages[rule];
 
 				if (typeof msgTmpl === 'object') {

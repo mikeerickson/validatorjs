@@ -27,6 +27,8 @@ The __1st argument__ to the constructor is an object that contains the data you 
 
 The __2nd argument__ is an object that contains the validation rules. 
 
+The __3rd argument__ is an object is optional and can contain custom error messages to return.
+
 #### Example 1:
 ```js
 	var data = {
@@ -252,6 +254,44 @@ Here are the default error messages. If you want to change these error messages,
 		},
 		url: 'The :attribute format is invalid.'
 	};
+```
+
+###Custom Error Messages
+If you need a specific error message and you don't want to override the default one, you can pass an override as the third argument to the Validator object, just like with [Laravel](http://laravel.com/docs/validation#custom-error-messages). 
+```js
+	var input = {
+		name: ''
+	};
+	var rules = {
+		name : 'required'
+	}
+	var validation = new Validator(input, rules, {required: 'You forgot to give a :attribute'});
+	validation.errors.first('name'); // returns 'You forgot to give a name'
+```
+Some of the validators have string and numeric versions. You can change them too.
+```js
+	var input = {
+		username: 'myusernameistolong'
+	};
+	var rules = {
+		username : 'max:16'
+	}
+	var validation = new Validator(input, rules, {max: {string: 'The :attribute is too long. Max length is :max.'}});
+	validation.errors.first('username'); // returns 'The username is too long. Max length is 16.'
+```
+You can even provide error messages on a per attribute basis! Just set the message's key to 'validator.attribute'
+```js
+	var input = {
+		name: '',
+		email: ''
+	};
+	var rules = {
+		name : 'required',
+		email : 'required'
+	}
+	var validation = new Validator(input, rules, {'required.email': 'Without an :attribute we can\'t reach you!'});
+	validation.errors.first('name'); // returns  'The name field is required.'
+	validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
 ## Public Instance Methods
