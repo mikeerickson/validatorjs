@@ -1,4 +1,4 @@
-# validatorjs v0.9.1
+# validatorjs v0.9.2
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
@@ -27,7 +27,7 @@ The __1st argument__ to the constructor is an object that contains the data you 
 
 The __2nd argument__ is an object that contains the validation rules. 
 
-The __3rd argument__ is an object is optional and can contain custom error messages to return.
+The __3rd argument__ is an optional object that can contain custom error messages to return.
 
 #### Example 1:
 ```js
@@ -222,40 +222,6 @@ the number of validation errors
 	validator.errors.get('email'); // returns an array of error messages for the email attribute
 ```
 
-Here are the default error messages. If you want to change these error messages, modify the file in the _src_ directory.
-
-```js
-	var messages = {
-		accepted: 'The :attribute must be accepted.',
-		alpha: 'The :attribute field must contain only alphabetic characters.',
-		alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
-		alpha_num: 'The :attribute field must be alphanumeric.',
-		confirmed: 'The :attribute confirmation does not match.',
-		email: 'The :attribute format is invalid.',
-		def: 'The :attribute attribute has errors.',
-		different: 'The :attribute and :different must be different.',
-		'in': 'The selected :attribute is invalid.',
-		integer: 'The :attribute must be an integer.',
-		min: {
-			numeric: 'The :attribute must be at least :min.',
-			string: 'The :attribute must be at least :min characters.'
-		},
-		max: {
-			numeric: 'The :attribute must be less than :max.',
-			string: 'The :attribute must be less than :max characters.'
-		},
-		not_in: 'The selected :attribute is invalid.',
-		numeric: 'The :attribute must be a number.',
-		required: 'The :attribute field is required.',
-		same: 'The :attribute and :same fields must match.',
-		size: {
-			numeric: 'The :attribute must be :size.',
-			string: 'The :attribute must be :size characters.'
-		},
-		url: 'The :attribute format is invalid.'
-	};
-```
-
 ###Custom Error Messages
 If you need a specific error message and you don't want to override the default one, you can pass an override as the third argument to the Validator object, just like with [Laravel](http://laravel.com/docs/validation#custom-error-messages). 
 ```js
@@ -332,3 +298,7 @@ Once the above test passes, run the following command which will in turn run JSH
 ```
 	grunt
 ```
+
+## Contributors
+
+* [jgallred](https://github.com/jgallred)

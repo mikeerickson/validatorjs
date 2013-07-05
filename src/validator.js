@@ -359,8 +359,9 @@
 			},
 
 			confirmed: function(val, req, key) {
-				console.log('confirmed', val, req, key);
+				// console.log('confirmed', val, req, key);
 				var confirmedKey = key + '_confirmation';
+
 				if (this.input[confirmedKey] === val) {
 					return true;
 				}
@@ -377,10 +378,7 @@
 	// static methods
 	Validator.register = function(rule, fn, errMsg) {
 		this.prototype.validate[rule] = fn;
-
-		if (typeof errMsg === 'string') {
-			messages[rule] = errMsg;
-		}
+		messages[rule] = (typeof errMsg === 'string') ? errMsg : messages['def'];
 	};
 
 	if (typeof module !== 'undefined' && typeof require !== 'undefined') {
