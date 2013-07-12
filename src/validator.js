@@ -287,10 +287,18 @@
 			},
 
 			alpha: function(val) {
+				if (val === '') {
+					return true;
+				}
+
 				return (/^[a-zA-Z]+$/).test(val);
 			},
 
 			alpha_dash: function(val) {
+				if (val === '') {
+					return true;
+				}
+				
 				return (/^[a-zA-Z0-9_\-]+$/).test(val);
 			},
 
