@@ -39,4 +39,10 @@ describe('email validation rule', function() {
 
 		expect(validator.fails()).toBeTruthy();
 	});
+
+	it('should pass when the email field is blank / optional', function() {
+		var validator = new Validator({ email: '' }, { email: 'email' });
+
+		expect(validator.passes()).toBeTruthy();
+	});
 });

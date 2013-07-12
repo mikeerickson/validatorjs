@@ -32,10 +32,10 @@
 
 	// Based on jquery's extend function
 	function extend() {
-		var src, copy, name, options, clone,
-			target = arguments[0] || {},
-			i = 1,
-			length = arguments.length;
+		var src, copy, name, options, clone;
+		var target = arguments[0] || {};
+		var i = 1;
+		var length = arguments.length;
 
 		for ( ; i < length; i++ ) {
 			// Only deal with non-null/undefined values
@@ -265,6 +265,10 @@
 			},
 
 			email: function(val) {
+				if (val === '') {
+					return true;
+				}
+				
 				return (/\w+@\w{2,}\.\w{2,}/).test(val);
 			},
 

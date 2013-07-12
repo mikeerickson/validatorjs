@@ -24,7 +24,7 @@ describe('Error messages', function() {
 		});
 
 		expect(validator.errors.get('email') instanceof Array).toBeTruthy();
-		expect(validator.errors.get('email').length).toEqual(2);
+		expect(validator.errors.get('email').length).toEqual(1);
 	});
 
 	it('should return an empty array if there are no messages for an attribute', function() {
