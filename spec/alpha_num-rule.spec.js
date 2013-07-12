@@ -24,4 +24,10 @@ describe('alpha_num validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
 	});
+
+	it('should pass when the field is blank / optional', function() {
+		var validator = new Validator({ name: '' }, { name: 'alpha_num' });
+
+		expect(validator.passes()).toBeTruthy();
+	});
 });

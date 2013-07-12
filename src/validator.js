@@ -298,11 +298,15 @@
 				if (val === '') {
 					return true;
 				}
-				
+
 				return (/^[a-zA-Z0-9_\-]+$/).test(val);
 			},
 
 			alpha_num: function(val) {
+				if (val === '') {
+					return true;
+				}
+				
 				return (/^[a-zA-Z0-9]+$/).test(val);
 			},
 
