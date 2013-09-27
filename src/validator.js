@@ -314,19 +314,19 @@
 			},
 
 			alpha_dash: function(val) {
-				if (val === '') {
-					return true;
+				if (val) {
+					return (/^[a-zA-Z0-9_\-]+$/).test(val);
 				}
 
-				return (/^[a-zA-Z0-9_\-]+$/).test(val);
+				return true;
 			},
 
 			alpha_num: function(val) {
-				if (val === '') {
-					return true;
+				if (val) {
+					return (/^[a-zA-Z0-9]+$/).test(val);
 				}
 				
-				return (/^[a-zA-Z0-9]+$/).test(val);
+				return true;
 			},
 
 			same: function(val, req) {
