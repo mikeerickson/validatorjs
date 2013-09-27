@@ -254,13 +254,17 @@
 			// compares the size of strings
 			// with numbers, compares the value
 			size: function(val, req) {
-				req = parseFloat(req);
+				if (val) {
+					req = parseFloat(req);
 
-				if (typeof val === 'number') {
-					return val === req ? true : false;
+					if (typeof val === 'number') {
+						return val === req ? true : false;
+					}
+					
+					return val.length === req ? true : false;
 				}
 				
-				return val.length === req ? true : false;
+				return true;
 			},
 
 			// compares the size of strings
