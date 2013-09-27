@@ -276,11 +276,15 @@
 			// compares the size of strings
 			// with numbers, compares the value
 			max: function(val, req) {
-				if (typeof val === 'number') {
-					return val <= req ? true : false;
-				} else {
-					return val.length <= req ? true : false;
+				if (val) {
+					if (typeof val === 'number') {
+						return val <= req ? true : false;
+					} else {
+						return val.length <= req ? true : false;
+					}
 				}
+
+				return true;
 			},
 
 			email: function(val) {
