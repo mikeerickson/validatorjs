@@ -284,11 +284,11 @@
 			},
 
 			email: function(val) {
-				if (val === '') {
-					return true;
+				if (val) {
+					return (/\w+@\w{2,}\.\w{2,}/).test(val);
 				}
-				
-				return (/\w+@\w{2,}\.\w{2,}/).test(val);
+
+				return true;
 			},
 
 			numeric: function(val) {
