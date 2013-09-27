@@ -30,4 +30,26 @@ describe('min validation rule', function() {
 		validator = new Validator({ val: 0.04 }, { val: 'min:0.05' });
 		expect(validator.fails()).toBeTruthy();
 	});
+
+	it('should fail with boolean true value', function() {
+		validator = new Validator({ val: true }, { val: 'min:0.05' });
+		expect(validator.fails()).toBeTruthy();
+	});
+
+	it('should fail with boolean false value', function() {
+		validator = new Validator({ val: false }, { val: 'min:0.05' });
+		expect(validator.fails()).toBeTruthy();
+	});
+
+	it('should pass with an undefined value', function() {
+		validator = new Validator({}, { val: 'min:0.05' });
+		expect(validator.fails()).toBeFalsy();
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should pass with an empty string value', function() {
+		validator = new Validator({ val: '' }, { val: 'min:0.05' });
+		expect(validator.fails()).toBeFalsy();
+		expect(validator.passes()).toBeTruthy();
+	});
 });

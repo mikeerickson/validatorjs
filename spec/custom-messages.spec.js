@@ -24,7 +24,7 @@ describe('Validator custom messages', function() {
     });
 
     it('override the default message for a type of the validator', function() {
-        validator = new Validator({ name: '' }, { name: 'min:4' }, { min: { string: ':attribute is not long enough. Should be :min.' } });
+        validator = new Validator({ name: 'A' }, { name: 'min:4' }, { min: { string: ':attribute is not long enough. Should be :min.' } });
         expect(validator.fails()).toBe(true);
         expect(validator.errors.get('name').length).toBe(1);
         expect(validator.errors.first('name')).toEqual('name is not long enough. Should be 4.');

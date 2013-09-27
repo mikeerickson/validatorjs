@@ -26,6 +26,16 @@ describe('max validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 
+	it('should fail with boolean true value', function() {
+		validator = new Validator({ val: true }, { val: 'max:5' });
+		expect(validator.fails()).toBeTruthy();
+	});
+
+	it('should fail with boolean false value', function() {
+		validator = new Validator({ val: false }, { val: 'max:5' });
+		expect(validator.fails()).toBeTruthy();
+	});
+
 	it('should pass when the age is 0', function() {
 		var validator = new Validator({ age: 0 }, { age: 'max:2' });
 		expect(validator.passes()).toBeTruthy();

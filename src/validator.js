@@ -238,6 +238,22 @@
 			return this.errors.hasOwnProperty(key) ? this.errors[key][0] : null;
 		},
 
+		_isNonEmptyStringOrNumber: function(val) {
+			if ( (typeof val === 'string' && val !== '') || typeof val === 'number' ) {
+				return true;
+			}
+
+			return false;
+		},
+
+		_isEmpty: function(val) {
+			if (val === undefined || val === '') {
+				return true;
+			}
+
+			return false;
+		},
+
 		// validate functions should return T/F
 		validate: {
 			required: function(val) {
@@ -267,28 +283,38 @@
 				return true;
 			},
 
-			// compares the size of strings
-			// with numbers, compares the value
+			/**
+			 * Compares the size of strings or the value of numbers if there is a truthy value
+			 */
 			min: function(val, req) {
-				if (typeof val === 'number') {
-					return val >= req ? true : false;
+				if (this._isNonEmptyStringOrNumber(val)) {
+					if (typeof val === 'number') {
+						return val >= req ? true : false;
+					} else {
+						return val.length >= req ? true : false;
+					}
+				} else if (this._isEmpty(val)) {
+					return true;
 				} else {
-					return val.length >= req ? true : false;
+					return false;
 				}
 			},
 
-			// compares the size of strings
-			// with numbers, compares the value
+			/**
+			 * Compares the size of strings or the value of numbers if there is a truthy value
+			 */
 			max: function(val, req) {
-				if (val) {
+				if (this._isNonEmptyStringOrNumber(val)) {
 					if (typeof val === 'number') {
 						return val <= req ? true : false;
 					} else {
 						return val.length <= req ? true : false;
 					}
+				} else if (this._isEmpty(val)) {
+					return true;
+				} else {
+					return false;
 				}
-
-				return true;
 			},
 
 			email: function(val) {
@@ -302,7 +328,7 @@
 			numeric: function(val) {
 				var num;
 
-				if (val) {
+				if (this._isNonEmptyStringOrNumber(val)) {
 					num = Number(val); // tries to convert value to a number. useful if value is coming from form element
 					
 					if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
@@ -310,9 +336,11 @@
 					} else {
 						return false;
 					}
+				} else if (this._isEmpty(val)) {
+					return true;
+				} else {
+					return false;
 				}
-				
-				return true;
 			},
 
 			url: function(url) {

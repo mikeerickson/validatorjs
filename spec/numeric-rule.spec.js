@@ -31,8 +31,13 @@ describe('numeric validation rule', function() {
 		expect(validator.fails()).toBeTruthy('something is not a number');
 	});
 
-	it('should fail with a boolean value', function() {
+	it('should fail with a boolean true value', function() {
 		validator = new Validator({ age: true }, { age: 'numeric' });
+		expect(validator.fails()).toBeTruthy('age is a boolean, not a number');
+	});
+
+	it('should fail with a boolean false value', function() {
+		validator = new Validator({ age: false }, { age: 'numeric' });
 		expect(validator.fails()).toBeTruthy('age is a boolean, not a number');
 	});
 
