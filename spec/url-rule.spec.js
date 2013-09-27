@@ -23,4 +23,9 @@ describe('url validation rule', function() {
 		var validator = new Validator({ link: link }, { link: 'url' });
 		expect(validator.passes()).toBeTruthy();
 	});
+
+	it('should pass with a falsy value', function() {
+		var validator = new Validator({}, { link: 'url' });
+		expect(validator.passes()).toBeTruthy();
+	});	
 });

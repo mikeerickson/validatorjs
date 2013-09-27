@@ -311,8 +311,10 @@
 				return true;
 			},
 
-			url: function(val) {
-				return (/^https?:\/\/\S+/).test(val);
+			url: function(url) {
+				if (url) return (/^https?:\/\/\S+/).test(url);
+
+				return true;
 			},
 
 			alpha: function(val) {
