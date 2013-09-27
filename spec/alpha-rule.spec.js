@@ -23,9 +23,9 @@ describe('alpha validation rule', function() {
 		expect(validator.errors.first('name')).toEqual('The name field must contain only alphabetic characters.');
 	});
 
+
 	it('should pass when the field is blank / optional', function() {
 		var validator = new Validator({ name: '' }, { name: 'alpha' });
-
 		expect(validator.passes()).toBeTruthy();
 	});
 });

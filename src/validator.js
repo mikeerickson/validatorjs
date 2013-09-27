@@ -1,4 +1,16 @@
 (function() {
+	// Shim taken from MDN site
+	if (!Array.prototype.forEach) {
+    Array.prototype.forEach = function (fn, scope) {
+        'use strict';
+        var i, len;
+        for (i = 0, len = this.length; i < len; ++i) {
+            if (i in this) {
+                fn.call(scope, this[i], i, this);
+            }
+        }
+    };
+	}
 
 	var messages = {
 		accepted: 'The :attribute must be accepted.',
@@ -127,45 +139,52 @@
 		},
 
 		check: function() {
-			var key, val, curRules, curRulesLen, i, rule, ruleVal, passes, msg, msgTmpl, dataForMessageTemplate;
+			var self = this;
 
-			for (key in this.input) {
-				if (this.input.hasOwnProperty(key)) { // make sure property is not inherited
-					val = this.input[key];
+			for (var attributeToValidate in this.rules) {
+				var rulesArray = this.rules[attributeToValidate].split('|');
+				var inputValue = this.input[attributeToValidate];
 
-					if (this.rules.hasOwnProperty(key)) { //check if a rule exists in rules object
-						curRules = this.rules[key].split('|');
-						curRulesLen = curRules.length;
+				rulesArray.forEach(function(ruleString) {
+					var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
+					var rule = ruleExtraction.rule;
+					var ruleValue = ruleExtraction.ruleValue;
+					var passes, dataForMessageTemplate, msgTmpl, msg;
 
-						for (i = 0; i < curRulesLen; i++) { //iterate over rules
-							rule = curRules[i];
+					passes = self.validate[rule].call(self, inputValue, ruleValue, attributeToValidate);
 
-							if (rule.indexOf(':') >= 0) {
-								rule = rule.split(':');
-
-								ruleVal = rule[1];
-								rule = rule[0];
-							} else {
-								ruleVal = null;
-							}
-
-							passes = this.validate[rule].call(this, val, ruleVal, key);
-
-							if (!passes) {
-								if ( !this.errors.hasOwnProperty(key) ) {
-									this.errors[key] = [];
-								}
-
-								dataForMessageTemplate = this._createErrorMessageTemplateData(key, rule, ruleVal);
-								msgTmpl = this._selectMessageTemplate(rule, val, key);
-								msg = this._createMessage(msgTmpl, dataForMessageTemplate);
-
-								this._addErrorMessage(key, msg);
-							}
+					if (!passes) {
+						if ( !self.errors.hasOwnProperty(attributeToValidate) ) {
+							self.errors[attributeToValidate] = [];
 						}
+
+						dataForMessageTemplate = self._createErrorMessageTemplateData(attributeToValidate, rule, ruleValue);
+						msgTmpl = self._selectMessageTemplate(rule, inputValue, attributeToValidate);
+						msg = self._createMessage(msgTmpl, dataForMessageTemplate);
+						self._addErrorMessage(attributeToValidate, msg);
 					}
-				}
+				});
+			} // end of for in loop
+		},
+
+		/**
+		 * Extract a rule and a rule value from a ruleString (i.e. min:3), rule = min, ruleValue = 3
+		 * @param  {string} ruleString min:3
+		 * @return {object} object containing the rule and ruleValue
+		 */
+		_extractRuleAndRuleValue: function(ruleString) {
+			var obj = {};
+			var ruleArray;
+
+			obj.rule = ruleString;
+
+			if (ruleString.indexOf(':') >= 0) {
+				ruleArray = ruleString.split(':');
+				obj.rule = ruleArray[0];
+				obj.ruleValue = ruleArray[1];
 			}
+
+			return obj;
 		},
 
 		_addErrorMessage: function(key, msg) {
@@ -185,8 +204,8 @@
 			var msgTmpl, messages = this.messages;
 
 			// if the custom error message template exists in messages variable
-			if (messages.hasOwnProperty(rule+'.'+key)) {
-				msgTmpl = messages[rule+'.'+key];
+			if (messages.hasOwnProperty(rule + '.' + key)) {
+				msgTmpl = messages[rule + '.' + key];
 			} else if (messages.hasOwnProperty(rule)) {
 				msgTmpl = messages[rule];
 

@@ -18,6 +18,12 @@ describe('integer validation rule', function() {
 		expect(validator.errors.first('age')).toEqual('The age must be an integer.')
 	});
 
+	it('should fail with a boolean value', function() {
+		var validator = new Validator({ age: true }, { age: 'integer' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+	});
+
 	it('should pass with an integer value', function() {
 		var validator = new Validator({ age: 18 }, { age: 'integer' });
 		expect(validator.fails()).toBeFalsy();
