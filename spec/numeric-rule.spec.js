@@ -36,8 +36,15 @@ describe('numeric validation rule', function() {
 		expect(validator.fails()).toBeTruthy('age is a boolean, not a number');
 	});
 
-	it('should return a customized numeric error message', function() {
-		validator = new Validator({ age: true }, { age: 'numeric' });
-		expect(validator.first('age')).toEqual('The age must be a number.');
-	});
+	it('should pass with no value', function() {
+		validator = new Validator({}, { age: 'numeric' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});	
+
+	it('should pass with an empty string value', function() {
+		validator = new Validator({ age: '' }, { age: 'numeric' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});	
 });

@@ -296,13 +296,19 @@
 			},
 
 			numeric: function(val) {
-				var num = Number(val); // tries to convert value to a number. useful if value is coming from form element
-			
-				if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
-					return true;
-				} else {
-					return false;
+				var num;
+
+				if (val) {
+					num = Number(val); // tries to convert value to a number. useful if value is coming from form element
+					
+					if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
+						return true;
+					} else {
+						return false;
+					}
 				}
+				
+				return true;
 			},
 
 			url: function(val) {
