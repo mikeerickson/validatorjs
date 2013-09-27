@@ -405,7 +405,15 @@
 			},
 
 			integer: function(val) {
-				return (/^\d+$/).test(val);
+				if (val) {
+					if (typeof val === 'number' && (/^\d+$/).test(val)) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+				
+				return true;
 			}
 		}
 	};

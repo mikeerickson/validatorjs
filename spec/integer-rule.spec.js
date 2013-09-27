@@ -11,7 +11,7 @@ describe('integer validation rule', function() {
 		expect(validator.errors.first('age')).toEqual('The age must be an integer.')
 	});
 
-	it('should fail with a string value', function() {
+	it('should fail with a string value containing numbers and letters', function() {
 		var validator = new Validator({ age: '18d' }, { age: 'integer' });
 		expect(validator.fails()).toBeTruthy();
 		expect(validator.passes()).toBeFalsy();
@@ -24,9 +24,21 @@ describe('integer validation rule', function() {
 		expect(validator.passes()).toBeFalsy();
 	});
 
+	it('should pass if no value is entered', function() {
+		var validator = new Validator({}, { age: 'integer' });
+		expect(validator.fails()).toBeFalsy();
+		expect(validator.passes()).toBeTruthy();
+	});	
+
 	it('should pass with an integer value', function() {
 		var validator = new Validator({ age: 18 }, { age: 'integer' });
 		expect(validator.fails()).toBeFalsy();
 		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should fail with a string containing an integer value', function() {
+		var validator = new Validator({ age: '18' }, { age: 'integer' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
 	});
 });
