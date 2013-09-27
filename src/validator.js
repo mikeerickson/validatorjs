@@ -143,7 +143,7 @@
 
 			for (var attributeToValidate in this.rules) {
 				var rulesArray = this.rules[attributeToValidate].split('|');
-				var inputValue = this.input[attributeToValidate];
+				var inputValue = this.input[attributeToValidate]; // if it doesnt exist in input, it will be undefined
 
 				rulesArray.forEach(function(ruleString) {
 					var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
@@ -306,11 +306,11 @@
 			},
 
 			alpha: function(val) {
-				if (val === '') {
-					return true;
+				if (val) {
+					return (/^[a-zA-Z]+$/).test(val);
 				}
 
-				return (/^[a-zA-Z]+$/).test(val);
+				return true;
 			},
 
 			alpha_dash: function(val) {
