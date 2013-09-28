@@ -396,20 +396,26 @@
 			},
 
 			"in": function(val, req) {
-				var list = req.split(',');
-				var len = list.length;
-				var returnVal = false;
+				var list, len, returnVal;
 
-				val = String(val); // convert val to a string if it is a number
+				if (val) {
+					list = req.split(',');
+					len = list.length;
+					returnVal = false;
 
-				for (var i = 0; i < len; i++) {
-					if (val === list[i]) {
-						returnVal = true;
-						break;
+					val = String(val); // convert val to a string if it is a number
+
+					for (var i = 0; i < len; i++) {
+						if (val === list[i]) {
+							returnVal = true;
+							break;
+						}
 					}
-				}
 
-				return returnVal;
+					return returnVal;
+				}
+				
+				return true;
 			},
 
 			not_in: function(val, req) {

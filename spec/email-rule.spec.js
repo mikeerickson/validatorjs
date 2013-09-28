@@ -3,6 +3,8 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('./../src/validator');
 }
 
+// only checks numeric, string, and undefined
+
 describe('email validation rule', function() {
 	it('should pass with the email address: johndoe@gmail.com', function() {
 		var validator = new Validator({ email: 'johndoe@gmail.com' }, { email: 'email' });
@@ -24,7 +26,7 @@ describe('email validation rule', function() {
 		expect(validator.fails()).toBeTruthy();
 	});
 
-	it('should pass when the field is blank / optional', function() {
+	it('should pass when the field is an empty string', function() {
 		var validator = new Validator({ email: '' }, { email: 'email' });
 		expect(validator.passes()).toBeTruthy();
 	});
