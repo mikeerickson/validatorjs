@@ -3,6 +3,8 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('./../src/validator');
 }
 
+// only checks numeric, string, and undefined
+
 describe('alpha_dash validation rule', function() {
 	var validator;
 
@@ -10,7 +12,12 @@ describe('alpha_dash validation rule', function() {
 		validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
 		expect(validator.passes()).toBeFalsy();
 		expect(validator.fails()).toBeTruthy();
-		expect(validator.errors.first('name')).toEqual('The name field may only contain alpha-numeric characters, as well as dashes and underscores.');
+	});
+
+	it('should fail with non-alphabetic characters', function() {
+		validator = new Validator({ name: 12 }, { name: 'alpha_dash' });
+		expect(validator.fails()).toBeFalsy();
+		expect(validator.passes()).toBeTruthy();
 	});
 
 	it('should pass with only alpha dash characters', function() {

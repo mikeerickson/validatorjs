@@ -3,6 +3,8 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('./../src/validator');
 }
 
+// only checks numeric, string, and undefined
+
 describe('alpha_num validation rule', function() {
 	var validator;
 	
@@ -26,12 +28,12 @@ describe('alpha_num validation rule', function() {
 	});
 
 	it('should pass when the field is blank / optional', function() {
-		var validator = new Validator({ name: '' }, { name: 'alpha_num' });
+		validator = new Validator({ name: '' }, { name: 'alpha_num' });
 		expect(validator.passes()).toBeTruthy();
 	});
 
 	it('should pass when the field does not exist', function() {
-		var validator = new Validator({}, { name: 'alpha_num' });
+		validator = new Validator({}, { name: 'alpha_num' });
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
 	});

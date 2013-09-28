@@ -100,4 +100,14 @@ describe('Error messages', function() {
 		expect(validator.first('range')).toEqual('The range must be less than 10.'); // max numeric
 		expect(validator.first('tweet')).toEqual('The tweet must be less than 5 characters.'); // max string
 	});
+
+	it('should return a customized alpha error message', function() {
+		validator = new Validator({ name: '12' }, { name: 'alpha' });
+		expect(validator.errors.first('name')).toEqual('The name field must contain only alphabetic characters.');
+	});
+
+	it('should fail with non alpha dash characters', function() {
+		validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
+		expect(validator.errors.first('name')).toEqual('The name field may only contain alpha-numeric characters, as well as dashes and underscores.');
+	});
 });

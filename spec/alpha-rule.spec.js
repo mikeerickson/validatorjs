@@ -3,11 +3,19 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('./../src/validator');
 }
 
+// only checks numeric, string, and undefined
+
 describe('alpha validation rule', function() {
 	var validator;
 	
 	it('should fail with non-alphabetic characters', function() {
 		validator = new Validator({ name: '12' }, { name: 'alpha' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+	});
+
+	it('should fail with non-alphabetic characters', function() {
+		validator = new Validator({ name: 12 }, { name: 'alpha' });
 		expect(validator.fails()).toBeTruthy();
 		expect(validator.passes()).toBeFalsy();
 	});
@@ -18,10 +26,6 @@ describe('alpha validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 
-	it('should return a customized alpha error message', function() {
-		validator = new Validator({ name: '12' }, { name: 'alpha' });
-		expect(validator.errors.first('name')).toEqual('The name field must contain only alphabetic characters.');
-	});
 
 
 	it('should pass when the field is an empty string', function() {
