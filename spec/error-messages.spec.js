@@ -110,4 +110,9 @@ describe('Error messages', function() {
 		validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
 		expect(validator.errors.first('name')).toEqual('The name field may only contain alpha-numeric characters, as well as dashes and underscores.');
 	});
+
+	it('should fail without a matching confirmation field for the field under validation', function() {
+		var validator = new Validator({ password: 'abc' }, { password: 'confirmed' });
+		expect(validator.errors.first('password')).toEqual('The password confirmation does not match.');
+	});
 });

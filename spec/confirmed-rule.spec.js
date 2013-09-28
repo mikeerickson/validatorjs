@@ -8,7 +8,6 @@ describe('confirmed validation rule', function() {
 		var validator = new Validator({ password: 'abc' }, { password: 'confirmed' });
 		expect(validator.passes()).toBeFalsy();
 		expect(validator.fails()).toBeTruthy();
-		expect(validator.errors.first('password')).toEqual('The password confirmation does not match.');
 	});
 
 	it('should fail without a matching confirmation field for the field under validation', function() {
