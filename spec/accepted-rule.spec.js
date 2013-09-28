@@ -16,7 +16,7 @@ describe('accepted validation rule', function() {
 		expect(validator.fails()).toBeFalsy();
 	});
 
-	it('should pass if the value is 1', function() {
+	it('should pass if the value is the number 1', function() {
 		var validator = new Validator({ terms: 1 }, { terms: 'accepted' });
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
@@ -32,6 +32,17 @@ describe('accepted validation rule', function() {
 		var validator = new Validator({ terms: '10' }, { terms: 'accepted' });
 		expect(validator.passes()).toBeFalsy();
 		expect(validator.fails()).toBeTruthy();
-		expect(validator.errors.first('terms')).toEqual('The terms must be accepted.');
+	});
+
+	it('should fail if the value is an empty string', function() {
+		var validator = new Validator({ terms: '' }, { terms: 'accepted' });
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.fails()).toBeTruthy();
+	});
+
+	it('should fail if the value is undefined', function() {
+		var validator = new Validator({}, { terms: 'accepted' });
+		expect(validator.passes()).toBeFalsy();
+		expect(validator.fails()).toBeTruthy();
 	});
 });
