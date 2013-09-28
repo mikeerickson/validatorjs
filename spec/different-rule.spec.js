@@ -10,7 +10,6 @@ describe('different validation rule', function() {
 		validator = new Validator({ field1: 'abc', field2: 'abc' }, { field2: 'different:field1' });
 		expect(validator.passes()).toBeFalsy();
 		expect(validator.fails()).toBeTruthy();
-		expect(validator.errors.first('field2')).toEqual('The field2 and field1 must be different.');
 	});
 
 	it('should pass when the 2 attributes are different', function() {

@@ -115,4 +115,9 @@ describe('Error messages', function() {
 		var validator = new Validator({ password: 'abc' }, { password: 'confirmed' });
 		expect(validator.errors.first('password')).toEqual('The password confirmation does not match.');
 	});
+
+	it('should fail when the 2 attributes are the same', function() {
+		var validator = new Validator({ field1: 'abc', field2: 'abc' }, { field2: 'different:field1' });
+		expect(validator.errors.first('field2')).toEqual('The field2 and field1 must be different.');
+	});
 });
