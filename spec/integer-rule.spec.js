@@ -3,6 +3,16 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('./../src/validator');
 }
 
+/**
+ * passes for undefined or ''
+ * passes for number 18
+ * passes for string '18'
+ * fails if letters exist in value
+ * fails if an array or object
+ * fails if boolean value
+ * fails if decimal value
+ */
+
 describe('integer validation rule', function() {
 	it('should fail with a decimal value', function() {
 		var validator = new Validator({ age: 18.9 }, { age: 'integer' });
@@ -18,8 +28,26 @@ describe('integer validation rule', function() {
 		expect(validator.errors.first('age')).toEqual('The age must be an integer.')
 	});
 
-	it('should fail with a boolean value', function() {
+	it('should fail with a boolean true value', function() {
 		var validator = new Validator({ age: true }, { age: 'integer' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+	});
+
+	it('should fail with a boolean false value', function() {
+		var validator = new Validator({ age: false }, { age: 'integer' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+	});
+
+	it('should fail if the value is an array', function() {
+		var validator = new Validator({ age: [] }, { age: 'integer' });
+		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).toBeFalsy();
+	});
+
+	it('should fail if the value is an object', function() {
+		var validator = new Validator({ age: {} }, { age: 'integer' });
 		expect(validator.fails()).toBeTruthy();
 		expect(validator.passes()).toBeFalsy();
 	});
@@ -36,9 +64,9 @@ describe('integer validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 
-	it('should fail with a string containing an integer value', function() {
+	it('should pass with a string containing an integer value', function() {
 		var validator = new Validator({ age: '18' }, { age: 'integer' });
-		expect(validator.fails()).toBeTruthy();
-		expect(validator.passes()).toBeFalsy();
+		expect(validator.fails()).toBeFalsy();
+		expect(validator.passes()).toBeTruthy();
 	});
 });

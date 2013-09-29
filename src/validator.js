@@ -455,15 +455,15 @@
 			},
 
 			integer: function(val) {
-				if (val) {
-					if (typeof val === 'number' && (/^\d+$/).test(val)) {
-						return true;
-					} else {
-						return false;
-					}
+				if (val === undefined || val === '') return true;
+
+				val = String(val);
+
+				if ( (/^\d+$/).test(val) ) {
+					return true;
+				} else {
+					return false;
 				}
-				
-				return true;
 			}
 		}
 	};
