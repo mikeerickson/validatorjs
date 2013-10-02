@@ -78,6 +78,8 @@ To apply validation rules to the _data_ object, use the same object key names fo
 
 ## Validation Rules
 
+Note: Input values of _undefined_ or an empty string '' will pass as true. Use the _required_ flag if they should fail validation.
+
 ####accepted
 
 The field under validation must be yes, on, or 1. This is useful for validating "Terms of Service" acceptance.
