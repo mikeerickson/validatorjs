@@ -24,7 +24,12 @@ describe('url validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 
-	it('should pass with a falsy value', function() {
+	it('should pass with an empty value', function() {
+		var validator = new Validator({ link: '' }, { link: 'url' });
+		expect(validator.passes()).toBeTruthy();
+	});	
+
+	it('should pass with an undefined value', function() {
 		var validator = new Validator({}, { link: 'url' });
 		expect(validator.passes()).toBeTruthy();
 	});	

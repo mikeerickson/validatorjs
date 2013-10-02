@@ -31,4 +31,16 @@ describe('not_in validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
 	});
+
+	it('should pass when the value is undefined', function() {
+		validator = new Validator({}, { country: 'not_in:China,Spain,France' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
+
+	it('should pass when the value is an empty string', function() {
+		validator = new Validator({ country: '' }, { country: 'not_in:China,Spain,France' });
+		expect(validator.passes()).toBeTruthy();
+		expect(validator.fails()).toBeFalsy();
+	});
 });

@@ -3,6 +3,11 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('./../src/validator');
 }
 
+/**
+ * passes for undefined or ''
+ * fails if boolean value
+ */
+
 describe('max validation rule', function() {
 	var validator;
 

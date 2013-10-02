@@ -14,6 +14,11 @@ describe('size validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 	});
 
+	it('should pass with an empty string', function() {
+		var validator = new Validator({ state: '' }, { state: 'size:2' });
+		expect(validator.passes()).toBeTruthy();
+	});
+
 	it('should pass with the age 65. Size must be 65', function() {
 		var validator = new Validator({ age: 65 }, { age: 'size:65' });
 		expect(validator.passes()).toBeTruthy();

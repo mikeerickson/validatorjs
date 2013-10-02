@@ -3,6 +3,15 @@ if (typeof process !== 'undefined' && process.title && process.title === 'node')
 	var Validator = require('./../src/validator');
 }
 
+/**
+ * passes for undefined or ''
+ * passes for number 18
+ * passes for string '18'
+ * fails if letters exist in value
+ * fails if boolean value
+ * passes if decimal value
+ */
+
 describe('numeric validation rule', function() {
 	var validator;
 
@@ -27,7 +36,7 @@ describe('numeric validation rule', function() {
 	});
 
 	it('should fail with a string value', function() {
-		validator = new Validator({ age: 'something' }, { age: 'numeric' });
+		validator = new Validator({ age: '18something' }, { age: 'numeric' });
 		expect(validator.fails()).toBeTruthy('something is not a number');
 	});
 
