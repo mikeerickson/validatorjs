@@ -30,15 +30,5 @@ describe('register a custom validation rule', function() {
 		var validator = new Validator({ phone: '4213-454-9988' }, { phone: 'telephone' });
 		expect(validator.passes()).toBeFalsy();
 		expect(validator.fails()).toBeTruthy();
-		expect(validator.first('phone')).toEqual('The phone attribute has errors.');
-	});
-
-	it('should fail the custom telephone rule registration with a custom error message', function() {
-		Validator.register('telephone', function(val) {
-			return val.match(/^\d{3}-\d{3}-\d{4}$/);
-		}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
-
-		var validator = new Validator({ cell: '4213-454-9988' }, { cell: 'telephone' });
-		expect(validator.first('cell')).toEqual('The cell phone number is not in the format XXX-XXX-XXXX.');
 	});
 });

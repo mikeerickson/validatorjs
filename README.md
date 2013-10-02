@@ -1,8 +1,14 @@
-# validatorjs v0.9.2
+validatorjs v1.0.0
+==================
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
 The validatorjs library makes data validation in JavaScript very easy on both the client and server side (Node.js). This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation#rule-integer) so you will see a lot of similarities in the library's API.
+
+## 1.0.0 Changes
+
+* In versions < 1.0.0, most validation rules had an implicit 'required' rule. For example, if I specified that a field had the 'email' validation flag, it would fail if an empty string was passed. This made it difficult to have optional fields with required formats. In v1.0.0, the validation rules do not have an implicit 'required'. If a field is undefined or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
+* validation_instance.first() has been removed. Use validation_instance.errors.first() instead
 
 ## Setup
 
@@ -14,11 +20,11 @@ The validatorjs library makes data validation in JavaScript very easy on both th
 Install the Validator package from the NPM registry [https://npmjs.org/package/validatorjs](https://npmjs.org/package/validatorjs)
 
 ```
-	npm install validatorjs
+npm install validatorjs
 ```
 
 ```js
-	var Validator = require('validatorjs');
+var Validator = require('validatorjs');
 ```
 
 ## Usage and Examples
@@ -34,12 +40,12 @@ The __3rd argument__ is an optional object that can contain custom error message
 	var data = {
 		name: 'David',
 		email: 'david@gmail.com',
-		age: 27
+		age: 28
 	};
 	
 	var rules = {
 		name: 'required',
-		email: 'email',
+		email: 'required|email',
 		age: 'min:18'
 	};
 
@@ -54,17 +60,13 @@ To apply validation rules to the _data_ object, use the same object key names fo
 
 #### Example 2:
 ```js
-	var data = {
-		name: '',
+	var validation = new Validator({
+		name: 'D',
 		email: 'not an email address.com'
-	};
-	
-	var rules = {
-		name: 'required|size:3',
+	}, {
+		name: 'size:3',
 		email: 'required|email'
-	};
-
-	var validation = new Validator(data, rules);
+	});
 
 	validation.fails(); // true
 	validation.passes(); // false
@@ -268,18 +270,12 @@ returns boolean
 ####.fails()
 returns boolean
 
-####.first(attribute_name)
-returns first error message for _string_ attribute_name, or _null_ if no error message exists. 
-
-__This will be deprecated in the future.__ Use _validation_instance_.errors.first(attribute) instead
-
-
 ## Testing
 
 Install node module dependencies
 
 ```
-	npm install
+npm install
 ```
 
 See __SpecRunner.html__ for Jasmine tests in the browser. 
@@ -287,16 +283,14 @@ See __SpecRunner.html__ for Jasmine tests in the browser.
 You can also run the jasmine tests via Node.js once you've installed the NPM package jasmine-node.
 
 ```
-	jasmine-node spec/ --verbose --color
-
-	//OR
-
-	npm test (which calls the above command)
+jasmine-node spec/ --verbose --color
+//OR
+npm test (which calls the above command)
 ```
 
 Once the above test passes, run the following command which will in turn run JSHint and minify the source
 ```
-	grunt
+grunt
 ```
 
 ## Contributors

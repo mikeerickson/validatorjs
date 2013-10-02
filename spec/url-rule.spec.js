@@ -9,7 +9,6 @@ describe('url validation rule', function() {
 		var validator = new Validator({ link: link }, { link: 'url' });
 		expect(validator.fails()).toBeTruthy();
 		expect(validator.passes()).toBeFalsy();
-		expect(validator.first('link')).toEqual('The link format is invalid.');
 	});
 
 	it('should pass with a url starting with http:// followed by 1 or more characters', function() {

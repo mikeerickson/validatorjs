@@ -141,7 +141,7 @@
 		check: function() {
 			var self = this;
 
-			for (var attributeToValidate in this.rules) {
+			this._each(this.rules, function(attributeToValidate) {
 				var rulesArray = this.rules[attributeToValidate].split('|');
 				var inputValue = this.input[attributeToValidate]; // if it doesnt exist in input, it will be undefined
 
@@ -164,7 +164,13 @@
 						self._addErrorMessage(attributeToValidate, msg);
 					}
 				});
-			} // end of for in loop
+			}, this); // end of _each()
+		},
+
+		_each: function(obj, cb, context) {
+			for (var key in obj) {
+				cb.call(context, key);
+			}
 		},
 
 		/**
@@ -234,26 +240,6 @@
 			return this.errorCount > 0 ? true : false;
 		},
 
-		first: function(key) {
-			return this.errors.hasOwnProperty(key) ? this.errors[key][0] : null;
-		},
-
-		_isNonEmptyStringOrNumber: function(val) {
-			if ( (typeof val === 'string' && val !== '') || typeof val === 'number' ) {
-				return true;
-			}
-
-			return false;
-		},
-
-		_isEmpty: function(val) {
-			if (val === undefined || val === '') {
-				return true;
-			}
-
-			return false;
-		},
-
 		// validate functions should return T/F
 		validate: {
 			required: function(val) {
@@ -287,16 +273,12 @@
 			 * Compares the size of strings or the value of numbers if there is a truthy value
 			 */
 			min: function(val, req) {
-				if (this._isNonEmptyStringOrNumber(val)) {
-					if (typeof val === 'number') {
-						return val >= req ? true : false;
-					} else {
-						return val.length >= req ? true : false;
-					}
-				} else if (this._isEmpty(val)) {
-					return true;
+				if (val === undefined || val === '') { return true; }
+
+				if (typeof val === 'number') {
+					return val >= req ? true : false;
 				} else {
-					return false;
+					return val.length >= req ? true : false;
 				}
 			},
 
@@ -304,39 +286,28 @@
 			 * Compares the size of strings or the value of numbers if there is a truthy value
 			 */
 			max: function(val, req) {
-				if (this._isNonEmptyStringOrNumber(val)) {
-					if (typeof val === 'number') {
-						return val <= req ? true : false;
-					} else {
-						return val.length <= req ? true : false;
-					}
-				} else if (this._isEmpty(val)) {
-					return true;
+				if (val === undefined || val === '') { return true; }
+
+				if (typeof val === 'number') {
+					return val <= req ? true : false;
 				} else {
-					return false;
+					return val.length <= req ? true : false;
 				}
 			},
 
 			email: function(val) {
-				if (val) {
-					return (/\w+@\w{2,}\.\w{2,}/).test(val);
-				}
-
-				return true;
+				if (val === undefined || val === '') { return true; }
+				return (/\w+@\w{2,}\.\w{2,}/).test(val);
 			},
 
 			numeric: function(val) {
 				var num;
 
-				if (this._isNonEmptyStringOrNumber(val)) {
-					num = Number(val); // tries to convert value to a number. useful if value is coming from form element
+				if (val === undefined || val === '') { return true; }
+
+				num = Number(val); // tries to convert value to a number. useful if value is coming from form element
 					
-					if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
-						return true;
-					} else {
-						return false;
-					}
-				} else if (this._isEmpty(val)) {
+				if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
 					return true;
 				} else {
 					return false;
@@ -344,33 +315,26 @@
 			},
 
 			url: function(url) {
-				if (url) return (/^https?:\/\/\S+/).test(url);
+				if (url === undefined || url === '') { return true; }
 
-				return true;
+				return (/^https?:\/\/\S+/).test(url); 
 			},
 
 			alpha: function(val) {
-				if (val) {
-					return (/^[a-zA-Z]+$/).test(val);
-				}
-
-				return true;
+				if (val === undefined || val === '') { return true; }
+			
+				return (/^[a-zA-Z]+$/).test(val);
 			},
 
 			alpha_dash: function(val) {
-				if (val) {
-					return (/^[a-zA-Z0-9_\-]+$/).test(val);
-				}
-
-				return true;
+				if (val === undefined || val === '') { return true; }
+				return (/^[a-zA-Z0-9_\-]+$/).test(val);
 			},
 
 			alpha_num: function(val) {
-				if (val) {
-					return (/^[a-zA-Z0-9]+$/).test(val);
-				}
-				
-				return true;
+				if (val === undefined || val === '') { return true; }
+
+				return (/^[a-zA-Z0-9]+$/).test(val);				
 			},
 
 			same: function(val, req) {
@@ -455,7 +419,7 @@
 			},
 
 			integer: function(val) {
-				if (val === undefined || val === '') return true;
+				if (val === undefined || val === '') { return true; }
 
 				val = String(val);
 

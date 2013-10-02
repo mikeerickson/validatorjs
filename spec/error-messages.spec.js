@@ -13,7 +13,7 @@ describe('Error messages', function() {
 			email: 'required|email'
 		});
 
-		expect(validator.first('email')).toEqual('The email field is required.');
+		expect(validator.errors.first('email')).toEqual('The email field is required.');
 	});
 
 	it('should return an array of all email error messages', function() {
@@ -65,12 +65,12 @@ describe('Error messages', function() {
 			email: 'required|email'
 		});
 
-		expect(validator.first('email')).toEqual('The email format is invalid.');
+		expect(validator.errors.first('email')).toEqual('The email format is invalid.');
 	});
 
 	it('should return null for a key without an error message', function() {
 		validator = new Validator({ name: 'David' }, { name: 'required' });
-		expect(validator.first('name')).toBeFalsy();
+		expect(validator.errors.first('name')).toBeFalsy();
 	});
 
 	it('should return error messages with attribute names and values for multi-part rules', function() {
@@ -92,13 +92,13 @@ describe('Error messages', function() {
 			tweet: 'max:5'
 		});
 
-		expect(validator.first('age')).toEqual('The age must be at least 18.'); // min numeric
-		expect(validator.first('description')).toEqual('The description must be at least 5 characters.'); // min string
-		expect(validator.first('info')).toEqual('The info field is required.');
-		expect(validator.first('hours')).toEqual('The hours must be 5.'); // size numeric
-		expect(validator.first('pin')).toEqual('The pin must be 4 characters.'); // size string
-		expect(validator.first('range')).toEqual('The range must be less than 10.'); // max numeric
-		expect(validator.first('tweet')).toEqual('The tweet must be less than 5 characters.'); // max string
+		expect(validator.errors.first('age')).toEqual('The age must be at least 18.'); // min numeric
+		expect(validator.errors.first('description')).toEqual('The description must be at least 5 characters.'); // min string
+		expect(validator.errors.first('info')).toEqual('The info field is required.');
+		expect(validator.errors.first('hours')).toEqual('The hours must be 5.'); // size numeric
+		expect(validator.errors.first('pin')).toEqual('The pin must be 4 characters.'); // size string
+		expect(validator.errors.first('range')).toEqual('The range must be less than 10.'); // max numeric
+		expect(validator.errors.first('tweet')).toEqual('The tweet must be less than 5 characters.'); // max string
 	});
 
 	it('should return a customized alpha error message', function() {
@@ -119,5 +119,29 @@ describe('Error messages', function() {
 	it('should fail when the 2 attributes are the same', function() {
 		var validator = new Validator({ field1: 'abc', field2: 'abc' }, { field2: 'different:field1' });
 		expect(validator.errors.first('field2')).toEqual('The field2 and field1 must be different.');
+	});
+
+	it('should fail with a url only containing http://', function() {
+		var link = 'http://';
+		var validator = new Validator({ link: link }, { link: 'url' });
+		expect(validator.errors.first('link')).toEqual('The link format is invalid.');
+	});
+
+	it('should fail the custom telephone rule registration with a default error message', function() {
+		Validator.register('telephone', function(val) {
+			return val.match(/^\d{3}-\d{3}-\d{4}$/);
+		});
+
+		var validator = new Validator({ phone: '4213-454-9988' }, { phone: 'telephone' });
+		expect(validator.errors.first('phone')).toEqual('The phone attribute has errors.');
+	});
+
+	it('should fail the custom telephone rule registration with a custom error message', function() {
+		Validator.register('telephone', function(val) {
+			return val.match(/^\d{3}-\d{3}-\d{4}$/);
+		}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
+
+		var validator = new Validator({ cell: '4213-454-9988' }, { cell: 'telephone' });
+		expect(validator.errors.first('cell')).toEqual('The cell phone number is not in the format XXX-XXX-XXXX.');
 	});
 });
