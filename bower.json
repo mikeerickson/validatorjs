@@ -1,0 +1,24 @@
+{
+  "name": "validatorjs",
+  "version": "1.0.0",
+  "homepage": "https://github.com/skaterdav85/validatorjs",
+  "authors": [
+    "David Tang"
+  ],
+  "description": "Validations based on Laravel PHP",
+  "main": "src/validator.js",
+  "keywords": [
+    "validation",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "SpecRunner.html",
+    "Gruntfile.js",
+    "spec",
+    "lib"
+  ]
+}
