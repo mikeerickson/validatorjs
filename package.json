@@ -17,9 +17,9 @@
     "validatorjs, validator.js, data validation, validator, validate, validation, data, laravel, laravel-validator-for-js"
   ],
   "devDependencies": {
-    "grunt": "0.4.1",
-    "grunt-contrib-jshint": "~0.1.1",
-    "grunt-contrib-uglify": "~0.1.1"
+    "grunt": "0.4.2",
+    "grunt-contrib-jshint": "0.8.0",
+    "grunt-contrib-uglify": "0.3.3"
   },
   "engines": {
     "node": ">= 0.8.0"
