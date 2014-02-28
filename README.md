@@ -298,3 +298,4 @@ grunt
 ## Contributors
 
 * [jgallred](https://github.com/jgallred)
+* [Ryan Tablada](https://github.com/rtablada)
