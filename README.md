@@ -3,20 +3,22 @@ validatorjs v1.0.1
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy on both the client and server side (Node.js). This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation#rule-integer) so you will see a lot of similarities in the library's API.
+The validatorjs library makes data validation in JavaScript very easy in both the browser and server (Node.js). This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation) so you will see a lot of similarities.
 
-## 1.0.0 Changes
+### 1.0.0 Changes
 
 * In versions < 1.0.0, most validation rules had an implicit 'required' rule. For example, if I specified that a field had the 'email' validation flag, it would fail if an empty string was passed. This made it difficult to have optional fields with required formats. In v1.0.0, the validation rules do not have an implicit 'required'. If a field is undefined or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
 * validation_instance.first() has been removed. Use validation_instance.errors.first() instead
 
-## Setup
+### Setup
 
-#### Browser:
-1. Include __validator.min.js__ script onto your page from the distribution folder _dist_.
+#### Browser
+
+1. Include __dist/validator.min.js__ script onto your page.
 2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
 
-#### Node.js:
+#### Node.js
+
 Install the Validator package from the NPM registry [https://npmjs.org/package/validatorjs](https://npmjs.org/package/validatorjs)
 
 ```
@@ -27,7 +29,7 @@ npm install validatorjs
 var Validator = require('validatorjs');
 ```
 
-## Usage and Examples
+### Usage and Examples
 
 The __1st argument__ to the constructor is an object that contains the data you want to validate. 
 
@@ -35,7 +37,8 @@ The __2nd argument__ is an object that contains the validation rules.
 
 The __3rd argument__ is an optional object that can contain custom error messages to return.
 
-#### Example 1:
+#### Example 1
+
 ```js
 	var data = {
 		name: 'David',
@@ -51,14 +54,15 @@ The __3rd argument__ is an optional object that can contain custom error message
 
 	var validation = new Validator(data, rules);
 	
-	validation.passes() // true
-	validation.fails() // false
+	validation.passes(); // true
+	validation.fails(); // false
 	
 ```
 
 To apply validation rules to the _data_ object, use the same object key names for the _rules_ object.
 
-#### Example 2:
+#### Example 2
+
 ```js
 	var validation = new Validator({
 		name: 'D',
@@ -76,39 +80,38 @@ To apply validation rules to the _data_ object, use the same object key names fo
 	validation.errors.get('email'); // returns an array of all email error messages
 ```
 
-## Validation Rules
+### Validation Rules
 
 Note: Input values of _undefined_ or an empty string '' will pass as true. Use the _required_ flag if they should fail validation.
 
-####accepted
+#### accepted
 
 The field under validation must be yes, on, or 1. This is useful for validating "Terms of Service" acceptance.
 
-####alpha
+#### alpha
 
 The field under validation must be entirely alphabetic characters.
 
-####alpha_dash
+#### alpha_dash
 
 The field under validation may have alpha-numeric characters, as well as dashes and underscores.
 
-####alpha_num
+#### alpha_num
 
 The field under validation must be entirely alpha-numeric characters.
 
-####confirmed
+#### confirmed
 
 The field under validation must have a matching field of foo_confirmation. For example, if the field under validation is password, a matching password_confirmation field must be present in the input.
 
-####different:attribute
+#### different:attribute
 
 The given field must be different than the field under validation.
 
 
-####email
+#### email
 
 The field under validation must be formatted as an e-mail address.
-
 
 ```
 	address: 'email'
@@ -291,6 +294,7 @@ npm test (which calls the above command)
 ```
 
 Once the above test passes, run the following command which will in turn run JSHint and minify the source
+
 ```
 grunt
 ```
