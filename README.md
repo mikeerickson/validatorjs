@@ -40,22 +40,22 @@ The __3rd argument__ is an optional object that can contain custom error message
 #### Example 1
 
 ```js
-	var data = {
-		name: 'David',
-		email: 'david@gmail.com',
-		age: 28
-	};
-	
-	var rules = {
-		name: 'required',
-		email: 'required|email',
-		age: 'min:18'
-	};
+var data = {
+	name: 'David',
+	email: 'david@gmail.com',
+	age: 28
+};
 
-	var validation = new Validator(data, rules);
-	
-	validation.passes(); // true
-	validation.fails(); // false
+var rules = {
+	name: 'required',
+	email: 'required|email',
+	age: 'min:18'
+};
+
+var validation = new Validator(data, rules);
+
+validation.passes(); // true
+validation.fails(); // false
 	
 ```
 
@@ -64,20 +64,20 @@ To apply validation rules to the _data_ object, use the same object key names fo
 #### Example 2
 
 ```js
-	var validation = new Validator({
-		name: 'D',
-		email: 'not an email address.com'
-	}, {
-		name: 'size:3',
-		email: 'required|email'
-	});
+var validation = new Validator({
+	name: 'D',
+	email: 'not an email address.com'
+}, {
+	name: 'size:3',
+	email: 'required|email'
+});
 
-	validation.fails(); // true
-	validation.passes(); // false
+validation.fails(); // true
+validation.passes(); // false
 
-	// Error messages
-	validation.errors.first('email'); // 'The email format is invalid.'
-	validation.errors.get('email'); // returns an array of all email error messages
+// Error messages
+validation.errors.first('email'); // 'The email format is invalid.'
+validation.errors.get('email'); // returns an array of all email error messages
 ```
 
 ### Validation Rules
@@ -130,7 +130,7 @@ The field under validation must have an integer value.
 Validate that an attribute is no greater than a given size
 
 ```
-	cost: 'max:100'
+cost: 'max:100'
 ```
 _Note: Maximum checks are inclusive._
 
@@ -139,7 +139,7 @@ _Note: Maximum checks are inclusive._
 Validate that an attribute is at least a given size.
 
 ```
-	payment: 'min:10'
+payment: 'min:10'
 ```
 
 _Note: Minimum checks are inclusive._
@@ -153,7 +153,7 @@ The field under validation must not be included in the given list of values.
 Validate that an attribute is numeric. The string representation of a number will pass.
 
 ```
-	age: 'numeric'
+age: 'numeric'
 ```
 
 ####required
@@ -161,7 +161,7 @@ Validate that an attribute is numeric. The string representation of a number wil
 Checks if the length of the String representation of the value is >
 
 ```
-	username: 'required'
+username: 'required'
 ```
 
 
@@ -177,7 +177,7 @@ Validate that an attribute is a given length, or, if an attribute is numeric, is
 
 
 ```
-	duration: 'size:2'
+duration: 'size:2'
 ```
 
 ####url
@@ -185,7 +185,7 @@ Validate that an attribute is a given length, or, if an attribute is numeric, is
 Validate that an attribute has a valid URL format
 
 ```
-	link: 'url'
+link: 'url'
 ```
 
 ## Register a custom validation rule
@@ -199,9 +199,9 @@ Validate that an attribute has a valid URL format
 * errorMessage is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
-	Validator.register('telephone', function(value, requirement, attribute) { // requirement paramter defaults to null
-		return val.match(/^\d{3}-\d{3}-\d{4}$/);
-	}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
+Validator.register('telephone', function(value, requirement, attribute) { // requirement paramter defaults to null
+	return val.match(/^\d{3}-\d{3}-\d{4}$/);
+}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
 
 
@@ -224,47 +224,51 @@ the number of validation errors
 ####Example:
 
 ```js
-	var validation = new Validator(input, rules);
-	validation.errors.first('email'); // returns first error message for email attribute
-	validator.errors.get('email'); // returns an array of error messages for the email attribute
+var validation = new Validator(input, rules);
+validation.errors.first('email'); // returns first error message for email attribute
+validator.errors.get('email'); // returns an array of error messages for the email attribute
 ```
 
-###Custom Error Messages
+### Custom Error Messages
 If you need a specific error message and you don't want to override the default one, you can pass an override as the third argument to the Validator object, just like with [Laravel](http://laravel.com/docs/validation#custom-error-messages). 
+
 ```js
-	var input = {
-		name: ''
-	};
-	var rules = {
-		name : 'required'
-	}
-	var validation = new Validator(input, rules, {required: 'You forgot to give a :attribute'});
-	validation.errors.first('name'); // returns 'You forgot to give a name'
+var input = {
+	name: ''
+};
+var rules = {
+	name : 'required'
+}
+var validation = new Validator(input, rules, {required: 'You forgot to give a :attribute'});
+validation.errors.first('name'); // returns 'You forgot to give a name'
 ```
+
 Some of the validators have string and numeric versions. You can change them too.
 ```js
-	var input = {
-		username: 'myusernameistolong'
-	};
-	var rules = {
-		username : 'max:16'
-	}
-	var validation = new Validator(input, rules, {max: {string: 'The :attribute is too long. Max length is :max.'}});
-	validation.errors.first('username'); // returns 'The username is too long. Max length is 16.'
+var input = {
+	username: 'myusernameistolong'
+};
+var rules = {
+	username : 'max:16'
+}
+var validation = new Validator(input, rules, {max: {string: 'The :attribute is too long. Max length is :max.'}});
+validation.errors.first('username'); // returns 'The username is too long. Max length is 16.'
 ```
+
 You can even provide error messages on a per attribute basis! Just set the message's key to 'validator.attribute'
+
 ```js
-	var input = {
-		name: '',
-		email: ''
-	};
-	var rules = {
-		name : 'required',
-		email : 'required'
-	}
-	var validation = new Validator(input, rules, {'required.email': 'Without an :attribute we can\'t reach you!'});
-	validation.errors.first('name'); // returns  'The name field is required.'
-	validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
+var input = {
+	name: '',
+	email: ''
+};
+var rules = {
+	name : 'required',
+	email : 'required'
+}
+var validation = new Validator(input, rules, {'required.email': 'Without an :attribute we can\'t reach you!'});
+validation.errors.first('name'); // returns  'The name field is required.'
+validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
 ## Public Instance Methods
@@ -275,7 +279,7 @@ returns boolean
 ####.fails()
 returns boolean
 
-## Testing
+### Testing
 
 Install node module dependencies
 
@@ -285,7 +289,7 @@ npm install
 
 See __SpecRunner.html__ for Jasmine tests in the browser. 
 
-You can also run the jasmine tests via Node.js once you've installed the NPM package jasmine-node.
+You can also run the jasmine tests via Node.js once you've installed the NPM package [jasmine-node](https://www.npmjs.org/package/jasmine-node) globally.
 
 ```
 jasmine-node spec/ --verbose --color
@@ -299,7 +303,7 @@ Once the above test passes, run the following command which will in turn run JSH
 grunt
 ```
 
-## Contributors
+### Contributors
 
 * [jgallred](https://github.com/jgallred)
 * [Ryan Tablada](https://github.com/rtablada)
