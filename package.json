@@ -6,6 +6,7 @@
   "version": "1.0.1",
   "homepage": "https://github.com/skaterdav85/validatorjs",
   "author": "David <dtang85@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/skaterdav85/validatorjs"
