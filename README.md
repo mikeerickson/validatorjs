@@ -33,16 +33,16 @@ var Validator = require('validatorjs');
 var validation = new Validator(data, rules [, customErrorMessages]);
 ```
 
-__data__
-Type: Object
-An object that contains the data you want to validate
+__data__<br>
+Type: Object<br>
+An object that contains the data you want to validate<br>
 
-__rules__
-Type: Object
+__rules__<br>
+Type: Object<br>
 An object that contains the validation rules
 
-__customErrorMessages__
-Type: Object
+__customErrorMessages__<br>
+Type: Object<br>
 An optional object that can contain custom error messages to return
 
 #### Example 1
