@@ -195,10 +195,10 @@ Validate that an attribute has a valid URL format
 link: 'url'
 ```
 
-## Register a custom validation rule
+### Registering Custom Validation Rules
 
 ```js
-	Validator.register(custom_rule_name, callbackFn, errorMessage);
+Validator.register(custom_rule_name, callbackFn, errorMessage);
 ```
 
 * custom_rule_name - string
@@ -212,7 +212,7 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 ```
 
 
-## Error Messages
+### Error Messages
 
 This contructor will automatically generate error messages for validation rules that failed. 
 
@@ -230,7 +230,7 @@ returns an array of error messages for an attribute, or an empty array if there 
 
 the number of validation errors
 
-#### Example:
+#### Example
 
 ```js
 var validation = new Validator(input, rules);
@@ -282,7 +282,7 @@ validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
-## Public Instance Methods
+### Public Instance Methods
 
 * .passes() - returns boolean
 * .fails() - returns boolean
