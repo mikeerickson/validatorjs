@@ -29,11 +29,21 @@ var Validator = require('validatorjs');
 
 ### Usage and Examples
 
-The __1st argument__ to the constructor is an object that contains the data you want to validate. 
+```js
+var validation = new Validator(data, rules [, customErrorMessages]);
+```
 
-The __2nd argument__ is an object that contains the validation rules. 
+__data__
+Type: Object
+An object that contains the data you want to validate
 
-The __3rd argument__ is an optional object that can contain custom error messages to return.
+__rules__
+Type: Object
+An object that contains the validation rules
+
+__customErrorMessages__
+Type: Object
+An optional object that can contain custom error messages to return
 
 #### Example 1
 
