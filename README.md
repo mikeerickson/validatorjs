@@ -305,13 +305,8 @@ jasmine-node spec/ --verbose --color
 npm test (which calls the above command)
 ```
 
-Once the above test passes, run the following command which will in turn run JSHint and minify the source
+### Build
 
 ```
 grunt
 ```
-
-### Contributors
-
-* [jgallred](https://github.com/jgallred)
-* [Ryan Tablada](https://github.com/rtablada)
