@@ -256,7 +256,7 @@ Some of the validators have string and numeric versions. You can change them too
 
 ```js
 var input = {
-	username: 'myusernameistolong'
+	username: 'myusernameistoolong'
 };
 
 var rules = {
