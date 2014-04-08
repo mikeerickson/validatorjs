@@ -117,7 +117,7 @@ The field under validation must be formatted as an e-mail address.
 	address: 'email'
 ```
 
-####in:foo,bar,...
+#### in:foo,bar,...
 
 The field under validation must be included in the given list of values.
 
@@ -125,7 +125,7 @@ The field under validation must be included in the given list of values.
 
 The field under validation must have an integer value.
 
-####max:value
+#### max:value
 
 Validate that an attribute is no greater than a given size
 
@@ -134,7 +134,7 @@ cost: 'max:100'
 ```
 _Note: Maximum checks are inclusive._
 
-####min:value
+#### min:value
 
 Validate that an attribute is at least a given size.
 
@@ -144,11 +144,11 @@ payment: 'min:10'
 
 _Note: Minimum checks are inclusive._
 
-####not_in:foo,bar,...
+#### not_in:foo,bar,...
 
 The field under validation must not be included in the given list of values.
 
-####numeric
+#### numeric
 
 Validate that an attribute is numeric. The string representation of a number will pass.
 
@@ -156,7 +156,7 @@ Validate that an attribute is numeric. The string representation of a number wil
 age: 'numeric'
 ```
 
-####required
+#### required
 
 Checks if the length of the String representation of the value is >
 
@@ -166,12 +166,12 @@ username: 'required'
 
 
 
-####same:attribute
+#### same:attribute
 
 The given field must match the field under validation.
 
 
-####size:value
+#### size:value
 
 Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
 
@@ -180,7 +180,7 @@ Validate that an attribute is a given length, or, if an attribute is numeric, is
 duration: 'size:2'
 ```
 
-####url
+#### url
 
 Validate that an attribute has a valid URL format
 
@@ -206,22 +206,24 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 
 
 ## Error Messages
+
 This contructor will automatically generate error messages for validation rules that failed. 
 
 If there are errors, the Validator instance will have its __errors__ property object populated with the error messages for all failing attributes. The methods and properties on the __errors__ property object are:
 
-####.first(attribute)
+#### .first(attribute)
 
 returns the first error message for an attribute, false otherwise
 
-####.get(attribute)
+#### .get(attribute)
+
 returns an array of error messages for an attribute, or an empty array if there are no errors
 
 ####.errorCount
 
 the number of validation errors
 
-####Example:
+#### Example:
 
 ```js
 var validation = new Validator(input, rules);
@@ -230,6 +232,7 @@ validator.errors.get('email'); // returns an array of error messages for the ema
 ```
 
 ### Custom Error Messages
+
 If you need a specific error message and you don't want to override the default one, you can pass an override as the third argument to the Validator object, just like with [Laravel](http://laravel.com/docs/validation#custom-error-messages). 
 
 ```js
@@ -238,12 +241,13 @@ var input = {
 };
 var rules = {
 	name : 'required'
-}
+};
 var validation = new Validator(input, rules, {required: 'You forgot to give a :attribute'});
 validation.errors.first('name'); // returns 'You forgot to give a name'
 ```
 
 Some of the validators have string and numeric versions. You can change them too.
+
 ```js
 var input = {
 	username: 'myusernameistolong'
@@ -265,7 +269,7 @@ var input = {
 var rules = {
 	name : 'required',
 	email : 'required'
-}
+};
 var validation = new Validator(input, rules, {'required.email': 'Without an :attribute we can\'t reach you!'});
 validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
@@ -273,11 +277,8 @@ validation.errors.first('email'); // returns 'Without an email we can\'t reach y
 
 ## Public Instance Methods
 
-####.passes()
-returns boolean
-
-####.fails()
-returns boolean
+* .passes() - returns boolean
+* .fails() - returns boolean
 
 ### Testing
 
@@ -293,7 +294,7 @@ You can also run the jasmine tests via Node.js once you've installed the NPM pac
 
 ```
 jasmine-node spec/ --verbose --color
-//OR
+# OR
 npm test (which calls the above command)
 ```
 
