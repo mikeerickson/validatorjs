@@ -12,7 +12,7 @@
     "url": "https://github.com/skaterdav85/validatorjs"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/skaterdav85/validatorjs/issues?labels=bug&milestone=1&page=1&state=open"
   },
   "keywords": [
     "validatorjs, validator.js, data validation, validator, validate, validation, data, laravel, laravel-validator-for-js"
