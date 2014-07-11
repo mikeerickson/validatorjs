@@ -272,11 +272,6 @@ validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
-### Public Instance Methods
-
-* .passes() - returns boolean
-* .fails() - returns boolean
-
 ### Testing
 
 Install node module dependencies
