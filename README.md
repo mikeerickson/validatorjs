@@ -274,15 +274,7 @@ validation.errors.first('email'); // returns 'Without an email we can\'t reach y
 
 ### Testing
 
-Install node module dependencies
-
-```
-npm install
-```
-
-See __SpecRunner.html__ for Jasmine tests in the browser. 
-
-You can also run the tests from the command line once you've installed the NPM package [jasmine-node](https://www.npmjs.org/package/jasmine-node) globally.
+See __SpecRunner.html__ for Jasmine tests in the browser. You can also run the tests from the command line after installing project dependencies.
 
 ```
 npm test

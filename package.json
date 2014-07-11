@@ -5,7 +5,7 @@
   "description": "A constructor function for data validation on both the server and client, inspired by the Laravel PHP framework's Validator class.",
   "version": "1.0.2",
   "homepage": "https://github.com/skaterdav85/validatorjs",
-  "author": "David <dtang85@gmail.com>",
+  "author": "David <dtang859@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
     "grunt": "0.4.2",
     "grunt-contrib-jshint": "0.10.0",
     "grunt-contrib-uglify": "0.5.0",
-    "grunt-contrib-concat": "~0.4.0"
+    "grunt-contrib-concat": "~0.4.0",
+    "jasmine-node": "1.14.2"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -30,6 +31,6 @@
   "readmeFilename": "README.md",
   "main": "./src/validator.js",
   "scripts": {
-    "test": "jasmine-node spec/ --verbose --color"
+    "test": "./node_modules/jasmine-node/bin/jasmine-node spec/ --verbose --color"
   }
 }
