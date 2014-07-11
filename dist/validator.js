@@ -1,4 +1,4 @@
-(function() {
+/*! validatorjs - v1.0.2 - https://github.com/skaterdav85/validatorjs - 2014-07-11 */(function() {
 	// Shim taken from MDN site
 	if (!Array.prototype.forEach) {
     Array.prototype.forEach = function (fn, scope) {

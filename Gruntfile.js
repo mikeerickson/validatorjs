@@ -12,6 +12,9 @@ module.exports = function(grunt) {
     concat: {
       options: {
         separator: ';',
+        stripBanners: true,
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - ' +
+          '<%= grunt.template.today("yyyy-mm-dd") %> */'
       },
       dist: {
         src: ['src/validator.js'],
