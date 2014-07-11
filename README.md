@@ -5,10 +5,6 @@ validatorjs v1.0.1
 
 The validatorjs library makes data validation in JavaScript very easy in both the browser and server (Node.js). This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation) so you will see a lot of similarities.
 
-### 1.0.0 Changes
-
-* In versions < 1.0.0, most validation rules had an implicit 'required' rule. For example, if I specified that a field had the 'email' validation flag, it would fail if an empty string was passed. This made it difficult to have optional fields with required formats. In v1.0.0, the validation rules do not have an implicit 'required'. If a field is undefined or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
-* validation_instance.first() has been removed. Use validation_instance.errors.first() instead
 
 ### Browser Setup
 
@@ -16,8 +12,6 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
 
 ### Node.js Setup
-
-Install the Validator package from the NPM registry [https://npmjs.org/package/validatorjs](https://npmjs.org/package/validatorjs)
 
 ```
 npm install validatorjs
@@ -27,7 +21,7 @@ npm install validatorjs
 var Validator = require('validatorjs');
 ```
 
-### Usage and Examples
+### Basic Usage
 
 ```js
 var validation = new Validator(data, rules [, customErrorMessages]);
@@ -89,7 +83,7 @@ validation.errors.get('email'); // returns an array of all email error messages
 
 ### Validation Rules
 
-Note: Input values of _undefined_ or an empty string '' will pass as true. Use the _required_ flag if they should fail validation.
+Validation rules do not have an implicit 'required'. If a field is _undefined_ or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
 
 #### accepted
 
