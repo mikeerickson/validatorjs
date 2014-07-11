@@ -282,12 +282,10 @@ npm install
 
 See __SpecRunner.html__ for Jasmine tests in the browser. 
 
-You can also run the jasmine tests via Node.js once you've installed the NPM package [jasmine-node](https://www.npmjs.org/package/jasmine-node) globally.
+You can also run the tests from the command line once you've installed the NPM package [jasmine-node](https://www.npmjs.org/package/jasmine-node) globally.
 
 ```
-jasmine-node spec/ --verbose --color
-# OR
-npm test (which calls the above command)
+npm test
 ```
 
 ### Build
