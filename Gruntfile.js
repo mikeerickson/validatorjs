@@ -9,9 +9,17 @@ module.exports = function(grunt) {
       src   : 'src/*.js',
       specs : 'spec/*.js'
     },
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: ['src/validator.js'],
+        dest: 'dist/validator.js',
+      },
+    },
     jshint: {
       all: [
-        'Gruntfile.js',
         '<%= meta.src %>'
       ],
       options: {
@@ -33,8 +41,10 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'concat']);
+  grunt.registerTask('build', ['jshint', 'concat']);
 
 };
