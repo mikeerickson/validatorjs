@@ -1,6 +1,22 @@
+var fs = require('fs');
+
 /*global module:false*/
 module.exports = function(grunt) {
   'use strict';
+
+  var filename = 'validator';
+  var language= 'en';
+
+  if (grunt.option('lang') !== undefined && grunt.option('lang') !== 'en') {
+    var langFileExists = fs.existsSync('src/lang/' + grunt.option('lang') + '.js');
+
+    if (!langFileExists) {
+      throw new Error('Language file src/lang/' + grunt.option('lang') + '.js does not exist.');
+    }
+
+    language = grunt.option('lang');
+    filename = 'validator-' + language;
+  }
 
   // Project configuration.
   grunt.initConfig({
@@ -11,15 +27,16 @@ module.exports = function(grunt) {
     },
     concat: {
       options: {
-        separator: ';',
+        separator: "\n\n",
         stripBanners: true,
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - ' +
-          '<%= grunt.template.today("yyyy-mm-dd") %> */'
+        banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - " +
+          "<%= grunt.template.today('yyyy-mm-dd') %> */\n(function() {\n\n",
+        footer: "\n\n})();"    
       },
       dist: {
-        src: ['src/validator.js'],
-        dest: 'dist/validator.js',
-      },
+        src: ['src/lang/'+language+'.js', 'src/validator.js'],
+        dest: 'dist/'+filename+'.js',
+      }
     },
     jshint: {
       all: [
@@ -34,11 +51,15 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - ' +
           '<%= grunt.template.today("yyyy-mm-dd") %> */'
       },
-      my_target: {
-        files: {
-          'dist/validator.min.js': ['src/validator.js']
-        }
-      }
+      my_target: (function() {
+        var key = 'dist/' + filename + '.min.js';
+        var files = {};
+        files[key] = ['dist/' + filename + '.js'];
+
+        return {
+          files: files
+        };
+      }())
     }
   });
 
@@ -47,7 +68,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'uglify', 'concat']);
-  grunt.registerTask('build', ['jshint', 'concat']);
-
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
 };

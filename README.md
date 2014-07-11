@@ -1,5 +1,5 @@
-validatorjs v1.0.1
-==================
+validatorjs
+===========
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
@@ -8,8 +8,9 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 
 ### Browser Setup
 
-1. Include __dist/validator.min.js__ script onto your page.
-2. Invoke the Validator constructor function. See below for details on Validator parameters and validation rules.
+```html
+<script src="dist/validator.min.js"></script>
+```
 
 ### Node.js Setup
 
@@ -165,8 +166,6 @@ Checks if the length of the String representation of the value is >
 username: 'required'
 ```
 
-
-
 #### same:attribute
 
 The given field must match the field under validation.
@@ -271,6 +270,17 @@ var validation = new Validator(input, rules, { 'required.email': 'Without an :at
 validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
+
+### Languages
+
+You can build the project with error messages in other languages. Simply create a language file in _src/lang/_ modeled after _en.js_.
+
+```
+# Defaults to en.js
+grunt --lang=en 
+```
+
+The English build will be dist/validator.js. Other builds will be dist/validator-**.js.
 
 ### Testing
 
