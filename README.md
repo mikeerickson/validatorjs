@@ -32,14 +32,14 @@ __data__ {Object} - The data you want to validate
 
 __rules__ {Object} - Validation rules
 
-__customErrorMessages__ {Object} - Custom error messages to return
+__customErrorMessages__ {Object} - Optional custom error messages to return
 
-#### Example 1
+#### Example 1 - Passing validation
 
 ```js
 var data = {
-	name: 'David',
-	email: 'david@gmail.com',
+	name: 'John',
+	email: 'johndoe@gmail.com',
 	age: 28
 };
 
@@ -57,7 +57,7 @@ validation.fails(); // false
 
 To apply validation rules to the _data_ object, use the same object key names for the _rules_ object.
 
-#### Example 2
+#### Example 2 - Failing validation
 
 ```js
 var validation = new Validator({
@@ -104,14 +104,10 @@ The field under validation must have a matching field of foo_confirmation. For e
 
 The given field must be different than the field under validation.
 
-
 #### email
 
 The field under validation must be formatted as an e-mail address.
 
-```
-	address: 'email'
-```
 
 #### in:foo,bar,...
 
@@ -148,17 +144,9 @@ The field under validation must not be included in the given list of values.
 
 Validate that an attribute is numeric. The string representation of a number will pass.
 
-```
-age: 'numeric'
-```
-
 #### required
 
 Checks if the length of the String representation of the value is >
-
-```
-username: 'required'
-```
 
 #### same:attribute
 
@@ -177,10 +165,6 @@ duration: 'size:2'
 #### url
 
 Validate that an attribute has a valid URL format
-
-```
-link: 'url'
-```
 
 ### Registering Custom Validation Rules
 
@@ -212,7 +196,7 @@ returns the first error message for an attribute, false otherwise
 
 returns an array of error messages for an attribute, or an empty array if there are no errors
 
-####.errorCount
+#### .errorCount
 
 the number of validation errors
 
@@ -265,7 +249,7 @@ validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
-### Languages
+### Language Support
 
 You can build the project with error messages in other languages. Simply create a language file in _src/lang/_ modeled after _en.js_.
 
@@ -276,9 +260,9 @@ grunt --lang=en
 
 The English build will be dist/validator.js. Other builds will be dist/validator-**.js.
 
-### Testing
+### Tests
 
-See __SpecRunner.html__ for Jasmine tests in the browser. You can also run the tests from the command line after installing project dependencies.
+See __SpecRunner.html__ for Jasmine unit tests in the browser. You can also run the unit tests from the command line after installing project dependencies.
 
 ```
 npm test
