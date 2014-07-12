@@ -219,7 +219,7 @@ var rules = {
 	name : 'required'
 };
 
-var validation = new Validator(input, rules, {required: 'You forgot to give a :attribute'});
+var validation = new Validator(input, rules, { required: 'You forgot to give a :attribute' });
 validation.errors.first('name'); // returns 'You forgot to give a name'
 ```
 
@@ -252,6 +252,7 @@ var rules = { name : 'required', email : 'required' };
 var validation = new Validator(input, rules, { 
 	"required.email": "Without an :attribute we can't reach you!"
 });
+
 validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
