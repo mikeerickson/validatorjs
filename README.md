@@ -173,7 +173,9 @@ Validator.register(custom_rule_name, callbackFn, errorMessage);
 ```
 
 __custom_rule_name__ {String}
+
 __callbackFn__ {Function}. Returns a boolean to represent a successful or failed validation. 
+
 __errorMessage__ {String} - An optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
