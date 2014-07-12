@@ -3,7 +3,7 @@ validatorjs
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy in both the browser and server (Node.js). This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation) so you will see a lot of similarities.
+The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation) so you will see a lot of similarities.
 
 
 ### Browser Setup
@@ -28,17 +28,11 @@ var Validator = require('validatorjs');
 var validation = new Validator(data, rules [, customErrorMessages]);
 ```
 
-__data__<br>
-Type: Object<br>
-An object that contains the data you want to validate<br>
+__data__ {Object} - The data you want to validate
 
-__rules__<br>
-Type: Object<br>
-An object that contains the validation rules
+__rules__ {Object} - Validation rules
 
-__customErrorMessages__<br>
-Type: Object<br>
-An optional object that can contain custom error messages to return
+__customErrorMessages__ {Object} - Custom error messages to return
 
 #### Example 1
 
