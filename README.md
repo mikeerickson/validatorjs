@@ -172,9 +172,9 @@ Validate that an attribute has a valid URL format
 Validator.register(custom_rule_name, callbackFn, errorMessage);
 ```
 
-* custom_rule_name - string
-* callbackFn - function. If callbackFn returns a truthy value, the validation will pass for this rule. Otherwise, this validation rule will fail. 
-* errorMessage is an optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
+__custom_rule_name__ {String}
+__callbackFn__ {Function}. Returns a boolean to represent a successful or failed validation. 
+__errorMessage__ {String} - An optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
 Validator.register('telephone', function(value, requirement, attribute) { // requirement paramter defaults to null
