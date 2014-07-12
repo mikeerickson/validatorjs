@@ -14,7 +14,7 @@ describe('Validator constructor', function() {
 			name: 'required',
 			email: 'required'
 		}, {
-			required: 'You\'re missing :required'
+			required: "You're missing :required"
 		});
 	});
 	

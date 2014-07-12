@@ -440,6 +440,10 @@ Validator.register = function(rule, fn, errMsg) {
 	messages[rule] = (typeof errMsg === 'string') ? errMsg : messages['def'];
 };
 
+Validator.make = function(input, rules, customMessages) {
+	return new Validator(input, rules, customMessages);
+};
+
 if (typeof module !== 'undefined' && typeof require !== 'undefined') {
 	module.exports = Validator;
 } else {

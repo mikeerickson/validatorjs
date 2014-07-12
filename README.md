@@ -34,6 +34,13 @@ __rules__ {Object} - Validation rules
 
 __customErrorMessages__ {Object} - Optional custom error messages to return
 
+
+Alternatively, you can use a static _make()_ method on the Validator class.
+
+```js
+var validation = Validator.make(data, rules [, customErrorMessages]);
+```
+
 #### Example 1 - Passing validation
 
 ```js
