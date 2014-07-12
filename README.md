@@ -234,7 +234,12 @@ var rules = {
 	username : 'max:16'
 };
 
-var validation = new Validator(input, rules, {max: {string: 'The :attribute is too long. Max length is :max.'}});
+var validation = new Validator(input, rules, {
+	max: {
+		string: 'The :attribute is too long. Max length is :max.'
+	}
+});
+
 validation.errors.first('username'); // returns 'The username is too long. Max length is 16.'
 ```
 
@@ -244,7 +249,9 @@ You can even provide error messages on a per attribute basis! Just set the messa
 var input = { name: '', email: '' };
 var rules = { name : 'required', email : 'required' };
 
-var validation = new Validator(input, rules, { 'required.email': 'Without an :attribute we can\'t reach you!' });
+var validation = new Validator(input, rules, { 
+	"required.email": "Without an :attribute we can't reach you!"
+});
 validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
