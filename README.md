@@ -277,6 +277,8 @@ grunt --lang=en
 
 The English build will be dist/validator.js. Other builds will be dist/validator-**.js.
 
+Please contribute your language files!
+
 ### Tests
 
 See __SpecRunner.html__ for Jasmine unit tests in the browser. You can also run the unit tests from the command line after installing project dependencies.
