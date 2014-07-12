@@ -3,7 +3,7 @@ validatorjs
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation) so you will see a lot of similarities. validatorjs is not dependent on any libraries.
+The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation) so you will see a lot of similarities.
 
 ### Why use validatorjs?
 
