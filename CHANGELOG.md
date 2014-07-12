@@ -1,6 +1,7 @@
 ### Current
 
 * Adds Validator.make() as an alias to new Validator()
+* Broke up library into smaller files that get combined during build
 
 ### 1.1.0
 
