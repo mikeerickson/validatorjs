@@ -1,8 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
 describe('size validation rule', function() {
 	it('should fail with the state = C. Size must be 2 letters.', function() {
 		var validator = new Validator({ state: 'C' }, { state: 'size:2' });

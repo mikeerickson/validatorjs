@@ -22,7 +22,13 @@
     "grunt-contrib-jshint": "0.10.0",
     "grunt-contrib-uglify": "0.5.0",
     "grunt-contrib-concat": "~0.4.0",
-    "jasmine-node": "1.14.2"
+    "jasmine-node": "1.14.2",
+    "karma": "~0.12.17",
+    "karma-jasmine": "~0.1.5",
+    "karma-coverage": "~0.2.4",
+    "karma-chrome-launcher": "~0.1.4",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "grunt-contrib-watch": "~0.6.1"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -31,6 +37,6 @@
   "readmeFilename": "README.md",
   "main": "./src/validator.js",
   "scripts": {
-    "test": "grunt; ./node_modules/jasmine-node/bin/jasmine-node spec/ --verbose --color"
+    "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
   }
 }

@@ -205,6 +205,10 @@ returns the first error message for an attribute, false otherwise
 
 returns an array of error messages for an attribute, or an empty array if there are no errors
 
+#### .all()
+
+returns an object containing all error messages for all failing attributes
+
 #### .errorCount
 
 the number of validation errors
@@ -281,11 +285,17 @@ Please contribute your language files!
 
 ### Tests
 
-See __SpecRunner.html__ for Jasmine unit tests in the browser. You can also run the unit tests from the command line after installing project dependencies.
+```
+# Terminal tab 1
+./node_modules/karma/bin/karma start
 
+# Terminal tab 2
+grunt watch
 ```
-npm test
-```
+
+Grunt will watch the files in _src/_ and build the library on change. Karma will watch the final build of the library, _dist/validator.js_, and run the tests on change.
+
+If someone knows how to make this into a combined task, please send a pull request!
 
 ### Build
 

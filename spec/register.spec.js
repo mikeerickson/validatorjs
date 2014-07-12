@@ -1,8 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
 describe('register a custom validation rule', function() {
 	it('should have a telephone method on obj.validate.prototype', function() {
 		Validator.register('telephone', function(val) {

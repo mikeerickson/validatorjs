@@ -1,8 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
 describe('Validator.make', function() {
 	it('should have a static make method that news up Validator', function() {
 		var data = {

@@ -1,8 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
 describe('Error messages', function() {
 	var validator;
 
@@ -143,5 +138,30 @@ describe('Error messages', function() {
 
 		var validator = new Validator({ cell: '4213-454-9988' }, { cell: 'telephone' });
 		expect(validator.errors.first('cell')).toEqual('The cell phone number is not in the format XXX-XXX-XXXX.');
+	});
+
+	describe('ValidatorErrors.prototype.all()', function() {
+		var validation;
+
+		beforeEach(function() {
+			validation = new Validator({
+				name: 'd',
+				email: '',
+				age: 28
+			}, {
+				name: 'required|min:2',
+				email: 'required|email',
+				age: 'min:18'
+			});
+		});
+
+		it('should return an array of all email error messages', function() {
+			var expected = JSON.stringify({
+				name: ['The name must be at least 2 characters.'], 
+				email: ['The email field is required.']
+			});
+
+			expect(JSON.stringify(validation.errors.all())).toEqual(expected);
+		});
 	});
 });

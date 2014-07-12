@@ -1,8 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
 describe('accepted validation rule', function() {
 	it('should pass if the value is yes', function() {
 		var validator = new Validator({ terms: 'yes' }, { terms: 'accepted' });

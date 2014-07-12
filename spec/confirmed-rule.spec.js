@@ -1,8 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
 describe('confirmed validation rule', function() {
 	it('should fail without a matching confirmation field for the field under validation', function() {
 		var validator = new Validator({ password: 'abc' }, { password: 'confirmed' });

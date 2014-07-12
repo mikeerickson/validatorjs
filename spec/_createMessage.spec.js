@@ -1,8 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
 describe('_createMessage', function() {
 	it('should create a message from the template given only the attribute name', function() {
 		var msg = Validator.prototype._createMessage('The :attribute field is required.', { attribute: 'email' });

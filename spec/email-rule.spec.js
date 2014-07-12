@@ -1,10 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
-// only checks numeric, string, and undefined
-
 describe('email validation rule', function() {
 	it('should pass with the email address: johndoe@gmail.com', function() {
 		var validator = new Validator({ email: 'johndoe@gmail.com' }, { email: 'email' });

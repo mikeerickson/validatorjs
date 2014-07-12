@@ -1,10 +1,3 @@
-// for jasmine-node support
-if (typeof process !== 'undefined' && process.title && process.title === 'node') { // detect node environment
-	var Validator = require('./../dist/validator');
-}
-
-// only checks numeric, string, and undefined
-
 describe('alpha_num validation rule', function() {
 	var validator;
 	
