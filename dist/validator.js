@@ -1,4 +1,4 @@
-/*! validatorjs - v1.1.0 - https://github.com/skaterdav85/validatorjs - 2014-07-11 */
+/*! validatorjs - v1.1.0 - https://github.com/skaterdav85/validatorjs - 2014-07-12 */
 (function() {
 
 var messages = {

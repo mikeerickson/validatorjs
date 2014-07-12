@@ -34,8 +34,15 @@ module.exports = function(grunt) {
         footer: "\n\n})();"    
       },
       dist: {
-        src: ['src/lang/'+language+'.js', 'src/validator.js'],
-        dest: 'dist/'+filename+'.js',
+        src: [
+          'src/lang/' + language + '.js', 
+          'src/shims.js',
+          'src/extend.js',
+          'src/utils.js',
+          'src/validatorerrors.js',
+          'src/validator.js'
+        ],
+        dest: 'dist/' + filename + '.js',
       }
     },
     jshint: {
