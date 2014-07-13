@@ -218,6 +218,10 @@ returns an array of error messages for an attribute, or an empty array if there 
 
 returns an object containing all error messages for all failing attributes
 
+#### .has(attribute)
+
+returns true if error messages exist for an attribute, false otherwise
+
 #### .errorCount
 
 the number of validation errors

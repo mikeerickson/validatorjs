@@ -1,4 +1,4 @@
-/*! validatorjs - v1.1.0 - https://github.com/skaterdav85/validatorjs - 2014-07-12 */
+/*! validatorjs - v1.2.0 - https://github.com/skaterdav85/validatorjs - 2014-07-12 */
 (function() {
 
 var messages = {
@@ -124,6 +124,19 @@ ValidatorErrors.prototype = {
 	 */
 	all: function() {
 		return this;
+	},
+
+	/**
+	 * checks if there are error messages for an attribute
+	 * @param  {String}  attribute A key in the data object being validated
+	 * @return {Boolean}           True if there are error messages. Otherwise false
+	 */
+	has: function(attribute) {
+		if (this[attribute] && this[attribute].length > 0) {
+			return true;
+		}
+
+		return false;
 	}
 };
 

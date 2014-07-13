@@ -1,10 +1,17 @@
-### Current
+### 1.2.0
+
+#### API additions
 
 * Adds Validator.make() as an alias to new Validator()
+* Adds .all() method on validation errors object
+* Adds .has() method on validation errors object
+
+#### Tooling changes
+
 * Broke up library into smaller files that get combined during build
 * Replaces jasmine-node with Karma and Grunt watch for testing
-* Validator errors object has an all() method to get all error messages
 * Adds Istanbul for test coverage reporting
+
 
 ### 1.1.0
 
