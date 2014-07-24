@@ -21,6 +21,12 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 <script src="dist/validator.min.js"></script>
 ```
 
+You can also install it using bower.
+
+```
+bower install validatorjs
+```
+
 ### Node.js Setup
 
 ```
