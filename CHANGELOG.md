@@ -1,3 +1,7 @@
+### Current
+
+* Updates bower.json file
+
 ### 1.2.0
 
 #### API additions
