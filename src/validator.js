@@ -319,6 +319,14 @@ Validator.prototype = {
 			} else {
 				return false;
 			}
+		},
+
+		digits: function(val, req) {
+			if (this.validate.numeric(val) && String(val).length === parseInt(req)) {
+				return true;
+			}
+
+			return false;
 		}
 	}
 };
@@ -332,9 +340,3 @@ Validator.register = function(rule, fn, errMsg) {
 Validator.make = function(input, rules, customMessages) {
 	return new Validator(input, rules, customMessages);
 };
-
-if (typeof module !== 'undefined' && typeof require !== 'undefined') {
-	module.exports = Validator;
-} else {
-	window.Validator = Validator;
-}

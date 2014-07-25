@@ -40,7 +40,8 @@ module.exports = function(grunt) {
           'src/extend.js',
           'src/utils.js',
           'src/validatorerrors.js',
-          'src/validator.js'
+          'src/validator.js',
+          'src/environment.js'
         ],
         dest: 'dist/' + filename + '.js',
       }

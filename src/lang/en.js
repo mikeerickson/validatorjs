@@ -6,6 +6,7 @@ var messages = {
 	confirmed: 'The :attribute confirmation does not match.',
 	email: 'The :attribute format is invalid.',
 	def: 'The :attribute attribute has errors.',
+	digits: 'The :attribute must be :digits digits.',
 	different: 'The :attribute and :different must be different.',
 	'in': 'The selected :attribute is invalid.',
 	integer: 'The :attribute must be an integer.',

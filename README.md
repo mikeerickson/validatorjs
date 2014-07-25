@@ -14,6 +14,7 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 	* Development version: 11kb with lots of spacing and comments
 	* Production version: 1.7kb gzipped
 5. Supports multiple languages
+6. AMD/Require.js support
 
 ### Browser Setup
 
@@ -121,6 +122,10 @@ The field under validation must be entirely alpha-numeric characters.
 #### confirmed
 
 The field under validation must have a matching field of foo_confirmation. For example, if the field under validation is password, a matching password_confirmation field must be present in the input.
+
+#### digits:value
+
+The field under validation must be numeric and must have an exact length of value.
 
 #### different:attribute
 

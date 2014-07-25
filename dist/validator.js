@@ -1,4 +1,4 @@
-/*! validatorjs - v1.2.0 - https://github.com/skaterdav85/validatorjs - 2014-07-12 */
+/*! validatorjs - v1.2.0 - https://github.com/skaterdav85/validatorjs - 2014-07-24 */
 (function() {
 
 var messages = {
@@ -9,6 +9,7 @@ var messages = {
 	confirmed: 'The :attribute confirmation does not match.',
 	email: 'The :attribute format is invalid.',
 	def: 'The :attribute attribute has errors.',
+	digits: 'The :attribute must be :digits digits.',
 	different: 'The :attribute and :different must be different.',
 	'in': 'The selected :attribute is invalid.',
 	integer: 'The :attribute must be an integer.',
@@ -461,6 +462,14 @@ Validator.prototype = {
 			} else {
 				return false;
 			}
+		},
+
+		digits: function(val, req) {
+			if (this.validate.numeric(val) && String(val).length === parseInt(req)) {
+				return true;
+			}
+
+			return false;
 		}
 	}
 };
@@ -475,10 +484,17 @@ Validator.make = function(input, rules, customMessages) {
 	return new Validator(input, rules, customMessages);
 };
 
-if (typeof module !== 'undefined' && typeof require !== 'undefined') {
+// Node environment
+if (typeof module !== 'undefined' && module.exports) {
 	module.exports = Validator;
-} else {
-	window.Validator = Validator;
+} else { // browser environment
+	if (typeof define === 'function' && define.amd) {
+		define('Validator', [], function() {
+			return Validator;
+		});
+	} else {
+		window.Validator = Validator;
+	}
 }
 
 })();

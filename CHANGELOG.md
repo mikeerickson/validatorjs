@@ -1,5 +1,8 @@
 ### Current
 
+* digits:value validation rule and custom error message
+* karma-growl-notifications-reporter. Install terminal-notifier if you dont have growl
+* Support for AMD/Require.js
 * Updates bower.json file
 
 ### 1.2.0
