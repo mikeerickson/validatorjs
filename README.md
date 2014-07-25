@@ -148,18 +148,11 @@ The field under validation must have an integer value.
 
 Validate that an attribute is no greater than a given size
 
-```
-cost: 'max:100'
-```
 _Note: Maximum checks are inclusive._
 
 #### min:value
 
 Validate that an attribute is at least a given size.
-
-```
-payment: 'min:10'
-```
 
 _Note: Minimum checks are inclusive._
 
@@ -184,10 +177,6 @@ The given field must match the field under validation.
 
 Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
 
-
-```
-duration: 'size:2'
-```
 
 #### url
 
