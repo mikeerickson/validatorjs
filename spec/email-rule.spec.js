@@ -29,4 +29,15 @@ describe('email validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
 	});
+
+	it('should pass with first.last@example.com', function() {
+		var validator = new Validator({ 
+			email: 'first.last@example.com'
+		}, {
+			email: 'email'
+		});
+
+		expect(validator.passes()).toBe(true);
+		expect(validator.fails()).toBe(false);
+	});
 });

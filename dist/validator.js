@@ -1,4 +1,4 @@
-/*! validatorjs - v1.2.0 - https://github.com/skaterdav85/validatorjs - 2014-07-24 */
+/*! validatorjs - v1.2.1 - https://github.com/skaterdav85/validatorjs - 2014-09-05 */
 (function() {
 
 var messages = {
@@ -330,8 +330,13 @@ Validator.prototype = {
 		},
 
 		email: function(val) {
-			if (val === undefined || val === '') { return true; }
-			return (/\w+@\w{2,}\.\w{2,}/).test(val);
+			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+			if (val === undefined || val === '') { 
+				return true; 
+			}
+
+			return re.test(val);
 		},
 
 		numeric: function(val) {
