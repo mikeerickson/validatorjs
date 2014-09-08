@@ -5,6 +5,10 @@
 * Support for AMD/Require.js
 * Updates bower.json file
 
+### 1.2.1
+
+* email validation rule now supports emails with a dot before the @ symbol, like john.doe@gmail.com
+
 ### 1.2.0
 
 #### API additions
