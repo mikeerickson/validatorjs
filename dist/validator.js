@@ -174,30 +174,44 @@ Validator.prototype = {
 
 	check: function() {
 		var self = this;
+		this._check(this.rules, this.input)
+	},
+	_check: function (rules, inputs, parent) {
+		var self = this;
+		this._each(rules, function(attributeToValidate) {
+			var rule = rules[attributeToValidate];
+			try {
+				var inputValue = inputs[attributeToValidate]; // if it doesnt exist in input, it will be undefined
+			} catch (e) {
+				var inputValue =  undefined;
+ 			}
+			if(typeof rule !== 'string'){
+				self._check(rule, inputValue, attributeToValidate);
+			} else {
+				var rulesArray = rule.split('|');
 
-		this._each(this.rules, function(attributeToValidate) {
-			var rulesArray = this.rules[attributeToValidate].split('|');
-			var inputValue = this.input[attributeToValidate]; // if it doesnt exist in input, it will be undefined
+				rulesArray.forEach(function(ruleString) {
+					var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
+					var rule = ruleExtraction.rule;
+					var ruleValue = ruleExtraction.ruleValue;
+					var passes, dataForMessageTemplate, msgTmpl, msg;
 
-			rulesArray.forEach(function(ruleString) {
-				var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
-				var rule = ruleExtraction.rule;
-				var ruleValue = ruleExtraction.ruleValue;
-				var passes, dataForMessageTemplate, msgTmpl, msg;
+					passes = self.validate[rule].call(self, inputValue, ruleValue, attributeToValidate);
 
-				passes = self.validate[rule].call(self, inputValue, ruleValue, attributeToValidate);
+					if (!passes) {
+						if ( !self.errors.hasOwnProperty(attributeToValidate) ) {
+							self.errors[attributeToValidate] = [];
+						}
+						if(parent)
+							attributeToValidate = parent + '.' + attributeToValidate;
 
-				if (!passes) {
-					if ( !self.errors.hasOwnProperty(attributeToValidate) ) {
-						self.errors[attributeToValidate] = [];
+						dataForMessageTemplate = self._createErrorMessageTemplateData(attributeToValidate, rule, ruleValue);
+						msgTmpl = self._selectMessageTemplate(rule, inputValue, attributeToValidate);
+						msg = self._createMessage(msgTmpl, dataForMessageTemplate);
+						self._addErrorMessage(attributeToValidate, msg);
 					}
-
-					dataForMessageTemplate = self._createErrorMessageTemplateData(attributeToValidate, rule, ruleValue);
-					msgTmpl = self._selectMessageTemplate(rule, inputValue, attributeToValidate);
-					msg = self._createMessage(msgTmpl, dataForMessageTemplate);
-					self._addErrorMessage(attributeToValidate, msg);
-				}
-			});
+				});
+			}
 		}, this); // end of _each()
 	},
 
@@ -228,7 +242,16 @@ Validator.prototype = {
 	},
 
 	_addErrorMessage: function(key, msg) {
-		this.errors[key].push(msg);
+		var keys = key.split('.');
+		var error = this.errors;
+		keys.forEach(function (key) {
+			if (!error)
+				error = [];
+			if (!error[key])
+				error[key] = [];
+			error = error[key];
+		})
+		error.push(msg);
 		this.errorCount++;
 	},
 
