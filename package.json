@@ -40,5 +40,8 @@
   "main": "./dist/validator.js",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
+  },
+  "dependencies": {
+    "underscore": "^1.7.0"
   }
 }

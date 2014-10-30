@@ -178,41 +178,55 @@ Validator.prototype = {
 	},
 	_check: function (rules, inputs, parent) {
 		var self = this;
-		this._each(rules, function(attributeToValidate) {
-			var rule = rules[attributeToValidate];
-			try {
-				var inputValue = inputs[attributeToValidate]; // if it doesnt exist in input, it will be undefined
-			} catch (e) {
-				var inputValue =  undefined;
- 			}
-			if(typeof rule !== 'string'){
-				self._check(rule, inputValue, attributeToValidate);
-			} else {
-				var rulesArray = rule.split('|');
+		if(inputs instanceof Array) {
+			inputs.forEach(function (input) {
+				self._check(rules, input, parent);
+			})
+		} else {
+			this._each(rules, function(attributeToValidate) {
+				var rule = rules[attributeToValidate];
+				try {
+					var inputValue = inputs[attributeToValidate]; // if it doesnt exist in input, it will be undefined
+				} catch (e) {
+					var inputValue =  undefined;
+	 			}
+				if(typeof rule !== 'string'){
+					if(parent)
+						attributeToValidate = parent + '.' + attributeToValidate;
+					self._check(rule, inputValue, attributeToValidate);
+				} else {
+					var rulesArray = rule.split('|');
 
-				rulesArray.forEach(function(ruleString) {
-					var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
-					var rule = ruleExtraction.rule;
-					var ruleValue = ruleExtraction.ruleValue;
-					var passes, dataForMessageTemplate, msgTmpl, msg;
+					rulesArray.forEach(function(ruleString) {
+						var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
+						var rule = ruleExtraction.rule;
+						var ruleValue = ruleExtraction.ruleValue;
+						var passes, dataForMessageTemplate, msgTmpl, msg;
 
-					passes = self.validate[rule].call(self, inputValue, ruleValue, attributeToValidate);
+						passes = self.validate[rule].call(self, inputValue, ruleValue, attributeToValidate);
 
-					if (!passes) {
-						if ( !self.errors.hasOwnProperty(attributeToValidate) ) {
-							self.errors[attributeToValidate] = [];
+						if (!passes) {
+							if (parent) {
+								attributeToValidate = parent + '.' + attributeToValidate;
+								var parents = attributeToValidate.split('.');
+								var obj = self.errors;
+								parents.forEach(function (prop) {
+									if ( !obj.hasOwnProperty(prop) ) {
+										obj[prop] = {};
+										obj = obj[prop];
+									}
+								})
+							}
+
+							dataForMessageTemplate = self._createErrorMessageTemplateData(attributeToValidate, rule, ruleValue);
+							msgTmpl = self._selectMessageTemplate(rule, inputValue, attributeToValidate);
+							msg = self._createMessage(msgTmpl, dataForMessageTemplate);
+							self._addErrorMessage(attributeToValidate, msg);
 						}
-						if(parent)
-							attributeToValidate = parent + '.' + attributeToValidate;
-
-						dataForMessageTemplate = self._createErrorMessageTemplateData(attributeToValidate, rule, ruleValue);
-						msgTmpl = self._selectMessageTemplate(rule, inputValue, attributeToValidate);
-						msg = self._createMessage(msgTmpl, dataForMessageTemplate);
-						self._addErrorMessage(attributeToValidate, msg);
-					}
-				});
-			}
-		}, this); // end of _each()
+					});
+				}
+			}, this); // end of _each()
+		}
 	},
 
 	_each: function(obj, cb, context) {
@@ -243,15 +257,16 @@ Validator.prototype = {
 
 	_addErrorMessage: function(key, msg) {
 		var keys = key.split('.');
+		var lastKey = keys.pop();
 		var error = this.errors;
 		keys.forEach(function (key) {
 			if (!error)
-				error = [];
+				error = {};
 			if (!error[key])
-				error[key] = [];
+				error[key] = {};
 			error = error[key];
-		})
-		error.push(msg);
+		});
+		error[lastKey] = msg;
 		this.errorCount++;
 	},
 
@@ -523,6 +538,13 @@ if (typeof module !== 'undefined' && module.exports) {
 	} else {
 		window.Validator = Validator;
 	}
+}
+function compact (obj) {
+	for(var prop in obj) {
+		if (typeof obj[prop] === 'object')
+			obj[prop] = compat(obj[prop]);		
+	}
+	return obj;
 }
 
 })();
