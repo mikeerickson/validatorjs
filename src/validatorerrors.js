@@ -10,7 +10,7 @@ ValidatorErrors.prototype = {
 	 */
 	get: function(attribute) {
 		if (this[attribute]) {
-			return this[attribute];	
+			return this[attribute];
 		}
 
 		return [];
@@ -23,9 +23,9 @@ ValidatorErrors.prototype = {
 	 */
 	first: function(attribute) {
 		if (this[attribute]) {
-			return this[attribute][0];	
+			return this[attribute][0];
 		}
-		
+
 		return false;
 	},
 

@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   'use strict';
 
   var filename = 'validator';
-  var language= 'en';
+  var language = 'en';
 
   if (grunt.option('lang') !== undefined && grunt.option('lang') !== 'en') {
     var langFileExists = fs.existsSync('src/lang/' + grunt.option('lang') + '.js');
@@ -31,11 +31,11 @@ module.exports = function(grunt) {
         stripBanners: true,
         banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - " +
           "<%= grunt.template.today('yyyy-mm-dd') %> */\n(function() {\n\n",
-        footer: "\n\n})();"    
+        footer: "\n\n})();"
       },
       dist: {
         src: [
-          'src/lang/' + language + '.js', 
+          'src/lang/' + language + '.js',
           'src/shims.js',
           'src/extend.js',
           'src/utils.js',

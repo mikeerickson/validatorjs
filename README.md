@@ -190,7 +190,7 @@ Validator.register(custom_rule_name, callbackFn, errorMessage);
 
 __custom_rule_name__ {String}
 
-__callbackFn__ {Function}. Returns a boolean to represent a successful or failed validation. 
+__callbackFn__ {Function}. Returns a boolean to represent a successful or failed validation.
 
 __errorMessage__ {String} - An optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
@@ -202,7 +202,7 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 
 ### Error Messages
 
-This contructor will automatically generate error messages for validation rules that failed. 
+This contructor will automatically generate error messages for validation rules that failed.
 
 If there are errors, the Validator instance will have its __errors__ property object populated with the error messages for all failing attributes. The methods and properties on the __errors__ property object are:
 
@@ -234,7 +234,7 @@ validator.errors.get('email'); // returns an array of error messages for the ema
 
 ### Custom Error Messages
 
-If you need a specific error message and you don't want to override the default one, you can pass an override as the third argument to the Validator object, just like with [Laravel](http://laravel.com/docs/validation#custom-error-messages). 
+If you need a specific error message and you don't want to override the default one, you can pass an override as the third argument to the Validator object, just like with [Laravel](http://laravel.com/docs/validation#custom-error-messages).
 
 ```js
 var input = {
@@ -275,7 +275,7 @@ You can even provide error messages on a per attribute basis! Just set the messa
 var input = { name: '', email: '' };
 var rules = { name : 'required', email : 'required' };
 
-var validation = new Validator(input, rules, { 
+var validation = new Validator(input, rules, {
 	"required.email": "Without an :attribute we can't reach you!"
 });
 
@@ -289,7 +289,7 @@ You can build the project with error messages in other languages. Simply create 
 
 ```
 # Defaults to en.js
-grunt --lang=en 
+grunt --lang=en
 ```
 
 The English build will be dist/validator.js. Other builds will be dist/validator-**.js.
