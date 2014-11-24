@@ -1,4 +1,4 @@
-/*! validatorjs - v1.2.1 - https://github.com/skaterdav85/validatorjs - 2014-09-05 */
+/*! validatorjs - v1.2.1 - https://github.com/skaterdav85/validatorjs - 2014-11-23 */
 (function() {
 
 var messages = {
@@ -100,7 +100,7 @@ ValidatorErrors.prototype = {
 	 */
 	get: function(attribute) {
 		if (this[attribute]) {
-			return this[attribute];	
+			return this[attribute];
 		}
 
 		return [];
@@ -113,9 +113,9 @@ ValidatorErrors.prototype = {
 	 */
 	first: function(attribute) {
 		if (this[attribute]) {
-			return this[attribute][0];	
+			return this[attribute][0];
 		}
-		
+
 		return false;
 	},
 
@@ -213,8 +213,7 @@ Validator.prototype = {
 	 * @return {object} object containing the rule and ruleValue
 	 */
 	_extractRuleAndRuleValue: function(ruleString) {
-		var obj = {};
-		var ruleArray;
+		var obj = {}, ruleArray;
 
 		obj.rule = ruleString;
 
@@ -235,7 +234,7 @@ Validator.prototype = {
 	_createErrorMessageTemplateData: function(key, rule, ruleVal) {
 		var dataForMessageTemplate = { attribute: key };
 		dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
-		
+
 		return dataForMessageTemplate;
 	},
 
@@ -296,10 +295,10 @@ Validator.prototype = {
 				if (typeof val === 'number') {
 					return val === req ? true : false;
 				}
-				
+
 				return val.length === req ? true : false;
 			}
-			
+
 			return true;
 		},
 
@@ -332,8 +331,8 @@ Validator.prototype = {
 		email: function(val) {
 			var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-			if (val === undefined || val === '') { 
-				return true; 
+			if (val === undefined || val === '') {
+				return true;
 			}
 
 			return re.test(val);
@@ -345,7 +344,7 @@ Validator.prototype = {
 			if (val === undefined || val === '') { return true; }
 
 			num = Number(val); // tries to convert value to a number. useful if value is coming from form element
-				
+
 			if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
 				return true;
 			} else {
@@ -356,12 +355,12 @@ Validator.prototype = {
 		url: function(url) {
 			if (url === undefined || url === '') { return true; }
 
-			return (/^https?:\/\/\S+/).test(url); 
+			return (/^https?:\/\/\S+/).test(url);
 		},
 
 		alpha: function(val) {
 			if (val === undefined || val === '') { return true; }
-		
+
 			return (/^[a-zA-Z]+$/).test(val);
 		},
 
@@ -373,7 +372,7 @@ Validator.prototype = {
 		alpha_num: function(val) {
 			if (val === undefined || val === '') { return true; }
 
-			return (/^[a-zA-Z0-9]+$/).test(val);				
+			return (/^[a-zA-Z0-9]+$/).test(val);
 		},
 
 		same: function(val, req) {
@@ -383,7 +382,7 @@ Validator.prototype = {
 			if (val1 === val2) {
 				return true;
 			}
-			
+
 			return false;
 		},
 
@@ -417,7 +416,7 @@ Validator.prototype = {
 
 				return returnVal;
 			}
-			
+
 			return true;
 		},
 
@@ -447,7 +446,6 @@ Validator.prototype = {
 		},
 
 		confirmed: function(val, req, key) {
-			// console.log('confirmed', val, req, key);
 			var confirmedKey = key + '_confirmation';
 
 			if (this.input[confirmedKey] === val) {
