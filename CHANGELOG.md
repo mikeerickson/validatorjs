@@ -1,3 +1,8 @@
+### 1.3.0
+
+* Adds regex pattern rules
+* Adds alternative array syntax (instead of pipe) for declaring validation rules
+
 ### 1.2.1
 
 * email validation rule now supports emails with a dot before the @ symbol, like john.doe@gmail.com

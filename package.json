@@ -1,9 +1,9 @@
 {
   "name": "validatorjs",
   "buildname": "validator",
-  "title": "Validator constructor function for easy data validation on both the client and server side.",
-  "description": "A constructor function for data validation on both the server and client, inspired by the Laravel PHP framework's Validator class.",
-  "version": "1.2.1",
+  "title": "validatorjs",
+  "description": "Validation library based on Laravel's Validator class",
+  "version": "1.3.0",
   "homepage": "https://github.com/skaterdav85/validatorjs",
   "author": "David <dtang859@gmail.com>",
   "license": "MIT",
