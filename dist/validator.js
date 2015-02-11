@@ -1,4 +1,4 @@
-/*! validatorjs - v1.2.1 - https://github.com/skaterdav85/validatorjs - 2014-11-23 */
+/*! validatorjs - v1.2.1 - https://github.com/skaterdav85/validatorjs - 2015-02-11 */
 (function() {
 
 var messages = {
@@ -29,7 +29,8 @@ var messages = {
 		numeric: 'The :attribute must be :size.',
 		string: 'The :attribute must be :size characters.'
 	},
-	url: 'The :attribute format is invalid.'
+	url: 'The :attribute format is invalid.',
+	regex: 'The :attribute format is invalid'
 };
 
 // Shim taken from MDN site
@@ -176,7 +177,12 @@ Validator.prototype = {
 		var self = this;
 
 		this._each(this.rules, function(attributeToValidate) {
-			var rulesArray = this.rules[attributeToValidate].split('|');
+
+			var rulesArray = this.rules[attributeToValidate];
+			if( typeof rulesArray === "string" ) {
+        rulesArray = this.rules[attributeToValidate].split('|');
+      }
+
 			var inputValue = this.input[attributeToValidate]; // if it doesnt exist in input, it will be undefined
 
 			rulesArray.forEach(function(ruleString) {
@@ -220,7 +226,7 @@ Validator.prototype = {
 		if (ruleString.indexOf(':') >= 0) {
 			ruleArray = ruleString.split(':');
 			obj.rule = ruleArray[0];
-			obj.ruleValue = ruleArray[1];
+			obj.ruleValue = ruleArray.slice(1).join(":");
 		}
 
 		return obj;
@@ -473,7 +479,16 @@ Validator.prototype = {
 			}
 
 			return false;
-		}
+		},
+
+    regex: function(val, req) {
+    	var mod = /[g|i|m]{1,3}$/;
+			var flag = req.match(mod);
+			flag = flag ? flag[0] : "i";
+			req = req.replace(mod,"").slice(1,-1);
+			req = new RegExp(req,flag);
+      return !!val.match(req);
+    }
 	}
 };
 

@@ -26,5 +26,6 @@ var messages = {
 		numeric: 'The :attribute must be :size.',
 		string: 'The :attribute must be :size characters.'
 	},
-	url: 'The :attribute format is invalid.'
+	url: 'The :attribute format is invalid.',
+	regex: 'The :attribute format is invalid'
 };

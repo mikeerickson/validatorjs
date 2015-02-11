@@ -182,6 +182,31 @@ Validate that an attribute is a given length, or, if an attribute is numeric, is
 
 Validate that an attribute has a valid URL format
 
+#### regex:pattern
+
+The field under validation must match the given regular expression.
+
+**Note**: When using the ``regex`` pattern, it may be necessary to specify rules in an array instead of using pipe delimiters, especially if the regular expression contains a pipe character.
+For each backward slash that you used in your regex pattern, you must escape each one with another backward slash.
+
+#### Example 3 - Regex validation
+
+```js
+var validation = new Validator({
+	name: 'Doe',
+	salary: '10,000.00',
+	yearOfBirth: '1980'
+}, {
+	name: 'required|size:3',
+	salary: ['required', 'regex:/^(?!0\\.00)\\d{1,3}(,\\d{3})*(\\.\\d\\d)?$/'],
+	yearOfBirth: ['required', 'regex:/^(19|20)[\\d]{2,2}$/']
+});
+
+validation.fails(); // false
+validation.passes(); // true
+
+```
+
 ### Registering Custom Validation Rules
 
 ```js
