@@ -1,7 +1,7 @@
 var Validator = function(input, rules, customMessages) {
 	this.input = input;
 	this.rules = rules;
-	this.messages = mergeMessages(messages, customMessages || {});
+	this.messages = extend({}, messages, customMessages || {});
 
 	this.errors = new ValidatorErrors();
 

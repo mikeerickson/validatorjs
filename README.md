@@ -11,12 +11,12 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 2. Works in the browser and Node.js
 3. Readable and declarative validation rules
 4. Size
-	* Development version: 3.5kb gzipped with lots of spacing and comments
-	* Production version: 1.94kb gzipped
-5. Supports multiple languages
-6. AMD/Require.js support
+	* Development version: 3.62 kB gzipped with lots of spacing and comments
+	* Production version: 2.02 kB gzipped and minified
+5. Supports other languages
+6. AMD/Require.js and CommonJS/Browserify support
 
-### Browser Setup
+### Browser
 
 ```html
 <script src="dist/validator.min.js"></script>
@@ -28,7 +28,7 @@ You can also install it using Bower.
 bower install validatorjs
 ```
 
-### Node.js Setup
+### Node.js / Browserify Setup
 
 ```
 npm install validatorjs

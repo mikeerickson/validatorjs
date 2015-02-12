@@ -85,10 +85,6 @@ function extend() {
 	return target;
 }
 
-function mergeMessages(basic, custom) {
-	return extend({}, basic, custom);
-}
-
 var ValidatorErrors = function() {};
 
 ValidatorErrors.prototype = {
@@ -145,7 +141,7 @@ ValidatorErrors.prototype = {
 var Validator = function(input, rules, customMessages) {
 	this.input = input;
 	this.rules = rules;
-	this.messages = mergeMessages(messages, customMessages || {});
+	this.messages = extend({}, messages, customMessages || {});
 
 	this.errors = new ValidatorErrors();
 
