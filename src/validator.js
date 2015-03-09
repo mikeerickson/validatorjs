@@ -94,7 +94,7 @@ Validator.prototype = {
 	},
 
 	_createErrorMessageTemplateData: function(key, rule, ruleVal) {
-		var dataForMessageTemplate = { attribute: key };
+		var dataForMessageTemplate = { attribute: this.messages.attributes[key] || key };
 		dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
 
 		return dataForMessageTemplate;
