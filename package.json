@@ -3,7 +3,7 @@
   "buildname": "validator",
   "title": "validatorjs",
   "description": "Validation library based on Laravel's Validator class",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "homepage": "https://github.com/skaterdav85/validatorjs",
   "author": "David <dtang859@gmail.com>",
   "license": "MIT",
