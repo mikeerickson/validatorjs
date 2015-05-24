@@ -1,4 +1,4 @@
-/*! validatorjs - v1.3.2 - https://github.com/skaterdav85/validatorjs - 2015-02-11 */
+/*! validatorjs - v1.3.3 - https://github.com/skaterdav85/validatorjs - 2015-04-13 */
 (function() {
 
 var messages = {
@@ -30,7 +30,8 @@ var messages = {
 		string: 'The :attribute must be :size characters.'
 	},
 	url: 'The :attribute format is invalid.',
-	regex: 'The :attribute format is invalid'
+	regex: 'The :attribute format is invalid',
+	attributes: {}
 };
 
 // Shim taken from MDN site
@@ -234,7 +235,7 @@ Validator.prototype = {
 	},
 
 	_createErrorMessageTemplateData: function(key, rule, ruleVal) {
-		var dataForMessageTemplate = { attribute: key };
+		var dataForMessageTemplate = { attribute: this.messages.attributes[key] || key };
 		dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
 
 		return dataForMessageTemplate;
@@ -483,7 +484,7 @@ Validator.prototype = {
 			flag = flag ? flag[0] : "i";
 			req = req.replace(mod,"").slice(1,-1);
 			req = new RegExp(req,flag);
-      return !!val.match(req);
+      return !!req.test(val);
     }
 	}
 };
@@ -497,6 +498,7 @@ Validator.register = function(rule, fn, errMsg) {
 Validator.make = function(input, rules, customMessages) {
 	return new Validator(input, rules, customMessages);
 };
+
 
 // Node environment
 if (typeof module !== 'undefined' && module.exports) {

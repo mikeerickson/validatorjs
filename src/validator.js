@@ -343,7 +343,7 @@ Validator.prototype = {
 			flag = flag ? flag[0] : "i";
 			req = req.replace(mod,"").slice(1,-1);
 			req = new RegExp(req,flag);
-      return !!val.match(req);
+      return !!req.test(val);
     }
 	}
 };
