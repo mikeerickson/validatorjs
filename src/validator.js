@@ -1,8 +1,8 @@
 var Validator = function(input, rules, customMessages) {
+	var lang = Validator.prototype.lang;
 	this.input = input;
 	this.rules = rules;
-	this.messages = extend({}, messages, customMessages || {});
-
+	this.messages = new ValidatorMessages(lang, customMessages);
 	this.errors = new ValidatorErrors();
 
 	this.errorCount = 0;
@@ -12,36 +12,26 @@ var Validator = function(input, rules, customMessages) {
 Validator.prototype = {
 	constructor: Validator,
 
-	// replaces placeholders in tmpl with actual data
-	_createMessage: function(tmpl, data) {
-		var message, key;
-
-		if (typeof tmpl === 'string' && typeof data === 'object') {
-			message = tmpl;
-
-			for (key in data) {
-				if (data.hasOwnProperty(key)) {
-					message = message.replace(':' + key, data[key]);
-				}
-			}
-		}
-
-		return message;
-	},
+	lang: 'en',
 
 	check: function() {
 		var self = this;
+		var messages = this.messages;
 
 		this._each(this.rules, function(attributeToValidate) {
 
-			var rulesArray = this.rules[attributeToValidate];
+		var rulesArray = this.rules[attributeToValidate];
 			if( typeof rulesArray === "string" ) {
-        rulesArray = this.rules[attributeToValidate].split('|');
-      }
+				rulesArray = this.rules[attributeToValidate].split('|');
+			}
 
 			var inputValue = this.input[attributeToValidate]; // if it doesnt exist in input, it will be undefined
+			var ruleString;
 
-			rulesArray.forEach(function(ruleString) {
+			for (var i in rulesArray)
+			{
+				ruleString = rulesArray[i];
+
 				var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
 				var rule = ruleExtraction.rule;
 				var ruleValue = ruleExtraction.ruleValue;
@@ -54,12 +44,16 @@ Validator.prototype = {
 						self.errors[attributeToValidate] = [];
 					}
 
-					dataForMessageTemplate = self._createErrorMessageTemplateData(attributeToValidate, rule, ruleValue);
-					msgTmpl = self._selectMessageTemplate(rule, inputValue, attributeToValidate);
-					msg = self._createMessage(msgTmpl, dataForMessageTemplate);
+					msg = messages.render({
+						attribute: attributeToValidate,
+						value: inputValue,
+						rule: rule,
+						ruleValue: ruleValue
+					});
+
 					self._addErrorMessage(attributeToValidate, msg);
 				}
-			});
+			}
 		}, this); // end of _each()
 	},
 
@@ -91,40 +85,6 @@ Validator.prototype = {
 	_addErrorMessage: function(key, msg) {
 		this.errors[key].push(msg);
 		this.errorCount++;
-	},
-
-	_createErrorMessageTemplateData: function(key, rule, ruleVal) {
-		var dataForMessageTemplate = { attribute: this.messages.attributes[key] || key };
-		dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
-
-		return dataForMessageTemplate;
-	},
-
-	// selects the correct message template from the messages variable based on the rule and the value
-	_selectMessageTemplate: function(rule, val, key) {
-		var msgTmpl, messages = this.messages;
-
-		// if the custom error message template exists in messages variable
-		if (messages.hasOwnProperty(rule + '.' + key)) {
-			msgTmpl = messages[rule + '.' + key];
-		} else if (messages.hasOwnProperty(rule)) {
-			msgTmpl = messages[rule];
-
-			if (typeof msgTmpl === 'object') {
-				switch (typeof val) {
-					case 'number':
-						msgTmpl = msgTmpl['numeric'];
-						break;
-					case 'string':
-						msgTmpl = msgTmpl['string'];
-						break;
-				}
-			}
-		} else { // default error message
-			msgTmpl = messages.def;
-		}
-
-		return msgTmpl;
 	},
 
 	passes: function() {
@@ -337,21 +297,40 @@ Validator.prototype = {
 			return false;
 		},
 
-    regex: function(val, req) {
-    	var mod = /[g|i|m]{1,3}$/;
+		regex: function(val, req) {
+			var mod = /[g|i|m]{1,3}$/;
 			var flag = req.match(mod);
 			flag = flag ? flag[0] : "i";
 			req = req.replace(mod,"").slice(1,-1);
 			req = new RegExp(req,flag);
-      return !!val.match(req);
-    }
+			return !!val.match(req);
+		}
 	}
+};
+
+Validator.setMessages = function(lang, langMessages) {
+	messages[lang] = langMessages;
+	return this;
+};
+
+Validator.getMessages = function(lang) {
+	return messages[lang];
+};
+
+Validator.setLang = function(lang) {
+	this.prototype.lang = lang;
+	return this;
+};
+
+Validator.getLang = function() {
+	return this.prototype.lang;
 };
 
 // static methods
 Validator.register = function(rule, fn, errMsg) {
+	var lang = this.prototype.lang;
 	this.prototype.validate[rule] = fn;
-	messages[rule] = (typeof errMsg === 'string') ? errMsg : messages['def'];
+	messages[lang][rule] = (typeof errMsg === 'string') ? errMsg : messages[lang]['def'];
 };
 
 Validator.make = function(input, rules, customMessages) {
