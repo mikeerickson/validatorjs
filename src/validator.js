@@ -6,10 +6,12 @@ var Validator = function(input, rules, customMessages) {
 	this.errors = new ValidatorErrors();
 
 	this.errorCount = 0;
+	this.parsedRules = this._parseRules(this.rules);
 	this.check();
 };
 
 Validator.prototype = {
+
 	constructor: Validator,
 
 	// replaces placeholders in tmpl with actual data
@@ -30,67 +32,86 @@ Validator.prototype = {
 	},
 
 	check: function() {
-		var self = this;
 
-		this._each(this.rules, function(attributeToValidate) {
+		for (var attribute in this.parsedRules) {
+			var attributeRules = this.parsedRules[attribute];
+			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			var rulesArray = this.rules[attributeToValidate];
-			if( typeof rulesArray === "string" ) {
-        rulesArray = this.rules[attributeToValidate].split('|');
-      }
+			for (var i = 0, len = attributeRules.length, rule, passes; i < len; i++) {
+				rule = attributeRules[i];
+				passes = this.validate[rule.name].call(this, inputValue, rule.value, attribute);
 
-			var inputValue = this.input[attributeToValidate]; // if it doesnt exist in input, it will be undefined
-
-			rulesArray.forEach(function(ruleString) {
-				var ruleExtraction = self._extractRuleAndRuleValue(ruleString);
-				var rule = ruleExtraction.rule;
-				var ruleValue = ruleExtraction.ruleValue;
-				var passes, dataForMessageTemplate, msgTmpl, msg;
-
-				passes = self.validate[rule].call(self, inputValue, ruleValue, attributeToValidate);
-
-				if (!passes) {
-					if ( !self.errors.hasOwnProperty(attributeToValidate) ) {
-						self.errors[attributeToValidate] = [];
-					}
-
-					dataForMessageTemplate = self._createErrorMessageTemplateData(attributeToValidate, rule, ruleValue);
-					msgTmpl = self._selectMessageTemplate(rule, inputValue, attributeToValidate);
-					msg = self._createMessage(msgTmpl, dataForMessageTemplate);
-					self._addErrorMessage(attributeToValidate, msg);
+				if (!passes)
+				{
+					this._addFailure(attribute, rule, inputValue);
 				}
-			});
-		}, this); // end of _each()
-	},
-
-	_each: function(obj, cb, context) {
-		for (var key in obj) {
-			cb.call(context, key);
+			}
 		}
 	},
 
 	/**
-	 * Extract a rule and a rule value from a ruleString (i.e. min:3), rule = min, ruleValue = 3
+	 * Add failure and error message for given attribute, rule and value
+	 *
+	 * @param {string} attribute
+	 * @param {object} rule
+	 * @param {mixed} inputValue
+	 */
+	_addFailure: function(attribute, rule, inputValue) {
+		if ( !this.errors.hasOwnProperty(attribute) ) {
+			this.errors[attribute] = [];
+		}
+
+		var dataForMessageTemplate = this._createErrorMessageTemplateData(attribute, rule.name, rule.value);
+		var msgTmpl = this._selectMessageTemplate(rule.name, inputValue, attribute);
+		var msg = this._createMessage(msgTmpl, dataForMessageTemplate);
+		
+		this.errors[attribute].push(msg);
+		this.errorCount++;
+	},
+
+	/**
+	 * Parse rules, normalizing format into: { attribute: [{ name: 'age', value: 3 }] }
+	 *
+	 * @param  {object} rules
+	 * @return {object}
+	 */
+	_parseRules: function(rules) {
+		var parsedRules = {};
+		for (var attribute in rules) {
+			var rulesArray = rules[attribute];
+			var attributeRules = [];
+
+			if (typeof rulesArray === 'string') {
+				rulesArray = rulesArray.split('|');
+			}
+			
+			for (var i = 0, len = rulesArray.length, parsedRule; i < len; i++) {
+				attributeRules.push(this._extractRuleAndRuleValue(rulesArray[i]));
+			}
+
+			parsedRules[attribute] = attributeRules;
+		}
+		return parsedRules;
+	},
+
+	/**
+	 * Extract a rule and a value from a ruleString (i.e. min:3), rule = min, value = 3
+	 * 
 	 * @param  {string} ruleString min:3
-	 * @return {object} object containing the rule and ruleValue
+	 * @return {object} object containing the name of the rule and value
 	 */
 	_extractRuleAndRuleValue: function(ruleString) {
-		var obj = {}, ruleArray;
+		var rule = {}, ruleArray;
 
-		obj.rule = ruleString;
+		rule.name = ruleString;
 
 		if (ruleString.indexOf(':') >= 0) {
 			ruleArray = ruleString.split(':');
-			obj.rule = ruleArray[0];
-			obj.ruleValue = ruleArray.slice(1).join(":");
+			rule.name = ruleArray[0];
+			rule.value = ruleArray.slice(1).join(":");
 		}
 
-		return obj;
-	},
-
-	_addErrorMessage: function(key, msg) {
-		this.errors[key].push(msg);
-		this.errorCount++;
+		return rule;
 	},
 
 	_createErrorMessageTemplateData: function(key, rule, ruleVal) {
@@ -134,7 +155,7 @@ Validator.prototype = {
 	fails: function() {
 		return this.errorCount > 0 ? true : false;
 	}
-	
+
 };
 
 // static methods
