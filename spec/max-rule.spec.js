@@ -53,4 +53,15 @@ describe('max validation rule', function() {
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
 	});
+
+	it('should fail when given string-integer value', function() {
+		validator = new Validator({ val: '18' }, { val: 'integer|max:16' });
+		expect(validator.passes()).toBeFalsy();
+	});
+
+	it('should fail when given string-float value', function() {
+		validator = new Validator({ val: '17.56' }, { val: 'numeric|max:17.5' });
+		expect(validator.passes()).toBeFalsy();
+	});
+
 });

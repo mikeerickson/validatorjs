@@ -52,4 +52,14 @@ describe('min validation rule', function() {
 		expect(validator.fails()).toBeFalsy();
 		expect(validator.passes()).toBeTruthy();
 	});
+
+	it('should pass when given string-integer value', function() {
+		validator = new Validator({ val: '18' }, { val: 'integer|min:16' });
+		expect(validator.passes()).toBeTruthy();
+	});
+
+	it('should pass when given string-float value', function() {
+		validator = new Validator({ val: '17.56' }, { val: 'numeric|min:17.5' });
+		expect(validator.passes()).toBeTruthy();
+	});
 });

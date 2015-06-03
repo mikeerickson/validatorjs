@@ -13,15 +13,13 @@ Validator.prototype.validate = {
 
 	// compares the size of strings
 	// with numbers, compares the value
-	size: function(val, req) {
+	size: function(val, req, attribute) {
 		if (val) {
 			req = parseFloat(req);
 
-			if (typeof val === 'number') {
-				return val === req ? true : false;
-			}
+			var size = this._getSize(attribute, val);
 
-			return val.length === req ? true : false;
+			return size === req;
 		}
 
 		return true;
@@ -30,27 +28,23 @@ Validator.prototype.validate = {
 	/**
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
-	min: function(val, req) {
+	min: function(val, req, attribute) {
 		if (val === undefined || val === '') { return true; }
 
-		if (typeof val === 'number') {
-			return val >= req ? true : false;
-		} else {
-			return val.length >= req ? true : false;
-		}
+		var size = this._getSize(attribute, val);
+
+		return size >= req;
 	},
 
 	/**
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
-	max: function(val, req) {
+	max: function(val, req, attribute) {
 		if (val === undefined || val === '') { return true; }
 
-		if (typeof val === 'number') {
-			return val <= req ? true : false;
-		} else {
-			return val.length <= req ? true : false;
-		}
+		var size = this._getSize(attribute, val);
+
+		return size <= req;
 	},
 
 	email: function(val) {

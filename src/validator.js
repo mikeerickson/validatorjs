@@ -14,6 +14,8 @@ Validator.prototype = {
 
 	constructor: Validator,
 
+	numericRules: ['integer', 'numeric'],
+
 	// replaces placeholders in tmpl with actual data
 	_createMessage: function(tmpl, data) {
 		var message, key;
@@ -146,6 +148,40 @@ Validator.prototype = {
 		}
 
 		return msgTmpl;
+	},
+
+	/**
+	 * Determine if attribute has any of the given rules
+	 *
+	 * @param  {string}  attribute
+	 * @param  {array}   findRules
+	 * @return {boolean}
+	 */
+	_hasRule: function(attribute, findRules) {
+		var rules = this.parsedRules[attribute] || [];
+		for (var i = 0, len = rules.length; i < len; i++) {
+			if (findRules.indexOf(rules[i].name) > -1) return true;
+		}
+		return false;
+	},
+
+	/**
+	 * Get size of value
+	 *
+	 * @param  {string} attribute
+	 * @param  {mixed} value
+	 * @return {integer|float}
+	 */
+	_getSize: function(attribute, value) {
+		if (typeof value === 'number') {
+			return value;
+		}
+
+		if (this._hasRule(attribute, this.numericRules)) {
+			return parseFloat(value, 10);
+		}
+
+		return value.length;
 	},
 
 	passes: function() {
