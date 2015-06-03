@@ -41,6 +41,7 @@ module.exports = function(grunt) {
           'src/utils.js',
           'src/validatorerrors.js',
           'src/validator.js',
+          'src/rules.js',
           'src/environment.js'
         ],
         dest: 'dist/' + filename + '.js',
