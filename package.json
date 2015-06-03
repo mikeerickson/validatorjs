@@ -38,6 +38,6 @@
   "readmeFilename": "README.md",
   "main": "./dist/validator.js",
   "scripts": {
-    "test": "grunt && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
+    "test": "grunt test && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
   }
 }
