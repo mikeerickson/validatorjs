@@ -1,4 +1,4 @@
-var messages = {
+Validator.setMessages('en', {
 	accepted: 'The :attribute must be accepted.',
 	alpha: 'The :attribute field must contain only alphabetic characters.',
 	alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
@@ -29,4 +29,4 @@ var messages = {
 	url: 'The :attribute format is invalid.',
 	regex: 'The :attribute format is invalid',
 	attributes: {}
-};
+});
