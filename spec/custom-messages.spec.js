@@ -1,16 +1,6 @@
 describe('Validator custom messages', function() {
     var validator;
 
-    it('can be passed as third argument', function() {
-        validator = new Validator({ name: '' }, { name: 'required' }, { todo: 'Need to do something' });
-        expect(validator.messages.todo).toEqual('Need to do something');
-    });
-
-    it('override the default message in the messages property', function() {
-        validator = new Validator({ name: '' }, { name: 'required' }, { required: 'Name is missing.' });
-        expect(validator.messages.required).toEqual('Name is missing.');
-    });
-
     it('override the default message for the validator', function() {
         validator = new Validator({ name: '' }, { name: 'required' }, { required: 'Name is missing.' });
         expect(validator.fails()).toBe(true);
