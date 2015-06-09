@@ -2,6 +2,11 @@ describe('Validator constructor', function() {
 	var validator;
 
 	beforeEach(function() {
+		if (typeof require !== 'undefined') {
+			var Validator = require('../src/validator.js');
+		} else {
+			var Validator = window.Validator;
+		}
 		validator = new Validator({
 			name: 'David',
 			email: 'johndoe@gmail.com'
@@ -11,6 +16,12 @@ describe('Validator constructor', function() {
 		}, {
 			required: "You're missing :required"
 		});
+	});
+
+	it('should expose on window if browser', function() {
+		if (typeof window !== 'undefined') {
+			expect(window.Validator).toBeDefined();
+		}
 	});
 	
 	it('should have a rules property containing all the validation rules', function() {

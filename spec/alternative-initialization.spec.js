@@ -1,7 +1,12 @@
 describe('alternative initialization using an array instead pipe', function() {
-	var validator;
-
+	
 	beforeEach(function() {
+		if (typeof require !== 'undefined') {
+			var Validator = require('../src/validator.js');
+		} else {
+			var Validator = window.Validator;
+		}
+	
 		validator = new Validator({
 			name: 'David',
 			email: 'johndoe@gmail.com',

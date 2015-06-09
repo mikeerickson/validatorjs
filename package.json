@@ -18,18 +18,21 @@
     "validatorjs, validator.js, data validation, validator, validate, validation, data, laravel, laravel-validator-for-js"
   ],
   "devDependencies": {
+    "browserify": "^10.2.4",
     "grunt": "0.4.5",
+    "grunt-browserify": "^3.8.0",
+    "grunt-contrib-concat": "~0.4.0",
     "grunt-contrib-jshint": "0.10.0",
     "grunt-contrib-uglify": "0.5.0",
-    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-watch": "~0.6.1",
     "jasmine-node": "1.14.2",
     "karma": "~0.12.17",
-    "karma-jasmine": "~0.1.5",
-    "karma-coverage": "~0.2.4",
+    "karma-browserify": "^4.2.1",
     "karma-chrome-launcher": "~0.1.4",
-    "karma-phantomjs-launcher": "~0.1.4",
-    "grunt-contrib-watch": "~0.6.1",
-    "karma-growl-notifications-reporter": "0.0.2"
+    "karma-coverage": "~0.2.4",
+    "karma-growl-notifications-reporter": "0.0.2",
+    "karma-jasmine": "~0.1.5",
+    "karma-phantomjs-launcher": "~0.1.4"
   },
   "engines": {
     "node": ">= 0.8.0"
@@ -38,6 +41,8 @@
   "readmeFilename": "README.md",
   "main": "./dist/validator.js",
   "scripts": {
-    "test": "grunt test && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS"
+    "test-node": "node node_modules/jasmine-node/bin/jasmine-node spec",
+    "test-browser": "grunt build && node node_modules/jasmine-node/bin/jasmine-node spec/validator.spec.js && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
+    "test": "npm run test-node && npm run test-browser"
   }
 }

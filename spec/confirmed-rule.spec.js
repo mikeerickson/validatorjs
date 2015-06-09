@@ -1,4 +1,11 @@
 describe('confirmed validation rule', function() {
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+	
 	it('should fail without a matching confirmation field for the field under validation', function() {
 		var validator = new Validator({ password: 'abc' }, { password: 'confirmed' });
 		expect(validator.passes()).toBeFalsy();

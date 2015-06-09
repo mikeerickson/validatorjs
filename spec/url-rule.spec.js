@@ -1,4 +1,11 @@
 describe('url validation rule', function() {
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+	
 	it('should fail with a url only containing http://', function() {
 		var link = 'http://';
 		var validator = new Validator({ link: link }, { link: 'url' });

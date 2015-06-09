@@ -1,4 +1,11 @@
 describe('size validation rule', function() {
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+	
 	it('should fail with the state = C. Size must be 2 letters.', function() {
 		var validator = new Validator({ state: 'C' }, { state: 'size:2' });
 		expect(validator.fails()).toBeTruthy();

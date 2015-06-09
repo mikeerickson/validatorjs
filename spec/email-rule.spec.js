@@ -1,4 +1,11 @@
 describe('email validation rule', function() {
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+	
 	it('should pass with the email address: johndoe@gmail.com', function() {
 		var validator = new Validator({ email: 'johndoe@gmail.com' }, { email: 'email' });
 		expect(validator.passes()).toBeTruthy();

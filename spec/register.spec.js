@@ -1,4 +1,11 @@
 describe('register a custom validation rule', function() {
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+	
 	it('should have a telephone method on obj.validate.prototype', function() {
 		Validator.register('telephone', function(val) {
 			return val.match(/^\d{3}-\d{3}-\d{4}$/);

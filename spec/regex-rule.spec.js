@@ -1,5 +1,11 @@
 describe('regex validation rule for most common regular expressions', function() {
 
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+
 	it('should pass with the currency pattern: 12,500.00', function() {
 		var validator = new Validator({ currency: '12,500.00' }, { currency: 'regex:/^(?!0\\.00)\\d{1,3}(,\\d{3})*(\\.\\d\\d)?$/' });
 		expect(validator.passes()).toBeTruthy();
