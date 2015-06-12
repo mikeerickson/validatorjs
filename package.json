@@ -39,7 +39,7 @@
   },
   "gitHead": "301ebbe9afe949a4233606d3a5f16e14be5c820e",
   "readmeFilename": "README.md",
-  "main": "./dist/validator.js",
+  "main": "./src/validator.js",
   "scripts": {
     "test-node": "node node_modules/jasmine-node/bin/jasmine-node spec",
     "test-browser": "grunt build && node node_modules/jasmine-node/bin/jasmine-node spec/validator.spec.js && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
