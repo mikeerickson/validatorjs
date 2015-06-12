@@ -4,10 +4,8 @@ var Validator = function(input, rules, customMessages) {
 	this.rules = rules;
 	this.messages = new ValidatorMessages(lang, customMessages);
 	this.errors = new ValidatorErrors();
-
 	this.errorCount = 0;
 	this.parsedRules = this._parseRules(this.rules);
-	this.check();
 };
 
 Validator.prototype = {
@@ -140,10 +138,12 @@ Validator.prototype = {
 	},
 
 	passes: function() {
+		this.check();
 		return this.errorCount === 0 ? true : false;
 	},
 
 	fails: function() {
+		this.check();
 		return this.errorCount > 0 ? true : false;
 	}
 
