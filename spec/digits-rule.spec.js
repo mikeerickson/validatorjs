@@ -1,4 +1,11 @@
 describe('digits rule', function() {
+	
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+
 	it('should be numeric and must have an exact length of 5', function() {
 		var validation = new Validator({
 			zip: '90989'

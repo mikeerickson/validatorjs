@@ -1,4 +1,4 @@
-Validator.prototype.validate = {
+var rules = {
 
 	required: function(val) {
 		var str;
@@ -204,3 +204,5 @@ Validator.prototype.validate = {
 	}
 	
 };
+
+module.exports = rules;

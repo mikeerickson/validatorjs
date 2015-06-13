@@ -1,9 +1,21 @@
+// Get required modules
+var Rules = require('./rules');
+var Lang = require('./lang');
+var Errors = require('./validatorerrors');
+
+function langs() {
+	require('./lang/en');
+	require('./lang/ru');
+}
+
 var Validator = function(input, rules, customMessages) {
-	var lang = Validator.prototype.lang;
+	var lang = Validator.getLang();
 	this.input = input;
 	this.rules = rules;
-	this.messages = new ValidatorMessages(lang, customMessages);
-	this.errors = new ValidatorErrors();
+
+	this.messages = Lang._get(lang);
+	this.messages._setCustom(customMessages);
+	this.errors = new Errors();
 
 	this.errorCount = 0;
 	this.parsedRules = this._parseRules(this.rules);
@@ -14,12 +26,34 @@ Validator.prototype = {
 
 	constructor: Validator,
 
+	/**
+	 * Rules
+	 *
+	 * @type {object}
+	 */
+	validate: Rules,
+
+	/**
+	 * Default language
+	 *
+	 * @type {string}
+	 */
 	lang: 'en',
+
+	/**
+	 * Numeric based rules
+	 *
+	 * @type {array}
+	 */
 	numericRules: ['integer', 'numeric'],
 
+	/**
+	 * Run validator
+	 *
+	 * @return {void}
+	 */
 	check: function() {
 		var self = this;
-		var messages = this.messages;
 
 		for (var attribute in this.parsedRules) {
 			var attributeRules = this.parsedRules[attribute];
@@ -115,7 +149,9 @@ Validator.prototype = {
 	_hasRule: function(attribute, findRules) {
 		var rules = this.parsedRules[attribute] || [];
 		for (var i = 0, len = rules.length; i < len; i++) {
-			if (findRules.indexOf(rules[i].name) > -1) return true;
+			if (findRules.indexOf(rules[i].name) > -1) {
+				return true;
+			}
 		}
 		return false;
 	},
@@ -139,41 +175,91 @@ Validator.prototype = {
 		return value.length;
 	},
 
+	/**
+	 * Determine if validation passes
+	 *
+	 * @return {boolean}
+	 */
 	passes: function() {
 		return this.errorCount === 0 ? true : false;
 	},
 
+	/**
+	 * Determine if validation fails
+	 *
+	 * @return {boolean}
+	 */
 	fails: function() {
 		return this.errorCount > 0 ? true : false;
 	}
 
 };
 
-Validator.setMessages = function(lang, langMessages) {
-	messages[lang] = langMessages;
+/**
+ * Set messages for language
+ *
+ * @param {string} lang
+ * @param {object} messages
+ */
+Validator.setMessages = function(lang, messages) {
+	Lang._set(lang, messages);
 	return this;
 };
 
+/**
+ * Get messages instance for given language
+ *
+ * @param  {string} lang
+ * @return {Messages}
+ */
 Validator.getMessages = function(lang) {
-	return messages[lang];
+	return Lang._get(lang);
 };
 
+/**
+ * Set default language
+ *
+ * @param {string} lang
+ */
 Validator.setLang = function(lang) {
 	this.prototype.lang = lang;
 	return this;
 };
 
+/**
+ * Get default language
+ *
+ * @return {string}
+ */
 Validator.getLang = function() {
 	return this.prototype.lang;
 };
 
-// static methods
-Validator.register = function(rule, fn, errMsg) {
-	var lang = this.prototype.lang;
+/**
+ * Register custom validation rule
+ *
+ * @param  {string}   rule
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.register = function(rule, fn, message) {
+	var lang = Validator.getLang();
 	this.prototype.validate[rule] = fn;
-	messages[lang][rule] = (typeof errMsg === 'string') ? errMsg : messages[lang]['def'];
+	var messages = Validator.getMessages(lang);
+	messages.set(rule, message);
 };
 
+/**
+ * Make validator
+ *
+ * @param  {object} input
+ * @param  {object} rules
+ * @param  {object} customMessages
+ * @return {Validator}
+ */
 Validator.make = function(input, rules, customMessages) {
 	return new Validator(input, rules, customMessages);
 };
+
+module.exports = Validator;

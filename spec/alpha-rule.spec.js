@@ -1,20 +1,25 @@
 describe('alpha validation rule', function() {
-	var validator;
-	
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+
 	it('should fail with non-alphabetic characters', function() {
-		validator = new Validator({ name: '12' }, { name: 'alpha' });
+		var validator = new Validator({ name: '12' }, { name: 'alpha' });
 		expect(validator.fails()).toBeTruthy();
 		expect(validator.passes()).toBeFalsy();
 	});
 
 	it('should fail with non-alphabetic characters', function() {
-		validator = new Validator({ name: 12 }, { name: 'alpha' });
+		var validator = new Validator({ name: 12 }, { name: 'alpha' });
 		expect(validator.fails()).toBeTruthy();
 		expect(validator.passes()).toBeFalsy();
 	});
 
 	it('should pass with only alphabetic characters', function() {
-		validator = new Validator({ name: 'abc' }, { name: 'alpha' });
+		var validator = new Validator({ name: 'abc' }, { name: 'alpha' });
 		expect(validator.fails()).toBeFalsy();
 		expect(validator.passes()).toBeTruthy();
 	});

@@ -1,4 +1,11 @@
 describe('Validator.make', function() {
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+		
 	it('should have a static make method that news up Validator', function() {
 		var data = {
 			name: 'David',

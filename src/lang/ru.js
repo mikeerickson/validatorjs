@@ -1,4 +1,4 @@
-Validator.setMessages('ru', {
+module.exports = {
 	accepted: 'Вы должны принять :attribute.',
 	alpha: 'Поле :attribute может содержать только буквы.',
 	alpha_dash: '"Поле :attribute может содержать только буквы, цифры, дефисы и символы подчёркивания.',
@@ -29,4 +29,4 @@ Validator.setMessages('ru', {
 	url: 'Поле :attribute имеет ошибочный формат.',
 	regex: 'Поле :attribute имеет ошибочный формат.',
 	attributes: {}
-});
+};

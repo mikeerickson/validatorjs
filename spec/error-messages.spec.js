@@ -1,54 +1,43 @@
 describe('Error messages', function() {
-	var validator;
+	
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
 
 	describe('first()', function() {
 		it('should return an error message that states the email is required', function() {
-			validator = new Validator({
-				email: ''
-			}, {
-				email: 'required|email'
-			});
+			var validator = new Validator({ email: '' }, { email: 'required|email' });
 
 			expect(validator.errors.first('email')).toEqual('The email field is required.');
 		});
 
 		it('should have a method on the errors object to retrieve the first error message for an attribute', function() {
-			validator = new Validator({
-				email: ''
-			}, {
-				email: 'required|email'
-			});
+			var validator = new Validator({ email: '' }, { email: 'required|email' });
 
 			expect(validator.errors.first('email')).toEqual('The email field is required.');
 		});
 
 		it('should return false if errors.first() is called and there are no errors', function() {
-			validator = new Validator({
-				email: 'john@yahoo.com'
-			}, {
-				email: 'required|email'
-			});
+			var validator = new Validator({ email: 'john@yahoo.com' }, { email: 'required|email' });
 
 			expect(validator.errors.first('email')).toEqual(false);
 		});
 
 		it('should return an error message that states the email must be valid', function() {
-			validator = new Validator({
-				email: 'john@yahoo'
-			}, {
-				email: 'required|email'
-			});
+			var validator = new Validator({ email: 'john@yahoo' }, { email: 'required|email' });
 
 			expect(validator.errors.first('email')).toEqual('The email format is invalid.');
 		});
 
 		it('should return null for a key without an error message', function() {
-			validator = new Validator({ name: 'David' }, { name: 'required' });
+			var validator = new Validator({ name: 'David' }, { name: 'required' });
 			expect(validator.errors.first('name')).toBeFalsy();
 		});
 
 		it('should return error messages with attribute names and values for multi-part rules', function() {
-			validator = new Validator({
+			var validator = new Validator({
 				age: 17,
 				description: 'a',
 				info: '',
@@ -76,12 +65,12 @@ describe('Error messages', function() {
 		});
 
 		it('should return a customized alpha error message', function() {
-			validator = new Validator({ name: '12' }, { name: 'alpha' });
+			var validator = new Validator({ name: '12' }, { name: 'alpha' });
 			expect(validator.errors.first('name')).toEqual('The name field must contain only alphabetic characters.');
 		});
 
 		it('should fail with non alpha dash characters', function() {
-			validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
+			var validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
 			expect(validator.errors.first('name')).toEqual('The name field may only contain alpha-numeric characters, as well as dashes and underscores.');
 		});
 
@@ -122,22 +111,14 @@ describe('Error messages', function() {
 
 	describe('get()', function() {
 		it('should return an array of all email error messages', function() {
-			validator = new Validator({
-				email: ''
-			}, {
-				email: 'required|email'
-			});
+			var validator = new Validator({ email: '' }, { email: 'required|email' });
 
 			expect(validator.errors.get('email') instanceof Array).toBeTruthy();
 			expect(validator.errors.get('email').length).toEqual(1);
 		});
 
 		it('should return an empty array if there are no messages for an attribute', function() {
-			validator = new Validator({
-				email: 'johndoe@gmail.com'
-			}, {
-				email: 'required|email'
-			});
+			var validator = new Validator({	email: 'johndoe@gmail.com' }, { email: 'required|email' });
 
 			expect(validator.errors.get('email') instanceof Array).toBeTruthy();
 			expect(validator.errors.get('email').length).toEqual(0);
@@ -147,10 +128,10 @@ describe('Error messages', function() {
 	
 
 	describe('ValidatorErrors.prototype.all()', function() {
-		var validation;
 
-		beforeEach(function() {
-			validation = new Validator({
+		it('should return an array of all email error messages', function() {
+
+			var validation = new Validator({
 				name: 'd',
 				email: '',
 				age: 28
@@ -159,9 +140,7 @@ describe('Error messages', function() {
 				email: 'required|email',
 				age: 'min:18'
 			});
-		});
 
-		it('should return an array of all email error messages', function() {
 			var expected = JSON.stringify({
 				name: ['The name must be at least 2 characters.'], 
 				email: ['The email field is required.']
@@ -172,10 +151,10 @@ describe('Error messages', function() {
 	});
 
 	describe('ValidatorErrors.prototype.has()', function() {
-		var validation;
 
-		beforeEach(function() {
-			validation = new Validator({
+		it('should return an array of all email error messages', function() {
+
+			var validation = new Validator({
 				name: 'd',
 				email: '',
 				age: 28
@@ -184,9 +163,7 @@ describe('Error messages', function() {
 				email: 'required|email',
 				age: 'min:18'
 			});
-		});
 
-		it('should return an array of all email error messages', function() {
 			expect(validation.errors.has('name')).toEqual(true);
 			expect(validation.errors.has('age')).toEqual(false);
 			expect(validation.errors.has('fake-property')).toEqual(false);

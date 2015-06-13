@@ -1,20 +1,25 @@
 describe('alpha_dash validation rule', function() {
-	var validator;
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
 
 	it('should fail with non alpha dash characters', function() {
-		validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
+		var validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
 		expect(validator.passes()).toBeFalsy();
 		expect(validator.fails()).toBeTruthy();
 	});
 
 	it('should fail with non-alphabetic characters', function() {
-		validator = new Validator({ name: 12 }, { name: 'alpha_dash' });
+		var validator = new Validator({ name: 12 }, { name: 'alpha_dash' });
 		expect(validator.fails()).toBeFalsy();
 		expect(validator.passes()).toBeTruthy();
 	});
 
 	it('should pass with only alpha dash characters', function() {
-		validator = new Validator({ name: 'David9_-' }, { name: 'alpha_dash' });
+		var validator = new Validator({ name: 'David9_-' }, { name: 'alpha_dash' });
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.fails()).toBeFalsy();
 	});

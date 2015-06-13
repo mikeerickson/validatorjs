@@ -1,4 +1,11 @@
 describe('accepted validation rule', function() {
+
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+
 	it('should pass if the value is yes', function() {
 		var validator = new Validator({ terms: 'yes' }, { terms: 'accepted' });
 		expect(validator.passes()).toBeTruthy();

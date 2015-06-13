@@ -1,22 +1,27 @@
 describe('Validator custom messages', function() {
-    var validator;
+
+    if (typeof require !== 'undefined') {
+        var Validator = require('../src/validator.js');
+    } else {
+        var Validator = window.Validator;
+    }
 
     it('override the default message for the validator', function() {
-        validator = new Validator({ name: '' }, { name: 'required' }, { required: 'Name is missing.' });
+        var validator = new Validator({ name: '' }, { name: 'required' }, { required: 'Name is missing.' });
         expect(validator.fails()).toBe(true);
         expect(validator.errors.get('name').length).toBe(1);
         expect(validator.errors.first('name')).toEqual('Name is missing.');
     });
 
     it('override the default message for a type of the validator', function() {
-        validator = new Validator({ name: 'A' }, { name: 'min:4' }, { min: { string: ':attribute is not long enough. Should be :min.' } });
+        var validator = new Validator({ name: 'A' }, { name: 'min:4' }, { min: { string: ':attribute is not long enough. Should be :min.' } });
         expect(validator.fails()).toBe(true);
         expect(validator.errors.get('name').length).toBe(1);
         expect(validator.errors.first('name')).toEqual('name is not long enough. Should be 4.');
     });
 
     it('can be specified on a per attribute basis for a validator', function() {
-        validator = new Validator(
+        var validator = new Validator(
             { name: '', email: '' }, 
             { name: 'required', email: 'required' }, 
             { 'required.name': 'Name is missing.' }
@@ -33,7 +38,7 @@ describe('Validator custom messages', function() {
             return value.match(/^\d{3}-\d{3}-\d{4}$/);
         }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 
-        validator = new Validator(
+        var validator = new Validator(
             { phone: '1234567890' }, 
             { phone: 'telephone' }, 
             { telephone: 'Wrong number.' }
@@ -48,7 +53,7 @@ describe('Validator custom messages', function() {
             return value.match(/^\d{3}-\d{3}-\d{4}$/);
         }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 
-        validator = new Validator(
+        var validator = new Validator(
             { phone: '1234567890', fax: '1234567890' }, 
             { phone: 'telephone', fax: 'telephone' }, 
             { 'telephone.fax': 'Why are you even using a fax?' }

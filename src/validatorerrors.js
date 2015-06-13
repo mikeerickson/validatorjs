@@ -50,3 +50,5 @@ ValidatorErrors.prototype = {
 		return false;
 	}
 };
+
+module.exports = ValidatorErrors;

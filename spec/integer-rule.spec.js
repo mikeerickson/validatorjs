@@ -1,14 +1,11 @@
-/**
- * passes for undefined or ''
- * passes for number 18
- * passes for string '18'
- * fails if letters exist in value
- * fails if an array or object
- * fails if boolean value
- * fails if decimal value
- */
-
 describe('integer validation rule', function() {
+	
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+	
 	it('should fail with a decimal value', function() {
 		var validator = new Validator({ age: 18.9 }, { age: 'integer' });
 		expect(validator.fails()).toBeTruthy();

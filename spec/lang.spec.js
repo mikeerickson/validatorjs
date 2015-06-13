@@ -1,5 +1,11 @@
 describe('lang / messages', function() {
 
+	if (typeof require !== 'undefined') {
+		var Validator = require('../src/validator.js');
+	} else {
+		var Validator = window.Validator;
+	}
+
 	it('should default to english', function() {
 		expect(Validator.getLang()).toEqual('en');
 	});
@@ -13,14 +19,16 @@ describe('lang / messages', function() {
 
 	it('should be able to add custom', function() {
 		var oldLang = Validator.getLang();
-		var messages = {
+		var rawMessages = {
 			required: 'Le nkundla iyadingeka',
 			attributes: {}
 		};
-		Validator.setMessages('zu', messages);
+		Validator.setMessages('zu', rawMessages);
 		Validator.setLang('zu');
 		var validator = new Validator({ zip: '' }, { zip: 'required' });
-		expect(Validator.getMessages('zu')).toEqual(messages);
+
+		var messages = Validator.getMessages('zu');
+		expect(messages.all()).toEqual(rawMessages);
 		expect(validator.fails()).toBeTruthy();
 		expect(validator.errors.first('zip')).toEqual('Le nkundla iyadingeka');
 		Validator.setLang(oldLang);
