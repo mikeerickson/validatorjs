@@ -1,10 +1,12 @@
-describe('register a custom validation rule', function() {
+if (typeof require !== 'undefined') {
+	var Validator = require('../src/validator.js');
+	var expect = require('chai').expect;
+} else {
+	var Validator = window.Validator;
+	var expect = window.chai.expect;
+}
 
-	if (typeof require !== 'undefined') {
-		var Validator = require('../src/validator.js');
-	} else {
-		var Validator = window.Validator;
-	}
+describe('register a custom validation rule', function() {
 	
 	it('should have a telephone method on obj.validate.prototype', function() {
 		Validator.register('telephone', function(val) {
@@ -12,7 +14,7 @@ describe('register a custom validation rule', function() {
 		});
 
 		var validator = new Validator();
-		expect(typeof validator.validate.telephone).toEqual('function');
+		expect(typeof validator.validate.telephone).to.equal('function');
 	});
 
 	it('should pass the custom telephone rule registration', function() {
@@ -21,7 +23,7 @@ describe('register a custom validation rule', function() {
 		});
 
 		var validator = new Validator({ phone: '213-454-9988' }, { phone: 'telephone' });
-		expect(validator.passes()).toBeTruthy();
+		expect(validator.passes()).to.be.true;
 	});
 
 	it('should fail the custom telephone rule registration with a default error message', function() {
@@ -30,7 +32,7 @@ describe('register a custom validation rule', function() {
 		});
 
 		var validator = new Validator({ phone: '4213-454-9988' }, { phone: 'telephone' });
-		expect(validator.passes()).toBeFalsy();
-		expect(validator.fails()).toBeTruthy();
+		expect(validator.passes()).to.be.false;
+		expect(validator.fails()).to.be.true;
 	});
 });
