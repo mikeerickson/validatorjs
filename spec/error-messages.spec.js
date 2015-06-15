@@ -9,30 +9,31 @@ describe('Error messages', function() {
 	describe('first()', function() {
 		it('should return an error message that states the email is required', function() {
 			var validator = new Validator({ email: '' }, { email: 'required|email' });
-
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('email')).toEqual('The email field is required.');
 		});
 
 		it('should have a method on the errors object to retrieve the first error message for an attribute', function() {
 			var validator = new Validator({ email: '' }, { email: 'required|email' });
-
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('email')).toEqual('The email field is required.');
 		});
 
 		it('should return false if errors.first() is called and there are no errors', function() {
 			var validator = new Validator({ email: 'john@yahoo.com' }, { email: 'required|email' });
-
+			expect(validator.passes()).toBeTruthy();
 			expect(validator.errors.first('email')).toEqual(false);
 		});
 
 		it('should return an error message that states the email must be valid', function() {
 			var validator = new Validator({ email: 'john@yahoo' }, { email: 'required|email' });
-
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('email')).toEqual('The email format is invalid.');
 		});
 
 		it('should return null for a key without an error message', function() {
 			var validator = new Validator({ name: 'David' }, { name: 'required' });
+			expect(validator.passes()).toBeTruthy();
 			expect(validator.errors.first('name')).toBeFalsy();
 		});
 
@@ -55,6 +56,7 @@ describe('Error messages', function() {
 				tweet: 'max:5'
 			});
 
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('age')).toEqual('The age must be at least 18.'); // min numeric
 			expect(validator.errors.first('description')).toEqual('The description must be at least 5 characters.'); // min string
 			expect(validator.errors.first('info')).toEqual('The info field is required.');
@@ -66,27 +68,32 @@ describe('Error messages', function() {
 
 		it('should return a customized alpha error message', function() {
 			var validator = new Validator({ name: '12' }, { name: 'alpha' });
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('name')).toEqual('The name field must contain only alphabetic characters.');
 		});
 
 		it('should fail with non alpha dash characters', function() {
 			var validator = new Validator({ name: 'David *' }, { name: 'alpha_dash' });
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('name')).toEqual('The name field may only contain alpha-numeric characters, as well as dashes and underscores.');
 		});
 
 		it('should fail without a matching confirmation field for the field under validation', function() {
 			var validator = new Validator({ password: 'abc' }, { password: 'confirmed' });
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('password')).toEqual('The password confirmation does not match.');
 		});
 
 		it('should fail when the 2 attributes are the same', function() {
 			var validator = new Validator({ field1: 'abc', field2: 'abc' }, { field2: 'different:field1' });
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('field2')).toEqual('The field2 and field1 must be different.');
 		});
 
 		it('should fail with a url only containing http://', function() {
 			var link = 'http://';
 			var validator = new Validator({ link: link }, { link: 'url' });
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('link')).toEqual('The link format is invalid.');
 		});
 
@@ -96,6 +103,7 @@ describe('Error messages', function() {
 			});
 
 			var validator = new Validator({ phone: '4213-454-9988' }, { phone: 'telephone' });
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('phone')).toEqual('The phone attribute has errors.');
 		});
 
@@ -105,6 +113,7 @@ describe('Error messages', function() {
 			}, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 
 			var validator = new Validator({ cell: '4213-454-9988' }, { cell: 'telephone' });
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.first('cell')).toEqual('The cell phone number is not in the format XXX-XXX-XXXX.');
 		});
 	});
@@ -113,6 +122,7 @@ describe('Error messages', function() {
 		it('should return an array of all email error messages', function() {
 			var validator = new Validator({ email: '' }, { email: 'required|email' });
 
+			expect(validator.passes()).toBeFalsy();
 			expect(validator.errors.get('email') instanceof Array).toBeTruthy();
 			expect(validator.errors.get('email').length).toEqual(1);
 		});
@@ -120,6 +130,7 @@ describe('Error messages', function() {
 		it('should return an empty array if there are no messages for an attribute', function() {
 			var validator = new Validator({	email: 'johndoe@gmail.com' }, { email: 'required|email' });
 
+			expect(validator.passes()).toBeTruthy();
 			expect(validator.errors.get('email') instanceof Array).toBeTruthy();
 			expect(validator.errors.get('email').length).toEqual(0);
 		});
@@ -146,6 +157,7 @@ describe('Error messages', function() {
 				email: ['The email field is required.']
 			});
 
+			expect(validation.passes()).toBeFalsy();
 			expect(JSON.stringify(validation.errors.all())).toEqual(expected);
 		});
 	});
@@ -164,6 +176,7 @@ describe('Error messages', function() {
 				age: 'min:18'
 			});
 
+			expect(validation.passes()).toBeFalsy();
 			expect(validation.errors.has('name')).toEqual(true);
 			expect(validation.errors.has('age')).toEqual(false);
 			expect(validation.errors.has('fake-property')).toEqual(false);

@@ -19,7 +19,6 @@ var Validator = function(input, rules, customMessages) {
 
 	this.errorCount = 0;
 	this.parsedRules = this._parseRules(this.rules);
-	this.check();
 };
 
 Validator.prototype = {
@@ -181,6 +180,7 @@ Validator.prototype = {
 	 * @return {boolean}
 	 */
 	passes: function() {
+		this.check();
 		return this.errorCount === 0 ? true : false;
 	},
 
@@ -190,6 +190,7 @@ Validator.prototype = {
 	 * @return {boolean}
 	 */
 	fails: function() {
+		this.check();
 		return this.errorCount > 0 ? true : false;
 	}
 
