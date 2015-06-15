@@ -17,7 +17,7 @@ describe('Error counts', function() {
 		expect(validator.errorCount).toEqual(2);
 	});
 
-	it('should return not return a count when error free', function() {
+	it('should not return a count when error free', function() {
 		var validator = new Validator({ username: 'a', name: 'a' }, { username: 'required', name: 'required' });
 		expect(validator.passes()).toBeTruthy();
 		expect(validator.errorCount).toEqual(0);
