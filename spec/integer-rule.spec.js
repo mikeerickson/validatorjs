@@ -6,7 +6,35 @@ if (typeof require !== 'undefined') {
 	var expect = window.chai.expect;
 }
 
-describe('integer validation rule', function() {
+describe('integer pass rules', function() {
+
+	it('should pass if no value is entered', function() {
+		var validator = new Validator({}, { age: 'integer' });
+		expect(validator.fails()).to.be.false;
+		expect(validator.passes()).to.be.true;
+	});	
+
+	it('should pass with an integer value', function() {
+		var validator = new Validator({ age: 18 }, { age: 'integer' });
+		expect(validator.fails()).to.be.false;
+		expect(validator.passes()).to.be.true;
+	});
+
+	it('should pass with a string containing an integer value', function() {
+		var validator = new Validator({ age: '18' }, { age: 'integer' });
+		expect(validator.fails()).to.be.false;
+		expect(validator.passes()).to.be.true;
+	});
+
+	it('should pass with unsigned integer', function() {
+		var validator = new Validator({ num: -123 }, { num: 'integer' });
+		expect(validator.passes()).to.be.true;
+		expect(validator.fails()).to.be.false;
+	});
+
+});
+
+describe('integer fail rules', function() {
 	
 	it('should fail with a decimal value', function() {
 		var validator = new Validator({ age: 18.9 }, { age: 'integer' });
@@ -46,21 +74,10 @@ describe('integer validation rule', function() {
 		expect(validator.passes()).to.be.false;
 	});
 
-	it('should pass if no value is entered', function() {
-		var validator = new Validator({}, { age: 'integer' });
-		expect(validator.fails()).to.be.false;
-		expect(validator.passes()).to.be.true;
-	});	
-
-	it('should pass with an integer value', function() {
-		var validator = new Validator({ age: 18 }, { age: 'integer' });
-		expect(validator.fails()).to.be.false;
-		expect(validator.passes()).to.be.true;
+	it('should fail with unsigned float-integer', function() {
+		var validator = new Validator({ num: -70.36 }, { num: 'integer' });
+		expect(validator.fails()).to.be.true;
+		expect(validator.passes()).to.be.false;
 	});
 
-	it('should pass with a string containing an integer value', function() {
-		var validator = new Validator({ age: '18' }, { age: 'integer' });
-		expect(validator.fails()).to.be.false;
-		expect(validator.passes()).to.be.true;
-	});
 });

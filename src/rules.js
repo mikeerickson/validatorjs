@@ -175,15 +175,9 @@ var rules = {
 	},
 
 	integer: function(val) {
-		if (val === undefined || val === '') { return true; }
-
+		if (val === undefined || val === '' || val === null) { return true; }
 		val = String(val);
-
-		if ( (/^\d+$/).test(val) ) {
-			return true;
-		} else {
-			return false;
-		}
+		return String(parseInt(val, 10)) === String(val);
 	},
 
 	digits: function(val, req) {
