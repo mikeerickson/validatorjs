@@ -8,13 +8,13 @@ if (typeof require !== 'undefined') {
 
 describe('register a custom validation rule', function() {
 	
-	it('should have a telephone method on obj.validate.prototype', function() {
+	it('should be able to get validation rule', function() {
 		Validator.register('telephone', function(val) {
 			return val.match(/^\d{3}-\d{3}-\d{4}$/);
 		});
 
 		var validator = new Validator();
-		expect(typeof validator.validate.telephone).to.equal('function');
+		expect(validator.getRule('telephone').validate).to.be.a.function;
 	});
 
 	it('should pass the custom telephone rule registration', function() {

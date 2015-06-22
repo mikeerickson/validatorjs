@@ -29,12 +29,15 @@ Messages.prototype = {
 	/**
 	 * Render message
 	 *
-	 * @param  {object} options
+	 * @param  {Rule} rule
 	 * @return {string}
 	 */
-	render: function(options) {
-		var dataForMessageTemplate = this._createTemplateData(options.attribute, options.rule, options.ruleValue);
-		var msgTmpl = this._selectTemplate(options.rule, options.value, options.attribute);
+	render: function(rule) {
+		if (rule.customMessage) {
+			return rule.customMessage;
+		}
+		var dataForMessageTemplate = this._createTemplateData(rule.attribute, rule.name, rule.ruleValue);
+		var msgTmpl = this._selectTemplate(rule.name, rule.inputValue, rule.attribute);
 		var msg = this._replacePlaceholders(msgTmpl, dataForMessageTemplate);
 		return msg;
 	},

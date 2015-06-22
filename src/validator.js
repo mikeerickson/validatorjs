@@ -2,6 +2,7 @@
 var Rules = require('./rules');
 var Lang = require('./lang');
 var Errors = require('./validatorerrors');
+var AsyncResolvers = require('./async');
 
 function langs() {
 	require('./lang/en');
@@ -11,26 +12,19 @@ function langs() {
 var Validator = function(input, rules, customMessages) {
 	var lang = Validator.getLang();
 	this.input = input;
-	this.rules = rules;
 
 	this.messages = Lang._get(lang);
 	this.messages._setCustom(customMessages);
 	this.errors = new Errors();
 
 	this.errorCount = 0;
-	this.parsedRules = this._parseRules(this.rules);
+	this.hasAsync = false;
+	this.rules = this._parseRules(rules);
 };
 
 Validator.prototype = {
 
 	constructor: Validator,
-
-	/**
-	 * Rules
-	 *
-	 * @type {object}
-	 */
-	validate: Rules,
 
 	/**
 	 * Default language
@@ -49,52 +43,91 @@ Validator.prototype = {
 	/**
 	 * Run validator
 	 *
-	 * @return {void}
+	 * @return {boolean} Whether it passes; true = passes, false = fails
 	 */
 	check: function() {
 		var self = this;
 
-		for (var attribute in this.parsedRules) {
-			var attributeRules = this.parsedRules[attribute];
+		for (var attribute in this.rules) {
+			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			for (var i = 0, len = attributeRules.length, rule, passes; i < len; i++) {
-				rule = attributeRules[i];
+			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
+				ruleOptions = attributeRules[i];
+				rule = this.getRule(ruleOptions.name);
 
 				if (!this._isValidatable(rule, attribute, inputValue)) {
 					continue;
 				}
 				
-				passes = this.validate[rule.name].call(this, inputValue, rule.value, attribute);
-
-				if (!passes)
-				{
-					this._addFailure(attribute, rule, inputValue);
+				if (!rule.validate(inputValue, ruleOptions.value, attribute)) {
+					this._addFailure(rule);
 				}
 			}
 		}
+
+		return this.errorCount === 0;
 	},
 
 	/**
-	 * Add failure and error message for given attribute, rule and value
+	 * Run async validator
 	 *
-	 * @param {string} attribute
-	 * @param {object} rule
-	 * @param {mixed} inputValue
+	 * @param {function} passes
+	 * @param {function} fails
+	 * @return {void}
 	 */
-	_addFailure: function(attribute, rule, inputValue) {
-		if ( !this.errors.hasOwnProperty(attribute) ) {
-			this.errors[attribute] = [];
+	checkAsync: function(passes, fails) {
+		var _this = this;
+
+		var failsOne = function(rule, message) {
+			_this._addFailure(rule, message);
+		};
+
+		var resolvedAll = function(allPassed) {
+			if (allPassed) {
+				passes();
+			}
+			else {
+				fails();
+			}
+		};
+
+		var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
+
+		for (var attribute in this.rules) {
+			var attributeRules = this.rules[attribute];
+			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
+
+			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
+				ruleOptions = attributeRules[i];
+
+				rule = this.getRule(ruleOptions.name);
+
+				asyncResolvers.add(rule, i);
+
+				(function(inputValue, ruleOptions, attribute, i, rule) {
+					rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(i); });
+				})(inputValue, ruleOptions, attribute, i, rule);
+			}
 		}
 
-		var msg = this.messages.render({
-			attribute: attribute,
-			value: inputValue,
-			rule: rule.name,
-			ruleValue: rule.value
-		});
+		asyncResolvers.enableFiring();
+		asyncResolvers.fire();
+	},
+
+	/**
+	 * Add failure and error message for given rule
+	 *
+	 * @param {Rule} rule
+	 */
+	_addFailure: function(rule) {
+		if ( !this.errors.hasOwnProperty(rule.attribute) ) {
+			this.errors[rule.attribute] = [];
+		}
+
+		var msg = this.messages.render(rule);
 		
-		this.errors[attribute].push(msg);
+		this.errors[rule.attribute].push(msg);
 		this.errorCount++;
 	},
 
@@ -114,8 +147,12 @@ Validator.prototype = {
 				rulesArray = rulesArray.split('|');
 			}
 			
-			for (var i = 0, len = rulesArray.length, parsedRule; i < len; i++) {
-				attributeRules.push(this._extractRuleAndRuleValue(rulesArray[i]));
+			for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
+				rule = this._extractRuleAndRuleValue(rulesArray[i]);
+				if (Rules.isAsync(rule.name)) {
+					this.hasAsync = true;
+				}
+				attributeRules.push(rule);
 			}
 
 			parsedRules[attribute] = attributeRules;
@@ -151,7 +188,7 @@ Validator.prototype = {
 	 * @return {boolean}
 	 */
 	_hasRule: function(attribute, findRules) {
-		var rules = this.parsedRules[attribute] || [];
+		var rules = this.rules[attribute] || [];
 		for (var i = 0, len = rules.length; i < len; i++) {
 			if (findRules.indexOf(rules[i].name) > -1) {
 				return true;
@@ -173,7 +210,7 @@ Validator.prototype = {
 			return true;
 		}
 
-		return this.validate.required(value);
+		return this.getRule('required').validate(value);
 	},
 
 	/**
@@ -196,23 +233,57 @@ Validator.prototype = {
 	},
 
 	/**
+	 * Get validation rule
+	 *
+	 * @param  {string} name
+	 * @return {Rule}
+	 */
+	getRule: function(name) {
+		return Rules.make(name, this);
+	},
+
+	/**
 	 * Determine if validation passes
 	 *
+	 * @param {function} passes
 	 * @return {boolean}
 	 */
-	passes: function() {
-		this.check();
-		return this.errorCount === 0 ? true : false;
+	passes: function(passes) {
+		var async = this._checkAsync('passes', passes);
+		if (async) {
+			return this.checkAsync(passes);
+		}
+		return this.check();
 	},
 
 	/**
 	 * Determine if validation fails
 	 *
+	 * @param {function} fails
 	 * @return {boolean}
 	 */
-	fails: function() {
-		this.check();
-		return this.errorCount > 0 ? true : false;
+	fails: function(fails) {
+		var async = this._checkAsync('fails', fails);
+		if (async) {
+			return this.checkAsync(undefined, fails);
+		}
+		return !this.check();
+	},
+
+	/**
+	 * Check if validation should be called asynchronously
+	 *
+ 	 * @param  {string}   funcName Name of the caller
+	 * @param  {function} callback
+	 * @return {boolean}
+	 */
+	_checkAsync: function(funcName, callback) {
+		var hasCallback = typeof callback === 'function';
+		if (this.hasAsync && !hasCallback) {
+			throw funcName + ' expects a callback when async rules are being tested.';
+		}
+
+		return this.hasAsync || hasCallback;
 	}
 
 };
@@ -260,16 +331,31 @@ Validator.getLang = function() {
 /**
  * Register custom validation rule
  *
- * @param  {string}   rule
+ * @param  {string}   name
  * @param  {function} fn
  * @param  {string}   message
  * @return {void}
  */
-Validator.register = function(rule, fn, message) {
+Validator.register = function(name, fn, message) {
 	var lang = Validator.getLang();
-	this.prototype.validate[rule] = fn;
 	var messages = Validator.getMessages(lang);
-	messages.set(rule, message);
+	Rules.register(name, fn);
+	messages.set(name, message);
+};
+
+/**
+ * Register asynchronous validation rule
+ *
+ * @param  {string}   name
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.registerAsync = function(name, fn, message) {
+	var lang = Validator.getLang();
+	var messages = Validator.getMessages(lang);
+	Rules.registerAsync(name, fn);
+	messages.set(name, message);
 };
 
 /**
