@@ -63,7 +63,7 @@ describe('integer fail rules', function() {
 	});
 
 	it('should fail if the value is an array', function() {
-		var validator = new Validator({ age: [] }, { age: 'integer' });
+		var validator = new Validator({ age: [] }, { age: 'required|integer' });
 		expect(validator.fails()).to.be.true;
 		expect(validator.passes()).to.be.false;
 	});
@@ -79,5 +79,6 @@ describe('integer fail rules', function() {
 		expect(validator.fails()).to.be.true;
 		expect(validator.passes()).to.be.false;
 	});
+
 
 });

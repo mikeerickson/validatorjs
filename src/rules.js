@@ -29,10 +29,7 @@ var rules = {
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
 	min: function(val, req, attribute) {
-		if (val === undefined || val === '') { return true; }
-
 		var size = this._getSize(attribute, val);
-
 		return size >= req;
 	},
 
@@ -40,27 +37,17 @@ var rules = {
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
 	max: function(val, req, attribute) {
-		if (val === undefined || val === '') { return true; }
-
 		var size = this._getSize(attribute, val);
-
 		return size <= req;
 	},
 
 	email: function(val) {
 		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-		if (val === undefined || val === '') {
-			return true;
-		}
-
 		return re.test(val);
 	},
 
 	numeric: function(val) {
 		var num;
-
-		if (val === undefined || val === '') { return true; }
 
 		num = Number(val); // tries to convert value to a number. useful if value is coming from form element
 
@@ -76,25 +63,18 @@ var rules = {
 	},
 
 	url: function(url) {
-		if (url === undefined || url === '') { return true; }
-
 		return (/^https?:\/\/\S+/).test(url);
 	},
 
 	alpha: function(val) {
-		if (val === undefined || val === '') { return true; }
-
 		return (/^[a-zA-Z]+$/).test(val);
 	},
 
 	alpha_dash: function(val) {
-		if (val === undefined || val === '') { return true; }
 		return (/^[a-zA-Z0-9_\-]+$/).test(val);
 	},
 
 	alpha_num: function(val) {
-		if (val === undefined || val === '') { return true; }
-
 		return (/^[a-zA-Z0-9]+$/).test(val);
 	},
 
@@ -179,7 +159,6 @@ var rules = {
 	},
 
 	integer: function(val) {
-		if (val === undefined || val === '' || val === null) { return true; }
 		return String(parseInt(val, 10)) === String(val);
 	},
 

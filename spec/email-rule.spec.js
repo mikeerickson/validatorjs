@@ -23,8 +23,8 @@ describe('email validation rule', function() {
 		expect(validator.fails()).to.be.true;
 	});
 
-	it('should fail when the email address contains whitespace only', function() {
-		var validator = new Validator({ email: '   ' }, { email: 'email' });
+	it('should fail when the email address contains whitespace only and is required', function() {
+		var validator = new Validator({ email: '   ' }, { email: 'required|email' });
 		expect(validator.fails()).to.be.true;
 	});
 

@@ -60,6 +60,11 @@ Validator.prototype = {
 
 			for (var i = 0, len = attributeRules.length, rule, passes; i < len; i++) {
 				rule = attributeRules[i];
+
+				if (!this._isValidatable(rule, attribute, inputValue)) {
+					continue;
+				}
+				
 				passes = this.validate[rule.name].call(this, inputValue, rule.value, attribute);
 
 				if (!passes)
@@ -153,6 +158,22 @@ Validator.prototype = {
 			}
 		}
 		return false;
+	},
+
+	/**
+	 * Determine if rule is validatable
+	 *
+	 * @param  {Rule}   rule
+	 * @param  {string} attribute
+	 * @param  {mixed}  value
+	 * @return {boolean} 
+	 */
+	_isValidatable: function(rule, attribute, value) {
+		if (rule.name == 'required' || rule.name == 'accepted') {
+			return true;
+		}
+
+		return this.validate.required(value);
 	},
 
 	/**

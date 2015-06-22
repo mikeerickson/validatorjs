@@ -6,7 +6,7 @@ if (typeof require !== 'undefined') {
 	var expect = window.chai.expect;
 }
 
-describe('require validation rule', function() {
+describe('require validation pass rules', function() {
 	
 	it('should pass with non-empty strings', function() {
 		var validator = new Validator({ name: 'David' }, { name: 'required' });
@@ -43,4 +43,17 @@ describe('require validation rule', function() {
 		expect(validator.fails()).to.be.true;
 		expect(validator.passes()).to.be.false;
 	});
+
+	it('should fail when the array is empty', function() {
+		var validator = new Validator({ users: [] }, { users: 'required|array'} );
+		expect(validator.fails()).to.be.true;
+		expect(validator.passes()).to.be.false;
+	});
+
+	it('should not fail when not an empty array', function() {
+		var validator = new Validator({ users: [false] }, { users: 'required|array'} );
+		expect(validator.passes()).to.be.true;
+		expect(validator.fails()).to.be.false;
+	});
+
 });
