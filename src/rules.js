@@ -71,6 +71,10 @@ var rules = {
 		}
 	},
 
+	array: function(val) {
+		return val instanceof Array;
+	},
+
 	url: function(url) {
 		if (url === undefined || url === '') { return true; }
 
