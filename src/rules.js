@@ -163,7 +163,8 @@ var rules = {
 	},
 
 	digits: function(val, req) {
-		if (this.validate.numeric(val) && String(val).length === parseInt(req)) {
+		var numericRule = this.getRule('numeric');
+		if (numericRule.validate(val) && String(val).length === parseInt(req)) {
 			return true;
 		}
 
@@ -181,4 +182,143 @@ var rules = {
 	
 };
 
-module.exports = rules;
+function Rule(name, fn, async) {
+	this.name = name;
+	this.fn = fn;
+	this.passes = null;
+	this.customMessage = undefined;
+	this.async = async;
+}
+
+Rule.prototype = {
+
+	/**
+	 * Validate rule
+	 *
+	 * @param  {mixed} inputValue
+	 * @param  {mixed} ruleValue
+	 * @param  {string} attribute
+	 * @param  {function} callback
+	 * @return {boolean|undefined}
+	 */
+	validate: function(inputValue, ruleValue, attribute, callback) {
+		var _this = this;
+		this._setValidatingData(attribute, inputValue, ruleValue);
+		if (typeof callback === 'function') {
+			this.callback = callback;
+			var handleResponse = function(passes, message) {
+				_this.response(passes, message);
+			};
+
+			if (this.async) {
+				return this.fn.apply(this.validator, [inputValue, ruleValue, attribute, handleResponse]);
+			}
+			else {
+				return handleResponse(this.fn.apply(this.validator, [inputValue, ruleValue, attribute]));
+			}
+		}
+		return this.fn.apply(this.validator, [inputValue, ruleValue, attribute]);
+	},
+
+	/**
+	 * Set validating data
+	 *
+	 * @param {string} attribute
+	 * @param {mixed} inputValue
+	 * @param {mixed} ruleValue
+	 */
+	_setValidatingData: function(attribute, inputValue, ruleValue) {
+		this.attribute = attribute;
+		this.inputValue = inputValue;
+		this.ruleValue = ruleValue;
+	},
+
+	/**
+	 * Set the async callback response
+	 *
+	 * @param  {boolean|undefined} passes  Whether validation passed
+	 * @param  {string|undefined} message Custom error message
+	 * @return {void}
+	 */
+	response: function(passes, message) {
+		this.passes = (passes === undefined || passes === true);
+		this.customMessage = message;
+		this.callback(this.passes, message);
+	},
+
+	/**
+	 * Set validator instance
+	 *
+	 * @param {Validator} validator
+	 */
+	setValidator: function(validator) {
+		this.validator = validator;
+	}
+
+};
+
+var manager = {
+
+	/**
+	 * List of async rule names
+	 *
+	 * @type {Array}
+	 */
+	asyncRules: [],
+
+	/**
+	 * Get rule by name
+	 *
+	 * @param  {string} name
+	 * @param {Validator}
+	 * @return {Rule}
+	 */
+	make: function(name, validator) {
+		var async = this.isAsync(name);
+		var rule = new Rule(name, rules[name], async);
+		rule.setValidator(validator);
+		return rule;
+	},
+
+	/**
+	 * Determine if given rule is async
+	 *
+	 * @param  {string}  name
+	 * @return {Boolean}
+	 */
+	isAsync: function(name) {
+		for (var i = 0, len = this.asyncRules.length; i < len; i++) {
+			if (this.asyncRules[i] == name) {
+				return true;
+			}
+		}
+		return false;
+	},
+
+	/**
+	 * Register new rule
+	 *
+	 * @param  {string}   name
+	 * @param  {Function} fn
+	 * @return {void}
+	 */
+	register: function(name, fn) {
+		rules[name] = fn;
+	},
+
+	/**
+	 * Register async rule
+	 *
+	 * @param  {string}   name
+	 * @param  {function} fn
+	 * @return {void}
+	 */
+	registerAsync: function(name, fn) {
+		this.register(name, fn);
+		this.asyncRules.push(name);
+	}
+
+};
+
+
+module.exports = manager;
