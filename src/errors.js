@@ -1,7 +1,23 @@
-var Errors = function() {};
+var Errors = function() {
+	this.errors = {};
+};
 
 Errors.prototype = {
 	constructor: Errors,
+
+	/**
+	 * Add new error message for given attribute
+	 *
+	 * @param  {string} attribute
+	 * @param  {string} message
+	 * @return {void}
+	 */
+	add: function(attribute, message) {
+		if (!this.has(attribute)) {
+			this.errors[attribute] = [];
+		}
+		this.errors[attribute].push(message);
+	},
 
 	/**
 	 * returns an array of error messages for an attribute, or an empty array
@@ -9,8 +25,8 @@ Errors.prototype = {
 	 * @return {Array}           	An array of error messages
 	 */
 	get: function(attribute) {
-		if (this[attribute]) {
-			return this[attribute];
+		if (this.has(attribute)) {
+			return this.errors[attribute];
 		}
 
 		return [];
@@ -22,8 +38,8 @@ Errors.prototype = {
 	 * @return {String}           First error message or false
 	 */
 	first: function(attribute) {
-		if (this[attribute]) {
-			return this[attribute][0];
+		if (this.has(attribute)) {
+			return this.errors[attribute][0];
 		}
 
 		return false;
@@ -34,7 +50,7 @@ Errors.prototype = {
 	 * @return {Object} Failed attribute names for keys and an array of messages for values
 	 */
 	all: function() {
-		return this;
+		return this.errors;
 	},
 
 	/**
@@ -43,7 +59,7 @@ Errors.prototype = {
 	 * @return {Boolean}           True if there are error messages. Otherwise false
 	 */
 	has: function(attribute) {
-		if (this[attribute] && this[attribute].length > 0) {
+		if (this.errors.hasOwnProperty(attribute)) {
 			return true;
 		}
 

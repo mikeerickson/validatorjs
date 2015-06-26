@@ -47,10 +47,6 @@ describe('Validator constructor', function() {
 		expect(validator.fails).to.be.a.function;
 	});
 
-	it('should have an errors property containing validation errors', function() {
-		expect(validator.errors).to.be.a('object');
-	});
-
 	it('should have a check method', function() {
 		expect(validator.check).to.be.a.function;
 	});

@@ -121,13 +121,8 @@ Validator.prototype = {
 	 * @param {Rule} rule
 	 */
 	_addFailure: function(rule) {
-		if ( !this.errors.hasOwnProperty(rule.attribute) ) {
-			this.errors[rule.attribute] = [];
-		}
-
-		var msg = this.messages.render(rule);
-		
-		this.errors[rule.attribute].push(msg);
+		var msg = this.messages.render(rule);	
+		this.errors.add(rule.attribute, msg);
 		this.errorCount++;
 	},
 
