@@ -1,7 +1,7 @@
-var ValidatorErrors = function() {};
+var Errors = function() {};
 
-ValidatorErrors.prototype = {
-	constructor: ValidatorErrors,
+Errors.prototype = {
+	constructor: Errors,
 
 	/**
 	 * returns an array of error messages for an attribute, or an empty array
@@ -51,4 +51,4 @@ ValidatorErrors.prototype = {
 	}
 };
 
-module.exports = ValidatorErrors;
+module.exports = Errors;
