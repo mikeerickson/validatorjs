@@ -206,7 +206,7 @@ Validator.prototype = {
 	 * @return {boolean} 
 	 */
 	_isValidatable: function(rule, attribute, value) {
-		if (rule.name == 'required' || rule.name == 'accepted') {
+		if (rule.name === 'required' || rule.name === 'accepted') {
 			return true;
 		}
 
