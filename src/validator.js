@@ -1,7 +1,7 @@
 // Get required modules
 var Rules = require('./rules');
 var Lang = require('./lang');
-var Errors = require('./validatorerrors');
+var Errors = require('./errors');
 var AsyncResolvers = require('./async');
 
 function langs() {
