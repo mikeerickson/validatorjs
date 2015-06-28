@@ -305,11 +305,11 @@ Validator.getMessages = function(lang) {
 };
 
 /**
- * Set default language
+ * Set default language to use
  *
  * @param {string} lang
  */
-Validator.setLang = function(lang) {
+Validator.useLang = function(lang) {
 	this.prototype.lang = lang;
 	return this;
 };

@@ -14,9 +14,9 @@ describe('lang / messages', function() {
 
 	it('should be able to change lang', function() {
 		var oldLang = Validator.getLang();
-		Validator.setLang('ru');
+		Validator.useLang('ru');
 		expect(Validator.getLang()).to.equal('ru');
-		Validator.setLang(oldLang);
+		Validator.useLang(oldLang);
 	});
 
 	it('should be able to add custom', function() {
@@ -26,14 +26,14 @@ describe('lang / messages', function() {
 			attributes: {}
 		};
 		Validator.setMessages('zu', rawMessages);
-		Validator.setLang('zu');
+		Validator.useLang('zu');
 		var validator = new Validator({ zip: '' }, { zip: 'required' });
 
 		var messages = Validator.getMessages('zu');
 		expect(messages.all()).to.equal(rawMessages);
 		expect(validator.fails()).to.be.true;
 		expect(validator.errors.first('zip')).to.equal('Le nkundla iyadingeka');
-		Validator.setLang(oldLang);
+		Validator.useLang(oldLang);
 	});
 
 });
