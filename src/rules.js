@@ -17,7 +17,7 @@ var rules = {
 		if (val) {
 			req = parseFloat(req);
 
-			var size = this._getSize(attribute, val);
+			var size = this.getSize(attribute, val);
 
 			return size === req;
 		}
@@ -29,7 +29,7 @@ var rules = {
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
 	min: function(val, req, attribute) {
-		var size = this._getSize(attribute, val);
+		var size = this.getSize(attribute, val);
 		return size >= req;
 	},
 
@@ -37,13 +37,13 @@ var rules = {
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
 	max: function(val, req, attribute) {
-		var size = this._getSize(attribute, val);
+		var size = this.getSize(attribute, val);
 		return size <= req;
 	},
 
 	between: function(val, req, attribute) {
 		req = req.split(',');
-		var size = this._getSize(attribute, val);
+		var size = this.getSize(attribute, val);
 		var min = parseFloat(req[0], 10);
 		var max = parseFloat(req[1], 10);
 		return size >= min && size <= max;
@@ -87,7 +87,7 @@ var rules = {
 	},
 
 	same: function(val, req) {
-		var val1 = this.input[req];
+		var val1 = this.validator.input[req];
 		var val2 = val;
 
 		if (val1 === val2) {
@@ -98,7 +98,7 @@ var rules = {
 	},
 
 	different: function(val, req) {
-		var val1 = this.input[req];
+		var val1 = this.validator.input[req];
 		var val2 = val;
 
 		if (val1 !== val2) {
@@ -159,7 +159,7 @@ var rules = {
 	confirmed: function(val, req, key) {
 		var confirmedKey = key + '_confirmation';
 
-		if (this.input[confirmedKey] === val) {
+		if (this.validator.input[confirmedKey] === val) {
 			return true;
 		}
 
@@ -171,7 +171,7 @@ var rules = {
 	},
 
 	digits: function(val, req) {
-		var numericRule = this.getRule('numeric');
+		var numericRule = this.validator.getRule('numeric');
 		if (numericRule.validate(val) && String(val).length === parseInt(req)) {
 			return true;
 		}
@@ -219,13 +219,13 @@ Rule.prototype = {
 			};
 
 			if (this.async) {
-				return this.fn.apply(this.validator, [inputValue, ruleValue, attribute, handleResponse]);
+				return this.fn.apply(this, [inputValue, ruleValue, attribute, handleResponse]);
 			}
 			else {
-				return handleResponse(this.fn.apply(this.validator, [inputValue, ruleValue, attribute]));
+				return handleResponse(this.fn.apply(this, [inputValue, ruleValue, attribute]));
 			}
 		}
-		return this.fn.apply(this.validator, [inputValue, ruleValue, attribute]);
+		return this.fn.apply(this, [inputValue, ruleValue, attribute]);
 	},
 
 	/**
@@ -248,6 +248,26 @@ Rule.prototype = {
 	 */
 	getParameters: function() {
 		return this.ruleValue ? this.ruleValue.split(',') : [];
+	},
+
+	/**
+	 * Get true size of value
+	 *
+	 * @param  {string} attribute
+	 * @param  {mixed} value
+	 * @return {integer|float}
+	 */
+	getSize: function() {
+		var value = this.inputValue;
+		if (typeof value === 'number') {
+			return value;
+		}
+
+		if (this.validator._hasNumericRule(this.attribute)) {
+			return parseFloat(value, 10);
+		}
+
+		return value.length;
 	},
 
 	/**

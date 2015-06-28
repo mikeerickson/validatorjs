@@ -197,6 +197,16 @@ Validator.prototype = {
 	},
 
 	/**
+	 * Determine if attribute has any numeric-based rules.
+	 *
+	 * @param  {string}  attribute
+	 * @return {Boolean}
+	 */
+	_hasNumericRule: function(attribute) {
+		return this._hasRule(attribute, this.numericRules);
+	},
+
+	/**
 	 * Determine if rule is validatable
 	 *
 	 * @param  {Rule}   rule
@@ -210,25 +220,6 @@ Validator.prototype = {
 		}
 
 		return this.getRule('required').validate(value);
-	},
-
-	/**
-	 * Get size of value
-	 *
-	 * @param  {string} attribute
-	 * @param  {mixed} value
-	 * @return {integer|float}
-	 */
-	_getSize: function(attribute, value) {
-		if (typeof value === 'number') {
-			return value;
-		}
-
-		if (this._hasRule(attribute, this.numericRules)) {
-			return parseFloat(value, 10);
-		}
-
-		return value.length;
 	},
 
 	/**
