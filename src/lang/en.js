@@ -3,6 +3,7 @@ module.exports = {
 	alpha: 'The :attribute field must contain only alphabetic characters.',
 	alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
 	alpha_num: 'The :attribute field must be alphanumeric.',
+	between: 'The :attribute field must be between :min and :max.',
 	confirmed: 'The :attribute confirmation does not match.',
 	email: 'The :attribute format is invalid.',
 	def: 'The :attribute attribute has errors.',

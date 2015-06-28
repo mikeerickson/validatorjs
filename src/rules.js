@@ -41,6 +41,14 @@ var rules = {
 		return size <= req;
 	},
 
+	between: function(val, req, attribute) {
+		req = req.split(',');
+		var size = this._getSize(attribute, val);
+		var min = parseFloat(req[0], 10);
+		var max = parseFloat(req[1], 10);
+		return size >= min && size <= max;
+	},
+
 	email: function(val) {
 		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return re.test(val);
@@ -231,6 +239,15 @@ Rule.prototype = {
 		this.attribute = attribute;
 		this.inputValue = inputValue;
 		this.ruleValue = ruleValue;
+	},
+
+	/**
+	 * Get parameters
+	 *
+	 * @return {array}
+	 */
+	getParameters: function() {
+		return this.ruleValue ? this.ruleValue.split(',') : [];
 	},
 
 	/**

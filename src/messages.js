@@ -1,7 +1,14 @@
-var Messages = function(lang, messages, customMessages) {
+var Messages = function(lang, messages) {
 	this.lang = lang;
 	this.messages = messages;
 	this.customMessages = {};
+};
+
+var replacements = {
+	between: function(template, rule) {
+		var parameters = rule.getParameters();
+		return this._replacePlaceholders(rule, template, { min: parameters[0], max: parameters[1] });
+	}
 };
 
 Messages.prototype = {
@@ -15,6 +22,15 @@ Messages.prototype = {
 	 */
 	set: function(attribute, message) {
 		this.messages[attribute] = message === undefined ? this.messages.def : message;
+	},
+
+	/**
+	 * Set custom messages
+	 *
+	 * @param {object} customMessages
+	 */
+	_setCustom: function(customMessages) {
+		this.customMessages = customMessages || {};
 	},
 
 	/**
@@ -36,86 +52,81 @@ Messages.prototype = {
 		if (rule.customMessage) {
 			return rule.customMessage;
 		}
-		var dataForMessageTemplate = this._createTemplateData(rule.attribute, rule.name, rule.ruleValue);
-		var msgTmpl = this._selectTemplate(rule.name, rule.inputValue, rule.attribute);
-		var msg = this._replacePlaceholders(msgTmpl, dataForMessageTemplate);
-		return msg;
-	},
+		var template = this._getTemplate(rule);
 
-	/**
-	 * Set custom messages
-	 *
-	 * @param {object} customMessages
-	 */
-	_setCustom: function(customMessages) {
-		this.customMessages = customMessages || {};
-	},
-
-	// replaces placeholders in tmpl with actual data
-	_replacePlaceholders: function(tmpl, data) {
-		var message, attribute;
-
-		if (typeof tmpl === 'string' && typeof data === 'object') {
-			message = tmpl;
-
-			for (attribute in data) {
-				if (data.hasOwnProperty(attribute)) {
-					message = message.replace(':' + attribute, data[attribute]);
-				}
-			}
+		var message;
+		if (replacements[rule.name]) {
+			message = replacements[rule.name].apply(this, [template, rule]);
+		}
+		else {
+			message = this._replacePlaceholders(rule, template, {});
 		}
 
 		return message;
 	},
 
-	_createTemplateData: function(attribute, rule, ruleVal) {
-		var dataForMessageTemplate = { attribute: this.messages.attributes[attribute] || attribute };
-		dataForMessageTemplate[rule] = ruleVal; // if no rule value, then this will equal to null
+	/**
+	 * Get the template to use for given rule
+	 *
+	 * @param  {Rule} rule
+	 * @return {string}
+	 */
+	_getTemplate: function(rule) {
 
-		return dataForMessageTemplate;
-	},
-
-	// get template to use from given rule and optional attribute
-	_getTemplate: function(rule, attribute) {
 		var messages = this.messages;
+		var template = messages.def;
 		var customMessages = this.customMessages;
-		var formats = [rule + '.' + attribute, rule];
-		var format;
+		var formats = [rule.name + '.' + rule.attribute, rule.name];
 
-		for (var i in formats)
-		{
+		for (var i = 0, format; i < formats.length; i++) {
 			format = formats[i];
-			if (customMessages.hasOwnProperty(format))
-			{
-				return customMessages[format];
+			if (customMessages.hasOwnProperty(format)) {
+				template = customMessages[format];
+				break;
 			}
-			else if (messages.hasOwnProperty(format))
-			{
-				return messages[format];
+			else if (messages.hasOwnProperty(format)) {
+				template = messages[format];
+				break;
 			}
 		}
 
-		return messages.def;
-	},
-
-	// selects the correct message template from the messages variable based on the rule and the value
-	_selectTemplate: function(rule, val, attribute) {
-		var tmpl = this._getTemplate(rule, attribute);
-		var message = '';
-		var messages = this.messages;
-
-		if (typeof tmpl === 'object') {
-			switch (typeof val) {
+		if (typeof template === 'object') {
+			switch (typeof rule.inputValue) {
 				case 'number':
-					tmpl = tmpl['numeric'];
+					template = template['numeric'];
 					break;
 				case 'string':
-					tmpl = tmpl['string'];
+					template = template['string'];
 					break;
 			}
 		}
 
-		return tmpl;
+		return template;
+	},
+
+	/**
+	 * Replace placeholders in the template using the data object
+	 *
+	 * @param  {Rule} rule
+	 * @param  {string} tmpl
+	 * @param  {object} data
+	 * @return {string}
+	 */
+	_replacePlaceholders: function(rule, template, data) {
+		var message, attribute;
+
+		data.attribute = this.messages.attributes[rule.attribute] || rule.attribute;
+		data[rule.name] = rule.getParameters().join(',');
+
+		if (typeof template === 'string' && typeof data === 'object') {
+			message = template;
+
+			for (attribute in data) {
+				message = message.replace(':' + attribute, data[attribute]);
+			}
+		}
+
+		return message;
 	}
 
 };

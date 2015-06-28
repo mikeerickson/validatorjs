@@ -38,7 +38,7 @@ Validator.prototype = {
 	 *
 	 * @type {array}
 	 */
-	numericRules: ['integer', 'numeric'],
+	numericRules: ['integer', 'numeric', 'between'],
 
 	/**
 	 * Run validator
