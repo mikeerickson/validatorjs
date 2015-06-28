@@ -56,7 +56,7 @@ Validator.prototype = {
 				ruleOptions = attributeRules[i];
 				rule = this.getRule(ruleOptions.name);
 
-				if (!this._isValidatable(rule, attribute, inputValue)) {
+				if (!this._isValidatable(rule, inputValue)) {
 					continue;
 				}
 				
@@ -103,7 +103,7 @@ Validator.prototype = {
 
 				rule = this.getRule(ruleOptions.name);
 
-				if (!this._isValidatable(rule, attribute, inputValue)) {
+				if (!this._isValidatable(rule, inputValue)) {
 					continue;
 				}
 
@@ -210,12 +210,11 @@ Validator.prototype = {
 	 * Determine if rule is validatable
 	 *
 	 * @param  {Rule}   rule
-	 * @param  {string} attribute
 	 * @param  {mixed}  value
 	 * @return {boolean} 
 	 */
-	_isValidatable: function(rule, attribute, value) {
-		if (rule.name === 'required' || rule.name === 'accepted') {
+	_isValidatable: function(rule, value) {
+		if (Rules.isImplicit(rule.name)) {
 			return true;
 		}
 

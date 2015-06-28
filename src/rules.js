@@ -304,6 +304,13 @@ var manager = {
 	asyncRules: [],
 
 	/**
+	 * Implicit rules (rules to always validate)
+	 *
+	 * @type {Array}
+	 */
+	implicitRules: ['required', 'accepted'],
+
+	/**
 	 * Get rule by name
 	 *
 	 * @param  {string} name
@@ -330,6 +337,15 @@ var manager = {
 			}
 		}
 		return false;
+	},
+
+	/**
+	 * Determine if rule is implicit (should always validate)
+	 *
+	 * @return {Boolean}
+	 */
+	isImplicit: function(name) {
+		return this.implicitRules.indexOf(name) > -1;
 	},
 
 	/**
