@@ -103,6 +103,10 @@ Validator.prototype = {
 
 				rule = this.getRule(ruleOptions.name);
 
+				if (!this._isValidatable(rule, attribute, inputValue)) {
+					continue;
+				}
+
 				asyncResolvers.add(rule, i);
 
 				(function(inputValue, ruleOptions, attribute, i, rule) {
