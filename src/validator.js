@@ -92,6 +92,13 @@ Validator.prototype = {
 			}
 		};
 
+		var validateRule = function(inputValue, ruleOptions, attribute, rule) {
+			return function() {
+				var resolverIndex = asyncResolvers.add(rule);
+				rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(resolverIndex); });
+			};
+		};
+
 		var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
 
 		for (var attribute in this.rules) {
@@ -107,11 +114,7 @@ Validator.prototype = {
 					continue;
 				}
 
-				asyncResolvers.add(rule, i);
-
-				(function(inputValue, ruleOptions, attribute, i, rule) {
-					rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(i); });
-				})(inputValue, ruleOptions, attribute, i, rule);
+				validateRule(inputValue, ruleOptions, attribute, rule)();
 			}
 		}
 

@@ -6,7 +6,7 @@ function AsyncResolvers(onFailedOne, onResolvedAll) {
 	this.passed = [];
 	this.failed = [];
 	this.firing = false;
-};
+}
 
 AsyncResolvers.prototype = {
 
@@ -14,11 +14,13 @@ AsyncResolvers.prototype = {
 	 * Add resolver
 	 *
 	 * @param {Rule} rule
-	 * @param {integer} index
+	 * @return {integer}
 	 */
-	add: function(rule, index) {
+	add: function(rule) {
+		var index = this.resolversCount;
 		this.resolvers[index] = rule;
 		this.resolversCount++;
+		return index;
 	},
 
 	/**
@@ -47,7 +49,7 @@ AsyncResolvers.prototype = {
 	 * @return {boolean}
 	 */
 	isAllResolved: function() {
-		return (this.passed.length + this.failed.length) == this.resolversCount;
+		return (this.passed.length + this.failed.length) === this.resolversCount;
 	},
 
 	/**
