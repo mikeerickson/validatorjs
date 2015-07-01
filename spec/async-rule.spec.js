@@ -57,7 +57,6 @@ describe('async rule tests', function() {
 			setTimeout(function() {
 				if (desiredUsername == 'test') {
 					passCount++;
-					console.log(passes);
 					passes();
 				}
 			}, 50);
