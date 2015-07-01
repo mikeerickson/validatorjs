@@ -42,7 +42,7 @@ var rules = {
 	},
 
 	between: function(val, req, attribute) {
-		req = req.split(',');
+		req = this.getParameters();
 		var size = this.getSize(attribute, val);
 		var min = parseFloat(req[0], 10);
 		var max = parseFloat(req[1], 10);
@@ -332,7 +332,7 @@ var manager = {
 	 */
 	isAsync: function(name) {
 		for (var i = 0, len = this.asyncRules.length; i < len; i++) {
-			if (this.asyncRules[i] == name) {
+			if (this.asyncRules[i] === name) {
 				return true;
 			}
 		}
