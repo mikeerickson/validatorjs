@@ -10,14 +10,15 @@ function langs() {
 }
 
 var Validator = function(input, rules, customMessages) {
-	var lang = Validator.getLang();
+	var lang = Validator.getDefaultLang();
 	this.input = input;
 
-	this.messages = Lang._get(lang);
+	this.messages = Lang._make(lang);
 	this.messages._setCustom(customMessages);
+	
 	this.errors = new Errors();
-
 	this.errorCount = 0;
+	
 	this.hasAsync = false;
 	this.rules = this._parseRules(rules);
 };
@@ -289,7 +290,7 @@ Validator.setMessages = function(lang, messages) {
 };
 
 /**
- * Get messages instance for given language
+ * Get messages for given language
  *
  * @param  {string} lang
  * @return {Messages}
@@ -305,7 +306,6 @@ Validator.getMessages = function(lang) {
  */
 Validator.useLang = function(lang) {
 	this.prototype.lang = lang;
-	return this;
 };
 
 /**
@@ -313,7 +313,7 @@ Validator.useLang = function(lang) {
  *
  * @return {string}
  */
-Validator.getLang = function() {
+Validator.getDefaultLang = function() {
 	return this.prototype.lang;
 };
 
@@ -326,10 +326,9 @@ Validator.getLang = function() {
  * @return {void}
  */
 Validator.register = function(name, fn, message) {
-	var lang = Validator.getLang();
-	var messages = Validator.getMessages(lang);
+	var lang = Validator.getDefaultLang();
 	Rules.register(name, fn);
-	messages.set(name, message);
+	Lang._setRuleMessage(lang, name, message);
 };
 
 /**
@@ -341,10 +340,9 @@ Validator.register = function(name, fn, message) {
  * @return {void}
  */
 Validator.registerAsync = function(name, fn, message) {
-	var lang = Validator.getLang();
-	var messages = Validator.getMessages(lang);
+	var lang = Validator.getDefaultLang();
 	Rules.registerAsync(name, fn);
-	messages.set(name, message);
+	Lang._setRuleMessage(lang, name, message);
 };
 
 /**

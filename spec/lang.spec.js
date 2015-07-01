@@ -9,18 +9,18 @@ if (typeof require !== 'undefined') {
 describe('lang / messages', function() {
 
 	it('should default to english', function() {
-		expect(Validator.getLang()).to.equal('en');
+		expect(Validator.getDefaultLang()).to.equal('en');
 	});
 
 	it('should be able to change lang', function() {
-		var oldLang = Validator.getLang();
+		var oldLang = Validator.getDefaultLang();
 		Validator.useLang('ru');
-		expect(Validator.getLang()).to.equal('ru');
+		expect(Validator.getDefaultLang()).to.equal('ru');
 		Validator.useLang(oldLang);
 	});
 
 	it('should be able to add custom', function() {
-		var oldLang = Validator.getLang();
+		var oldLang = Validator.getDefaultLang();
 		var rawMessages = {
 			required: 'Le nkundla iyadingeka',
 			attributes: {}
@@ -30,7 +30,7 @@ describe('lang / messages', function() {
 		var validator = new Validator({ zip: '' }, { zip: 'required' });
 
 		var messages = Validator.getMessages('zu');
-		expect(messages.all()).to.equal(rawMessages);
+		expect(messages).to.equal(rawMessages);
 		expect(validator.fails()).to.be.true;
 		expect(validator.errors.first('zip')).to.equal('Le nkundla iyadingeka');
 		Validator.useLang(oldLang);

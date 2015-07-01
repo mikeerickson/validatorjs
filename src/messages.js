@@ -15,16 +15,6 @@ Messages.prototype = {
 	constructor: Messages,
 
 	/**
-	 * Set message format for given attribute
-	 *
-	 * @param {string} attribute
-	 * @param {string} message
-	 */
-	set: function(attribute, message) {
-		this.messages[attribute] = message === undefined ? this.messages.def : message;
-	},
-
-	/**
 	 * Set custom messages
 	 *
 	 * @param {object} customMessages

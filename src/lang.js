@@ -9,30 +9,60 @@ var container = {
 	 *
 	 * @param {string} lang
 	 * @param {object} rawMessages
-	 * @return {Messages}
+	 * @return {void}
 	 */
 	_set: function(lang, rawMessages) {
-		var messages = new Messages(lang, rawMessages);
-		this.messages[lang] = messages;
-		return messages;
+		this.messages[lang] = rawMessages;
 	},
 
 	/**
-	 * Get messages for language
+	 * Set message for given language's rule.
+	 *
+	 * @param {string} lang
+	 * @param {string} attribute
+	 * @param {string|object} message
+	 */
+	_setRuleMessage: function(lang, attribute, message) {
+		if (message === undefined) {
+			message = this.messages[lang].def;
+		}
+
+		this.messages[lang][attribute] = message;
+	},
+
+	/**
+	 * Load messages (if not already loaded)
+	 *
+	 * @param  {string} lang 
+	 * @return {void}
+	 */
+	_load: function(lang) {
+		if (!this.messages[lang]) {
+			var rawMessages = require('./lang/' + lang);
+			this._set(lang, rawMessages);
+		}
+	},
+
+	/**
+	 * Get raw messages for language
+	 *
+	 * @param  {string} lang
+	 * @return {object}
+	 */
+	_get: function(lang) {
+		this._load(lang);
+		return this.messages[lang];
+	},
+
+	/**
+	 * Make messages for given language
 	 *
 	 * @param  {string} lang
 	 * @return {Messages}
 	 */
-	_get: function(lang) {
-		var messages = this.messages[lang];
-		if (messages)
-		{
-			return messages;
-		}
-
-		var rawMessages = require('./lang/' + lang);
-		messages = this._set(lang, rawMessages);
-		return messages;
+	_make: function(lang) {
+		this._load(lang);
+		return new Messages(lang, this.messages[lang]);
 	}
 
 };
