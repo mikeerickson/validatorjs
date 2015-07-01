@@ -2,6 +2,8 @@
 module.exports = function(grunt) {
   'use strict';
 
+  require('jit-grunt')(grunt);
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -49,14 +51,9 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-browserify');
-
   // Default task.
   grunt.registerTask('build', ['browserify']);
   grunt.registerTask('dist', ['jshint', 'build', 'uglify']);
   grunt.registerTask('default', ['dist']);
+  
 };
