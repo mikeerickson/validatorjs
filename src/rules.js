@@ -234,6 +234,7 @@ Rule.prototype = {
 	 * @param {string} attribute
 	 * @param {mixed} inputValue
 	 * @param {mixed} ruleValue
+	 * @return {void}
 	 */
 	_setValidatingData: function(attribute, inputValue, ruleValue) {
 		this.attribute = attribute;
@@ -253,8 +254,6 @@ Rule.prototype = {
 	/**
 	 * Get true size of value
 	 *
-	 * @param  {string} attribute
-	 * @param  {mixed} value
 	 * @return {integer|float}
 	 */
 	getSize: function() {
@@ -287,6 +286,7 @@ Rule.prototype = {
 	 * Set validator instance
 	 *
 	 * @param {Validator} validator
+	 * @return {void}
 	 */
 	setValidator: function(validator) {
 		this.validator = validator;
@@ -328,7 +328,7 @@ var manager = {
 	 * Determine if given rule is async
 	 *
 	 * @param  {string}  name
-	 * @return {Boolean}
+	 * @return {boolean}
 	 */
 	isAsync: function(name) {
 		for (var i = 0, len = this.asyncRules.length; i < len; i++) {
@@ -342,7 +342,8 @@ var manager = {
 	/**
 	 * Determine if rule is implicit (should always validate)
 	 *
-	 * @return {Boolean}
+	 * @param {string} name
+	 * @return {boolean}
 	 */
 	isImplicit: function(name) {
 		return this.implicitRules.indexOf(name) > -1;
@@ -352,7 +353,7 @@ var manager = {
 	 * Register new rule
 	 *
 	 * @param  {string}   name
-	 * @param  {Function} fn
+	 * @param  {function} fn
 	 * @return {void}
 	 */
 	register: function(name, fn) {

@@ -239,7 +239,7 @@ Validator.prototype = {
 	 * Determine if validation passes
 	 *
 	 * @param {function} passes
-	 * @return {boolean}
+	 * @return {boolean|undefined}
 	 */
 	passes: function(passes) {
 		var async = this._checkAsync('passes', passes);
@@ -253,7 +253,7 @@ Validator.prototype = {
 	 * Determine if validation fails
 	 *
 	 * @param {function} fails
-	 * @return {boolean}
+	 * @return {boolean|undefined}
 	 */
 	fails: function(fails) {
 		var async = this._checkAsync('fails', fails);
@@ -286,6 +286,7 @@ Validator.prototype = {
  *
  * @param {string} lang
  * @param {object} messages
+ * @return {this}
  */
 Validator.setMessages = function(lang, messages) {
 	Lang._set(lang, messages);
@@ -306,6 +307,7 @@ Validator.getMessages = function(lang) {
  * Set default language to use
  *
  * @param {string} lang
+ * @return {void}
  */
 Validator.useLang = function(lang) {
 	this.prototype.lang = lang;

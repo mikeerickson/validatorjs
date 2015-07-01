@@ -5,6 +5,14 @@ var Messages = function(lang, messages) {
 };
 
 var replacements = {
+
+	/**
+	 * Between replacement (replaces :min and :max)
+	 *
+	 * @param  {string} template
+	 * @param  {Rule} rule
+	 * @return {string}
+	 */
 	between: function(template, rule) {
 		var parameters = rule.getParameters();
 		return this._replacePlaceholders(rule, template, { min: parameters[0], max: parameters[1] });
@@ -18,6 +26,7 @@ Messages.prototype = {
 	 * Set custom messages
 	 *
 	 * @param {object} customMessages
+	 * @return {void}
 	 */
 	_setCustom: function(customMessages) {
 		this.customMessages = customMessages || {};
@@ -26,7 +35,7 @@ Messages.prototype = {
 	/**
 	 * Get all messages
 	 *
-	 * @return {string}
+	 * @return {object}
 	 */
 	all: function() {
 		return this.messages;
@@ -98,7 +107,7 @@ Messages.prototype = {
 	 * Replace placeholders in the template using the data object
 	 *
 	 * @param  {Rule} rule
-	 * @param  {string} tmpl
+	 * @param  {string} template
 	 * @param  {object} data
 	 * @return {string}
 	 */

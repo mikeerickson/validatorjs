@@ -20,9 +20,10 @@ Errors.prototype = {
 	},
 
 	/**
-	 * returns an array of error messages for an attribute, or an empty array
-	 * @param  {String} attribute A key in the data object being validated
-	 * @return {Array}           	An array of error messages
+	 * Returns an array of error messages for an attribute, or an empty array
+	 * 
+	 * @param  {string} attribute A key in the data object being validated
+	 * @return {array} An array of error messages
 	 */
 	get: function(attribute) {
 		if (this.has(attribute)) {
@@ -33,9 +34,10 @@ Errors.prototype = {
 	},
 
 	/**
-	 * returns the first error message for an attribute, false otherwise
-	 * @param  {String} attribute A key in the data object being validated
-	 * @return {String}           First error message or false
+	 * Returns the first error message for an attribute, false otherwise
+	 * 
+	 * @param  {string} attribute A key in the data object being validated
+	 * @return {string|false} First error message or false
 	 */
 	first: function(attribute) {
 		if (this.has(attribute)) {
@@ -47,6 +49,7 @@ Errors.prototype = {
 
 	/**
 	 * Get all error messages from all failing attributes
+	 * 
 	 * @return {Object} Failed attribute names for keys and an array of messages for values
 	 */
 	all: function() {
@@ -54,9 +57,10 @@ Errors.prototype = {
 	},
 
 	/**
-	 * checks if there are error messages for an attribute
-	 * @param  {String}  attribute A key in the data object being validated
-	 * @return {Boolean}           True if there are error messages. Otherwise false
+	 * Determine if there are any error messages for an attribute
+	 * 
+	 * @param  {string}  attribute A key in the data object being validated
+	 * @return {boolean}
 	 */
 	has: function(attribute) {
 		if (this.errors.hasOwnProperty(attribute)) {

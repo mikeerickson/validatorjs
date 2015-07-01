@@ -21,6 +21,7 @@ var container = {
 	 * @param {string} lang
 	 * @param {string} attribute
 	 * @param {string|object} message
+	 * @return {void}
 	 */
 	_setRuleMessage: function(lang, attribute, message) {
 		if (message === undefined) {
