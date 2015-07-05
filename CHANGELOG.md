@@ -1,3 +1,19 @@
+### 2.0.0
+
+* Added asynchronous validation `registerAsync()` and pass callbacks to `passes(func)` and `fails(func)`
+* Added `array` and `between` validation rules.
+* Fixed `integer` rule not allowing unsigned integers.
+* Fixed attempting to validate non-required rules when there's nothing to validate.
+* Fixed numeric comparison rules where value is a string: `size`, `min`, `max`.
+* Fixed error messages for attributes with names: 'has', 'get', or 'first'.
+* Errors must now be accessed by `.errors.get('username')` or `.errors.first('username')` rather than `.errors.username`
+* Only validate when calling `passes()` or `fails()` (should now be called first before accessing `.errors` or `.errorCount`)
+* Added ability to switch language `useLang()` and customise/add new languages `setMessages()`
+* Added `getMessages(<lang>)` to get the raw messages for given language.
+* Added `getDefaultLang()` to return the default language that is being used.
+* Use source files in node (no longer uses dist).
+* Improved structuring of library, use Browserify, switch to mocha for testing.
+
 ### 1.3.0
 
 * Adds regex pattern rules
