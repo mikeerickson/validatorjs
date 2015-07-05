@@ -143,7 +143,6 @@ The given field must be different than the field under validation.
 
 The field under validation must be formatted as an e-mail address.
 
-
 #### in:foo,bar,...
 
 The field under validation must be included in the given list of values.
@@ -179,7 +178,6 @@ Checks if the length of the String representation of the value is >
 #### same:attribute
 
 The given field must match the field under validation.
-
 
 #### size:value
 
@@ -357,14 +355,6 @@ Validator.setMessages('lang_code', {
 });
 ```
 
-Override default messages for language:
-
-```js
-var messages = Validator.getMessages('en');
-messages.required = 'Whoops, :attribute field is required.';
-Validator.setMessages('en', messages);
-```
-
 Switch the default language used by the validator:
 
 ```js
@@ -381,4 +371,12 @@ Get the raw object of messages for the given language:
 
 ```js
 Validator.getMessages('lang_code');
+```
+
+Override default messages for language:
+
+```js
+var messages = Validator.getMessages('en');
+messages.required = 'Whoops, :attribute field is required.';
+Validator.setMessages('en', messages);
 ```
