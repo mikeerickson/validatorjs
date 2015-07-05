@@ -54,6 +54,14 @@ describe('between rule', function() {
 
 	});
 
+	it('should support array', function() {
+
+		var validator = new Validator({ array2: ['a', 'b'] }, { array2: 'required|between:1,2' });
+		expect(validator.passes()).to.be.true;
+		expect(validator.fails()).to.be.false;
+
+	});
+
 	it('should generate proper error message', function() {
 
 		var validator = new Validator({ num: '14' }, { num: 'between:16,23' });

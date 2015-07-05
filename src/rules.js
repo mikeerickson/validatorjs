@@ -17,7 +17,7 @@ var rules = {
 		if (val) {
 			req = parseFloat(req);
 
-			var size = this.getSize(attribute, val);
+			var size = this.getSize();
 
 			return size === req;
 		}
@@ -29,7 +29,7 @@ var rules = {
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
 	min: function(val, req, attribute) {
-		var size = this.getSize(attribute, val);
+		var size = this.getSize();
 		return size >= req;
 	},
 
@@ -37,13 +37,13 @@ var rules = {
 	 * Compares the size of strings or the value of numbers if there is a truthy value
 	 */
 	max: function(val, req, attribute) {
-		var size = this.getSize(attribute, val);
+		var size = this.getSize();
 		return size <= req;
 	},
 
 	between: function(val, req, attribute) {
 		req = this.getParameters();
-		var size = this.getSize(attribute, val);
+		var size = this.getSize();
 		var min = parseFloat(req[0], 10);
 		var max = parseFloat(req[1], 10);
 		return size >= min && size <= max;
@@ -258,6 +258,11 @@ Rule.prototype = {
 	 */
 	getSize: function() {
 		var value = this.inputValue;
+
+		if (value instanceof Array) {
+			return value.length;
+		}
+
 		if (typeof value === 'number') {
 			return value;
 		}
