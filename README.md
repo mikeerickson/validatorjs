@@ -119,6 +119,14 @@ The field under validation may have alpha-numeric characters, as well as dashes 
 
 The field under validation must be entirely alpha-numeric characters.
 
+### array
+
+The field under validation must be an array.
+
+#### between:min,max
+
+The field under validation must be between min and max values.
+
 #### confirmed
 
 The field under validation must have a matching field of foo_confirmation. For example, if the field under validation is password, a matching password_confirmation field must be present in the input.
@@ -177,7 +185,6 @@ The given field must match the field under validation.
 
 Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
 
-
 #### url
 
 Validate that an attribute has a valid URL format
@@ -224,6 +231,36 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 	return val.match(/^\d{3}-\d{3}-\d{4}$/);
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
+
+### Asynchronous validation
+
+Register an asynchronous rule which accepts a `passes` callback:
+
+```js
+Validator.registerAsync('username_available', function(username, attribute, req, passes) {
+	// do your database/api checks here etc
+	// then call the `passes` method where appropriate:
+	passes(); // if username is available
+	passes(false, 'Username has already been taken.'); // if username is not available
+});
+```
+
+Then call your validator passing a callback to `fails` or `passes` like so:
+
+```js
+var validator = new Validator({ username: 'test123' }, { username: 'required|min:3|username_available' });
+validator.passes(function() {
+	// Validation passed
+});
+
+// Or call fails()
+validator.fails(function() {
+	// Error message:
+	validator.errors.first('username');
+});
+```
+
+Note: if you attempt to call `passes` or `fails` without a callback and the validator detects there are asynchronous validation rules, an exception will be thrown.
 
 ### Error Messages
 
@@ -310,33 +347,38 @@ validation.errors.first('email'); // returns 'Without an email we can\'t reach y
 
 ### Language Support
 
-You can build the project with error messages in other languages. Simply create a language file in _src/lang/_ modeled after _en.js_.
+You can add your own custom language by calling `setMessages`:
 
-```
-# Defaults to en.js
-grunt --lang=en
-```
-
-The English build will be dist/validator.js. Other builds will be dist/validator-**.js.
-
-Please contribute your language files!
-
-### Tests
-
-```
-# Terminal tab 1
-./node_modules/karma/bin/karma start
-
-# Terminal tab 2
-grunt watch
+```js
+Validator.setMessages('lang_code', {
+	required: 'The :attribute field is required.',
+	....
+	....
+});
 ```
 
-Grunt will watch the files in _src/_ and build the library on change. Karma will watch the final build of the library, _dist/validator.js_, and run the tests on change.
+Override default messages for language:
 
-If someone knows how to make this into a combined task, please send a pull request!
-
-### Build
-
+```js
+var messages = Validator.getMessages('en');
+messages.required = 'Whoops, :attribute field is required.';
+Validator.setMessages('en', messages);
 ```
-grunt
+
+Switch the default language used by the validator:
+
+```js
+Validator.useLang('lang_code');
+```
+
+Get the default language being used:
+
+```js
+Validator.getDefaultLang(); // returns e.g. 'en'
+```
+
+Get the raw object of messages for the given language:
+
+```js
+Validator.getMessages('lang_code');
 ```
