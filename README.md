@@ -119,7 +119,7 @@ The field under validation may have alpha-numeric characters, as well as dashes 
 
 The field under validation must be entirely alpha-numeric characters.
 
-### array
+#### array
 
 The field under validation must be an array.
 
@@ -355,6 +355,12 @@ Validator.setMessages('lang_code', {
 });
 ```
 
+Get the raw object of messages for the given language:
+
+```js
+Validator.getMessages('lang_code');
+```
+
 Switch the default language used by the validator:
 
 ```js
@@ -365,12 +371,6 @@ Get the default language being used:
 
 ```js
 Validator.getDefaultLang(); // returns e.g. 'en'
-```
-
-Get the raw object of messages for the given language:
-
-```js
-Validator.getMessages('lang_code');
 ```
 
 Override default messages for language:
