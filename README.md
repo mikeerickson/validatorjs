@@ -343,6 +343,20 @@ validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
+### Custom attribute names
+
+To display a custom "friendly" attribute name in error messages, use `.setAttributeNames()`
+
+```js
+var validator = new Validator({ name: '' }, { name: 'required' });
+validator.setAttributeNames({ name: 'custom_name' });
+if (validator.fails()) {
+	validator.errors.get('name'); // "The custom_name field is required."
+}
+```
+
+Alternatively you can supply global custom attribute names in your lang with the `attributes` property.
+
 ### Language Support
 
 You can add your own custom language by calling `setMessages`:

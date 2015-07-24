@@ -8,6 +8,7 @@
 * Fixed error messages for attributes with names: 'has', 'get', or 'first'.
 * Errors must now be accessed by `.errors.get('username')` or `.errors.first('username')` rather than `.errors.username`
 * Only validate when calling `passes()` or `fails()` (should now be called first before accessing `.errors` or `.errorCount`)
+* Added ability to set custom attribute names to display in errors `.setAttributeNames()`
 * Added ability to switch language `useLang()` and customise/add new languages `setMessages()`
 * Added `getMessages(<lang>)` to get the raw messages for given language.
 * Added `getDefaultLang()` to return the default language that is being used.
