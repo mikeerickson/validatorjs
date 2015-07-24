@@ -351,7 +351,7 @@ To display a custom "friendly" attribute name in error messages, use `.setAttrib
 var validator = new Validator({ name: '' }, { name: 'required' });
 validator.setAttributeNames({ name: 'custom_name' });
 if (validator.fails()) {
-	validator.errors.get('name'); // "The custom_name field is required."
+	validator.errors.first('name'); // "The custom_name field is required."
 }
 ```
 
