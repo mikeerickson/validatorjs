@@ -226,6 +226,16 @@ Validator.prototype = {
 	},
 
 	/**
+	 * Set custom attribute names.
+	 *
+	 * @param {object} attributes
+	 * @return {void}
+	 */
+	setAttributeNames: function(attributes) {
+		this.messages._setAttributeNames(attributes);
+	},
+
+	/**
 	 * Get validation rule
 	 *
 	 * @param  {string} name

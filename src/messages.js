@@ -2,6 +2,7 @@ var Messages = function(lang, messages) {
 	this.lang = lang;
 	this.messages = messages;
 	this.customMessages = {};
+	this.attributeNames = {};
 };
 
 var replacements = {
@@ -30,6 +31,31 @@ Messages.prototype = {
 	 */
 	_setCustom: function(customMessages) {
 		this.customMessages = customMessages || {};
+	},
+
+	/**
+	 * Set custom attribute names.
+	 *
+	 * @param {object} attributes
+	 */
+	_setAttributeNames: function(attributes) {
+		this.attributeNames = attributes;
+	},
+
+	/**
+	 * Get attribute name to display.
+	 *
+	 * @param  {string} attribute
+	 * @return {string}
+	 */
+	_getAttributeName: function(attribute) {
+		if (this.attributeNames.hasOwnProperty(attribute)) {
+			return this.attributeNames[attribute];
+		}
+		if (this.messages.attributes.hasOwnProperty(attribute)) {
+			return this.messages.attributes[attribute];
+		}
+		return attribute;
 	},
 
 	/**
@@ -114,7 +140,7 @@ Messages.prototype = {
 	_replacePlaceholders: function(rule, template, data) {
 		var message, attribute;
 
-		data.attribute = this.messages.attributes[rule.attribute] || rule.attribute;
+		data.attribute = this._getAttributeName(rule.attribute);
 		data[rule.name] = rule.getParameters().join(',');
 
 		if (typeof template === 'string' && typeof data === 'object') {
