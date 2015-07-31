@@ -359,10 +359,15 @@ var manager = {
 	 *
 	 * @param  {string}   name
 	 * @param  {function} fn
+	 * @param  {boolean}  isImplicit
 	 * @return {void}
 	 */
-	register: function(name, fn) {
+	register: function(name, fn, isImplicit) {
 		rules[name] = fn;
+		if (isImplicit)
+		{
+			this.implicitRules.push(name);
+		}
 	},
 
 	/**
