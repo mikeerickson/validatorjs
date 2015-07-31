@@ -364,8 +364,7 @@ var manager = {
 	 */
 	register: function(name, fn, isImplicit) {
 		rules[name] = fn;
-		if (isImplicit)
-		{
+		if (isImplicit) {
 			this.implicitRules.push(name);
 		}
 	},
