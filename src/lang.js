@@ -24,7 +24,7 @@ var container = {
 	 * @return {void}
 	 */
 	_setRuleMessage: function(lang, attribute, message) {
-		this._load();
+		this._load(lang);
 		
 		if (message === undefined) {
 			message = this.messages[lang].def;
