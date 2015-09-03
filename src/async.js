@@ -24,9 +24,8 @@ AsyncResolvers.prototype = {
 	},
 
 	/**
-	 * Resolve given rule
+	 * Resolve given index
 	 *
-	 * @param  {Rule}
 	 * @param  {integer} index
 	 * @return {void}
 	 */
@@ -72,7 +71,7 @@ AsyncResolvers.prototype = {
 	/**
 	 * Enable firing
 	 *
-	 * @param {void}
+	 * @return {void}
 	 */
 	enableFiring: function() {
 		this.firing = true;
