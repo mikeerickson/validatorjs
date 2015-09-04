@@ -4,11 +4,6 @@ var Lang = require('./lang');
 var Errors = require('./errors');
 var AsyncResolvers = require('./async');
 
-function langs() {
-	require('./lang/en');
-	require('./lang/ru');
-}
-
 var Validator = function(input, rules, customMessages) {
 	var lang = Validator.getDefaultLang();
 	this.input = input;

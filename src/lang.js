@@ -1,5 +1,7 @@
 var Messages = require('./messages');
 
+require('./lang/en');
+
 var container = {
 
 	messages: {},
