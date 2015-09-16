@@ -2,7 +2,7 @@
   "name": "validatorjs",
   "buildname": "validator",
   "title": "validatorjs",
-  "description": "Validation library based on Laravel's Validator class",
+  "description": "Validation library inspired by Laravel's Validator",
   "version": "1.3.2",
   "homepage": "https://github.com/skaterdav85/validatorjs",
   "author": "David <dtang859@gmail.com>",
