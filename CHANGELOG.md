@@ -1,7 +1,7 @@
 ### 2.0.0
 
 * Added asynchronous validation `registerAsync()` and pass callbacks to `passes(func)` and `fails(func)`
-* Added `array` and `between` validation rules.
+* Added `array`, `between`, and `required_if` validation rules.
 * Fixed `integer` rule not allowing unsigned integers.
 * Fixed attempting to validate non-required rules when there's nothing to validate.
 * Fixed numeric comparison rules where value is a string: `size`, `min`, `max`.
