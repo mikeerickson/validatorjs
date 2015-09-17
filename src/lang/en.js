@@ -22,6 +22,7 @@ module.exports = {
 	not_in: 'The selected :attribute is invalid.',
 	numeric: 'The :attribute must be a number.',
 	required: 'The :attribute field is required.',
+	required_if: 'The :attribute field is required when :other is :value.',
 	same: 'The :attribute and :same fields must match.',
 	size: {
 		numeric: 'The :attribute must be :size.',

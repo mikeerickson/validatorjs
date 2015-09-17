@@ -11,6 +11,15 @@ var rules = {
 		return str.length > 0 ? true : false;
 	},
 
+	required_if: function(val, req, attribute) {
+		req = this.getParameters();
+		if (this.validator.input[req[0]] === req[1]) {
+			return this.validator.getRule('required').validate(val);
+		}
+
+		return true;
+	},
+
 	// compares the size of strings
 	// with numbers, compares the value
 	size: function(val, req, attribute) {
@@ -313,7 +322,7 @@ var manager = {
 	 *
 	 * @type {Array}
 	 */
-	implicitRules: ['required', 'accepted'],
+	implicitRules: ['required', 'required_if', 'accepted'],
 
 	/**
 	 * Get rule by name
