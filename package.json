@@ -1,12 +1,16 @@
 {
   "name": "validatorjs",
-  "buildname": "validator",
-  "title": "validatorjs",
   "description": "Validation library inspired by Laravel's Validator",
-  "version": "1.3.2",
-  "homepage": "https://github.com/skaterdav85/validatorjs",
+  "version": "2.0.0",
   "author": "David <dtang859@gmail.com>",
+  "contributors": [
+    {
+      "name": "Gary Green",
+      "email": "holegary@gmail.com"
+    }
+  ],
   "license": "MIT",
+  "main": "./src/validator.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/skaterdav85/validatorjs"
@@ -15,7 +19,15 @@
     "url": "https://github.com/skaterdav85/validatorjs/issues?labels=bug&milestone=1&page=1&state=open"
   },
   "keywords": [
-    "validatorjs, validator.js, data validation, validator, validate, validation, data, laravel, laravel-validator-for-js"
+    "validatorjs",
+    "validator.js",
+    "data validation",
+    "validator",
+    "validate",
+    "validation",
+    "data",
+    "laravel",
+    "laravel-validator-for-js"
   ],
   "devDependencies": {
     "browserify": "^10.2.4",
@@ -37,12 +49,6 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "mocha": "~2.2.5"
   },
-  "engines": {
-    "node": ">= 0.8.0"
-  },
-  "gitHead": "301ebbe9afe949a4233606d3a5f16e14be5c820e",
-  "readmeFilename": "README.md",
-  "main": "./src/validator.js",
   "scripts": {
     "test-node": "node node_modules/mocha/bin/mocha spec",
     "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
