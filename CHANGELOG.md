@@ -1,15 +1,17 @@
 ### 2.0.0
 
-* Added asynchronous validation `registerAsync()` and pass callbacks to `passes(func)` and `fails(func)`
+* Added asynchronous validation `registerAsync()` and pass callbacks to `passes(func)` and `fails(func)`.
 * Added `array`, `between`, and `required_if` validation rules.
+* Removed `Validator.make(..)` use `new Validator(..)` instead.
 * Fixed `integer` rule not allowing unsigned integers.
 * Fixed attempting to validate non-required rules when there's nothing to validate.
 * Fixed numeric comparison rules where value is a string: `size`, `min`, `max`.
 * Fixed error messages for attributes with names: 'has', 'get', or 'first'.
-* Errors must now be accessed by `.errors.get('username')` or `.errors.first('username')` rather than `.errors.username`
-* Only validate when calling `passes()` or `fails()` (should now be called first before accessing `.errors` or `.errorCount`)
-* Added ability to set custom attribute names to display in errors `.setAttributeNames()`
-* Added ability to switch language `useLang()` and customise/add new languages `setMessages()`
+* Errors must now be accessed by `.errors.get('username')` or `.errors.first('username')` rather than `.errors.username`.
+* Only validate when calling `passes()` or `fails()` (should now be called first before accessing `.errors` or `.errorCount`).
+* Added ability to format attributes `.setAttributeFormatter(function)` (by default replaces all _[] with spaces.)
+* Added ability to set custom attribute names to display in errors `.setAttributeNames()`.
+* Added ability to switch language `useLang()` and customise/add new languages `setMessages()`.
 * Added `getMessages(<lang>)` to get the raw messages for given language.
 * Added `getDefaultLang()` to return the default language that is being used.
 * Use source files in node (no longer uses dist).
