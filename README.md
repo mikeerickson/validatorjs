@@ -7,14 +7,12 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 
 ### Why use validatorjs?
 
-1. Not dependent on any libraries.
-2. Works in the browser and Node.
-3. Readable and declarative validation rules.
-4. Size
-	* Development version: 3.62 kB gzipped with lots of spacing and comments.
-	* Production version: 2.02 kB gzipped and minified.
-5. Supports other languages.
-6. AMD/Require.js and CommonJS/Browserify support.
+* Not dependent on any libraries.
+* Works in both Browser and Node.
+* Readable and declarative validation rules.
+* Lightweight (production version 3.68 KB gzipped and minified).
+* Multi language support.
+* AMD/Require.js and CommonJS/Browserify support.
 
 ## Installation
 
