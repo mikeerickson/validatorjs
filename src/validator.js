@@ -384,16 +384,4 @@ Validator.registerAsync = function(name, fn, message) {
 	Lang._setRuleMessage(lang, name, message);
 };
 
-/**
- * Make validator
- *
- * @param  {object} input
- * @param  {object} rules
- * @param  {object} customMessages
- * @return {Validator}
- */
-Validator.make = function(input, rules, customMessages) {
-	return new Validator(input, rules, customMessages);
-};
-
 module.exports = Validator;
