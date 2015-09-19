@@ -3,6 +3,7 @@ var Rules = require('./rules');
 var Lang = require('./lang');
 var Errors = require('./errors');
 var AsyncResolvers = require('./async');
+var Attributes = require('./attributes');
 
 var Validator = function(input, rules, customMessages) {
 	var lang = Validator.getDefaultLang();
@@ -10,7 +11,8 @@ var Validator = function(input, rules, customMessages) {
 
 	this.messages = Lang._make(lang);
 	this.messages._setCustom(customMessages);
-	
+	this.setAttributeFormatter(Validator.prototype.attributeFormatter);
+
 	this.errors = new Errors();
 	this.errorCount = 0;
 	
@@ -35,6 +37,13 @@ Validator.prototype = {
 	 * @type {array}
 	 */
 	numericRules: ['integer', 'numeric', 'between'],
+
+	/**
+	 * Attribute formatter.
+	 *
+	 * @type {function}
+	 */
+	attributeFormatter: Attributes.formatter,
 
 	/**
 	 * Run validator
@@ -231,6 +240,16 @@ Validator.prototype = {
 	},
 
 	/**
+	 * Set the attribute formatter.
+	 *
+	 * @param {fuction} func
+	 * @return {void}
+	 */
+	setAttributeFormatter: function(func) {
+		this.messages._setAttributeFormatter(func);
+	},
+
+	/**
 	 * Get validation rule
 	 *
 	 * @param  {string} name
@@ -325,6 +344,16 @@ Validator.useLang = function(lang) {
  */
 Validator.getDefaultLang = function() {
 	return this.prototype.lang;
+};
+
+/**
+ * Set the attribute formatter.
+ *
+ * @param {fuction} func
+ * @return {void}
+ */
+Validator.setAttributeFormatter = function(func) {
+	this.prototype.attributeFormatter = func;
 };
 
 /**

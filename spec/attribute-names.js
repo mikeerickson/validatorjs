@@ -15,7 +15,7 @@ describe('custom attribute names', function() {
 			name: 'custom_name'
 		})
 		expect(validator.fails()).to.be.true;
-		expect(validator.errors.first('name')).to.equal('The custom_name field is required.');
+		expect(validator.errors.first('name')).to.equal('The custom name field is required.');
 
 	});
 

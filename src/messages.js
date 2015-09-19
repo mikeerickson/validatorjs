@@ -1,35 +1,10 @@
+var Attributes = require('./attributes');
+
 var Messages = function(lang, messages) {
 	this.lang = lang;
 	this.messages = messages;
 	this.customMessages = {};
 	this.attributeNames = {};
-};
-
-var replacements = {
-
-	/**
-	 * Between replacement (replaces :min and :max)
-	 *
-	 * @param  {string} template
-	 * @param  {Rule} rule
-	 * @return {string}
-	 */
-	between: function(template, rule) {
-		var parameters = rule.getParameters();
-		return this._replacePlaceholders(rule, template, { min: parameters[0], max: parameters[1] });
-	},
-
-	/**
-	 * Required_if replacement.
-	 *
-	 * @param  {string} template
-	 * @param  {Rule} rule
-	 * @return {string}
-	 */
-	required_if: function(template, rule) {
-		var parameters = rule.getParameters();
-		return this._replacePlaceholders(rule, template, { other: parameters[0], value: parameters[1] });
-	}
 };
 
 Messages.prototype = {
@@ -55,19 +30,36 @@ Messages.prototype = {
 	},
 
 	/**
+	 * Set the attribute formatter.
+	 *
+	 * @param {fuction} func
+	 * @return {void}
+	 */
+	_setAttributeFormatter: function(func) {
+		this.attributeFormatter = func;
+	},
+
+	/**
 	 * Get attribute name to display.
 	 *
 	 * @param  {string} attribute
 	 * @return {string}
 	 */
 	_getAttributeName: function(attribute) {
+		var name = attribute;
 		if (this.attributeNames.hasOwnProperty(attribute)) {
-			return this.attributeNames[attribute];
+			name = this.attributeNames[attribute];
 		}
-		if (this.messages.attributes.hasOwnProperty(attribute)) {
-			return this.messages.attributes[attribute];
+		else if (this.messages.attributes.hasOwnProperty(attribute)) {
+			name = this.messages.attributes[attribute];
 		}
-		return attribute;
+
+		if (this.attributeFormatter)
+		{
+			name = this.attributeFormatter(name);
+		}
+		
+		return name;
 	},
 
 	/**
@@ -92,8 +84,8 @@ Messages.prototype = {
 		var template = this._getTemplate(rule);
 
 		var message;
-		if (replacements[rule.name]) {
-			message = replacements[rule.name].apply(this, [template, rule]);
+		if (Attributes.replacements[rule.name]) {
+			message = Attributes.replacements[rule.name].apply(this, [template, rule]);
 		}
 		else {
 			message = this._replacePlaceholders(rule, template, {});
