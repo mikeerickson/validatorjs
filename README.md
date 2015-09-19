@@ -3,18 +3,20 @@ validatorjs
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation).
+The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by [Laravel framework's Validator](http://laravel.com/docs/validation).
 
 ### Why use validatorjs?
 
-1. Not dependent on any libraries
-2. Works in the browser and Node.js
-3. Readable and declarative validation rules
+1. Not dependent on any libraries.
+2. Works in the browser and Node.
+3. Readable and declarative validation rules.
 4. Size
-	* Development version: 3.62 kB gzipped with lots of spacing and comments
-	* Production version: 2.02 kB gzipped and minified
-5. Supports other languages
-6. AMD/Require.js and CommonJS/Browserify support
+	* Development version: 3.62 kB gzipped with lots of spacing and comments.
+	* Production version: 2.02 kB gzipped and minified.
+5. Supports other languages.
+6. AMD/Require.js and CommonJS/Browserify support.
+
+## Installation
 
 ### Browser
 
@@ -49,13 +51,6 @@ __data__ {Object} - The data you want to validate
 __rules__ {Object} - Validation rules
 
 __customErrorMessages__ {Object} - Optional custom error messages to return
-
-
-Alternatively, you can use a static _make()_ method on the Validator class.
-
-```js
-var validation = Validator.make(data, rules [, customErrorMessages]);
-```
 
 #### Example 1 - Passing validation
 
@@ -99,7 +94,7 @@ validation.errors.first('email'); // 'The email format is invalid.'
 validation.errors.get('email'); // returns an array of all email error messages
 ```
 
-### Validation Rules
+### Available Rules
 
 Validation rules do not have an implicit 'required'. If a field is _undefined_ or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
 
@@ -215,17 +210,17 @@ validation.passes(); // true
 ### Registering Custom Validation Rules
 
 ```js
-Validator.register(custom_rule_name, callbackFn, errorMessage);
+Validator.register(name, callbackFn, errorMessage);
 ```
 
-__custom_rule_name__ {String}
+__name__ {String} - The name of the rule.
 
-__callbackFn__ {Function}. Returns a boolean to represent a successful or failed validation.
+__callbackFn__ {Function} - Returns a boolean to represent a successful or failed validation.
 
 __errorMessage__ {String} - An optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
-Validator.register('telephone', function(value, requirement, attribute) { // requirement paramter defaults to null
+Validator.register('telephone', function(value, requirement, attribute) { // requirement parameter defaults to null
 	return val.match(/^\d{3}-\d{3}-\d{4}$/);
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
@@ -356,6 +351,26 @@ if (validator.fails()) {
 ```
 
 Alternatively you can supply global custom attribute names in your lang with the `attributes` property.
+
+You can also configure a custom attribute formatter:
+
+```js
+// Configure global formatter.
+Validator.setAttributeFormatter(function(attribute) {
+	return attribute.replace(/_/g, ' ');
+});
+
+// Or configure formatter for particular instance.
+var validator = new Validator({ first_name: '' }, { first_name: 'required' });
+validator.setAttributeFormatter(function(attribute) {
+	return attribute.replace(/_/g, ' ');
+});
+if (validator.fails()) {
+	console.log(validator.errors.first('first_name')); // The first name field is required.
+}
+```
+
+Note: by default all _[] characters will be replaced with spaces.
 
 ### Language Support
 
