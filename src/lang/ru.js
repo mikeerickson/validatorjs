@@ -3,6 +3,7 @@ module.exports = {
 	alpha: 'Поле :attribute может содержать только буквы.',
 	alpha_dash: '"Поле :attribute может содержать только буквы, цифры, дефисы и символы подчёркивания.',
 	alpha_num: 'Поле :attribute может содержать только буквы и цифры.',
+	between: 'Поле :attribute должно быть между :min :max и.',
 	confirmed: 'Поле :attribute не совпадает с подтверждением.',
 	email: 'Поле :attribute должно быть действительным электронным адресом.',
 	def: 'Поле :attribute содержит ошибки.',
@@ -21,6 +22,7 @@ module.exports = {
 	not_in: 'Выбранное значение для :attribute ошибочно.',
 	numeric: 'Поле :attribute должно быть числом.',
 	required: 'Поле :attribute обязательно для заполнения.',
+	required_if: 'Поле :attribute требуется при :attribute :other является.',
 	same: 'Значение :attribute должно совпадать с :same.',
 	size: {
 		numeric: 'Поле :attribute должно быть равным :size.',
