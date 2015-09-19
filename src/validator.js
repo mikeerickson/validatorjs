@@ -362,11 +362,12 @@ Validator.setAttributeFormatter = function(func) {
  * @param  {string}   name
  * @param  {function} fn
  * @param  {string}   message
+ * @param  {boolean}  isImplicit
  * @return {void}
  */
-Validator.register = function(name, fn, message) {
+Validator.register = function(name, fn, message, isImplicit) {
 	var lang = Validator.getDefaultLang();
-	Rules.register(name, fn);
+	Rules.register(name, fn, isImplicit);
 	Lang._setRuleMessage(lang, name, message);
 };
 
