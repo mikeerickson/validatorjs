@@ -48,7 +48,7 @@ Messages.prototype = {
 	_getAttributeName: function(attribute) {
 		var name = attribute;
 		if (this.attributeNames.hasOwnProperty(attribute)) {
-			name = this.attributeNames[attribute];
+			return this.attributeNames[attribute];
 		}
 		else if (this.messages.attributes.hasOwnProperty(attribute)) {
 			name = this.messages.attributes[attribute];
