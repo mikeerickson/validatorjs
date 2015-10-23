@@ -21,6 +21,13 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/ru.js'
       },
+      esLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/es:./lang/es']
+        },
+        dest: 'dist/lang/es.js'
+      },
       dist: {
         files: {
           'dist/validator.js': 'src/validator.js'
@@ -53,5 +60,5 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['browserify']);
   grunt.registerTask('dist', ['jshint', 'build', 'uglify']);
   grunt.registerTask('default', ['dist']);
-  
+
 };

@@ -1,4 +1,4 @@
-/*! validatorjs - v2.0.1 -  - 2015-09-21 */
+/*! validatorjs - v2.0.1 -  - 2015-10-23 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
 	this.onResolvedAll = onResolvedAll;
@@ -593,23 +593,30 @@ var rules = {
 	},
 
 	"in": function(val, req) {
-		var list, len, returnVal;
+		var list, i;
 
 		if (val) {
 			list = req.split(',');
-			len = list.length;
-			returnVal = false;
+		}
 
-			val = String(val); // convert val to a string if it is a number
+		if (val && !(val instanceof Array)) {
+			val = String(val); // if it is a number
 
-			for (var i = 0; i < len; i++) {
+			for (i = 0; i < list.length; i++) {
 				if (val === list[i]) {
-					returnVal = true;
-					break;
+					return true;
 				}
 			}
 
-			return returnVal;
+			return false;
+		}
+
+		if (val && val instanceof Array) {
+			for (i = 0; i < val.length; i++) {
+				if (list.indexOf(val[i]) < 0) {
+					return false;
+				}
+			}
 		}
 
 		return true;
@@ -671,7 +678,7 @@ var rules = {
 		req = new RegExp(req,flag);
 		return !!val.match(req);
 	}
-	
+
 };
 
 function Rule(name, fn, async) {
