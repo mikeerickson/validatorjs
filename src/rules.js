@@ -118,23 +118,30 @@ var rules = {
 	},
 
 	"in": function(val, req) {
-		var list, len, returnVal;
+		var list, i;
 
 		if (val) {
 			list = req.split(',');
-			len = list.length;
-			returnVal = false;
+		}
 
-			val = String(val); // convert val to a string if it is a number
+		if (val && !(val instanceof Array)) {
+			val = String(val); // if it is a number
 
-			for (var i = 0; i < len; i++) {
+			for (i = 0; i < list.length; i++) {
 				if (val === list[i]) {
-					returnVal = true;
-					break;
+					return true;
 				}
 			}
 
-			return returnVal;
+			return false;
+		}
+
+		if (val && val instanceof Array) {
+			for (i = 0; i < val.length; i++) {
+				if (list.indexOf(val[i]) < 0) {
+					return false;
+				}
+			}
 		}
 
 		return true;
@@ -196,7 +203,7 @@ var rules = {
 		req = new RegExp(req,flag);
 		return !!val.match(req);
 	}
-	
+
 };
 
 function Rule(name, fn, async) {

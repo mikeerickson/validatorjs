@@ -5,12 +5,11 @@ validatorjs
 
 The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by [Laravel framework's Validator](http://laravel.com/docs/validation).
 
-### Why use validatorjs?
+## Why use validatorjs?
 
 * Not dependent on any libraries.
-* Works in both Browser and Node.
+* Works in both the browser and Node.
 * Readable and declarative validation rules.
-* Lightweight (production version 3.68 KB gzipped and minified).
 * Multi language support.
 * AMD/Require.js and CommonJS/Browserify support.
 
@@ -138,9 +137,9 @@ The field under validation must be formatted as an e-mail address.
 
 #### in:foo,bar,...
 
-The field under validation must be included in the given list of values.
+The field under validation must be included in the given list of values. The field can be an array or string.
 
-####integer
+#### integer
 
 The field under validation must have an integer value.
 

@@ -7,7 +7,6 @@ if (typeof require !== 'undefined') {
 }
 
 describe('in validation rule', function() {
-	
 	it('should fail when the value is not in the set of comma separated values', function() {
 		var validator = new Validator({ state: 'fakeState', }, { state: 'in:CA,TX,FL' });
 		expect(validator.passes()).to.be.false;
@@ -44,5 +43,25 @@ describe('in validation rule', function() {
 		var validator = new Validator({ quantity: 1 }, { quantity: 'in:0,1,2' });
 		expect(validator.passes()).to.be.true;
 		expect(validator.fails()).to.be.false;
+	});
+
+	it('should pass when all values are present', function() {
+		var validator = new Validator({
+      fruits: [ 'apple', 'strawberry' ]
+    }, {
+      fruits: 'array|in:apple,strawberry,kiwi'
+    });
+
+		expect(validator.passes()).to.be.true;
+	});
+
+	it('should fail when not all values are present', function() {
+		var validator = new Validator({
+      fruits: [ 'strawberry', 'kiwi' ]
+    }, {
+      fruits: 'array|in:apple,strawberry'
+    });
+
+		expect(validator.passes()).to.be.false;
 	});
 });
