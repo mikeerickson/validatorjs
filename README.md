@@ -371,11 +371,14 @@ Note: by default all _[] characters will be replaced with spaces.
 
 ### Language Support
 
-Error messages are in English by default. To include another language in the browser, reference the language file in a script tag:
+Error messages are in English by default. To include another language in the browser, reference the language file in a script tag and call `Validator.useLang('lang_code')`.
 
 ```html
 <script src="dist/validator.min.js"></script>
 <script src="dist/lang/ru.js"></script>
+<script>
+	Validator.useLang('es');
+</script>
 ``` 
 
 In Node, it will automatically pickup on the language source files. If you don't see support for your language, please add one to `src/lang`!
