@@ -12,6 +12,7 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 * Readable and declarative validation rules.
 * Multi language support.
 * AMD/Require.js and CommonJS/Browserify support.
+* 3.82 kB minified, 6.54 kB unminified
 
 ## Installation
 
