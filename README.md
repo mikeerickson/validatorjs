@@ -371,7 +371,16 @@ Note: by default all _[] characters will be replaced with spaces.
 
 ### Language Support
 
-You can add your own custom language by calling `setMessages`:
+Error messages are in English by default. To include another language in the browser, reference the language file in a script tag:
+
+```html
+<script src="dist/validator.min.js"></script>
+<script src="dist/lang/ru.js"></script>
+``` 
+
+In Node, it will automatically pickup on the language source files. If you don't see support for your language, please add one to `src/lang`!
+
+You can also add your own custom language by calling `setMessages`:
 
 ```js
 Validator.setMessages('lang_code', {

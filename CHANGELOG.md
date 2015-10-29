@@ -1,3 +1,9 @@
+### 2.0.2
+
+* Documentation updates for language support
+* Adds lang/es.js
+* Support arrays with "in" rule
+
 ### 2.0.0
 
 * Added asynchronous validation `registerAsync()` and pass callbacks to `passes(func)` and `fails(func)`.
