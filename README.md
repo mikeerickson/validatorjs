@@ -381,7 +381,14 @@ Error messages are in English by default. To include another language in the bro
 </script>
 ``` 
 
-In Node, it will automatically pickup on the language source files. If you don't see support for your language, please add one to `src/lang`!
+In Node, it will automatically pickup on the language source files. 
+
+```js
+var Validator = require('validatorjs');
+Validator.useLang('ru');
+```
+
+If you don't see support for your language, please add one to `src/lang`!
 
 You can also add your own custom language by calling `setMessages`:
 
