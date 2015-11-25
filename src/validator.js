@@ -2,8 +2,8 @@
 var Rules = require('./rules');
 var Lang = require('./lang');
 var Errors = require('./errors');
-var AsyncResolvers = require('./async');
 var Attributes = require('./attributes');
+var forEach = require('./for-each').forEach;
 
 var Validator = function(input, rules, customMessages) {
 	var lang = Validator.getDefaultLang();
@@ -57,16 +57,21 @@ Validator.prototype = {
 			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
+			for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
 				ruleOptions = attributeRules[i];
 				rule = this.getRule(ruleOptions.name);
 
-				if (!this._isValidatable(rule, inputValue)) {
+				if (!this._isValidatable(rule, inputValue, i, len)) {
 					continue;
 				}
 				
-				if (!rule.validate(inputValue, ruleOptions.value, attribute)) {
+				rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
+				if (!rulePassed) {
 					this._addFailure(rule);
+				}
+
+				if (this._shouldStopValidating(attribute, rulePassed)) {
+					break;
 				}
 			}
 		}
@@ -97,34 +102,28 @@ Validator.prototype = {
 			}
 		};
 
-		var validateRule = function(inputValue, ruleOptions, attribute, rule) {
-			return function() {
-				var resolverIndex = asyncResolvers.add(rule);
-				rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(resolverIndex); });
-			};
-		};
-
-		var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
-
 		for (var attribute in this.rules) {
 			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
-				ruleOptions = attributeRules[i];
-
-				rule = this.getRule(ruleOptions.name);
-
-				if (!this._isValidatable(rule, inputValue)) {
-					continue;
+			var currentCount = 0;
+			var resolveCount = attributeRules.length;
+			forEach(attributeRules, function(ruleOptions) {
+				var done = this.async();
+				var rule = _this.getRule(ruleOptions.name);
+				if (!_this._isValidatable(rule, inputValue)) {
+					return done(false);
 				}
 
-				validateRule(inputValue, ruleOptions, attribute, rule)();
-			}
+				rule.validate(inputValue, ruleOptions.value, attribute, function(rulePassed, message) {
+					if (rulePassed === false) {
+						failsOne(rule, message);
+						return done(false);
+					}
+					done();
+				});
+			}, resolvedAll);
 		}
-
-		asyncResolvers.enableFiring();
-		asyncResolvers.fire();
 	},
 
 	/**
@@ -221,12 +220,34 @@ Validator.prototype = {
 	 * @param  {mixed}  value
 	 * @return {boolean} 
 	 */
-	_isValidatable: function(rule, value) {
+	_isValidatable: function(rule, value, currentIndex, maxIndex) {
 		if (Rules.isImplicit(rule.name)) {
 			return true;
 		}
 
 		return this.getRule('required').validate(value);
+	},
+
+
+	/**
+	 * Determine if we should stop validating.
+	 *
+	 * @param  {string} attribute
+	 * @param  {boolean} rulePassed
+	 * @return {boolean}
+	 */
+	_shouldStopValidating: function(attribute, rulePassed) {
+
+		var stopOnAttributes = this.stopOnAttributes;
+		if (stopOnAttributes === false || rulePassed === true) {
+			return false;
+		}
+
+		if (stopOnAttributes instanceof Array) {
+			return stopOnAttributes.indexOf(attribute) > -1;
+		}
+
+		return true;
 	},
 
 	/**
@@ -257,6 +278,16 @@ Validator.prototype = {
 	 */
 	getRule: function(name) {
 		return Rules.make(name, this);
+	},
+
+	/**
+	 * Stop on first error.
+	 *
+	 * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+	 * @return {void}
+	 */
+	stopOnError: function(attributes) {
+		this.stopOnAttributes = attributes;
 	},
 
 	/**
@@ -354,6 +385,16 @@ Validator.getDefaultLang = function() {
  */
 Validator.setAttributeFormatter = function(func) {
 	this.prototype.attributeFormatter = func;
+};
+
+/**
+ * Stop on first error.
+ *
+ * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+ * @return {void}
+ */
+Validator.stopOnError = function(attributes) {
+	this.prototype.stopOnAttributes = attributes;
 };
 
 /**
