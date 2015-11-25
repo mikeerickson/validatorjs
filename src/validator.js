@@ -102,13 +102,8 @@ Validator.prototype = {
 			}
 		};
 
-		for (var attribute in this.rules) {
-			var attributeRules = this.rules[attribute];
-			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
-
-			var currentCount = 0;
-			var resolveCount = attributeRules.length;
-			forEach(attributeRules, function(ruleOptions) {
+		var makeValidateRule = function(attribute, inputValue, done) {
+			return function(ruleOptions) {
 				var done = this.async();
 				var rule = _this.getRule(ruleOptions.name);
 				if (!_this._isValidatable(rule, inputValue)) {
@@ -122,7 +117,16 @@ Validator.prototype = {
 					}
 					done();
 				});
-			}, resolvedAll);
+			};
+		};
+
+		for (var attribute in this.rules) {
+			var attributeRules = this.rules[attribute];
+			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
+
+			var currentCount = 0;
+			var resolveCount = attributeRules.length;
+			forEach(attributeRules, makeValidateRule(attribute, inputValue), resolvedAll);
 		}
 	},
 
