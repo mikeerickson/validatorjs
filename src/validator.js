@@ -102,7 +102,7 @@ Validator.prototype = {
 			}
 		};
 
-		var makeValidateRule = function(attribute, inputValue, done) {
+		var makeValidateRule = function(attribute, inputValue) {
 			return function(ruleOptions) {
 				var done = this.async();
 				var rule = _this.getRule(ruleOptions.name);
