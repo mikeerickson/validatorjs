@@ -54,7 +54,6 @@ describe('stopOnError tests', function() {
 	it('should always stop if field is implicit and cannot be validated', function() {
 
 		var validator = new Validator({ email: '' }, { email: 'required|email' });
-		validator.stopOnError(true);
 		expect(validator.fails()).to.be.true;
 		expect(validator.errors.get('email')).to.have.length(1);
 
