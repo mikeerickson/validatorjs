@@ -124,8 +124,6 @@ Validator.prototype = {
 			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			var currentCount = 0;
-			var resolveCount = attributeRules.length;
 			forEach(attributeRules, makeValidateRule(attribute, inputValue), resolvedAll);
 		}
 	},
