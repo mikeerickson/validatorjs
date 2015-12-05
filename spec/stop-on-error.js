@@ -31,7 +31,7 @@ describe('stopOnError tests', function() {
 
 	});
 
-	it('only certain fields for synchronous', function() {
+	it('only certain fields', function() {
 
 		var validator = new Validator({ email1: 'x', email2: 'x' }, { email1: 'min:5|email', email2: 'min:5|email' });
 		validator.stopOnError(['email2']);
@@ -39,19 +39,6 @@ describe('stopOnError tests', function() {
 		expect(validator.errors.get('email1')).to.have.length(2);
 		expect(validator.errors.get('email2')).to.have.length(1);
 
-	});
-
-	it('only certain fields for asynchronous', function() {
-
-		Validator.registerAsync('check_email', function(val, ruleValue, attribute, passes) {
-			throw 'Should not have been called.';
-		});
-		var validator = new Validator({ email1: 'x', email2: 'x' }, { email1: 'min:5|check_email', email2: 'min:5|check_email' });
-		validator.stopOnError(['email2']);
-		validator.fails(function() {
-			expect(validator.errors.get('email1')).to.have.length(2);
-			expect(validator.errors.get('email2')).to.have.length(1);
-		});
 	});
 
 	it('should allow globally setting whether to stop on error', function() {
