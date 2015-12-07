@@ -142,6 +142,33 @@ describe('async rule tests', function() {
 
 	});
 
+	it('should it not call passes if using just fails callback', function(done) {
+
+		var validator = new Validator({ name: 'gary' }, { name: 'required' });
+		validator.fails(function() {
+			throw 'Should not be called.'
+		});
+
+		validator.passes(function() {
+			done();
+		});
+
+	});
+
+
+	it('should it not call fails if using just passes callback', function(done) {
+
+		var validator = new Validator({ name: '' }, { name: 'required' });
+		validator.passes(function() {
+			throw 'Should not be called.'
+		});
+
+		validator.fails(function() {
+			done();
+		});
+
+	});
+
 	// it('should throw exception when attempting to validate and no fail or pass callback', function() {
 
 	// 	Validator.registerAsync('username', function() { });

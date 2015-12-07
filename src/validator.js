@@ -93,6 +93,9 @@ Validator.prototype = {
 			_this._addFailure(rule, message);
 		};
 
+		passes = passes || function() {};
+		fails = fails || function() {};
+
 		var resolvedAll = function(allPassed) {
 			if (allPassed) {
 				passes();
@@ -315,7 +318,7 @@ Validator.prototype = {
 	fails: function(fails) {
 		var async = this._checkAsync('fails', fails);
 		if (async) {
-			return this.checkAsync(undefined, fails);
+			return this.checkAsync(function() {}, fails);
 		}
 		return !this.check();
 	},
