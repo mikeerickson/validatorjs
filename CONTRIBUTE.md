@@ -1,18 +1,38 @@
 Contributing
 ============
 
-1. Clone the repository
-2. Install Grunt
+## Install
 
-Source files are located in the `src` directory. Tests are located in the `spec` directory.
+Clone the repository:
+
+```shell
+$ git clone https://github.com/skaterdav85/validatorjs.git
+```
+
+Install dependencies:
+
+```shell
+$ sudo npm i
+```
+
+Now you're ready to develop.
+
+
+## Build & Test
+
+See available tasks:
+
+```shell
+$ node_modules/.bin/grunt -h
+```
+
+Source files are located in `src/`. Tests are located in `spec/`, and can be run with:
+
+```shell
+$ npm test
+```
 
 
 ## Language Support
 
-If you'd like to add support for another language, create a file in the `src/lang` directory.
-
-## Tests
-
-```
-npm test
-```
+If you'd like to add support for another language, create the appropriate module in `src/lang/`.
