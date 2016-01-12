@@ -6,32 +6,30 @@ Contributing
 Clone the repository:
 
 ```shell
-$ git clone https://github.com/skaterdav85/validatorjs.git
+git clone https://github.com/skaterdav85/validatorjs.git && cd validatorjs
 ```
 
 Install dependencies:
 
 ```shell
-$ sudo npm i
+npm install
 ```
 
 Now you're ready to develop.
-
 
 ## Build & Test
 
 See available tasks:
 
 ```shell
-$ node_modules/.bin/grunt -h
+node_modules/.bin/grunt -h
 ```
 
 Source files are located in `src/`. Tests are located in `spec/`, and can be run with:
 
 ```shell
-$ npm test
+npm test
 ```
-
 
 ## Language Support
 
