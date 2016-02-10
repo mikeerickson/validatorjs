@@ -120,14 +120,7 @@ Messages.prototype = {
 		}
 
 		if (typeof template === 'object') {
-			switch (typeof rule.inputValue) {
-				case 'number':
-					template = template['numeric'];
-					break;
-				case 'string':
-					template = template['string'];
-					break;
-			}
+			template = template[rule._getValueType()];
 		}
 
 		return template;

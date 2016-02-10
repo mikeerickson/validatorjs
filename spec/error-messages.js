@@ -184,4 +184,21 @@ describe('Error messages', function() {
 			expect(validation.errors.has('fake-property')).to.equal(false);
 		});
 	});
+
+	describe('should output correct error messages for numeric-like rules', function() {
+
+		it('should give correct error message with numeric rule', function() {
+			var validator = new Validator({ val: '1' }, { val: 'numeric|min:2' });
+			expect(validator.fails()).to.be.true;
+			expect(validator.errors.first('val')).to.equal('The val must be at least 2.');
+		});
+
+		it('should give correct error message with integer rule', function() {
+			var validator = new Validator({ val: '1' }, { val: 'integer|min:2' });
+			expect(validator.fails()).to.be.true;
+			expect(validator.errors.first('val')).to.equal('The val must be at least 2.');
+		});
+
+	});
+
 });

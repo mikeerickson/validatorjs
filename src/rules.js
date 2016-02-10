@@ -291,6 +291,21 @@ Rule.prototype = {
 	},
 
 	/**
+	 * Get the type of value being checked; numeric or string.
+	 *
+	 * @return {[type]} [description]
+	 */
+	_getValueType: function() {
+		
+		if (typeof this.inputValue === 'number' || this.validator._hasNumericRule(this.attribute))
+		{
+			return 'numeric';
+		}
+
+		return 'string';
+	},
+
+	/**
 	 * Set the async callback response
 	 *
 	 * @param  {boolean|undefined} passes  Whether validation passed
