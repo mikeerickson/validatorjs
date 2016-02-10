@@ -293,7 +293,7 @@ Rule.prototype = {
 	/**
 	 * Get the type of value being checked; numeric or string.
 	 *
-	 * @return {[type]} [description]
+	 * @return {string}
 	 */
 	_getValueType: function() {
 		
