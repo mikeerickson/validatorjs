@@ -1,89 +1,5 @@
-/*! validatorjs - v2.0.1 -  - 2015-10-29 */
+/*! validatorjs - v2.0.3 -  - 2016-02-11 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-function AsyncResolvers(onFailedOne, onResolvedAll) {
-	this.onResolvedAll = onResolvedAll;
-	this.onFailedOne = onFailedOne;
-	this.resolvers = {};
-	this.resolversCount = 0;
-	this.passed = [];
-	this.failed = [];
-	this.firing = false;
-}
-
-AsyncResolvers.prototype = {
-
-	/**
-	 * Add resolver
-	 *
-	 * @param {Rule} rule
-	 * @return {integer}
-	 */
-	add: function(rule) {
-		var index = this.resolversCount;
-		this.resolvers[index] = rule;
-		this.resolversCount++;
-		return index;
-	},
-
-	/**
-	 * Resolve given index
-	 *
-	 * @param  {integer} index
-	 * @return {void}
-	 */
-	resolve: function(index) {
-		var rule = this.resolvers[index];
-		if (rule.passes === true) {
-			this.passed.push(rule);
-		}
-		else if (rule.passes === false) {
-			this.failed.push(rule);
-			this.onFailedOne(rule);
-		}
-
-		this.fire();
-	},
-
-	/**
-	 * Determine if all have been resolved
-	 *
-	 * @return {boolean}
-	 */
-	isAllResolved: function() {
-		return (this.passed.length + this.failed.length) === this.resolversCount;
-	},
-
-	/**
-	 * Attempt to fire final all resolved callback if completed
-	 *
-	 * @return {void}
-	 */
-	fire: function() {
-
-		if (!this.firing) {
-			return;
-		}
-
-		if (this.isAllResolved()) {
-			this.onResolvedAll(this.failed.length === 0);
-		}
-
-	},
-
-	/**
-	 * Enable firing
-	 *
-	 * @return {void}
-	 */
-	enableFiring: function() {
-		this.firing = true;
-	}
-
-};
-
-module.exports = AsyncResolvers;
-
-},{}],2:[function(require,module,exports){
 var replacements = {
 
 	/**
@@ -121,7 +37,7 @@ module.exports = {
 	formatter: formatter
 };
 
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 var Errors = function() {
 	this.errors = {};
 };
@@ -196,6 +112,71 @@ Errors.prototype = {
 };
 
 module.exports = Errors;
+},{}],3:[function(require,module,exports){
+/*!
+ * Sync/Async forEach
+ * https://github.com/cowboy/javascript-sync-async-foreach
+ *
+ * Copyright (c) 2012 "Cowboy" Ben Alman
+ * Licensed under the MIT license.
+ * http://benalman.com/about/license/
+ */
+
+(function(exports) {
+
+  // Iterate synchronously or asynchronously.
+  exports.forEach = function(arr, eachFn, doneFn) {
+    var i = -1;
+    // Resolve array length to a valid (ToUint32) number.
+    var len = arr.length >>> 0;
+
+    // This IIFE is called once now, and then again, by name, for each loop
+    // iteration.
+    (function next(result) {
+      // This flag will be set to true if `this.async` is called inside the
+      // eachFn` callback.
+      var async;
+      // Was false returned from the `eachFn` callback or passed to the
+      // `this.async` done function?
+      var abort = result === false;
+
+      // Increment counter variable and skip any indices that don't exist. This
+      // allows sparse arrays to be iterated.
+      do { ++i; } while (!(i in arr) && i !== len);
+
+      // Exit if result passed to `this.async` done function or returned from
+      // the `eachFn` callback was false, or when done iterating.
+      if (abort || i === len) {
+        // If a `doneFn` callback was specified, invoke that now. Pass in a
+        // boolean value representing "not aborted" state along with the array.
+        if (doneFn) {
+          doneFn(!abort, arr);
+        }
+        return;
+      }
+
+      // Invoke the `eachFn` callback, setting `this` inside the callback to a
+      // custom object that contains one method, and passing in the array item,
+      // index, and the array.
+      result = eachFn.call({
+        // If `this.async` is called inside the `eachFn` callback, set the async
+        // flag and return a function that can be used to continue iterating.
+        async: function() {
+          async = true;
+          return next;
+        }
+      }, arr[i], i, arr);
+
+      // If the async flag wasn't set, continue by calling `next` synchronously,
+      // passing in the result of the `eachFn` callback.
+      if (!async) {
+        next(result);
+      }
+    }());
+  };
+
+}(typeof exports === "object" && exports || this));
+
 },{}],4:[function(require,module,exports){
 var Messages = require('./messages');
 
@@ -430,14 +411,7 @@ Messages.prototype = {
 		}
 
 		if (typeof template === 'object') {
-			switch (typeof rule.inputValue) {
-				case 'number':
-					template = template['numeric'];
-					break;
-				case 'string':
-					template = template['string'];
-					break;
-			}
+			template = template[rule._getValueType()];
 		}
 
 		return template;
@@ -472,7 +446,7 @@ Messages.prototype = {
 
 module.exports = Messages;
 
-},{"./attributes":2}],7:[function(require,module,exports){
+},{"./attributes":1}],7:[function(require,module,exports){
 var rules = {
 
 	required: function(val) {
@@ -766,6 +740,21 @@ Rule.prototype = {
 	},
 
 	/**
+	 * Get the type of value being checked; numeric or string.
+	 *
+	 * @return {string}
+	 */
+	_getValueType: function() {
+		
+		if (typeof this.inputValue === 'number' || this.validator._hasNumericRule(this.attribute))
+		{
+			return 'numeric';
+		}
+
+		return 'string';
+	},
+
+	/**
 	 * Set the async callback response
 	 *
 	 * @param  {boolean|undefined} passes  Whether validation passed
@@ -878,8 +867,8 @@ module.exports = manager;
 var Rules = require('./rules');
 var Lang = require('./lang');
 var Errors = require('./errors');
-var AsyncResolvers = require('./async');
 var Attributes = require('./attributes');
+var forEach = require('./for-each').forEach;
 
 var Validator = function(input, rules, customMessages) {
 	var lang = Validator.getDefaultLang();
@@ -933,7 +922,7 @@ Validator.prototype = {
 			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
+			for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
 				ruleOptions = attributeRules[i];
 				rule = this.getRule(ruleOptions.name);
 
@@ -941,8 +930,13 @@ Validator.prototype = {
 					continue;
 				}
 				
-				if (!rule.validate(inputValue, ruleOptions.value, attribute)) {
+				rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
+				if (!rulePassed) {
 					this._addFailure(rule);
+				}
+
+				if (this._shouldStopValidating(attribute, rulePassed)) {
+					break;
 				}
 			}
 		}
@@ -964,6 +958,9 @@ Validator.prototype = {
 			_this._addFailure(rule, message);
 		};
 
+		passes = passes || function() {};
+		fails = fails || function() {};
+
 		var resolvedAll = function(allPassed) {
 			if (allPassed) {
 				passes();
@@ -973,34 +970,30 @@ Validator.prototype = {
 			}
 		};
 
-		var validateRule = function(inputValue, ruleOptions, attribute, rule) {
-			return function() {
-				var resolverIndex = asyncResolvers.add(rule);
-				rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(resolverIndex); });
+		var makeValidateRule = function(attribute, inputValue) {
+			return function(ruleOptions) {
+				var done = this.async();
+				var rule = _this.getRule(ruleOptions.name);
+				if (!_this._isValidatable(rule, inputValue)) {
+					return done(false);
+				}
+
+				rule.validate(inputValue, ruleOptions.value, attribute, function(rulePassed, message) {
+					if (rulePassed === false) {
+						failsOne(rule, message);
+						return done(false);
+					}
+					done();
+				});
 			};
 		};
-
-		var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
 
 		for (var attribute in this.rules) {
 			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
-				ruleOptions = attributeRules[i];
-
-				rule = this.getRule(ruleOptions.name);
-
-				if (!this._isValidatable(rule, inputValue)) {
-					continue;
-				}
-
-				validateRule(inputValue, ruleOptions, attribute, rule)();
-			}
+			forEach(attributeRules, makeValidateRule(attribute, inputValue), resolvedAll);
 		}
-
-		asyncResolvers.enableFiring();
-		asyncResolvers.fire();
 	},
 
 	/**
@@ -1105,6 +1098,28 @@ Validator.prototype = {
 		return this.getRule('required').validate(value);
 	},
 
+
+	/**
+	 * Determine if we should stop validating.
+	 *
+	 * @param  {string} attribute
+	 * @param  {boolean} rulePassed
+	 * @return {boolean}
+	 */
+	_shouldStopValidating: function(attribute, rulePassed) {
+
+		var stopOnAttributes = this.stopOnAttributes;
+		if (stopOnAttributes === false || rulePassed === true) {
+			return false;
+		}
+
+		if (stopOnAttributes instanceof Array) {
+			return stopOnAttributes.indexOf(attribute) > -1;
+		}
+
+		return true;
+	},
+
 	/**
 	 * Set custom attribute names.
 	 *
@@ -1136,6 +1151,16 @@ Validator.prototype = {
 	},
 
 	/**
+	 * Stop on first error.
+	 *
+	 * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+	 * @return {void}
+	 */
+	stopOnError: function(attributes) {
+		this.stopOnAttributes = attributes;
+	},
+
+	/**
 	 * Determine if validation passes
 	 *
 	 * @param {function} passes
@@ -1158,7 +1183,7 @@ Validator.prototype = {
 	fails: function(fails) {
 		var async = this._checkAsync('fails', fails);
 		if (async) {
-			return this.checkAsync(undefined, fails);
+			return this.checkAsync(function() {}, fails);
 		}
 		return !this.check();
 	},
@@ -1233,6 +1258,16 @@ Validator.setAttributeFormatter = function(func) {
 };
 
 /**
+ * Stop on first error.
+ *
+ * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+ * @return {void}
+ */
+Validator.stopOnError = function(attributes) {
+	this.prototype.stopOnAttributes = attributes;
+};
+
+/**
  * Register custom validation rule
  *
  * @param  {string}   name
@@ -1262,5 +1297,5 @@ Validator.registerAsync = function(name, fn, message) {
 
 module.exports = Validator;
 
-},{"./async":1,"./attributes":2,"./errors":3,"./lang":4,"./rules":7}]},{},[8])(8)
+},{"./attributes":1,"./errors":2,"./for-each":3,"./lang":4,"./rules":7}]},{},[8])(8)
 });
