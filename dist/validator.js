@@ -1,4 +1,4 @@
-/*! validatorjs - v2.0.1 -  - 2015-10-29 */
+/*! validatorjs - v2.0.5 -  - 2016-02-15 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
 	this.onResolvedAll = onResolvedAll;
@@ -430,14 +430,7 @@ Messages.prototype = {
 		}
 
 		if (typeof template === 'object') {
-			switch (typeof rule.inputValue) {
-				case 'number':
-					template = template['numeric'];
-					break;
-				case 'string':
-					template = template['string'];
-					break;
-			}
+			template = template[rule._getValueType()];
 		}
 
 		return template;
@@ -766,6 +759,21 @@ Rule.prototype = {
 	},
 
 	/**
+	 * Get the type of value being checked; numeric or string.
+	 *
+	 * @return {string}
+	 */
+	_getValueType: function() {
+		
+		if (typeof this.inputValue === 'number' || this.validator._hasNumericRule(this.attribute))
+		{
+			return 'numeric';
+		}
+
+		return 'string';
+	},
+
+	/**
 	 * Set the async callback response
 	 *
 	 * @param  {boolean|undefined} passes  Whether validation passed
@@ -878,8 +886,8 @@ module.exports = manager;
 var Rules = require('./rules');
 var Lang = require('./lang');
 var Errors = require('./errors');
-var AsyncResolvers = require('./async');
 var Attributes = require('./attributes');
+var AsyncResolvers = require('./async');
 
 var Validator = function(input, rules, customMessages) {
 	var lang = Validator.getDefaultLang();
@@ -933,7 +941,7 @@ Validator.prototype = {
 			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
+			for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
 				ruleOptions = attributeRules[i];
 				rule = this.getRule(ruleOptions.name);
 
@@ -941,8 +949,13 @@ Validator.prototype = {
 					continue;
 				}
 				
-				if (!rule.validate(inputValue, ruleOptions.value, attribute)) {
+				rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
+				if (!rulePassed) {
 					this._addFailure(rule);
+				}
+
+				if (this._shouldStopValidating(attribute, rulePassed)) {
+					break;
 				}
 			}
 		}
@@ -957,8 +970,17 @@ Validator.prototype = {
 	 * @param {function} fails
 	 * @return {void}
 	 */
+	/**
+	 * Run async validator
+	 *
+	 * @param {function} passes
+	 * @param {function} fails
+	 * @return {void}
+	 */
 	checkAsync: function(passes, fails) {
 		var _this = this;
+		passes = passes || function() {};
+		fails = fails || function() {};
 
 		var failsOne = function(rule, message) {
 			_this._addFailure(rule, message);
@@ -1105,6 +1127,28 @@ Validator.prototype = {
 		return this.getRule('required').validate(value);
 	},
 
+
+	/**
+	 * Determine if we should stop validating.
+	 *
+	 * @param  {string} attribute
+	 * @param  {boolean} rulePassed
+	 * @return {boolean}
+	 */
+	_shouldStopValidating: function(attribute, rulePassed) {
+
+		var stopOnAttributes = this.stopOnAttributes;
+		if (stopOnAttributes === false || rulePassed === true) {
+			return false;
+		}
+
+		if (stopOnAttributes instanceof Array) {
+			return stopOnAttributes.indexOf(attribute) > -1;
+		}
+
+		return true;
+	},
+
 	/**
 	 * Set custom attribute names.
 	 *
@@ -1136,6 +1180,16 @@ Validator.prototype = {
 	},
 
 	/**
+	 * Stop on first error.
+	 *
+	 * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+	 * @return {void}
+	 */
+	stopOnError: function(attributes) {
+		this.stopOnAttributes = attributes;
+	},
+
+	/**
 	 * Determine if validation passes
 	 *
 	 * @param {function} passes
@@ -1158,7 +1212,7 @@ Validator.prototype = {
 	fails: function(fails) {
 		var async = this._checkAsync('fails', fails);
 		if (async) {
-			return this.checkAsync(undefined, fails);
+			return this.checkAsync(function() {}, fails);
 		}
 		return !this.check();
 	},
@@ -1230,6 +1284,16 @@ Validator.getDefaultLang = function() {
  */
 Validator.setAttributeFormatter = function(func) {
 	this.prototype.attributeFormatter = func;
+};
+
+/**
+ * Stop on first error.
+ *
+ * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
+ * @return {void}
+ */
+Validator.stopOnError = function(attributes) {
+	this.prototype.stopOnAttributes = attributes;
 };
 
 /**
