@@ -17,19 +17,19 @@ describe('stopOnError tests', function() {
 
 	});
 
-	it('asynchronous', function(done) {
+	// it('asynchronous', function(done) {
 
-		Validator.registerAsync('username_available', function(val, ruleValue, attribute, passes) {
-			throw 'Should not have been called.';
-		});
-		var validator = new Validator({ email: 'x' }, { email: 'email|username_available' });
-		validator.stopOnError(true);
-		validator.fails(function() {
-			expect(validator.errors.get('email')).to.have.length(1);
-			done();
-		});
+	// 	Validator.registerAsync('username_available', function(val, ruleValue, attribute, passes) {
+	// 		throw 'Should not have been called.';
+	// 	});
+	// 	var validator = new Validator({ email: 'x' }, { email: 'email|username_available' });
+	// 	validator.stopOnError(true);
+	// 	validator.fails(function() {
+	// 		expect(validator.errors.get('email')).to.have.length(1);
+	// 		done();
+	// 	});
 
-	});
+	// });
 
 	it('only certain fields', function() {
 

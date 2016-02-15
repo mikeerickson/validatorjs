@@ -122,8 +122,14 @@ describe('async rule tests', function() {
 
 	it('should allow validating by async when no async rules', function(done) {
 
-		var validator = new Validator({ username: 'admin' }, { username: 'required|min:3' });
-		validator.passes(done);
+		var validator = new Validator({ username: 'admin', email: 'blah' }, { username: 'required|min:3', email: 'required|email' });
+		validator.fails(function() {
+			done();
+		});
+
+		validator.passes(function() {
+			throw 'Should not have passed.';
+		});
 
 	});
 

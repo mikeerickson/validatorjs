@@ -3,7 +3,7 @@ var Rules = require('./rules');
 var Lang = require('./lang');
 var Errors = require('./errors');
 var Attributes = require('./attributes');
-var forEach = require('./for-each').forEach;
+var AsyncResolvers = require('./async');
 
 var Validator = function(input, rules, customMessages) {
 	var lang = Validator.getDefaultLang();
@@ -86,15 +86,21 @@ Validator.prototype = {
 	 * @param {function} fails
 	 * @return {void}
 	 */
+	/**
+	 * Run async validator
+	 *
+	 * @param {function} passes
+	 * @param {function} fails
+	 * @return {void}
+	 */
 	checkAsync: function(passes, fails) {
 		var _this = this;
+		passes = passes || function() {};
+		fails = fails || function() {};
 
 		var failsOne = function(rule, message) {
 			_this._addFailure(rule, message);
 		};
-
-		passes = passes || function() {};
-		fails = fails || function() {};
 
 		var resolvedAll = function(allPassed) {
 			if (allPassed) {
@@ -105,30 +111,34 @@ Validator.prototype = {
 			}
 		};
 
-		var makeValidateRule = function(attribute, inputValue) {
-			return function(ruleOptions) {
-				var done = this.async();
-				var rule = _this.getRule(ruleOptions.name);
-				if (!_this._isValidatable(rule, inputValue)) {
-					return done(false);
-				}
-
-				rule.validate(inputValue, ruleOptions.value, attribute, function(rulePassed, message) {
-					if (rulePassed === false) {
-						failsOne(rule, message);
-						return done(false);
-					}
-					done();
-				});
+		var validateRule = function(inputValue, ruleOptions, attribute, rule) {
+			return function() {
+				var resolverIndex = asyncResolvers.add(rule);
+				rule.validate(inputValue, ruleOptions.value, attribute, function() { asyncResolvers.resolve(resolverIndex); });
 			};
 		};
+
+		var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
 
 		for (var attribute in this.rules) {
 			var attributeRules = this.rules[attribute];
 			var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
 
-			forEach(attributeRules, makeValidateRule(attribute, inputValue), resolvedAll);
+			for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
+				ruleOptions = attributeRules[i];
+
+				rule = this.getRule(ruleOptions.name);
+
+				if (!this._isValidatable(rule, inputValue)) {
+					continue;
+				}
+
+				validateRule(inputValue, ruleOptions, attribute, rule)();
+			}
 		}
+
+		asyncResolvers.enableFiring();
+		asyncResolvers.fire();
 	},
 
 	/**
