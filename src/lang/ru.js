@@ -1,9 +1,9 @@
 module.exports = {
 	accepted: 'Вы должны принять :attribute.',
 	alpha: 'Поле :attribute может содержать только буквы.',
-	alpha_dash: '"Поле :attribute может содержать только буквы, цифры, дефисы и символы подчёркивания.',
+	alpha_dash: 'Поле :attribute может содержать только буквы, цифры, дефисы и символы подчёркивания.',
 	alpha_num: 'Поле :attribute может содержать только буквы и цифры.',
-	between: 'Поле :attribute должно быть между :min :max и.',
+	between: 'Поле :attribute должно быть между :min и :max.',
 	confirmed: 'Поле :attribute не совпадает с подтверждением.',
 	email: 'Поле :attribute должно быть действительным электронным адресом.',
 	def: 'Поле :attribute содержит ошибки.',
@@ -12,23 +12,23 @@ module.exports = {
 	'in': 'Выбранное значение для :attribute ошибочно.',
 	integer: 'Поле :attribute должно быть целым числом.',
 	min: {
-		numeric: 'Поле :attribute должно быть не менее :min.',
+		numeric: 'Значение поля :attribute должно быть больше или равно :min.',
 		string: 'Количество символов в поле :attribute должно быть не менее :min.'
 	},
 	max: {
-		numeric: 'Поле :attribute не может быть более :max.',
+		numeric: 'Значение поля :attribute должно быть меньше или равно :max.',
 		string: 'Количество символов в поле :attribute не может превышать :max.'
 	},
 	not_in: 'Выбранное значение для :attribute ошибочно.',
 	numeric: 'Поле :attribute должно быть числом.',
 	required: 'Поле :attribute обязательно для заполнения.',
-	required_if: 'Поле :attribute требуется при :attribute :other является.',
+	required_if: 'Поле :attribute требуется когда значения поля :other равно :value.',
 	same: 'Значение :attribute должно совпадать с :same.',
 	size: {
-		numeric: 'Поле :attribute должно быть равным :size.',
-		string: 'Количество символов в поле :attribute должно быть равным :size.'
+		numeric: 'Значение поля :attribute должно быть равным :size.',
+		string: 'Количество символов в поле :attribute должно быть равно :size.'
 	},
-	url: 'Поле :attribute имеет ошибочный формат.',
-	regex: 'Поле :attribute имеет ошибочный формат.',
+	url: 'Поле :attribute должно содержать валидный URL.',
+	regex: 'Неверный формат поля :attribute.',
 	attributes: {}
 };
