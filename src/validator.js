@@ -86,13 +86,6 @@ Validator.prototype = {
 	 * @param {function} fails
 	 * @return {void}
 	 */
-	/**
-	 * Run async validator
-	 *
-	 * @param {function} passes
-	 * @param {function} fails
-	 * @return {void}
-	 */
 	checkAsync: function(passes, fails) {
 		var _this = this;
 		passes = passes || function() {};
