@@ -20,7 +20,7 @@ module.exports = {
 		string: 'Le champs :attribute ne doit être plus de :max characters.'
 	},
 	not_in: 'Le champs :attribute est invalide.',
-	numeric: 'The :attribute must be a number.',
+	numeric: 'Le champs :attribute doit être un numéro.',
 	required: 'Le champs :attribute est obligatoire.',
 	required_if: 'Le champs :attribute est obligatoire quand :other est :value.',
 	same: 'Le champs :attribute et :same doivent correspondre.',
