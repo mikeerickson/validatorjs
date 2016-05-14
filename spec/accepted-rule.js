@@ -31,6 +31,12 @@ describe('accepted validation rule', function() {
 		expect(validator.fails()).to.be.false;
 	});
 
+	it('should pass if the value is a boolean true', function() {
+		var validator = new Validator({ terms: true }, { terms: 'accepted' });
+		expect(validator.passes()).to.be.true;
+		expect(validator.fails()).to.be.false;
+	});
+
 	it('should fail if the value is not 1, on, or yes', function() {
 		var validator = new Validator({ terms: '10' }, { terms: 'accepted' });
 		expect(validator.passes()).to.be.false;

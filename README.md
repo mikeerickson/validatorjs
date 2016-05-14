@@ -98,7 +98,7 @@ Validation rules do not have an implicit 'required'. If a field is _undefined_ o
 
 #### accepted
 
-The field under validation must be yes, on, or 1. This is useful for validating "Terms of Service" acceptance.
+The field under validation must be yes, on, 1 or true. This is useful for validating "Terms of Service" acceptance.
 
 #### alpha
 
