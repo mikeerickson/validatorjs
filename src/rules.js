@@ -165,7 +165,7 @@ var rules = {
 	},
 
 	accepted: function(val) {
-		if (val === 'on' || val === 'yes' || val === 1 || val === '1') {
+		if (val === 'on' || val === 'yes' || val === 1 || val === '1' || val === true) {
 			return true;
 		}
 
