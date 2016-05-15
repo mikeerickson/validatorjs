@@ -22,7 +22,7 @@ Now you're ready to develop.
 See available tasks:
 
 ```shell
-node_modules/.bin/grunt -h
+./node_modules/.bin/grunt -h
 ```
 
 Source files are located in `src/`. Tests are located in `spec/`, and can be run with:
