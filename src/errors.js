@@ -16,7 +16,10 @@ Errors.prototype = {
     if (!this.has(attribute)) {
       this.errors[attribute] = [];
     }
-    this.errors[attribute].push(message);
+
+    if (this.errors[attribute].indexOf(message) === -1) {
+      this.errors[attribute].push(message);
+    }
   },
 
   /**
