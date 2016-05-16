@@ -175,6 +175,10 @@ The given field must match the field under validation.
 
 Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
 
+#### string
+
+The field under validation must be a string.
+
 #### url
 
 Validate that an attribute has a valid URL format

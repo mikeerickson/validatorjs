@@ -34,6 +34,10 @@ var rules = {
     return true;
   },
 
+  string: function(val, req, attribute) {
+    return typeof val === 'string';
+  },
+
   /**
    * Compares the size of strings or the value of numbers if there is a truthy value
    */
