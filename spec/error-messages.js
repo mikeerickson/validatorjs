@@ -7,7 +7,7 @@ if (typeof require !== 'undefined') {
 }
 
 describe('Error messages', function() {
-	
+
 	describe('first()', function() {
 		it('should return an error message that states the email is required', function() {
 			var validator = new Validator({ email: '' }, { email: 'required|email' });
@@ -64,8 +64,8 @@ describe('Error messages', function() {
 			expect(validator.errors.first('info')).to.equal('The info field is required.');
 			expect(validator.errors.first('hours')).to.equal('The hours must be 5.'); // size numeric
 			expect(validator.errors.first('pin')).to.equal('The pin must be 4 characters.'); // size string
-			expect(validator.errors.first('range')).to.equal('The range must be less than 10.'); // max numeric
-			expect(validator.errors.first('tweet')).to.equal('The tweet must be less than 5 characters.'); // max string
+			expect(validator.errors.first('range')).to.equal('The range may not be greater than 10.'); // max numeric
+			expect(validator.errors.first('tweet')).to.equal('The tweet may not be greater than 5 characters.'); // max string
 		});
 
 		it('should return a customized alpha error message', function() {
@@ -138,7 +138,7 @@ describe('Error messages', function() {
 		});
 	});
 
-	
+
 
 	describe('ValidatorErrors.prototype.all()', function() {
 
@@ -155,7 +155,7 @@ describe('Error messages', function() {
 			});
 
 			var expected = JSON.stringify({
-				name: ['The name must be at least 2 characters.'], 
+				name: ['The name must be at least 2 characters.'],
 				email: ['The email field is required.']
 			});
 

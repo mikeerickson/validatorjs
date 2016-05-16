@@ -16,8 +16,8 @@ module.exports = {
     string: 'The :attribute must be at least :min characters.'
   },
   max: {
-    numeric: 'The :attribute must be less than :max.',
-    string: 'The :attribute must be less than :max characters.'
+    numeric: 'The :attribute may not be greater than :max.',
+    string: 'The :attribute may not be greater than :max characters.'
   },
   not_in: 'The selected :attribute is invalid.',
   numeric: 'The :attribute must be a number.',
