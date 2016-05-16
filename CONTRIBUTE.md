@@ -17,18 +17,22 @@ npm install
 
 Now you're ready to develop.
 
-## Build & Test
-
-See available tasks:
-
-```shell
-./node_modules/.bin/grunt -h
-```
+## Workflow
 
 Source files are located in `src/`. Tests are located in `spec/`, and can be run with:
 
 ```shell
 npm test
+```
+
+Please use spaces instead of tabs.
+
+## Build and Release
+
+See available tasks:
+
+```shell
+./node_modules/.bin/grunt -h
 ```
 
 ## Language Support
