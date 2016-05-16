@@ -3,36 +3,35 @@ validatorjs
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by [Laravel framework's Validator](http://laravel.com/docs/validation).
+The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).
 
 ## Why use validatorjs?
 
 * Not dependent on any libraries.
 * Works in both the browser and Node.
 * Readable and declarative validation rules.
-* Multi language support.
+* Error messages with multilingual support.
 * AMD/Require.js and CommonJS/Browserify support.
-* 3.82 kB minified, 6.54 kB unminified
 
 ## Installation
 
-### Browser
-
-```html
-<script src="dist/validator.min.js"></script>
-```
-
-You can also install it using Bower.
+Grab validatorjs from Bower, NPM, or the /dist directory on Github:
 
 ```
 bower install validatorjs
 ```
 
-### Node.js / Browserify Setup
-
 ```
 npm install validatorjs
 ```
+
+### Browser
+
+```html
+<script src="validator.min.js"></script>
+```
+
+### Node.js / Browserify
 
 ```js
 var Validator = require('validatorjs');
@@ -380,9 +379,9 @@ Error messages are in English by default. To include another language in the bro
 <script>
 	Validator.useLang('es');
 </script>
-``` 
+```
 
-In Node, it will automatically pickup on the language source files. 
+In Node, it will automatically pickup on the language source files.
 
 ```js
 var Validator = require('validatorjs');
