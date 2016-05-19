@@ -140,7 +140,7 @@ Messages.prototype = {
       message = template;
 
       for (attribute in data) {
-        message = message.replace(':' + attribute, data[attribute]);
+        message = message.replace(new RegExp(':' + attribute, 'g'), data[attribute]);
       }
     }
 
