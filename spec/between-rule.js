@@ -27,11 +27,31 @@ describe('between rule', function() {
     expect(validator.fails()).to.be.false;
   });
 
-  it('should pass string between 25 and between 25 - 30', function() {
+  it('should fail on string 25 when between is set to 25 - 30', function() {
     var validator = new Validator({
       num: '25'
     }, {
       num: 'between:25,30'
+    });
+    expect(validator.passes()).to.be.false;
+    expect(validator.fails()).to.be.true;
+  });
+
+  it('should pass on string 25 when between is set to 2 - 3', function() {
+    var validator = new Validator({
+      num: '25'
+    }, {
+      num: 'between:2,3'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
+
+  it('should threat string 25 as numeric when other numeric rules are set and pass when between is set to 25 - 30', function() {
+    var validator = new Validator({
+      num: '25'
+    }, {
+      num: 'between:25,30|numeric'
     });
     expect(validator.passes()).to.be.true;
     expect(validator.fails()).to.be.false;
@@ -39,7 +59,7 @@ describe('between rule', function() {
 
   it('should support floats', function() {
     var validator = new Validator({
-      num1: '25.12',
+      num1: 25.12,
       num2: 0.03
     }, {
       num1: 'between:25.11,25.13',
