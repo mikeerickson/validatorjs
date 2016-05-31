@@ -117,7 +117,7 @@ The field under validation must be an array.
 
 #### between:min,max
 
-The field under validation must be between min and max values.
+The field under validation must have a size between the given min and max. Strings, numerics, and files are evaluated in the same fashion as the size rule.
 
 #### confirmed
 
@@ -173,7 +173,7 @@ The given field must match the field under validation.
 
 #### size:value
 
-Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
+The field under validation must have a size matching the given value. For string data, value corresponds to the number of characters. For numeric data, value corresponds to a given integer value.
 
 #### string
 

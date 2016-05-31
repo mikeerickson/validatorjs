@@ -27,14 +27,6 @@ npm test
 
 Please use spaces instead of tabs.
 
-## Build and Release
-
-See available tasks:
-
-```shell
-./node_modules/.bin/grunt -h
-```
-
 ## Language Support
 
 If you'd like to add support for another language, create the appropriate module in `src/lang/`.
