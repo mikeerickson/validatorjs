@@ -91,6 +91,49 @@ validation.errors.first('email'); // 'The email format is invalid.'
 validation.errors.get('email'); // returns an array of all email error messages
 ```
 
+### Nested rules
+
+Nested object could also be validated using the library. There ar two ways to declare validation rules for nested object. The first one is to declare corresponding nested object with a structure that reflects validated data structure.
+The other one is to declare validation rules as object with flattened key names. For example to validate an object:
+
+```js
+var data = {
+    name: 'John',
+    bio: {
+        age: 28,
+        education: {
+            primary: 'Elementary School',
+            secondary: 'Elementary School'
+        }
+    }
+}
+```
+
+The rule set could be declared as follow:
+
+```js
+
+var nested = {
+    name: 'required',
+    bio: {
+        age: 'min:18',
+        education: {
+            primary: 'string',
+            secondary: 'string'
+        }
+    }
+}
+
+// OR
+
+var flattened = {
+    name: 'required',
+    'bio.age': 'min:18'
+    'bio.education.primary': 'string',
+    'bio.education.secondary': 'string'
+}
+```
+
 ### Available Rules
 
 Validation rules do not have an implicit 'required'. If a field is _undefined_ or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
