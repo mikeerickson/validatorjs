@@ -15,6 +15,7 @@
   ],
   "license": "MIT",
   "main": "./src/validator.js",
+  "typings": "validatorjs.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/skaterdav85/validatorjs"
