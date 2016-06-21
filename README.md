@@ -103,7 +103,7 @@ var data = {
         age: 28,
         education: {
             primary: 'Elementary School',
-            secondary: 'Elementary School'
+            secondary: 'Secondary School'
         }
     }
 }

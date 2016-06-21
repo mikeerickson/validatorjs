@@ -28,7 +28,7 @@ describe('nested validation rules', function() {
         data: {
             weight: 70,
             hair: {
-                color: "black"
+                color: 'black'
             }
         }
     }
