@@ -152,24 +152,28 @@ Validator.prototype = {
    * @return {object} flattened object
    */
   _flattenObject: function (obj) {
-    var flattened = {}
+    var flattened = {};
     function recurse (current, property) {
       if (!property && Object.getOwnPropertyNames(current).length === 0) {
         return;
-      } if (Object(current) !== current || Array.isArray(current)) {
-        flattened[property] = current
+      }
+      if (Object(current) !== current || Array.isArray(current)) {
+        flattened[property] = current;
       } else {
         var isEmpty = true;
         for (var p in current) {
           isEmpty = false;
           recurse(current[p], property ? property + "." + p : p);
         }
-        if (isEmpty)
+        if (isEmpty) {
           flattened[property] = {};
+        }
       }
     }
-    obj && recurse(obj)
-    return flattened
+    if (obj) {
+      recurse(obj);
+    }
+    return flattened;
   },
 
   /**
@@ -180,7 +184,7 @@ Validator.prototype = {
    */
   _parseRules: function(rules) {
     var parsedRules = {};
-    rules = this._flattenObject(rules)
+    rules = this._flattenObject(rules);
     for (var attribute in rules) {
       var rulesArray = rules[attribute];
       var attributeRules = [];
