@@ -4,7 +4,7 @@ module.exports = {
     alpha_dash: 'Pole :attribute moze zawierać tylko litery, myślnik i podrkeślenie.',
     alpha_num: 'Pole :attribute moze zawierac tylko znaki alfanumeryczne.',
     between: 'Pole :attribute musi mieć długość od :min do :max.',
-    confirmed: 'Pole :attribute confirmation does not match.',
+    confirmed: 'Pole :attribute nie spełnia warunku potwierdzenia.',
     email: 'Pole :attribute ma niepoprawny format adresu email.',
     def: 'Pole :attribute zawiera błędy.',
     digits: 'Pole :attribute może zawierać tylko cyfry ze zbioru :digits.',
