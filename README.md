@@ -93,44 +93,42 @@ validation.errors.get('email'); // returns an array of all email error messages
 
 ### Nested rules
 
-Nested object could also be validated using the library. There are two ways to declare validation rules for nested object. The first one is to declare corresponding nested object with a structure that reflects validated data structure.
-The other one is to declare validation rules as object with flattened key names. For example to validate an object:
+Nested objects can also be validated. There are two ways to declare validation rules for nested objects. The first way is to declare the validation rules with a corresponding nested object structure that reflects the data. The second way is to declare validation rules with flattened key names. For example, to validate the following data:
 
 ```js
 var data = {
-    name: 'John',
-    bio: {
-        age: 28,
-        education: {
-            primary: 'Elementary School',
-            secondary: 'Secondary School'
-        }
+  name: 'John',
+  bio: {
+    age: 28,
+    education: {
+      primary: 'Elementary School',
+      secondary: 'Secondary School'
     }
+  }
 };
 ```
 
-The rule set could be declared as follow:
+We could declare our validation rules as follows:
 
 ```js
-
 var nested = {
-    name: 'required',
-    bio: {
-        age: 'min:18',
-        education: {
-            primary: 'string',
-            secondary: 'string'
-        }
+  name: 'required',
+  bio: {
+    age: 'min:18',
+    education: {
+      primary: 'string',
+      secondary: 'string'
     }
+  }
 };
 
 // OR
 
 var flattened = {
-    name: 'required',
-    'bio.age': 'min:18'
-    'bio.education.primary': 'string',
-    'bio.education.secondary': 'string'
+  'name': 'required',
+  'bio.age': 'min:18'
+  'bio.education.primary': 'string',
+  'bio.education.secondary': 'string'
 };
 ```
 
