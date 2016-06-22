@@ -6,7 +6,7 @@ var AsyncResolvers = require('./async');
 
 var Validator = function(input, rules, customMessages) {
   var lang = Validator.getDefaultLang();
-  this.input = input;
+  this.input = this._flattenObject(input);
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -146,6 +146,37 @@ Validator.prototype = {
   },
 
   /**
+   * Flatten nested object, normalizing { foo: { bar: 1 } } into: { 'foo.bar': 1 }
+   *
+   * @param  {object} nested object
+   * @return {object} flattened object
+   */
+  _flattenObject: function (obj) {
+    var flattened = {};
+    function recurse (current, property) {
+      if (!property && Object.getOwnPropertyNames(current).length === 0) {
+        return;
+      }
+      if (Object(current) !== current || Array.isArray(current)) {
+        flattened[property] = current;
+      } else {
+        var isEmpty = true;
+        for (var p in current) {
+          isEmpty = false;
+          recurse(current[p], property ? property + "." + p : p);
+        }
+        if (isEmpty) {
+          flattened[property] = {};
+        }
+      }
+    }
+    if (obj) {
+      recurse(obj);
+    }
+    return flattened;
+  },
+
+  /**
    * Parse rules, normalizing format into: { attribute: [{ name: 'age', value: 3 }] }
    *
    * @param  {object} rules
@@ -153,6 +184,7 @@ Validator.prototype = {
    */
   _parseRules: function(rules) {
     var parsedRules = {};
+    rules = this._flattenObject(rules);
     for (var attribute in rules) {
       var rulesArray = rules[attribute];
       var attributeRules = [];
