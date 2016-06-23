@@ -1,3 +1,15 @@
+### 3.0.0
+
+* Released nested rules feature
+
+### 2.1.1
+
+* Discovered nested rules broke some custom validation rules that handled nested objects so removed this feature in 2.x to follow semver. See [issue](https://github.com/skaterdav85/validatorjs/issues/94).
+
+### 2.1.0
+
+* Introduced nested rules
+
 ### 2.0.2
 
 * Documentation updates for language support
