@@ -6,6 +6,7 @@ module.exports = {
     between: ':attributeは:min〜:max文字で入力してください。',
     confirmed: ':attributeは確認が一致しません。',
     email: ':attributeは正しいメールアドレスを入力してください。',
+    date: ':attributeは正しい日付形式を入力してください',
     def: ':attributeは検証エラーが含まれています。',
     digits: ':attributeは:digitsの数字のみで入力してください。',
     different: ':attributeと:differentは同じであってはなりません。',
