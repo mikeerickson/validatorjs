@@ -209,11 +209,11 @@ var rules = {
   },
 
   date: function(val) {
-    var valid = (new Date(val).toString()) !== 'Invalid Date'
+    var valid = (new Date(val).toString()) !== 'Invalid Date';
     if (typeof val === 'number') {
-      return val.toString().length === 12 && valid
+      return val.toString().length === 12 && valid;
     }
-    return valid
+    return valid;
   }
 
 };
