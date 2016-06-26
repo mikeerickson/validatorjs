@@ -164,6 +164,10 @@ The field under validation must have a size between the given min and max. Strin
 
 The field under validation must have a matching field of foo_confirmation. For example, if the field under validation is password, a matching password_confirmation field must be present in the input.
 
+#### date
+
+The field under validation must be a valid date format which is acceptable by Javascript's `Date` object.
+
 #### digits:value
 
 The field under validation must be numeric and must have an exact length of value.
