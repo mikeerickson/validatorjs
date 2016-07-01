@@ -7,6 +7,7 @@ module.exports = {
     between: 'Pole :attribute musi mieć długość od :min do :max.',
     confirmed: 'Pole :attribute nie spełnia warunku potwierdzenia.',
     email: 'Pole :attribute ma niepoprawny format adresu email.',
+    date: 'Pole :attribute musi mieć poprawny format daty.',
     def: 'Pole :attribute zawiera błędy.',
     digits: 'Pole :attribute może zawierać tylko cyfry ze zbioru :digits.',
     different: 'Pola :attribute i :different muszą się różnić.',
