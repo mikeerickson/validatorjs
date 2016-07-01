@@ -1,18 +1,38 @@
+var objectAssign = require('object-assign');
+var flat = require('flat');
+
 var Rules = require('./rules');
 var Lang = require('./lang');
 var Errors = require('./errors');
 var Attributes = require('./attributes');
 var AsyncResolvers = require('./async');
 
-var Validator = function(input, rules, customMessages) {
+var DEFAULT_OPTIONS = {
+  /**
+   * Whether to flatten the error message object
+   * @type {Boolean}
+   */
+  flat: true,
+
+  /**
+   * Object of custom messages
+   * @type {Object}
+   */
+  customMessages: {}
+};
+
+var Validator = function(input, rules, options) {
   var lang = Validator.getDefaultLang();
   this.input = this._flattenObject(input);
 
+  options = options || {};
+  this.options = objectAssign({}, DEFAULT_OPTIONS, options);
+
   this.messages = Lang._make(lang);
-  this.messages._setCustom(customMessages);
+  this.messages._setCustom(this.options.customMessages);
   this.setAttributeFormatter(Validator.prototype.attributeFormatter);
 
-  this.errors = new Errors();
+  this.errors = new Errors({flat: this.options.flat});
   this.errorCount = 0;
 
   this.hasAsync = false;
@@ -152,28 +172,11 @@ Validator.prototype = {
    * @return {object} flattened object
    */
   _flattenObject: function (obj) {
-    var flattened = {};
-    function recurse (current, property) {
-      if (!property && Object.getOwnPropertyNames(current).length === 0) {
-        return;
-      }
-      if (Object(current) !== current || Array.isArray(current)) {
-        flattened[property] = current;
-      } else {
-        var isEmpty = true;
-        for (var p in current) {
-          isEmpty = false;
-          recurse(current[p], property ? property + "." + p : p);
-        }
-        if (isEmpty) {
-          flattened[property] = {};
-        }
-      }
-    }
     if (obj) {
-      recurse(obj);
+      return flat(obj, {safe: true});
+    } else {
+      return {};
     }
-    return flattened;
   },
 
   /**

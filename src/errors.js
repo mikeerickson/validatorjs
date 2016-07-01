@@ -1,5 +1,19 @@
-var Errors = function() {
+var flat = require('flat');
+var objectAssign = require('object-assign');
+
+var DEFAULT_OPTIONS = {
+  /**
+   * Whether to flatten the error message object on `all()` call
+   * @type {Boolean}
+   */
+  flat: true
+};
+
+var Errors = function(options) {
   this.errors = {};
+
+  options = options || {}
+  this.options = objectAssign({}, DEFAULT_OPTIONS, options);
 };
 
 Errors.prototype = {
@@ -56,7 +70,11 @@ Errors.prototype = {
    * @return {Object} Failed attribute names for keys and an array of messages for values
    */
   all: function() {
-    return this.errors;
+    if (this.options.flat) {
+      return this.errors;
+    }
+
+    return flat.unflatten(this.errors);
   },
 
   /**

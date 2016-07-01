@@ -13,7 +13,9 @@ describe('Validator custom messages', function() {
     }, {
       name: 'required'
     }, {
-      required: 'Name is missing.'
+      customMessages: {
+        required: 'Name is missing.'
+      }
     });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.get('name').length).to.equal(1);
@@ -26,8 +28,10 @@ describe('Validator custom messages', function() {
     }, {
       name: 'min:4'
     }, {
-      min: {
-        string: ':attribute is not long enough. Should be :min.'
+      customMessages: {
+        min: {
+          string: ':attribute is not long enough. Should be :min.'
+        }
       }
     });
     expect(validator.fails()).to.be.true;
@@ -41,7 +45,9 @@ describe('Validator custom messages', function() {
     }, {
       name: 'required'
     }, {
-      required: ':attribute is required. :attribute can\'t be empty.'
+      customMessages: {
+        required: ':attribute is required. :attribute can\'t be empty.'
+      }
     });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.get('name').length).to.equal(1);
@@ -54,8 +60,10 @@ describe('Validator custom messages', function() {
     }, {
       name: 'min:4'
     }, {
-      min: {
-        string: ':attribute is not long enough. Should be :min.'
+      customMessages: {
+        min: {
+          string: ':attribute is not long enough. Should be :min.'
+        }
       }
     });
     expect(validator.fails()).to.be.true;
@@ -69,8 +77,10 @@ describe('Validator custom messages', function() {
     }, {
       name: 'min:4'
     }, {
-      min: {
-        string: ':attribute is not long enough. :attribute should be :min. Because needed string with :min symbols or more.'
+      customMessages: {
+        min: {
+          string: ':attribute is not long enough. :attribute should be :min. Because needed string with :min symbols or more.'
+        }
       }
     });
     expect(validator.fails()).to.be.true;
@@ -86,7 +96,9 @@ describe('Validator custom messages', function() {
       name: 'required',
       email: 'required'
     }, {
-      'required.name': 'Name is missing.'
+      customMessages: {
+        'required.name': 'Name is missing.'
+      }
     });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.get('name').length).to.equal(1);
@@ -105,7 +117,9 @@ describe('Validator custom messages', function() {
     }, {
       phone: 'telephone'
     }, {
-      telephone: 'Wrong number.'
+      customMessages: {
+        telephone: 'Wrong number.'
+      }
     });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.get('phone').length).to.equal(1);
@@ -124,7 +138,9 @@ describe('Validator custom messages', function() {
       phone: 'telephone',
       fax: 'telephone'
     }, {
-      'telephone.fax': 'Why are you even using a fax?'
+      customMessages: {
+        'telephone.fax': 'Why are you even using a fax?'
+      }
     });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.get('phone').length).to.equal(1);

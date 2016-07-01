@@ -36,6 +36,7 @@
   "devDependencies": {
     "browserify": "^10.2.4",
     "chai": "~3.0.0",
+    "flat": "^2.0.1",
     "grunt": "0.4.5",
     "grunt-browserify": "^3.8.0",
     "grunt-cli": "^0.1.13",
@@ -52,7 +53,8 @@
     "karma-growl-notifications-reporter": "0.0.2",
     "karma-mocha": "~0.1.10",
     "karma-phantomjs-launcher": "~0.1.4",
-    "mocha": "~2.2.5"
+    "mocha": "~2.2.5",
+    "object-assign": "^4.1.0"
   },
   "scripts": {
     "test-node": "node node_modules/mocha/bin/mocha spec",
