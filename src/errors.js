@@ -12,7 +12,7 @@ var DEFAULT_OPTIONS = {
 var Errors = function(options) {
   this.errors = {};
 
-  options = options || {}
+  options = options || {};
   this.options = objectAssign({}, DEFAULT_OPTIONS, options);
 };
 
