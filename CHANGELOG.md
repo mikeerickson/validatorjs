@@ -1,3 +1,7 @@
+### 3.1.0
+
+* Adds date rule
+
 ### 3.0.0
 
 * Released nested rules feature
