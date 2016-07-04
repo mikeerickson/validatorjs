@@ -289,6 +289,7 @@ module.exports = {
   between: 'The :attribute field must be between :min and :max.',
   confirmed: 'The :attribute confirmation does not match.',
   email: 'The :attribute format is invalid.',
+  date: 'The :attribute is not a valid date format',
   def: 'The :attribute attribute has errors.',
   digits: 'The :attribute must be :digits digits.',
   different: 'The :attribute and :different must be different.',
@@ -680,6 +681,14 @@ var rules = {
     req = req.replace(mod, "").slice(1, -1);
     req = new RegExp(req, flag);
     return !!val.match(req);
+  },
+
+  date: function(val) {
+    var valid = (new Date(val).toString()) !== 'Invalid Date';
+    if (typeof val === 'number') {
+      return val.toString().length === 12 && valid;
+    }
+    return valid;
   }
 
 };
@@ -994,6 +1003,8 @@ Validator.prototype = {
       }
     };
 
+    var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
+
     var validateRule = function(inputValue, ruleOptions, attribute, rule) {
       return function() {
         var resolverIndex = asyncResolvers.add(rule);
@@ -1002,8 +1013,6 @@ Validator.prototype = {
         });
       };
     };
-
-    var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
 
     for (var attribute in this.rules) {
       var attributeRules = this.rules[attribute];

@@ -102,6 +102,8 @@ Validator.prototype = {
       }
     };
 
+    var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
+
     var validateRule = function(inputValue, ruleOptions, attribute, rule) {
       return function() {
         var resolverIndex = asyncResolvers.add(rule);
@@ -110,8 +112,6 @@ Validator.prototype = {
         });
       };
     };
-
-    var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
 
     for (var attribute in this.rules) {
       var attributeRules = this.rules[attribute];

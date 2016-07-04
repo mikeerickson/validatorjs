@@ -206,6 +206,14 @@ var rules = {
     req = req.replace(mod, "").slice(1, -1);
     req = new RegExp(req, flag);
     return !!val.match(req);
+  },
+
+  date: function(val) {
+    var valid = (new Date(val).toString()) !== 'Invalid Date';
+    if (typeof val === 'number') {
+      return val.toString().length === 12 && valid;
+    }
+    return valid;
   }
 
 };
