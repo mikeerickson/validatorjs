@@ -237,7 +237,7 @@ describe('Error messages', function() {
       expect(JSON.stringify(validation.errors.all())).to.equal(expected);
     });
 
-    it('should return an flat array of all email error messages', function() {
+    it('should return an unflat array of all email error messages', function() {
       var validation = new Validator({
         hair: {
           color: 'brown',
@@ -260,26 +260,6 @@ describe('Error messages', function() {
       expect(validation.passes()).to.be.false;
       expect(JSON.stringify(validation.errors.all())).to.equal(expected);
     });
-
-    // it('should return a unflat array of all email error messages', function () {
-    //   var validation = new Validator({
-    //     name: 'd',
-    //     email: '',
-    //     age: 28
-    //   }, {
-    //     name: 'required|min:2',
-    //     email: 'required|email',
-    //     age: 'min:18'
-    //   });
-    //
-    //   var expected = JSON.stringify({
-    //     name: ['The name must be at least 2 characters.'],
-    //     email: ['The email field is required.']
-    //   });
-    //
-    //   expect(validation.passes()).to.be.false;
-    //   expect(JSON.stringify(validation.errors.all())).to.equal(expected);
-    // })
   });
 
   describe('ValidatorErrors.prototype.has()', function() {
