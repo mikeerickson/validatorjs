@@ -29,17 +29,21 @@ describe('register a custom validation rule', function() {
     expect(validator.passes()).to.be.true;
   });
 
-  it('should fail the custom telephone rule registration with a default error message', function() {
-    Validator.register('telephone', function(val) {
-      return val.match(/^\d{3}-\d{3}-\d{4}$/);
+  it('should override custom rules', function() {
+    Validator.register('string', function(val) {
+      return true;
     });
 
     var validator = new Validator({
-      phone: '4213-454-9988'
+      field: ['not a string']
     }, {
-      phone: 'telephone'
+      field: 'string'
     });
-    expect(validator.passes()).to.be.false;
-    expect(validator.fails()).to.be.true;
+
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+    Validator.register('string', function(val) {
+      return typeof val === 'string';
+    }, 'The :attribute must be a string.');
   });
 });
