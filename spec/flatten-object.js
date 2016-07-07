@@ -28,5 +28,19 @@ describe('Validator', function () {
         expect(validator._flattenObject(assert[0])).to.be.eql(assert[1]);
       });
     });
+
+    it('should limit flattening if limit obj is passed', function () {
+      var asserts = [
+        [{ foo: { bar: { x: 1, y: 2 }}}, { 'foo.bar': { x: 1, y: 2 }}]
+      ];
+      var limit = {
+        'foo.bar': true
+      };
+      var validator = new Validator({}, {});
+
+      asserts.forEach(function (assert) {
+        expect(validator._flattenObject(assert[0], limit)).to.be.eql(assert[1]);
+      });
+    });
   });
 }); // Page constructor

@@ -40,7 +40,7 @@ var Validator = require('validatorjs');
 ### Basic Usage
 
 ```js
-var validation = new Validator(data, rules [, customErrorMessages]);
+var validation = new Validator(data, rules [, customErrorMessages, limit]);
 ```
 
 __data__ {Object} - The data you want to validate
@@ -48,6 +48,8 @@ __data__ {Object} - The data you want to validate
 __rules__ {Object} - Validation rules
 
 __customErrorMessages__ {Object} - Optional custom error messages to return
+
+__limit__ {Object} - Optional custom restrict flatten on specific fields
 
 #### Example 1 - Passing validation
 
@@ -89,6 +91,41 @@ validation.passes(); // false
 // Error messages
 validation.errors.first('email'); // 'The email format is invalid.'
 validation.errors.get('email'); // returns an array of all email error messages
+```
+
+#### Example 3 - Custom rule / limits
+
+```js
+const data = {
+  name: 'name',
+  platforms: {
+    ios: false,
+    android: false,
+    desktop: false
+  },
+  ageRange: {
+    start: 0,
+    end: 80
+  }
+};
+
+const rules = {
+  platforms: 'singleTrueRule'
+};
+
+Validator.register('singleTrueRule', value => {
+  return Object.keys(value).some(k => k.value === true);
+}, 'At least one must be true');
+
+const limits = {
+  'targeting.platforms': true
+};
+
+var validation = new Validator(data, rules, null, limits);
+
+validation.fails(); // true
+
+validation.errors.first('targeting.platforms'); // 'At least one must be true'
 ```
 
 ### Nested rules

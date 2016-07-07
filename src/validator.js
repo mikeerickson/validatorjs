@@ -4,9 +4,9 @@ var Errors = require('./errors');
 var Attributes = require('./attributes');
 var AsyncResolvers = require('./async');
 
-var Validator = function(input, rules, customMessages) {
+var Validator = function(input, rules, customMessages, limit) {
   var lang = Validator.getDefaultLang();
-  this.input = this._flattenObject(input);
+  this.input = this._flattenObject(input, limit);
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -149,15 +149,17 @@ Validator.prototype = {
    * Flatten nested object, normalizing { foo: { bar: 1 } } into: { 'foo.bar': 1 }
    *
    * @param  {object} nested object
+   * @param  {object} restricted flatten rules object
    * @return {object} flattened object
    */
-  _flattenObject: function (obj) {
+  _flattenObject: function (obj, limit) {
     var flattened = {};
+    limit = limit || {};
     function recurse (current, property) {
       if (!property && Object.getOwnPropertyNames(current).length === 0) {
         return;
       }
-      if (Object(current) !== current || Array.isArray(current)) {
+      if (Object(current) !== current || Array.isArray(current) || limit[property] === true) {
         flattened[property] = current;
       } else {
         var isEmpty = true;

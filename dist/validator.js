@@ -1,4 +1,4 @@
-/*! validatorjs - v3.1.0 -  - 2016-07-04 */
+/*! validatorjs - v3.1.0 -  - 2016-07-07 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -905,9 +905,9 @@ var Errors = require('./errors');
 var Attributes = require('./attributes');
 var AsyncResolvers = require('./async');
 
-var Validator = function(input, rules, customMessages) {
+var Validator = function(input, rules, customMessages, limit) {
   var lang = Validator.getDefaultLang();
-  this.input = this._flattenObject(input);
+  this.input = this._flattenObject(input, limit);
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -1050,15 +1050,17 @@ Validator.prototype = {
    * Flatten nested object, normalizing { foo: { bar: 1 } } into: { 'foo.bar': 1 }
    *
    * @param  {object} nested object
+   * @param  {object} restricted flatten rules object
    * @return {object} flattened object
    */
-  _flattenObject: function (obj) {
+  _flattenObject: function (obj, limit) {
     var flattened = {};
+    limit = limit || {};
     function recurse (current, property) {
       if (!property && Object.getOwnPropertyNames(current).length === 0) {
         return;
       }
-      if (Object(current) !== current || Array.isArray(current)) {
+      if (Object(current) !== current || Array.isArray(current) || limit[property] === true) {
         flattened[property] = current;
       } else {
         var isEmpty = true;
