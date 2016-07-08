@@ -20,7 +20,8 @@ describe('Validator', function () {
         [{ foo: { bar: 1 } }, { 'foo.bar' : 1 }],
         [{ foo: { bar: [] } }, { 'foo.bar' : [] }],
         [{ foo: { bar: { fizz: "buzz" } } }, { 'foo.bar.fizz' : "buzz" }],
-        [{ foo: { bar: { fizz: ["buzz"] } } }, { 'foo.bar.fizz' : ["buzz"] }]
+        [{ foo: { bar: { fizz: ["buzz"] } } }, { 'foo.bar.fizz' : ["buzz"] }],
+        [{ date: new Date() }, { 'date': new Date() }]
       ];
       var validator = new Validator({}, {});
 
