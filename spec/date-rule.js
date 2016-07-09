@@ -16,7 +16,8 @@ describe('date rule', function() {
       '1995-08-09',
       '1995-08-09T00:00:00+00:00',
       '1995-08-09T00:00:00Z',
-      '1995-08-09T00:00:00.000Z'
+      '1995-08-09T00:00:00.000Z',
+      (new Date())
     ];
 
     asserts.forEach(function (assert) {

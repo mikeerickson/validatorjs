@@ -6,7 +6,7 @@ var AsyncResolvers = require('./async');
 
 var Validator = function(input, rules, customMessages) {
   var lang = Validator.getDefaultLang();
-  this.input = this._flattenObject(input);
+  this.input = input;
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -54,7 +54,7 @@ Validator.prototype = {
 
     for (var attribute in this.rules) {
       var attributeRules = this.rules[attribute];
-      var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
+      var inputValue = this._objectPath(this.input, attribute);
 
       for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
         ruleOptions = attributeRules[i];
@@ -115,7 +115,7 @@ Validator.prototype = {
 
     for (var attribute in this.rules) {
       var attributeRules = this.rules[attribute];
-      var inputValue = this.input[attribute]; // if it doesnt exist in input, it will be undefined
+      var inputValue = this._objectPath(this.input, attribute);
 
       for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
         ruleOptions = attributeRules[i];
@@ -174,6 +174,37 @@ Validator.prototype = {
       recurse(obj);
     }
     return flattened;
+  },
+
+  /**
+   * Extract value from nested object using string path with dot notation
+   *
+   * @param  {object} object to search in
+   * @param  {string} path inside object
+   * @return {any|void} value under the path
+   */
+  _objectPath: function (obj, path) {
+    if (obj.hasOwnProperty(path)) {
+      return obj[path];
+    }
+    
+    var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
+    var copy = obj.constructor();
+
+    for (var attr in obj) {
+      if (obj.hasOwnProperty(attr)) {
+        copy[attr] = obj[attr];
+      }
+    }
+
+    for (var i = 0, l = keys.length; i < l; i++) {
+      if (copy.hasOwnProperty(keys[i])) {
+        copy = copy[keys[i]];
+      } else {
+        return;
+      }
+    }
+    return copy;
   },
 
   /**
