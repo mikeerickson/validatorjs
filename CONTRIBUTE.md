@@ -1,6 +1,8 @@
 Contributing
 ============
 
+Before making a PR, please open an issue so we can discuss the feature/change.
+
 ## Install
 
 Clone the repository:
