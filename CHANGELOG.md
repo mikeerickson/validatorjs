@@ -1,3 +1,8 @@
+### 3.1.1
+
+* Fixes https://github.com/skaterdav85/validatorjs/issues/102
+* Fixes https://github.com/skaterdav85/validatorjs/pull/104
+
 ### 3.1.0
 
 * Adds date rule
