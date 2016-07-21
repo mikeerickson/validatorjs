@@ -127,4 +127,24 @@ describe('regex validation rule for most common regular expressions', function()
     });
     expect(validator.fails()).to.be.true;
   });
+
+  it('should support the case insensitive flag', function () {
+    var validator = new Validator({
+      pattern: 'A'
+    }, {
+      pattern: ['regex:/[a-f]/i']
+    });
+
+    expect(validator.passes()).to.be.true;
+  })
+
+  it('should not be case insensitive unless specified', function() {
+    var validator = new Validator({
+      pattern: 'A'
+    }, {
+      pattern: ['regex:/[a-f]/']
+    });
+
+    expect(validator.fails()).to.be.true;
+  });
 });

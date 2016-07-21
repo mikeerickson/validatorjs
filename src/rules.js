@@ -202,7 +202,7 @@ var rules = {
   regex: function(val, req) {
     var mod = /[g|i|m]{1,3}$/;
     var flag = req.match(mod);
-    flag = flag ? flag[0] : "i";
+    flag = flag ? flag[0] : "";
     req = req.replace(mod, "").slice(1, -1);
     req = new RegExp(req, flag);
     return !!val.match(req);
