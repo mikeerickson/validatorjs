@@ -184,7 +184,7 @@ Validator.prototype = {
    * @return {any|void} value under the path
    */
   _objectPath: function (obj, path) {
-    if (obj.hasOwnProperty(path)) {
+    if (Object.prototype.hasOwnProperty.call(obj, path)) {
       return obj[path];
     }
     
@@ -192,13 +192,13 @@ Validator.prototype = {
     var copy = obj.constructor();
 
     for (var attr in obj) {
-      if (obj.hasOwnProperty(attr)) {
+      if (Object.prototype.hasOwnProperty.call(obj, attr)) {
         copy[attr] = obj[attr];
       }
     }
 
     for (var i = 0, l = keys.length; i < l; i++) {
-      if (copy.hasOwnProperty(keys[i])) {
+      if (Object.hasOwnProperty.call(copy, keys[i])) {
         copy = copy[keys[i]];
       } else {
         return;

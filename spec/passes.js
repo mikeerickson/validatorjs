@@ -21,4 +21,15 @@ describe('passes()', function() {
       ]
     });
   });
+
+  it('should work if the input doesn\'t extend Object', function () {
+    // This happens in Express's req.body, for example.
+    var body = Object.create(null);
+    body.a = 2;
+
+    var validator = new Validator(body, {'a': 'required'});
+
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
 });
