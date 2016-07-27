@@ -20,6 +20,19 @@ var rules = {
     return true;
   },
 
+  'boolean': function (val) {
+    return (
+      val === true ||
+      val === false ||
+      val === 0 ||
+      val === 1 ||
+      val === '0' ||
+      val === '1' ||
+      val === 'true' ||
+      val === 'false'
+    );
+  },
+
   // compares the size of strings
   // with numbers, compares the value
   size: function(val, req, attribute) {
