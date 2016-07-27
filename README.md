@@ -160,6 +160,10 @@ The field under validation must be an array.
 
 The field under validation must have a size between the given min and max. Strings, numerics, and files are evaluated in the same fashion as the size rule.
 
+#### boolean
+
+The field under validation must be a boolean value of the form `true`, `false`, `0`, `1`, `'true'`, `'false'`, `'0'`, `'1'`,
+
 #### confirmed
 
 The field under validation must have a matching field of foo_confirmation. For example, if the field under validation is password, a matching password_confirmation field must be present in the input.
