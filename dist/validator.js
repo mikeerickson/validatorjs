@@ -1103,7 +1103,7 @@ Validator.prototype = {
     }
     
     var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
-    var copy = obj.constructor();
+    var copy = {};
 
     for (var attr in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, attr)) {
