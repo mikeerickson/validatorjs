@@ -1,3 +1,7 @@
+### 3.3.0
+
+* Adds German translation file
+
 ### 3.1.1
 
 * Fixes https://github.com/skaterdav85/validatorjs/issues/102

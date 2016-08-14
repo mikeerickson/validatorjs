@@ -1,8 +1,8 @@
 {
   "name": "validatorjs",
   "description": "Validation library inspired by Laravel's Validator",
-  "version": "3.2.1",
-  "author": "David <dtang859@gmail.com>",
+  "version": "3.3.0",
+  "author": "David <david@thejsguy.com>",
   "contributors": [
     {
       "name": "Gary Green",
