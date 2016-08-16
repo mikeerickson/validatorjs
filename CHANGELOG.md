@@ -1,3 +1,7 @@
+### 3.3.1
+
+* Fixes https://github.com/skaterdav85/validatorjs/pull/119#issuecomment-240060885
+
 ### 3.3.0
 
 * Adds German translation file
