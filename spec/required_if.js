@@ -29,4 +29,27 @@ describe('required if', function() {
     expect(validator.passes()).to.be.true;
     expect(validator.fails()).to.be.false;
   });
+
+  it('should fail with deep requirement', function() {
+    var validator = new Validator({
+      desert: {type:'icecream'},
+      flavour: ''
+    }, {
+      flavour: 'required_if:desert.type,icecream'
+    });
+    expect(validator.fails()).to.be.true;
+    expect(validator.passes()).to.be.false;
+    expect(validator.errors.first('flavour')).to.equal('The flavour field is required when desert.type is icecream.');
+  });
+
+  it('should pass with deep requirement', function() {
+    var validator = new Validator({
+      desert: {type: 'icecream'},
+      flavour: 'chocolate'
+    }, {
+      flavour: 'required_if:desert.type,icecream'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
 });
