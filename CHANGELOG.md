@@ -1,3 +1,7 @@
+### 3.4.0
+
+* Adds Turkish translations
+
 ### 3.3.1
 
 * Fixes https://github.com/skaterdav85/validatorjs/pull/119#issuecomment-240060885
