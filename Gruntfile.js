@@ -70,6 +70,13 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/tr.js'
       },
+      zhLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/zh:./lang/zh']
+        },
+        dest: 'dist/lang/zh.js'
+      },
       dist: {
         files: {
           'dist/validator.js': 'src/validator.js'

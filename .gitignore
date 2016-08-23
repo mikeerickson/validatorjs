@@ -4,3 +4,4 @@ node_modules
 spec/checklist.md
 coverage
 npm-debug.log
+.idea
