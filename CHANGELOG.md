@@ -1,3 +1,7 @@
+### 3.5.0
+
+* Adds Chinese translations
+
 ### 3.4.0
 
 * Adds Turkish translations
