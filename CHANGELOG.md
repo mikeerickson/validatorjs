@@ -1,3 +1,7 @@
+### 3.6.0
+
+Adds Traditional Chinese translations
+
 ### 3.5.0
 
 * Adds Chinese translations
