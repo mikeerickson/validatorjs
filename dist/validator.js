@@ -1,4 +1,4 @@
-/*! validatorjs - v3.6.0 -  - 2016-08-28 */
+/*! validatorjs - v3.6.0 -  - 2016-08-30 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -488,7 +488,11 @@ var rules = {
 
   required_if: function(val, req, attribute) {
     req = this.getParameters();
-    if (this.validator.input[req[0]] === req[1]) {
+    //todo: this does not lookup deep values??
+    var propertyValue = this.validator._objectPath(this.validator.input, req[0]);
+
+    //if (this.validator.input[req[0]] === req[1]) {
+    if (propertyValue === req[1]) {
       return this.validator.getRule('required').validate(val);
     }
 
@@ -918,7 +922,7 @@ var Errors = require('./errors');
 var Attributes = require('./attributes');
 var AsyncResolvers = require('./async');
 
-var Validator = function(input, rules, customMessages) {
+var Validator = function (input, rules, customMessages) {
   var lang = Validator.getDefaultLang();
   this.input = input;
 
@@ -963,7 +967,7 @@ Validator.prototype = {
    *
    * @return {boolean} Whether it passes; true = passes, false = fails
    */
-  check: function() {
+  check: function () {
     var self = this;
 
     for (var attribute in this.rules) {
@@ -999,16 +1003,16 @@ Validator.prototype = {
    * @param {function} fails
    * @return {void}
    */
-  checkAsync: function(passes, fails) {
+  checkAsync: function (passes, fails) {
     var _this = this;
-    passes = passes || function() {};
-    fails = fails || function() {};
+    passes = passes || function () { };
+    fails = fails || function () { };
 
-    var failsOne = function(rule, message) {
+    var failsOne = function (rule, message) {
       _this._addFailure(rule, message);
     };
 
-    var resolvedAll = function(allPassed) {
+    var resolvedAll = function (allPassed) {
       if (allPassed) {
         passes();
       } else {
@@ -1018,10 +1022,10 @@ Validator.prototype = {
 
     var asyncResolvers = new AsyncResolvers(failsOne, resolvedAll);
 
-    var validateRule = function(inputValue, ruleOptions, attribute, rule) {
-      return function() {
+    var validateRule = function (inputValue, ruleOptions, attribute, rule) {
+      return function () {
         var resolverIndex = asyncResolvers.add(rule);
-        rule.validate(inputValue, ruleOptions.value, attribute, function() {
+        rule.validate(inputValue, ruleOptions.value, attribute, function () {
           asyncResolvers.resolve(resolverIndex);
         });
       };
@@ -1053,7 +1057,7 @@ Validator.prototype = {
    *
    * @param {Rule} rule
    */
-  _addFailure: function(rule) {
+  _addFailure: function (rule) {
     var msg = this.messages.render(rule);
     this.errors.add(rule.attribute, msg);
     this.errorCount++;
@@ -1067,7 +1071,7 @@ Validator.prototype = {
    */
   _flattenObject: function (obj) {
     var flattened = {};
-    function recurse (current, property) {
+    function recurse(current, property) {
       if (!property && Object.getOwnPropertyNames(current).length === 0) {
         return;
       }
@@ -1101,7 +1105,7 @@ Validator.prototype = {
     if (Object.prototype.hasOwnProperty.call(obj, path)) {
       return obj[path];
     }
-    
+
     var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
     var copy = {};
 
@@ -1127,19 +1131,47 @@ Validator.prototype = {
    * @param  {object} rules
    * @return {object}
    */
-  _parseRules: function(rules) {
+  _parseRules: function (rules) {
+
     var parsedRules = {};
     rules = this._flattenObject(rules);
+    
     for (var attribute in rules) {
-      var rulesArray = rules[attribute];
-      var attributeRules = [];
 
+      var rulesArray = rules[attribute];
+
+      this._recurseParsedRules(attribute, rulesArray, parsedRules);
+    }
+    return parsedRules;
+
+
+  },
+
+  _recurseParsedRules: function (attribute, rulesArray, parsedRules, wildCardValues) {
+    if (attribute.indexOf('*') > -1) {
+      var parentPath = attribute.substr(0, attribute.indexOf('*') - 1);
+      var propertyValue = this._objectPath(this.input, parentPath);
+
+      if (propertyValue) {
+        for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
+          var workingValues = wildCardValues ? wildCardValues.slice() : [];
+          workingValues.push(propertyNumber);
+          this._recurseParsedRules(attribute.replace('*', propertyNumber), rulesArray, parsedRules, workingValues);
+        }
+      }
+    } else {
+      //process the rules and add them to the attribute rules.
+      var attributeRules = [];
       if (typeof rulesArray === 'string') {
         rulesArray = rulesArray.split('|');
       }
 
       for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
         rule = this._extractRuleAndRuleValue(rulesArray[i]);
+        if (rule.value){
+          rule.value = this._replaceWildCards(rule.value, wildCardValues);
+        }
+
         if (Rules.isAsync(rule.name)) {
           this.hasAsync = true;
         }
@@ -1148,7 +1180,20 @@ Validator.prototype = {
 
       parsedRules[attribute] = attributeRules;
     }
-    return parsedRules;
+
+  },
+
+  _replaceWildCards: function (path, nums) {
+
+    if (!nums) {return path;}
+
+    var path2 = path;
+    nums.forEach(function (value) {
+      var pos = path2.indexOf('*');
+      if (pos === -1){ return path2;}
+      path2 = path2.substr(0, pos) + value + path2.substr(pos + 1);
+    });
+    return path2;
   },
 
   /**
@@ -1157,7 +1202,7 @@ Validator.prototype = {
    * @param  {string} ruleString min:3
    * @return {object} object containing the name of the rule and value
    */
-  _extractRuleAndRuleValue: function(ruleString) {
+  _extractRuleAndRuleValue: function (ruleString) {
     var rule = {},
       ruleArray;
 
@@ -1179,7 +1224,7 @@ Validator.prototype = {
    * @param  {array}   findRules
    * @return {boolean}
    */
-  _hasRule: function(attribute, findRules) {
+  _hasRule: function (attribute, findRules) {
     var rules = this.rules[attribute] || [];
     for (var i = 0, len = rules.length; i < len; i++) {
       if (findRules.indexOf(rules[i].name) > -1) {
@@ -1195,7 +1240,7 @@ Validator.prototype = {
    * @param  {string}  attribute
    * @return {Boolean}
    */
-  _hasNumericRule: function(attribute) {
+  _hasNumericRule: function (attribute) {
     return this._hasRule(attribute, this.numericRules);
   },
 
@@ -1206,7 +1251,7 @@ Validator.prototype = {
    * @param  {mixed}  value
    * @return {boolean}
    */
-  _isValidatable: function(rule, value) {
+  _isValidatable: function (rule, value) {
     if (Rules.isImplicit(rule.name)) {
       return true;
     }
@@ -1221,7 +1266,7 @@ Validator.prototype = {
    * @param  {boolean} rulePassed
    * @return {boolean}
    */
-  _shouldStopValidating: function(attribute, rulePassed) {
+  _shouldStopValidating: function (attribute, rulePassed) {
 
     var stopOnAttributes = this.stopOnAttributes;
     if (stopOnAttributes === false || rulePassed === true) {
@@ -1241,7 +1286,7 @@ Validator.prototype = {
    * @param {object} attributes
    * @return {void}
    */
-  setAttributeNames: function(attributes) {
+  setAttributeNames: function (attributes) {
     this.messages._setAttributeNames(attributes);
   },
 
@@ -1251,7 +1296,7 @@ Validator.prototype = {
    * @param {fuction} func
    * @return {void}
    */
-  setAttributeFormatter: function(func) {
+  setAttributeFormatter: function (func) {
     this.messages._setAttributeFormatter(func);
   },
 
@@ -1261,7 +1306,7 @@ Validator.prototype = {
    * @param  {string} name
    * @return {Rule}
    */
-  getRule: function(name) {
+  getRule: function (name) {
     return Rules.make(name, this);
   },
 
@@ -1271,7 +1316,7 @@ Validator.prototype = {
    * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
    * @return {void}
    */
-  stopOnError: function(attributes) {
+  stopOnError: function (attributes) {
     this.stopOnAttributes = attributes;
   },
 
@@ -1281,7 +1326,7 @@ Validator.prototype = {
    * @param {function} passes
    * @return {boolean|undefined}
    */
-  passes: function(passes) {
+  passes: function (passes) {
     var async = this._checkAsync('passes', passes);
     if (async) {
       return this.checkAsync(passes);
@@ -1295,10 +1340,10 @@ Validator.prototype = {
    * @param {function} fails
    * @return {boolean|undefined}
    */
-  fails: function(fails) {
+  fails: function (fails) {
     var async = this._checkAsync('fails', fails);
     if (async) {
-      return this.checkAsync(function() {}, fails);
+      return this.checkAsync(function () { }, fails);
     }
     return !this.check();
   },
@@ -1310,7 +1355,7 @@ Validator.prototype = {
    * @param  {function} callback
    * @return {boolean}
    */
-  _checkAsync: function(funcName, callback) {
+  _checkAsync: function (funcName, callback) {
     var hasCallback = typeof callback === 'function';
     if (this.hasAsync && !hasCallback) {
       throw funcName + ' expects a callback when async rules are being tested.';
@@ -1328,7 +1373,7 @@ Validator.prototype = {
  * @param {object} messages
  * @return {this}
  */
-Validator.setMessages = function(lang, messages) {
+Validator.setMessages = function (lang, messages) {
   Lang._set(lang, messages);
   return this;
 };
@@ -1339,7 +1384,7 @@ Validator.setMessages = function(lang, messages) {
  * @param  {string} lang
  * @return {Messages}
  */
-Validator.getMessages = function(lang) {
+Validator.getMessages = function (lang) {
   return Lang._get(lang);
 };
 
@@ -1349,7 +1394,7 @@ Validator.getMessages = function(lang) {
  * @param {string} lang
  * @return {void}
  */
-Validator.useLang = function(lang) {
+Validator.useLang = function (lang) {
   this.prototype.lang = lang;
 };
 
@@ -1358,7 +1403,7 @@ Validator.useLang = function(lang) {
  *
  * @return {string}
  */
-Validator.getDefaultLang = function() {
+Validator.getDefaultLang = function () {
   return this.prototype.lang;
 };
 
@@ -1368,7 +1413,7 @@ Validator.getDefaultLang = function() {
  * @param {fuction} func
  * @return {void}
  */
-Validator.setAttributeFormatter = function(func) {
+Validator.setAttributeFormatter = function (func) {
   this.prototype.attributeFormatter = func;
 };
 
@@ -1378,7 +1423,7 @@ Validator.setAttributeFormatter = function(func) {
  * @param  {boolean|array} An array of attributes or boolean true/false for all attributes.
  * @return {void}
  */
-Validator.stopOnError = function(attributes) {
+Validator.stopOnError = function (attributes) {
   this.prototype.stopOnAttributes = attributes;
 };
 
@@ -1390,7 +1435,7 @@ Validator.stopOnError = function(attributes) {
  * @param  {string}   message
  * @return {void}
  */
-Validator.register = function(name, fn, message) {
+Validator.register = function (name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.register(name, fn);
   Lang._setRuleMessage(lang, name, message);
@@ -1404,7 +1449,7 @@ Validator.register = function(name, fn, message) {
  * @param  {string}   message
  * @return {void}
  */
-Validator.registerAsync = function(name, fn, message) {
+Validator.registerAsync = function (name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.registerAsync(name, fn);
   Lang._setRuleMessage(lang, name, message);
