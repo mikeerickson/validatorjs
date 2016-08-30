@@ -13,7 +13,11 @@ var rules = {
 
   required_if: function(val, req, attribute) {
     req = this.getParameters();
-    if (this.validator.input[req[0]] === req[1]) {
+    //todo: this does not lookup deep values??
+    var propertyValue = this.validator._objectPath(this.validator.input, req[0]);
+
+    //if (this.validator.input[req[0]] === req[1]) {
+    if (propertyValue === req[1]) {
       return this.validator.getRule('required').validate(val);
     }
 
