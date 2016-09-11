@@ -56,6 +56,10 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
+      if (this._passesOptionalCheck(attributeRules) && !(this._suppliedWithData(attribute))) {
+        continue;
+      }
+
       for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
         ruleOptions = attributeRules[i];
         rule = this.getRule(ruleOptions.name);
@@ -187,7 +191,7 @@ Validator.prototype = {
     if (Object.prototype.hasOwnProperty.call(obj, path)) {
       return obj[path];
     }
-    
+
     var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
     var copy = {};
 
@@ -235,6 +239,32 @@ Validator.prototype = {
       parsedRules[attribute] = attributeRules;
     }
     return parsedRules;
+  },
+
+  /**
+   * Determines if the input value being validated is optional or not.
+   *
+   * @param  {array} attributeRules
+   * @return {boolean}
+   */
+  _passesOptionalCheck: function(attributeRules) {
+    for(var i = 0; i < attributeRules.length; i++) {
+        if (attributeRules[i].name === 'sometimes') {
+          return true;
+        }
+    }
+
+    return false;
+  },
+
+  /**
+   * Determines if the attribute is supplied with the original data object.
+   *
+   * @param  {array} attribute
+   * @return {boolean}
+   */
+  _suppliedWithData: function(attribute) {
+    return this.input.hasOwnProperty(attribute);
   },
 
   /**

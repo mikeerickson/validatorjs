@@ -1,4 +1,4 @@
-/*! validatorjs - v3.6.0 -  - 2016-08-28 */
+/*! validatorjs - v3.6.0 -  - 2016-09-10 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -526,6 +526,10 @@ var rules = {
     return typeof val === 'string';
   },
 
+  sometimes: function(val) {
+    return true;
+  },
+
   /**
    * Compares the size of strings or the value of numbers if there is a truthy value
    */
@@ -970,6 +974,10 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
+      if (this._passesOptionalCheck(attributeRules) && !(this._suppliedWithData(attribute))) {
+        continue;
+      }
+
       for (var i = 0, len = attributeRules.length, rule, ruleOptions, rulePassed; i < len; i++) {
         ruleOptions = attributeRules[i];
         rule = this.getRule(ruleOptions.name);
@@ -1101,7 +1109,7 @@ Validator.prototype = {
     if (Object.prototype.hasOwnProperty.call(obj, path)) {
       return obj[path];
     }
-    
+
     var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
     var copy = {};
 
@@ -1149,6 +1157,32 @@ Validator.prototype = {
       parsedRules[attribute] = attributeRules;
     }
     return parsedRules;
+  },
+
+  /**
+   * Determines if the input value being validated is optional or not.
+   *
+   * @param  {array} attributeRules
+   * @return {boolean}
+   */
+  _passesOptionalCheck: function(attributeRules) {
+    for(var i = 0; i < attributeRules.length; i++) {
+        if (attributeRules[i].name === 'sometimes') {
+          return true;
+        }
+    }
+
+    return false;
+  },
+
+  /**
+   * Determines if the attribute is supplied with the original data object.
+   *
+   * @param  {array} attribute
+   * @return {boolean}
+   */
+  _suppliedWithData: function(attribute) {
+    return this.input.hasOwnProperty(attribute);
   },
 
   /**
