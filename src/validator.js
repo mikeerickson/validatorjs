@@ -121,6 +121,10 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
+      if (this._passesOptionalCheck(attributeRules) && !(this._suppliedWithData(attribute))) {
+        continue;
+      }
+
       for (var i = 0, len = attributeRules.length, rule, ruleOptions; i < len; i++) {
         ruleOptions = attributeRules[i];
 
