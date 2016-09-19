@@ -56,7 +56,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._passesOptionalCheck(attributeRules) && !(this._suppliedWithData(attribute))) {
+      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
         continue;
       }
 
@@ -121,7 +121,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._passesOptionalCheck(attributeRules) && !(this._suppliedWithData(attribute))) {
+      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
         continue;
       }
 
@@ -243,22 +243,6 @@ Validator.prototype = {
       parsedRules[attribute] = attributeRules;
     }
     return parsedRules;
-  },
-
-  /**
-   * Determines if the input value being validated is optional or not.
-   *
-   * @param  {array} attributeRules
-   * @return {boolean}
-   */
-  _passesOptionalCheck: function(attributeRules) {
-    for(var i = 0; i < attributeRules.length; i++) {
-        if (attributeRules[i].name === 'sometimes') {
-          return true;
-        }
-    }
-
-    return false;
   },
 
   /**
