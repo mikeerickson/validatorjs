@@ -51,6 +51,10 @@ var rules = {
     return typeof val === 'string';
   },
 
+  sometimes: function(val) {
+    return true;
+  },
+
   /**
    * Compares the size of strings or the value of numbers if there is a truthy value
    */
