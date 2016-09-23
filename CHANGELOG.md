@@ -1,3 +1,8 @@
+### 3.7.0
+
+* Adds "sometimes" rule
+* add optional check for checkAsync method and add additional test specs for checkAsync methods
+
 ### 3.6.0
 
 Adds Traditional Chinese translations
