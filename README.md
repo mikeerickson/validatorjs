@@ -216,6 +216,10 @@ Validate that an attribute is numeric. The string representation of a number wil
 
 Checks if the length of the String representation of the value is >
 
+#### required_if:anotherfield,value
+
+The field under validation must be present and not empty if the anotherfield field is equal to any value.
+
 #### same:attribute
 
 The given field must match the field under validation.
