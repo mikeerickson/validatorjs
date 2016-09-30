@@ -13,7 +13,8 @@ var rules = {
 
   required_if: function(val, req, attribute) {
     req = this.getParameters();
-    if (this.validator.input[req[0]] === req[1]) {
+    var inputValue = this.validator.input[req[0]];
+    if (inputValue && inputValue.toString() === req[1]) {
       return this.validator.getRule('required').validate(val);
     }
 
