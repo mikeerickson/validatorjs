@@ -1,3 +1,7 @@
+### 3.8.0
+
+* Adds Greek language support
+
 ### 3.7.0
 
 * Adds "sometimes" rule
