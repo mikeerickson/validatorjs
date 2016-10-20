@@ -28,6 +28,13 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/de.js'
       },
+      elLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/el:./lang/el']
+        },
+        dest: 'dist/lang/el.js'
+      },
       esLang: {
         src: [],
         options: {
