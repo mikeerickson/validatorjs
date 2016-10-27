@@ -24,9 +24,11 @@ var replacements = {
    */
   required_if: function(template, rule) {
     var parameters = rule.getParameters();
+    var other = parameters.shift();
+    var value = parameters.length > 1 ? parameters.join(', ') : parameters[0];
     return this._replacePlaceholders(rule, template, {
-      other: parameters[0],
-      value: parameters[1]
+      other: other,
+      value: value,
     });
   }
 };

@@ -13,11 +13,29 @@ var rules = {
 
   required_if: function(val, req, attribute) {
     req = this.getParameters();
-    var inputValue = this.validator.input[req[0]];
-    if (inputValue && inputValue.toString() === req[1]) {
-      return this.validator.getRule('required').validate(val);
+
+    var data = this.validator.input[req[0]];
+    var values = req.slice(1);
+    if (typeof(data) === 'boolean') {
+      for (var i in values) {
+        if (values[i] === 'true') {
+            values[i] = true;
+        } else if (values[i] === 'false') {
+            values[i] = false;
+        }
+      }
+    } else if (typeof(data) === 'number') {
+      for (var j in values) {
+        if (!isNaN(values[j])) {
+          values[j] = Number(values[j]);
+        }
+      }
     }
 
+    if (values.indexOf(data) !== -1) {
+      return this.validator.getRule('required').validate(val);
+    }
+    
     return true;
   },
 
