@@ -2,16 +2,16 @@ module.exports = {
   accepted: ':attribute phải được chấp nhận.',
   alpha: 'Trường :attribute phải là ký tự',
   alpha_dash: ':attribute chỉ chấp nhận ký tự chữ cái, số, dấu gạch chéo và gạch dưới.',
-  alpha_num: ':attribute field must be alphanumeric.',
+  alpha_num: ':attribute phải là ký tự chữ cái hoặc chữ số.',
   between: ':attribute phải nằm trong khoảng :min và :max.',
-  confirmed: 'The :attribute confirmation does not match.',
+  confirmed: ':attribute xác nhận không trùng khớp.',
   email: ':attribute không phải là email.',
-  date: 'The :attribute is not a valid date format',
-  def: 'The :attribute attribute has errors.',
-  digits: 'The :attribute must be :digits digits.',
-  different: 'The :attribute and :different must be different.',
-  'in': 'The selected :attribute is invalid.',
-  integer: 'Trường :attribute phải là số nguyên.',
+  date: ':attribute không phải là ngày hợp lệ',
+  def: 'Thuộc tính :attribute có lỗi.',
+  digits: ':attribute phải là số và có chiều dài bằng :digits.',
+  different: 'Giá trị của hai trường :attribute và :different phải khác nhau.',
+  'in': 'Giá trị được chọn của :attribute không hợp lệ.',
+  integer: ':attribute phải là số nguyên.',
   min: {
     numeric: ':attribute phải lớn hơn hoặc bằng :min.',
     string: ':attribute phải có ít nhất :min ký tự.'
@@ -20,17 +20,17 @@ module.exports = {
     numeric: ':attribute phải nhỏ hơn hoặc bằng :max.',
     string: ':attribute phải có ít hơn :max ký tự.'
   },
-  not_in: 'The selected :attribute is invalid.',
+  not_in: 'Giá trị được chọn của trường :attribute không hợp lệ.',
   numeric: ':attribute phải là số.',
   required: ':attribute bắt buộc nhập.',
   required_if: ':attribute là bắt buộc khi :other có giá trị :value.',
   same: 'Giá trị của :attribute và :same phải như nhau.',
   size: {
-    numeric: 'The :attribute must be :size.',
-    string: 'The :attribute must be :size characters.'
+    numeric: ':attribute phải có chiều dài của bằng :size.',
+    string: 'Số ký tự của :attribute phải là :size ký tự.'
   },
-  string: 'The :attribute must be a string.',
-  url: 'The :attribute format is invalid.',
+  string: ':attribute không phải là một chuỗi',
+  url: ':attribute không phải là một Url hợp lệ.',
   regex: ':attribute không đúng định dạng',
   attributes: {}
 };
