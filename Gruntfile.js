@@ -90,7 +90,14 @@ module.exports = function(grunt) {
           require: ['./src/lang/zh_TW:./lang/zh_TW']
         },
         dest: 'dist/lang/zh_TW.js'
-      },      
+      },
+      nbNOLang: {
+          src: [],
+          options: {
+              require: ['./src/lang/nb_NO:./lang/nb_NO']
+          },
+          dest: 'dist/lang/nb_NO.js'
+      },
       dist: {
         files: {
           'dist/validator.js': 'src/validator.js'
