@@ -1,3 +1,7 @@
+### 3.9.0
+
+* Add Norwegian Bokmål (nb_NO) localization
+
 ### 3.8.0
 
 * Adds Greek language support
