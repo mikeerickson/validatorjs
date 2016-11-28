@@ -1,3 +1,7 @@
+### 3.10.0
+
+* Adds Portuguese language
+
 ### 3.9.0
 
 * Add Norwegian Bokmål (nb_NO) localization
