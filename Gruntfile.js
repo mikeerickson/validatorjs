@@ -63,6 +63,13 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/pl.js'
       },
+      ptLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/pt:./lang/pt']
+        },
+        dest: 'dist/lang/pt.js'
+      },
       jaLang: {
         src: [],
         options: {
