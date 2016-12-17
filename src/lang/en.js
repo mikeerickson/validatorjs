@@ -24,6 +24,11 @@ module.exports = {
   numeric: 'The :attribute must be a number.',
   required: 'The :attribute field is required.',
   required_if: 'The :attribute field is required when :other is :value.',
+  required_unless: 'The :attribute field is required when :other is not :value.',
+  required_with: 'The :attribute field is required when :field is not empty.',
+  required_with_all: 'The :attribute field is required when :fields are not empty.',
+  required_without: 'The :attribute field is required when :field is empty.',
+  required_without_all: 'The :attribute field is required when :fields are empty.',
   same: 'The :attribute and :same fields must match.',
   size: {
     numeric: 'The :attribute must be :size.',
