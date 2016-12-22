@@ -13,11 +13,63 @@ var rules = {
 
   required_if: function(val, req, attribute) {
     req = this.getParameters();
-    if (this.validator.input[req[0]] === req[1]) {
+    if (this.validator._objectPath(this.validator.input, req[0]) === req[1]) {
       return this.validator.getRule('required').validate(val);
     }
 
     return true;
+  },
+
+  required_unless: function(val, req, attribute) {
+    req = this.getParameters();
+    if (this.validator._objectPath(this.validator.input, req[0]) !== req[1]) {
+      return this.validator.getRule('required').validate(val);
+    }
+
+    return true;
+  },
+
+  required_with: function(val, req, attribute) {
+    if (this.validator._objectPath(this.validator.input, req)) {
+      return this.validator.getRule('required').validate(val);
+    }
+
+    return true;
+  },
+
+  required_with_all: function(val, req, attribute) {
+
+    req = this.getParameters();
+
+    for(var i = 0; i < req.length; i++) {
+      if (!this.validator._objectPath(this.validator.input, req[i])) {
+        return true;
+      }
+    }
+
+    return this.validator.getRule('required').validate(val);
+  },
+
+  required_without: function(val, req, attribute) {
+
+    if (this.validator._objectPath(this.validator.input, req)) {
+      return true;
+    }
+
+    return this.validator.getRule('required').validate(val);
+  },
+
+  required_without_all: function(val, req, attribute) {
+
+    req = this.getParameters();
+
+    for(var i = 0; i < req.length; i++) {
+      if (this.validator._objectPath(this.validator.input, req[i])) {
+        return true;
+      }
+    }
+
+    return this.validator.getRule('required').validate(val);
   },
 
   'boolean': function (val) {
@@ -371,7 +423,7 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'accepted'],
+  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted'],
 
   /**
    * Get rule by name

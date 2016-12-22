@@ -220,6 +220,26 @@ Checks if the length of the String representation of the value is >
 
 The field under validation must be present and not empty if the anotherfield field is equal to any value.
 
+#### required_unless:anotherfield,value
+
+The field under validation must be present and not empty unless the anotherfield field is equal to any value.
+
+#### required_with:foo,bar,...
+
+The field under validation must be present and not empty only if any of the other specified fields are present.
+
+#### required_with_all:foo,bar,...
+
+The field under validation must be present and not empty only if all of the other specified fields are present.
+
+#### required_without:foo,bar,...
+
+The field under validation must be present and not empty only when any of the other specified fields are not present.
+
+#### required_without_all:foo,bar,...
+
+The field under validation must be present and not empty only when all of the other specified fields are not present.
+
 #### same:attribute
 
 The given field must match the field under validation.
