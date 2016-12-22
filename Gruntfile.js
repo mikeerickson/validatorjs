@@ -63,6 +63,20 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/pl.js'
       },
+      faLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/fa:./lang/fa']
+        },
+        dest: 'dist/lang/fa.js'
+      },
+      viLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/vi:./lang/vi']
+        },
+        dest: 'dist/lang/vi.js'
+      },
       ptLang: {
         src: [],
         options: {

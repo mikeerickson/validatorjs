@@ -14,12 +14,12 @@ module.exports = {
     'in': '選択された:attributeは無効です。',
     integer: ':attributeは整数で入力してください。',
     min        : {
-        numeric : ":attributeは:min以上を入力してください。",
+        numeric : ":attributeは:min以上で入力してください。",
         string  : ":attributeは:min文字以上で入力してください。"
     },
     max : {
-        numeric : ":attributeは:max以下を入力してください。",
-        string  : ":attributeは:max文字以上で入力してください。"
+        numeric : ":attributeは:max以下で入力してください。",
+        string  : ":attributeは:max文字以下で入力してください。"
     },
     not_in      : "選択された:attributeは無効です。",
     numeric     : ":attributeは数値で入力してください。",
@@ -30,7 +30,7 @@ module.exports = {
         numeric : ":attributeは:sizeを入力してください。",
         string  : ":attributeは:size文字で入力してください。"
     },
-    url        : ":attributeはURIを入力してください。",
+    url        : ":attributeは正しいURIを入力してください。",
     regex      : ":attributeの値 \":value\" はパターンにマッチする必要があります。",
     attributes : {}
 };

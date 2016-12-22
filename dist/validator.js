@@ -1,4 +1,4 @@
-/*! validatorjs - v3.10.0 -  - 2016-11-28 */
+/*! validatorjs - v3.10.0 -  - 2016-12-22 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -112,6 +112,77 @@ var replacements = {
     return this._replacePlaceholders(rule, template, {
       other: parameters[0],
       value: parameters[1]
+    });
+  },
+
+  /**
+   * Required_unless replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  required_unless: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      other: parameters[0],
+      value: parameters[1]
+    });
+  },
+
+  /**
+   * Required_with replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  required_with: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      field: parameters[0]
+    });
+  },
+
+  /**
+   * Required_with_all replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  required_with_all: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      fields: parameters.join(', ')
+    });
+  },
+
+  /**
+   * Required_without replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  required_without: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      field: parameters[0]
+    });
+  },
+
+  /**
+   * Required_without_all replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  required_without_all: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      fields: parameters.join(', ')
     });
   }
 };
@@ -307,6 +378,11 @@ module.exports = {
   numeric: 'The :attribute must be a number.',
   required: 'The :attribute field is required.',
   required_if: 'The :attribute field is required when :other is :value.',
+  required_unless: 'The :attribute field is required when :other is not :value.',
+  required_with: 'The :attribute field is required when :field is not empty.',
+  required_with_all: 'The :attribute field is required when :fields are not empty.',
+  required_without: 'The :attribute field is required when :field is empty.',
+  required_without_all: 'The :attribute field is required when :fields are empty.',
   same: 'The :attribute and :same fields must match.',
   size: {
     numeric: 'The :attribute must be :size.',
@@ -488,11 +564,63 @@ var rules = {
 
   required_if: function(val, req, attribute) {
     req = this.getParameters();
-    if (this.validator.input[req[0]] === req[1]) {
+    if (this.validator._objectPath(this.validator.input, req[0]) === req[1]) {
       return this.validator.getRule('required').validate(val);
     }
 
     return true;
+  },
+
+  required_unless: function(val, req, attribute) {
+    req = this.getParameters();
+    if (this.validator._objectPath(this.validator.input, req[0]) !== req[1]) {
+      return this.validator.getRule('required').validate(val);
+    }
+
+    return true;
+  },
+
+  required_with: function(val, req, attribute) {
+    if (this.validator._objectPath(this.validator.input, req)) {
+      return this.validator.getRule('required').validate(val);
+    }
+
+    return true;
+  },
+
+  required_with_all: function(val, req, attribute) {
+
+    req = this.getParameters();
+
+    for(var i = 0; i < req.length; i++) {
+      if (!this.validator._objectPath(this.validator.input, req[i])) {
+        return true;
+      }
+    }
+
+    return this.validator.getRule('required').validate(val);
+  },
+
+  required_without: function(val, req, attribute) {
+
+    if (this.validator._objectPath(this.validator.input, req)) {
+      return true;
+    }
+
+    return this.validator.getRule('required').validate(val);
+  },
+
+  required_without_all: function(val, req, attribute) {
+
+    req = this.getParameters();
+
+    for(var i = 0; i < req.length; i++) {
+      if (this.validator._objectPath(this.validator.input, req[i])) {
+        return true;
+      }
+    }
+
+    return this.validator.getRule('required').validate(val);
   },
 
   'boolean': function (val) {
@@ -846,7 +974,7 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'accepted'],
+  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted'],
 
   /**
    * Get rule by name

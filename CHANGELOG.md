@@ -1,3 +1,10 @@
+### 3.11.0
+
+* Fixes required_if (https://github.com/skaterdav85/validatorjs/pull/148)
+* New rules 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all' (https://github.com/skaterdav85/validatorjs/pull/148)
+* Adds Persian/Farsi (https://github.com/skaterdav85/validatorjs/pull/149)
+* Adds Vietnamese (https://github.com/skaterdav85/validatorjs/pull/141)
+
 ### 3.10.0
 
 * Adds Portuguese language
