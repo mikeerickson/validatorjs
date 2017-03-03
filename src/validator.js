@@ -6,7 +6,7 @@ var AsyncResolvers = require('./async');
 
 var Validator = function(input, rules, customMessages) {
   var lang = Validator.getDefaultLang();
-  this.input = input;
+  this.input = input || {};
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -51,12 +51,6 @@ Validator.prototype = {
    */
   check: function() {
     var self = this;
-
-    if(!this.input){
-      this.errors.add('Data', 'Provided data is null or undefined.');
-      this.errorCount++;
-      return false;
-    }
 
     for (var attribute in this.rules) {
       var attributeRules = this.rules[attribute];

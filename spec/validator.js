@@ -50,22 +50,14 @@ describe('Validator constructor', function() {
   it('should have a check method', function() {
     expect(validator.check).to.be.a.function;
   });
+
+  it('should handle undefined data', function(){
+    validator = new Validator(undefined, { name: 'required' })
+    validator.check();
+  })
+
+  it('should handle null data', function(){
+    validator = new Validator(null, { name: 'required' })
+    validator.check();
+  })
 }); // Page constructor
-describe('invalid data', function() {
-  it('should fail when data is undefined', function() {
-    var validator = new Validator(undefined, {
-      name: 'required'
-    });
-    expect(validator.passes()).to.be.false;
-    expect(validator.fails()).to.be.true;
-    expect(validator.errors.first('Data')).to.equal('Provided data is null or undefined.');
-  });
-  it('should fail when data is null', function() {
-    var validator = new Validator(null, {
-      name: 'required'
-    });
-    expect(validator.passes()).to.be.false;
-    expect(validator.fails()).to.be.true;
-    expect(validator.errors.first('Data')).to.equal('Provided data is null or undefined.');
-  });
-});
