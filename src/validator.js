@@ -52,6 +52,12 @@ Validator.prototype = {
   check: function() {
     var self = this;
 
+    if(!this.input){
+      this.errors.add('Data', 'Provided data is null or undefined.');
+      this.errorCount++;
+      return false;
+    }
+
     for (var attribute in this.rules) {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
