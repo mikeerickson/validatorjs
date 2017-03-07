@@ -3,36 +3,35 @@ validatorjs
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator class](http://laravel.com/docs/validation).
+The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).
 
-### Why use validatorjs?
+## Why use validatorjs?
 
-1. Not dependent on any libraries
-2. Works in the browser and Node.js
-3. Readable and declarative validation rules
-4. Size
-	* Development version: 3.62 kB gzipped with lots of spacing and comments
-	* Production version: 2.02 kB gzipped and minified
-5. Supports other languages
-6. AMD/Require.js and CommonJS/Browserify support
+* Not dependent on any libraries.
+* Works in both the browser and Node.
+* Readable and declarative validation rules.
+* Error messages with multilingual support.
+* AMD/Require.js and CommonJS/Browserify support.
 
-### Browser
+## Installation
 
-```html
-<script src="dist/validator.min.js"></script>
-```
-
-You can also install it using Bower.
+Grab validatorjs from Bower, NPM, or the /dist directory on Github:
 
 ```
 bower install validatorjs
 ```
 
-### Node.js / Browserify Setup
-
 ```
 npm install validatorjs
 ```
+
+### Browser
+
+```html
+<script src="validator.min.js"></script>
+```
+
+### Node.js / Browserify
 
 ```js
 var Validator = require('validatorjs');
@@ -49,13 +48,6 @@ __data__ {Object} - The data you want to validate
 __rules__ {Object} - Validation rules
 
 __customErrorMessages__ {Object} - Optional custom error messages to return
-
-
-Alternatively, you can use a static _make()_ method on the Validator class.
-
-```js
-var validation = Validator.make(data, rules [, customErrorMessages]);
-```
 
 #### Example 1 - Passing validation
 
@@ -99,13 +91,54 @@ validation.errors.first('email'); // 'The email format is invalid.'
 validation.errors.get('email'); // returns an array of all email error messages
 ```
 
-### Validation Rules
+### Nested rules
+
+Nested objects can also be validated. There are two ways to declare validation rules for nested objects. The first way is to declare the validation rules with a corresponding nested object structure that reflects the data. The second way is to declare validation rules with flattened key names. For example, to validate the following data:
+
+```js
+var data = {
+  name: 'John',
+  bio: {
+    age: 28,
+    education: {
+      primary: 'Elementary School',
+      secondary: 'Secondary School'
+    }
+  }
+};
+```
+
+We could declare our validation rules as follows:
+
+```js
+var nested = {
+  name: 'required',
+  bio: {
+    age: 'min:18',
+    education: {
+      primary: 'string',
+      secondary: 'string'
+    }
+  }
+};
+
+// OR
+
+var flattened = {
+  'name': 'required',
+  'bio.age': 'min:18'
+  'bio.education.primary': 'string',
+  'bio.education.secondary': 'string'
+};
+```
+
+### Available Rules
 
 Validation rules do not have an implicit 'required'. If a field is _undefined_ or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
 
 #### accepted
 
-The field under validation must be yes, on, or 1. This is useful for validating "Terms of Service" acceptance.
+The field under validation must be yes, on, 1 or true. This is useful for validating "Terms of Service" acceptance.
 
 #### alpha
 
@@ -119,9 +152,25 @@ The field under validation may have alpha-numeric characters, as well as dashes 
 
 The field under validation must be entirely alpha-numeric characters.
 
+#### array
+
+The field under validation must be an array.
+
+#### between:min,max
+
+The field under validation must have a size between the given min and max. Strings, numerics, and files are evaluated in the same fashion as the size rule.
+
+#### boolean
+
+The field under validation must be a boolean value of the form `true`, `false`, `0`, `1`, `'true'`, `'false'`, `'0'`, `'1'`,
+
 #### confirmed
 
 The field under validation must have a matching field of foo_confirmation. For example, if the field under validation is password, a matching password_confirmation field must be present in the input.
+
+#### date
+
+The field under validation must be a valid date format which is acceptable by Javascript's `Date` object.
 
 #### digits:value
 
@@ -135,12 +184,11 @@ The given field must be different than the field under validation.
 
 The field under validation must be formatted as an e-mail address.
 
-
 #### in:foo,bar,...
 
-The field under validation must be included in the given list of values.
+The field under validation must be included in the given list of values. The field can be an array or string.
 
-####integer
+#### integer
 
 The field under validation must have an integer value.
 
@@ -168,15 +216,41 @@ Validate that an attribute is numeric. The string representation of a number wil
 
 Checks if the length of the String representation of the value is >
 
+#### required_if:anotherfield,value
+
+The field under validation must be present and not empty if the anotherfield field is equal to any value.
+
+#### required_unless:anotherfield,value
+
+The field under validation must be present and not empty unless the anotherfield field is equal to any value.
+
+#### required_with:foo,bar,...
+
+The field under validation must be present and not empty only if any of the other specified fields are present.
+
+#### required_with_all:foo,bar,...
+
+The field under validation must be present and not empty only if all of the other specified fields are present.
+
+#### required_without:foo,bar,...
+
+The field under validation must be present and not empty only when any of the other specified fields are not present.
+
+#### required_without_all:foo,bar,...
+
+The field under validation must be present and not empty only when all of the other specified fields are not present.
+
 #### same:attribute
 
 The given field must match the field under validation.
 
-
 #### size:value
 
-Validate that an attribute is a given length, or, if an attribute is numeric, is a given value
+The field under validation must have a size matching the given value. For string data, value corresponds to the number of characters. For numeric data, value corresponds to a given integer value.
 
+#### string
+
+The field under validation must be a string.
 
 #### url
 
@@ -210,20 +284,50 @@ validation.passes(); // true
 ### Registering Custom Validation Rules
 
 ```js
-Validator.register(custom_rule_name, callbackFn, errorMessage);
+Validator.register(name, callbackFn, errorMessage);
 ```
 
-__custom_rule_name__ {String}
+__name__ {String} - The name of the rule.
 
-__callbackFn__ {Function}. Returns a boolean to represent a successful or failed validation.
+__callbackFn__ {Function} - Returns a boolean to represent a successful or failed validation.
 
 __errorMessage__ {String} - An optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
 
 ```js
-Validator.register('telephone', function(value, requirement, attribute) { // requirement paramter defaults to null
-	return val.match(/^\d{3}-\d{3}-\d{4}$/);
+Validator.register('telephone', function(value, requirement, attribute) { // requirement parameter defaults to null
+	return value.match(/^\d{3}-\d{3}-\d{4}$/);
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
+
+### Asynchronous validation
+
+Register an asynchronous rule which accepts a `passes` callback:
+
+```js
+Validator.registerAsync('username_available', function(username, attribute, req, passes) {
+	// do your database/api checks here etc
+	// then call the `passes` method where appropriate:
+	passes(); // if username is available
+	passes(false, 'Username has already been taken.'); // if username is not available
+});
+```
+
+Then call your validator passing a callback to `fails` or `passes` like so:
+
+```js
+var validator = new Validator({ username: 'test123' }, { username: 'required|min:3|username_available' });
+validator.passes(function() {
+	// Validation passed
+});
+
+// Or call fails()
+validator.fails(function() {
+	// Error message:
+	validator.errors.first('username');
+});
+```
+
+Note: if you attempt to call `passes` or `fails` without a callback and the validator detects there are asynchronous validation rules, an exception will be thrown.
 
 ### Error Messages
 
@@ -308,35 +412,93 @@ validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
+### Custom attribute names
+
+To display a custom "friendly" attribute name in error messages, use `.setAttributeNames()`
+
+```js
+var validator = new Validator({ name: '' }, { name: 'required' });
+validator.setAttributeNames({ name: 'custom_name' });
+if (validator.fails()) {
+	validator.errors.first('name'); // "The custom_name field is required."
+}
+```
+
+Alternatively you can supply global custom attribute names in your lang with the `attributes` property.
+
+You can also configure a custom attribute formatter:
+
+```js
+// Configure global formatter.
+Validator.setAttributeFormatter(function(attribute) {
+	return attribute.replace(/_/g, ' ');
+});
+
+// Or configure formatter for particular instance.
+var validator = new Validator({ first_name: '' }, { first_name: 'required' });
+validator.setAttributeFormatter(function(attribute) {
+	return attribute.replace(/_/g, ' ');
+});
+if (validator.fails()) {
+	console.log(validator.errors.first('first_name')); // The first name field is required.
+}
+```
+
+Note: by default all _[] characters will be replaced with spaces.
+
 ### Language Support
 
-You can build the project with error messages in other languages. Simply create a language file in _src/lang/_ modeled after _en.js_.
+Error messages are in English by default. To include another language in the browser, reference the language file in a script tag and call `Validator.useLang('lang_code')`.
 
-```
-# Defaults to en.js
-grunt --lang=en
-```
-
-The English build will be dist/validator.js. Other builds will be dist/validator-**.js.
-
-Please contribute your language files!
-
-### Tests
-
-```
-# Terminal tab 1
-./node_modules/karma/bin/karma start
-
-# Terminal tab 2
-grunt watch
+```html
+<script src="dist/validator.min.js"></script>
+<script src="dist/lang/ru.js"></script>
+<script>
+	Validator.useLang('es');
+</script>
 ```
 
-Grunt will watch the files in _src/_ and build the library on change. Karma will watch the final build of the library, _dist/validator.js_, and run the tests on change.
+In Node, it will automatically pickup on the language source files.
 
-If someone knows how to make this into a combined task, please send a pull request!
-
-### Build
-
+```js
+var Validator = require('validatorjs');
+Validator.useLang('ru');
 ```
-grunt
+
+If you don't see support for your language, please add one to `src/lang`!
+
+You can also add your own custom language by calling `setMessages`:
+
+```js
+Validator.setMessages('lang_code', {
+	required: 'The :attribute field is required.',
+	....
+	....
+});
+```
+
+Get the raw object of messages for the given language:
+
+```js
+Validator.getMessages('lang_code');
+```
+
+Switch the default language used by the validator:
+
+```js
+Validator.useLang('lang_code');
+```
+
+Get the default language being used:
+
+```js
+Validator.getDefaultLang(); // returns e.g. 'en'
+```
+
+Override default messages for language:
+
+```js
+var messages = Validator.getMessages('en');
+messages.required = 'Whoops, :attribute field is required.';
+Validator.setMessages('en', messages);
 ```

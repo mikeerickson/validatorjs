@@ -1,73 +1,145 @@
-var fs = require('fs');
-
 /*global module:false*/
 module.exports = function(grunt) {
   'use strict';
 
-  var filename = 'validator';
-  var language = 'en';
-
-  if (grunt.option('lang') !== undefined && grunt.option('lang') !== 'en') {
-    var langFileExists = fs.existsSync('src/lang/' + grunt.option('lang') + '.js');
-
-    if (!langFileExists) {
-      throw new Error('Language file src/lang/' + grunt.option('lang') + '.js does not exist.');
-    }
-
-    language = grunt.option('lang');
-    filename = 'validator-' + language;
-  }
+  require('jit-grunt')(grunt);
 
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    meta: {
-      src   : 'src/*.js',
-      specs : 'spec/*.js'
-    },
-    concat: {
-      options: {
-        separator: "\n\n",
-        stripBanners: true,
-        banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - " +
-          "<%= grunt.template.today('yyyy-mm-dd') %> */\n(function() {\n\n",
-        footer: "\n\n})();"
-      },
-      dist: {
-        src: [
-          'src/lang/' + language + '.js',
-          'src/shims.js',
-          'src/extend.js',
-          'src/utils.js',
-          'src/validatorerrors.js',
-          'src/validator.js',
-          'src/environment.js'
-        ],
-        dest: 'dist/' + filename + '.js',
-      }
-    },
     jshint: {
-      all: [
-        '<%= meta.src %>'
-      ],
+      all: 'src/*.js',
       options: {
         jshintrc: '.jshintrc'
       }
     },
+    browserify: {
+      ruLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/ru:./lang/ru']
+        },
+        dest: 'dist/lang/ru.js'
+      },
+      deLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/de:./lang/de']
+        },
+        dest: 'dist/lang/de.js'
+      },
+      elLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/el:./lang/el']
+        },
+        dest: 'dist/lang/el.js'
+      },
+      esLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/es:./lang/es']
+        },
+        dest: 'dist/lang/es.js'
+      },
+      frLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/fr:./lang/fr']
+        },
+        dest: 'dist/lang/fr.js'
+      },
+      itLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/it:./lang/it']
+        },
+        dest: 'dist/lang/it.js'
+      },
+      plLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/pl:./lang/pl']
+        },
+        dest: 'dist/lang/pl.js'
+      },
+      faLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/fa:./lang/fa']
+        },
+        dest: 'dist/lang/fa.js'
+      },
+      viLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/vi:./lang/vi']
+        },
+        dest: 'dist/lang/vi.js'
+      },
+      ptLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/pt:./lang/pt']
+        },
+        dest: 'dist/lang/pt.js'
+      },
+      jaLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/ja:./lang/ja']
+        },
+        dest: 'dist/lang/ja.js'
+      },
+      trLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/tr:./lang/tr']
+        },
+        dest: 'dist/lang/tr.js'
+      },
+      zhLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/zh:./lang/zh']
+        },
+        dest: 'dist/lang/zh.js'
+      },
+      zhTWLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/zh_TW:./lang/zh_TW']
+        },
+        dest: 'dist/lang/zh_TW.js'
+      },
+      nbNOLang: {
+          src: [],
+          options: {
+              require: ['./src/lang/nb_NO:./lang/nb_NO']
+          },
+          dest: 'dist/lang/nb_NO.js'
+      },
+      dist: {
+        files: {
+          'dist/validator.js': 'src/validator.js'
+        },
+        options: {
+          banner: "/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - " +
+          "<%= grunt.template.today('yyyy-mm-dd') %> */",
+          browserifyOptions: {
+            standalone: 'Validator'
+          }
+        }
+      }
+    },
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - ' +
-          '<%= grunt.template.today("yyyy-mm-dd") %> */'
+        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - <%= grunt.template.today("yyyy-mm-dd") %> */'
       },
-      my_target: (function() {
-        var key = 'dist/' + filename + '.min.js';
-        var files = {};
-        files[key] = ['dist/' + filename + '.js'];
-
-        return {
-          files: files
-        };
-      }())
+      dist: {
+        src: 'dist/validator.js',
+        dest: 'dist/validator.min.js'
+      }
     },
     watch: {
       files: ['src/**/*.js'],
@@ -75,11 +147,9 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-
   // Default task.
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('build', ['browserify']);
+  grunt.registerTask('dist', ['jshint', 'build', 'uglify']);
+  grunt.registerTask('default', ['dist']);
+
 };

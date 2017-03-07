@@ -10,13 +10,13 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'chai'],
 
 
     // list of files / patterns to load in the browser
     files: [
       'dist/validator.js',
-      'spec/*.spec.js'
+      'spec/*.js'
     ],
 
 
@@ -31,7 +31,6 @@ module.exports = function(config) {
     preprocessors: {
         'dist/validator.js': ['coverage']
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
