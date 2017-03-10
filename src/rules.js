@@ -471,8 +471,11 @@ var manager = {
    * @param  {function} fn
    * @return {void}
    */
-  register: function(name, fn) {
+  register: function(name, fn, implicit = false) {
     rules[name] = fn;
+    if(implicit) {
+        this.implicitRules.push(name);
+    }
   },
 
   /**
