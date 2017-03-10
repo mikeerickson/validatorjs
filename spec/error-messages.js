@@ -192,8 +192,24 @@ describe('Error messages', function() {
       expect(validator.errors.get('email')).to.be.instanceOf(Array);
       expect(validator.errors.get('email').length).to.equal(0);
     });
-  });
 
+    it('should return multiple array items for an attribute', function() {
+
+      var validator = new Validator({
+        email: 'x'
+      }, {
+        email: 'email|min:10'
+      });
+
+      expect(validator.passes()).to.be.false;
+      expect(validator.errors.get('email')).to.be.instanceOf(Array);
+      expect(validator.errors.get('email').length).to.equal(2);
+
+      expect(validator.errors.all()).to.be.instanceOf(Object);
+      expect(validator.errors.get('email').length).to.equal(2);
+    });
+
+  });
 
 
   describe('ValidatorErrors.prototype.all()', function() {
