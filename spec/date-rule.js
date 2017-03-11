@@ -32,25 +32,14 @@ describe('date rule', function() {
   });
 
   it('should fail for incorrect date format', function() {
-    var asserts = [
-      807926400,
-      '2014-25-23',
-      'foo-bar',
-      '0908 1995'
-    ];
 
-    asserts.forEach(function (assert, idx) {
-      var validator = new Validator({
-        date: assert
-      }, {
-        date: 'date'
-      });
-      if (idx === 0) {
-        expect(validator.passes()).to.be.true;
-      }
-      if ((idx === 1) || (idx === 2) || (idx === 3)) {
-        expect(validator.fails()).to.be.true;
-      }
+    var validator = new Validator({
+      failDate: '2014-25-23'
+    }, {
+      failDate: 'date'
     });
+
+    expect(validator.fails()).to.be.true;
+
   });
 });
