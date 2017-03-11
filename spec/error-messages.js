@@ -205,8 +205,6 @@ describe('Error messages', function() {
       expect(validator.errors.get('email')).to.be.instanceOf(Array);
       expect(validator.errors.get('email').length).to.equal(2);
 
-      expect(validator.errors.all()).to.be.instanceOf(Object);
-      expect(validator.errors.get('email').length).to.equal(2);
     });
 
   });
