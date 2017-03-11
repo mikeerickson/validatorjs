@@ -21,6 +21,7 @@ module.exports = {
   },
   not_in: 'Выбранное значение для :attribute ошибочно.',
   numeric: 'Поле :attribute должно быть числом.',
+  present: 'Поле :attribute должно присутствовать (но может быть пустым).',
   required: 'Поле :attribute обязательно для заполнения.',
   required_if: 'Поле :attribute требуется когда значения поля :other равно :value.',
   same: 'Значение :attribute должно совпадать с :same.',

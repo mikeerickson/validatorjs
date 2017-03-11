@@ -22,6 +22,7 @@ module.exports = {
   },
   not_in: '所選的:attribute無效。',
   numeric: ':attribute必須是一個數字。',
+  present: 'The :attribute field must be present (but can be empty).',
   required: ':attribute不能空白。',
   required_if: '當:other是:value時,:attribute不能空白。',
   same: ':attribute和:same必須一致。',
