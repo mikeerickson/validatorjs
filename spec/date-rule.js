@@ -31,14 +31,28 @@ describe('date rule', function() {
     });
   });
 
-  it('should fail for incorrect date format', function() {
+  it('should pass for correct date formats', function() {
+    var validator;
 
-    var validator = new Validator({
-      failDate: '2014-25-23'
-    }, {
-      failDate: 'date'
-    });
+    validator = new Validator({failDate: 807926400}, {failDate: 'date'});
+    expect(validator.passes()).to.be.true;
 
+    validator = new Validator({failDate: '2017-03-11'}, {failDate: 'date'});
+    expect(validator.passes()).to.be.true;
+
+  });
+
+  it('should fail for incorrect date formats', function() {
+
+    var validator;
+
+    validator = new Validator({failDate: '2014-25-23'}, {failDate: 'date'});
+    expect(validator.fails()).to.be.true;
+
+    validator = new Validator({failDate: 'foo-bar'}, {failDate: 'date'});
+    expect(validator.fails()).to.be.true;
+
+    validator = new Validator({failDate: '0908 1995'}, {failDate: 'date'});
     expect(validator.fails()).to.be.true;
 
   });
