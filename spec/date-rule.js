@@ -39,14 +39,18 @@ describe('date rule', function() {
       '0908 1995'
     ];
 
-    asserts.forEach(function (assert) {
+    asserts.forEach(function (assert, idx) {
       var validator = new Validator({
         date: assert
       }, {
         date: 'date'
       });
-      expect(validator.passes()).to.be.false;
-      expect(validator.fails()).to.be.true;
+      if (idx === 0) {
+        expect(validator.passes()).to.be.true;
+      }
+      if ((idx === 1) || (idx === 2) || (idx === 3)) {
+        expect(validator.fails()).to.be.true;
+      }
     });
   });
 });

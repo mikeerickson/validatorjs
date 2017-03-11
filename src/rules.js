@@ -277,10 +277,19 @@ var rules = {
     return !!val.match(req);
   },
 
-  date: function(val) {
-    var valid = (new Date(val).toString()) !== 'Invalid Date';
-    if (typeof val === 'number') {
-      return val.toString().length === 12 && valid;
+  date: function(val, format) {
+    var moment;
+    var valid = false;
+    try {
+      moment = require('moment');
+      valid = moment(new Date(val), format, true).isValid();
+    } catch (e) {
+      if(e.code ==='MODULE_NOT_FOUND') {
+        valid = (new Date(val).toString()) !== 'Invalid Date';
+        if (typeof val === 'number') {
+          return val.toString().length === 12 && valid;
+        }
+      }
     }
     return valid;
   }
