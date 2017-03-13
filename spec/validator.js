@@ -51,13 +51,13 @@ describe('Validator constructor', function() {
     expect(validator.check).to.be.a.function;
   });
 
-  it('should handle undefined data', function(){
-    validator = new Validator(undefined, { name: 'required' })
+  it('should handle undefined data', function() {
+    var validator = new Validator(undefined, { name: 'required' })
     validator.check();
   })
 
-  it('should handle null data', function(){
-    validator = new Validator(null, { name: 'required' })
+  it('should handle null data', function() {
+    var validator = new Validator(null, { name: 'required' })
     validator.check();
   })
 }); // Page constructor
