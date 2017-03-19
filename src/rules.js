@@ -310,6 +310,9 @@ var rules = {
 
   date: function(val, format) {
     return isValidDate(val);
+    
+  present: function(val) {
+    return typeof val !== 'undefined';
   }
 
 };
@@ -450,7 +453,7 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted'],
+  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted', 'present'],
 
   /**
    * Get rule by name

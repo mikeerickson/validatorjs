@@ -328,7 +328,7 @@ Validator.prototype = {
   _shouldStopValidating: function(attribute, rulePassed) {
 
     var stopOnAttributes = this.stopOnAttributes;
-    if (stopOnAttributes === false || rulePassed === true) {
+    if (typeof stopOnAttributes === 'undefined' || stopOnAttributes === false || rulePassed === true) {
       return false;
     }
 

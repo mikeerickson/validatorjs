@@ -22,6 +22,7 @@ module.exports = {
   },
   not_in: 'Giá trị được chọn của trường :attribute không hợp lệ.',
   numeric: ':attribute phải là số.',
+  present: 'Trường :attribute phải có mặt (nhưng có thể để trống).',
   required: ':attribute bắt buộc nhập.',
   required_if: ':attribute là bắt buộc khi :other có giá trị :value.',
   same: 'Giá trị của :attribute và :same phải như nhau.',

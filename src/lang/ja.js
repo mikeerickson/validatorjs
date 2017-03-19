@@ -22,6 +22,7 @@ module.exports = {
     },
     not_in      : "選択された:attributeは無効です。",
     numeric     : ":attributeは数値で入力してください。",
+    present: 'The :attribute field must be present (but can be empty).',
     required    : ":attributeは必須です。",
     required_if : ":otherは:valueになったら:attributeは必須です。",
     same        : ":attributeと:sameは同じでなければなりません。",
