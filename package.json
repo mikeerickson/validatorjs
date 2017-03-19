@@ -37,9 +37,6 @@
     "laravel",
     "laravel-validator-for-js"
   ],
-  "peerDependencies": {
-    "moment": "2.17.1"
-  },
   "devDependencies": {
     "browserify": "^13.0.1",
     "chai": "~3.5.0",
@@ -59,8 +56,7 @@
     "karma-growl-notifications-reporter": "0.0.2",
     "karma-mocha": "~1.1.1",
     "karma-phantomjs-launcher": "~1.0.1",
-    "mocha": "~2.5.3",
-    "moment": "2.17.1"
+    "mocha": "~2.5.3"
   },
   "scripts": {
     "test-node": "node node_modules/mocha/bin/mocha spec",

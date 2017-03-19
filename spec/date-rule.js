@@ -34,10 +34,16 @@ describe('date rule', function() {
   it('should pass for correct date formats', function() {
     var validator;
 
-    validator = new Validator({failDate: 807926400}, {failDate: 'date'});
+    validator = new Validator({passingDate: 'Friday, March 17 2017'}, {passingDate: 'date'});
     expect(validator.passes()).to.be.true;
 
-    validator = new Validator({failDate: '2017-03-11'}, {failDate: 'date'});
+    validator = new Validator({passingDate: '2017-03-18'}, {passingDate: 'date'});
+    expect(validator.passes()).to.be.true;
+
+    validator = new Validator({passingDate: '2017-03-18'}, {passingDate: 'date'});
+    expect(validator.passes()).to.be.true;
+
+    validator = new Validator({passingDate: '2017.03.18'}, {passingDate: 'date'});
     expect(validator.passes()).to.be.true;
 
   });
@@ -53,6 +59,9 @@ describe('date rule', function() {
     expect(validator.fails()).to.be.true;
 
     validator = new Validator({failDate: '0908 1995'}, {failDate: 'date'});
+    expect(validator.fails()).to.be.true;
+
+    validator = new Validator({failDate: '9/39/19'}, {failDate: 'date'});
     expect(validator.fails()).to.be.true;
 
   });

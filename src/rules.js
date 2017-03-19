@@ -1,3 +1,34 @@
+function leapYear(year) {
+  return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+}
+
+function isValidDate(inDate) {
+    var valid = true;
+
+    // reformat if supplied as mm.dd.yyyy (period delimiter)
+    if (typeof inDate === 'string') {
+      var pos = inDate.indexOf('.');
+      if ((pos > 0 && pos <= 6)) {
+        inDate = inDate.replace(/\./g, '-');
+      }
+    }
+
+    var testDate = new Date(inDate);
+    var yr = testDate.getFullYear();
+    var mo = testDate.getMonth() + 1;
+    var day = testDate.getDate();
+
+    var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    if (yr < 1000) { return false; }
+    if (isNaN(mo)) { return false; }
+    if (mo > 12) { return false; }
+    if (isNaN(day)) { return false; }
+    if (day > daysInMonth[mo]) { return false; }
+
+    return valid;
+}
+
 var rules = {
 
   required: function(val) {
@@ -278,18 +309,7 @@ var rules = {
   },
 
   date: function(val, format) {
-    var moment;
-    var valid = false;
-    try {
-      moment = require('moment');
-      valid = moment(new Date(val), format, true).isValid();
-    } catch (e) {
-      valid = (new Date(val).toString()) !== 'Invalid Date';
-      if (typeof val === 'number') {
-        return val.toString().length === 12 && valid;
-      }
-    }
-    return valid;
+    return isValidDate(val);
   }
 
 };
@@ -495,6 +515,7 @@ var manager = {
   }
 
 };
+
 
 
 module.exports = manager;
