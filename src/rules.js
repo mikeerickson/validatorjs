@@ -310,6 +310,7 @@ var rules = {
 
   date: function(val, format) {
     return isValidDate(val);
+  },
     
   present: function(val) {
     return typeof val !== 'undefined';
