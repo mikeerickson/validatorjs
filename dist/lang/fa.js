@@ -23,6 +23,7 @@ module.exports = {
   },
   not_in: 'فیلد :attribute انتخاب شده صحیح نمی باشد',
   numeric: 'فیلد :attribute می بایست عددی باشد',
+  present: 'The :attribute field must be present (but can be empty).',
   required: 'فیلد :attribute الزامی است',
   required_if: 'در صورت دادن :value به :other تکمیل فیلد :attribute الزامی است',
   same: 'فیلد :attribute می بایست با فیلد :same یکی باشد',

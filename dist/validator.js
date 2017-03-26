@@ -1,4 +1,4 @@
-/*! validatorjs - v3.11.0 -  - 2017-03-18 */
+/*! validatorjs - v3.11.0 -  - 2017-03-27 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -376,6 +376,7 @@ module.exports = {
   },
   not_in: 'The selected :attribute is invalid.',
   numeric: 'The :attribute must be a number.',
+  present: 'The :attribute field must be present (but can be empty).',
   required: 'The :attribute field is required.',
   required_if: 'The :attribute field is required when :other is :value.',
   required_unless: 'The :attribute field is required when :other is not :value.',
@@ -776,14 +777,18 @@ var rules = {
     var list, i;
 
     if (val) {
-      list = req.split(',');
+      list = this.getParameters();
     }
 
     if (val && !(val instanceof Array)) {
-      val = String(val); // if it is a number
+      var localValue = val;
 
       for (i = 0; i < list.length; i++) {
-        if (val === list[i]) {
+        if (typeof list[i] === 'string') {
+          localValue = String(val);
+        }
+
+        if (localValue === list[i]) {
           return true;
         }
       }
@@ -803,14 +808,18 @@ var rules = {
   },
 
   not_in: function(val, req) {
-    var list = req.split(',');
+    var list = this.getParameters();
     var len = list.length;
     var returnVal = true;
 
-    val = String(val); // convert val to a string if it is a number
-
     for (var i = 0; i < len; i++) {
-      if (val === list[i]) {
+      var localValue = val;
+
+      if (typeof list[i] === 'string') {
+        localValue = String(val);
+      }
+
+      if (localValue === list[i]) {
         returnVal = false;
         break;
       }
@@ -861,6 +870,10 @@ var rules = {
 
   date: function(val, format) {
     return isValidDate(val);
+  },
+
+  present: function(val) {
+    return typeof val !== 'undefined';
   }
 
 };
@@ -922,7 +935,21 @@ Rule.prototype = {
    * @return {array}
    */
   getParameters: function() {
-    return this.ruleValue ? this.ruleValue.split(',') : [];
+    var value = [];
+
+    if (typeof this.ruleValue === 'string') {
+      value = this.ruleValue.split(',');
+    }
+
+    if (typeof this.ruleValue === 'number') {
+      value.push(this.ruleValue);
+    }
+
+    if (this.ruleValue instanceof Array) {
+      value = this.ruleValue;
+    }
+
+    return value;
   },
 
   /**
@@ -1001,7 +1028,7 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted'],
+  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted', 'present'],
 
   /**
    * Get rule by name
@@ -1302,21 +1329,52 @@ Validator.prototype = {
       var rulesArray = rules[attribute];
       var attributeRules = [];
 
+      if (rulesArray instanceof Array) {
+        rulesArray = this._prepareRulesArray(rulesArray);
+      }
+
       if (typeof rulesArray === 'string') {
         rulesArray = rulesArray.split('|');
       }
 
       for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
-        rule = this._extractRuleAndRuleValue(rulesArray[i]);
+        rule = typeof rulesArray[i] === 'string' ? this._extractRuleAndRuleValue(rulesArray[i]) : rulesArray[i];
+
         if (Rules.isAsync(rule.name)) {
           this.hasAsync = true;
         }
+
         attributeRules.push(rule);
       }
 
       parsedRules[attribute] = attributeRules;
     }
     return parsedRules;
+  },
+
+  /**
+   * Prepare rules if it comes in Array. Check for objects. Need for type validation.
+   *
+   * @param  {array} rulesArray
+   * @return {array}
+   */
+  _prepareRulesArray: function(rulesArray) {
+    var rules = [];
+
+    for (var i = 0, len = rulesArray.length; i < len; i++) {
+      if (typeof rulesArray[i] === 'object') {
+        for (var rule in rulesArray[i]) {
+          rules.push({
+            name: rule,
+            value: rulesArray[i][rule]
+          });
+        }
+      } else {
+        rules.push(rulesArray[i]);
+      }
+    }
+
+    return rules;
   },
 
   /**
@@ -1402,7 +1460,7 @@ Validator.prototype = {
   _shouldStopValidating: function(attribute, rulePassed) {
 
     var stopOnAttributes = this.stopOnAttributes;
-    if (stopOnAttributes === false || rulePassed === true) {
+    if (typeof stopOnAttributes === 'undefined' || stopOnAttributes === false || rulePassed === true) {
       return false;
     }
 

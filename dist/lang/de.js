@@ -23,6 +23,7 @@ module.exports = {
   },
   not_in: 'Der gewählte Wert für :attribute ist ungültig.',
   numeric: 'Das :attribute Feld muss eine Zahl sein.',
+  present: 'Das Feld :attribute muss vorhanden sein (kann aber leer sein).',
   required: 'Das :attribute Feld muss ausgefüllt sein.',
   required_if: 'Das :attribute Feld muss ausgefüllt sein, wenn :other :value ist.',
   same: 'Die Felder :attribute und :same müssen übereinstimmen.',
