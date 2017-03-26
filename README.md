@@ -281,6 +281,22 @@ validation.passes(); // true
 
 ```
 
+#### Example 4 - Type checking validation
+
+```js
+var validation = new Validator({
+	age: 30,
+	name: ''
+}, {
+	age: ['required', { 'in': [29, 30] }],
+	name: [{ required_if: ['age', 30] }]
+});
+
+validation.fails(); // true
+validation.passes(); // false
+
+```
+
 ### Registering Custom Validation Rules
 
 ```js
