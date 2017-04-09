@@ -1,4 +1,4 @@
-/*! validatorjs - v3.11.0 -  - 2017-03-18 */
+/*! validatorjs - v3.11.0 -  - 2017-04-09 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -354,9 +354,13 @@ module.exports = container;
 },{"./lang/en":5,"./messages":6}],5:[function(require,module,exports){
 module.exports = {
   accepted: 'The :attribute must be accepted.',
+  after: 'The :attribute must be after :after.',
+  after_or_equal: 'The :attribute must be equal or after :after_or_equal.',
   alpha: 'The :attribute field must contain only alphabetic characters.',
   alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
   alpha_num: 'The :attribute field must be alphanumeric.',
+  before: 'The :attribute must be before :before.',
+  before_or_equal: 'The :attribute must be equal or before :before_or_equal.',
   between: 'The :attribute field must be between :min and :max.',
   confirmed: 'The :attribute confirmation does not match.',
   email: 'The :attribute format is invalid.',
@@ -376,6 +380,7 @@ module.exports = {
   },
   not_in: 'The selected :attribute is invalid.',
   numeric: 'The :attribute must be a number.',
+  present: 'The :attribute field must be present (but can be empty).',
   required: 'The :attribute field is required.',
   required_if: 'The :attribute field is required when :other is :value.',
   required_unless: 'The :attribute field is required when :other is not :value.',
@@ -861,7 +866,68 @@ var rules = {
 
   date: function(val, format) {
     return isValidDate(val);
+  },
+    
+  present: function(val) {
+    return typeof val !== 'undefined';
+  },
+
+  after: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() < new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+   after_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() <= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+  before: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() > new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+   before_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() >= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
   }
+
 
 };
 
@@ -1001,7 +1067,7 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted'],
+  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted', 'present'],
 
   /**
    * Get rule by name
@@ -1402,7 +1468,7 @@ Validator.prototype = {
   _shouldStopValidating: function(attribute, rulePassed) {
 
     var stopOnAttributes = this.stopOnAttributes;
-    if (stopOnAttributes === false || rulePassed === true) {
+    if (typeof stopOnAttributes === 'undefined' || stopOnAttributes === false || rulePassed === true) {
       return false;
     }
 

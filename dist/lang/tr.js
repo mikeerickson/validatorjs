@@ -23,6 +23,7 @@ module.exports = {
   },
   not_in: 'Seçilen :attribute geçerli değil.',
   numeric: ':attribute sayı olmalı.',
+  present: ':attribute alanı bulunmalıdır (ancak boş olabilir).',
   required: ':attribute alanı gerekli.',
   required_if: ':attribute alanı :other alanı :value olduğunda gerekli.',
   same: ':attribute ve :same aynı olmalı.',
