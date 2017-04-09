@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'Das :attribute Feld muss akzeptiert werden.',
+  after: 'Das ::attribute muss ein Datum nach dem :after sein.',
   alpha: 'Das :attribute Feld darf nur aus Buchstaben bestehen.',
   alpha_dash: 'Das :attribute Feld darf nur aus Buchstaben, Zahlen, Binde- und Unterstrichen bestehen',
   alpha_num: 'Das :attribute Feld darf nur aus Buchstaben und Zahlen bestehen.',

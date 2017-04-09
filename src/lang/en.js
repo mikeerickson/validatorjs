@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'The :attribute must be accepted.',
+  after: 'The :attribute must be after the :after.',
   alpha: 'The :attribute field must contain only alphabetic characters.',
   alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
   alpha_num: 'The :attribute field must be alphanumeric.',

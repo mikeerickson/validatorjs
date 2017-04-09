@@ -314,6 +314,20 @@ var rules = {
     
   present: function(val) {
     return typeof val !== 'undefined';
+  },
+
+  after: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1) > new Date(val2)) {
+      return true;
+    }
+
+    return false;
   }
 
 };
