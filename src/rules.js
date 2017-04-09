@@ -356,7 +356,22 @@ var rules = {
     }
 
     return false;
+  },
+
+   before_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() >= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
   }
+
 
 };
 

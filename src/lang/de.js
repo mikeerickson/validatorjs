@@ -6,6 +6,7 @@ module.exports = {
   alpha_dash: 'Das :attribute Feld darf nur aus Buchstaben, Zahlen, Binde- und Unterstrichen bestehen',
   alpha_num: 'Das :attribute Feld darf nur aus Buchstaben und Zahlen bestehen.',
   before: 'Das :attribute muss ein Datum vor dem :before sein.',
+  before_or_equal: 'Das :attribute muss ein Datum gleich oder vor dem :before sein.',
   between: 'Das :attribute Feld muss zwischen :min und :max liegen.',
   confirmed: 'Das :attribute Feld stimmt nicht mit der Bestätigung überein.',
   email: 'Das :attribute Format ist ungültig.',
