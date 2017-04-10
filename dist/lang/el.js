@@ -23,6 +23,7 @@ module.exports = {
   },
   not_in: 'Το επιλεγμένο :attribute δεν είναι αποδεκτό.',
   numeric: 'Το πεδίο :attribute πρέπει να είναι αριθμός.',
+  present: 'The :attribute field must be present (but can be empty).',
   required: 'Το πεδίο :attribute είναι απαραίτητο.',
   required_if: 'Το πεδίο :attribute είναι απαραίτητο όταν το πεδίο :other είναι :value.',
   same: 'Τα πεδία :attribute και :same πρέπει να είναι ίδια.',

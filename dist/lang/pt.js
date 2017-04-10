@@ -23,6 +23,7 @@ module.exports = {
   },
   not_in: 'O :attribute selecionado é inválido.',
   numeric: 'O :attribute precisa ser um número.',
+  present: 'O campo :attribute deve estar presente (mas pode estar vazio).',
   required: 'O campo :attribute é obrigatório.',
   required_if: 'O campo :attribute é obrigatório quando :other é :value.',
   same: 'Os campos :attribute e :same precisam ser iguais.',
