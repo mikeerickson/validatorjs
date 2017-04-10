@@ -1,8 +1,12 @@
 module.exports = {
   accepted: 'The :attribute must be accepted.',
+  after: 'The :attribute must be after :after.',
+  after_or_equal: 'The :attribute must be equal or after :after_or_equal.',
   alpha: 'The :attribute field must contain only alphabetic characters.',
   alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
   alpha_num: 'The :attribute field must be alphanumeric.',
+  before: 'The :attribute must be before :before.',
+  before_or_equal: 'The :attribute must be equal or before :before_or_equal.',
   between: 'The :attribute field must be between :min and :max.',
   confirmed: 'The :attribute confirmation does not match.',
   email: 'The :attribute format is invalid.',

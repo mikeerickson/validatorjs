@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'El campo :attribute debe ser aceptado.',
+  after: 'El campo :attribute debe ser una fecha posterior a :after.',
   alpha: 'El campo :attribute solo debe contener letras.',
   alpha_dash: 'El campo :attribute solo debe contener letras, números y guiones.',
   alpha_num: 'El campo :attribute solo debe contener letras y números.',

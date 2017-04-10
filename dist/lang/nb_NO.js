@@ -23,6 +23,7 @@ module.exports = {
   },
   'not_in': 'Den oppgitte verdien for :attribute er ugyldig.',
   numeric: ':attribute må være et tall.',
+  present: 'The :attribute field must be present (but can be empty).',
   required: ':attribute feltet er påkrevd.',
   required_if: ':attribute er påkrevd når :other er :value.',
   same: ':attribute og :same må være like.',
