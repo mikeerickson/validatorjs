@@ -140,6 +140,14 @@ Validation rules do not have an implicit 'required'. If a field is _undefined_ o
 
 The field under validation must be yes, on, 1 or true. This is useful for validating "Terms of Service" acceptance.
 
+#### after:date
+
+The field under validation must be after the given date.
+
+#### after_or_equal:date
+
+The field unter validation must be after or equal to the given field 
+
 #### alpha
 
 The field under validation must be entirely alphabetic characters.
@@ -155,6 +163,15 @@ The field under validation must be entirely alpha-numeric characters.
 #### array
 
 The field under validation must be an array.
+
+#### before:date
+
+The field under validation must be before the given date.
+
+
+#### before_or_equal:date
+
+The field under validation must be before or equal to the given date.
 
 #### between:min,max
 

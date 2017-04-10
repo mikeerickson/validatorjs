@@ -23,6 +23,7 @@ module.exports = {
     },
     not_in: 'Pole :attribute nie może należeć do zbioru :not_in.',
     numeric: 'Pole :attribute musi być liczbą.',
+    present: 'Polu :attribute musi być obecny (ale może być pusta).',
     required: 'Pole :attribute jest wymagane.',
     required_if: 'Pole :attribute jest wymagane jeśli pole :other jest równe :value.',
     same: 'Pola :attribute i :same muszą być takie same.',
