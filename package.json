@@ -56,7 +56,8 @@
     "karma-growl-notifications-reporter": "0.0.2",
     "karma-mocha": "~1.1.1",
     "karma-phantomjs-launcher": "~1.0.1",
-    "mocha": "~2.5.3"
+    "mocha": "~2.5.3",
+    "mocha-better-spec-reporter": "github:mikeerickson/mocha-better-spec-reporter"
   },
   "scripts": {
     "test-node": "node node_modules/mocha/bin/mocha spec",
