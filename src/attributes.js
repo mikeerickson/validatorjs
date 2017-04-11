@@ -99,7 +99,63 @@ var replacements = {
     return this._replacePlaceholders(rule, template, {
       fields: parameters.join(', ')
     });
-  }
+  },
+
+ /**
+   * After replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  after: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      after: this._getAttributeName(parameters[0])
+    });
+  },
+
+  /**
+   * Before replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  before: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      before: this._getAttributeName(parameters[0])
+    });
+  },
+
+  /**
+   * After_or_equal replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  after_or_equal: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      after_or_equal: this._getAttributeName(parameters[0])
+    });
+  },
+
+  /**
+   * Before_or_equal replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  before_or_equal: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      before_or_equal: this._getAttributeName(parameters[0])
+    });
+  },
 };
 
 function formatter(attribute) {
