@@ -50,4 +50,14 @@ describe('Validator constructor', function() {
   it('should have a check method', function() {
     expect(validator.check).to.be.a.function;
   });
+
+  it('should handle undefined data', function() {
+    var validator = new Validator(undefined, { name: 'required' });
+    validator.fails();
+  });
+
+  it('should handle null data', function() {
+    var validator = new Validator(null, { name: 'required' });
+    validator.fails();
+  });
 }); // Page constructor
