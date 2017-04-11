@@ -5,8 +5,5 @@ spec/checklist.md
 coverage
 npm-debug.log
 .idea
-<<<<<<< HEAD
 .vscode
-=======
->>>>>>> f2be349ff74adc5623efc3062224c4b8d5e12574
 sandbox
