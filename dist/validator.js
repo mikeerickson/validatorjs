@@ -1,4 +1,4 @@
-/*! validatorjs - v3.11.0 -  - 2016-12-22 */
+/*! validatorjs - v3.12.0 -  - 2017-04-11 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -184,7 +184,63 @@ var replacements = {
     return this._replacePlaceholders(rule, template, {
       fields: parameters.join(', ')
     });
-  }
+  },
+
+ /**
+   * After replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  after: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      after: this._getAttributeName(parameters[0])
+    });
+  },
+
+  /**
+   * Before replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  before: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      before: this._getAttributeName(parameters[0])
+    });
+  },
+
+  /**
+   * After_or_equal replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  after_or_equal: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      after_or_equal: this._getAttributeName(parameters[0])
+    });
+  },
+
+  /**
+   * Before_or_equal replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  before_or_equal: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      before_or_equal: this._getAttributeName(parameters[0])
+    });
+  },
 };
 
 function formatter(attribute) {
@@ -354,9 +410,13 @@ module.exports = container;
 },{"./lang/en":5,"./messages":6}],5:[function(require,module,exports){
 module.exports = {
   accepted: 'The :attribute must be accepted.',
+  after: 'The :attribute must be after :after.',
+  after_or_equal: 'The :attribute must be equal or after :after_or_equal.',
   alpha: 'The :attribute field must contain only alphabetic characters.',
   alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
   alpha_num: 'The :attribute field must be alphanumeric.',
+  before: 'The :attribute must be before :before.',
+  before_or_equal: 'The :attribute must be equal or before :before_or_equal.',
   between: 'The :attribute field must be between :min and :max.',
   confirmed: 'The :attribute confirmation does not match.',
   email: 'The :attribute format is invalid.',
@@ -376,6 +436,7 @@ module.exports = {
   },
   not_in: 'The selected :attribute is invalid.',
   numeric: 'The :attribute must be a number.',
+  present: 'The :attribute field must be present (but can be empty).',
   required: 'The :attribute field is required.',
   required_if: 'The :attribute field is required when :other is :value.',
   required_unless: 'The :attribute field is required when :other is not :value.',
@@ -531,7 +592,7 @@ Messages.prototype = {
     var message, attribute;
 
     data.attribute = this._getAttributeName(rule.attribute);
-    data[rule.name] = rule.getParameters().join(',');
+    data[rule.name] = data[rule.name] || rule.getParameters().join(',');
 
     if (typeof template === 'string' && typeof data === 'object') {
       message = template;
@@ -549,6 +610,37 @@ Messages.prototype = {
 module.exports = Messages;
 
 },{"./attributes":2}],7:[function(require,module,exports){
+function leapYear(year) {
+  return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+}
+
+function isValidDate(inDate) {
+    var valid = true;
+
+    // reformat if supplied as mm.dd.yyyy (period delimiter)
+    if (typeof inDate === 'string') {
+      var pos = inDate.indexOf('.');
+      if ((pos > 0 && pos <= 6)) {
+        inDate = inDate.replace(/\./g, '-');
+      }
+    }
+
+    var testDate = new Date(inDate);
+    var yr = testDate.getFullYear();
+    var mo = testDate.getMonth() + 1;
+    var day = testDate.getDate();
+
+    var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    if (yr < 1000) { return false; }
+    if (isNaN(mo)) { return false; }
+    if (mo > 12) { return false; }
+    if (isNaN(day)) { return false; }
+    if (day > daysInMonth[mo]) { return false; }
+
+    return valid;
+}
+
 var rules = {
 
   required: function(val) {
@@ -828,13 +920,70 @@ var rules = {
     return !!val.match(req);
   },
 
-  date: function(val) {
-    var valid = (new Date(val).toString()) !== 'Invalid Date';
-    if (typeof val === 'number') {
-      return val.toString().length === 12 && valid;
+  date: function(val, format) {
+    return isValidDate(val);
+  },
+    
+  present: function(val) {
+    return typeof val !== 'undefined';
+  },
+
+  after: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() < new Date(val2).getTime()) {
+      return true;
     }
-    return valid;
+
+    return false;
+  },
+
+   after_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() <= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+  before: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() > new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+   before_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() >= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
   }
+
 
 };
 
@@ -974,7 +1123,7 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted'],
+  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted', 'present'],
 
   /**
    * Get rule by name
@@ -1041,6 +1190,7 @@ var manager = {
 };
 
 
+
 module.exports = manager;
 
 },{}],8:[function(require,module,exports){
@@ -1052,7 +1202,7 @@ var AsyncResolvers = require('./async');
 
 var Validator = function(input, rules, customMessages) {
   var lang = Validator.getDefaultLang();
-  this.input = input;
+  this.input = input || {};
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -1374,7 +1524,7 @@ Validator.prototype = {
   _shouldStopValidating: function(attribute, rulePassed) {
 
     var stopOnAttributes = this.stopOnAttributes;
-    if (stopOnAttributes === false || rulePassed === true) {
+    if (typeof stopOnAttributes === 'undefined' || stopOnAttributes === false || rulePassed === true) {
       return false;
     }
 

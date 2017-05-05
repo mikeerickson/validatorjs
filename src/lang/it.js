@@ -21,6 +21,7 @@ module.exports = {
   },
   not_in: 'Il campo :attribute non è valido.',
   numeric: 'Il campo :attribute deve essere un numero.',
+  present: 'Il campo :attribute deve essere presente (ma può essere vuoto).',
   required: 'Il campo :attribute è richiesto.',
   required_if: 'Il campo :attribute è richiesto quando il campo :other è uguale a :value.',
   same: 'I campi :attribute e :same devono essere uguali.',

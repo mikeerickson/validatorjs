@@ -1,3 +1,34 @@
+function leapYear(year) {
+  return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+}
+
+function isValidDate(inDate) {
+    var valid = true;
+
+    // reformat if supplied as mm.dd.yyyy (period delimiter)
+    if (typeof inDate === 'string') {
+      var pos = inDate.indexOf('.');
+      if ((pos > 0 && pos <= 6)) {
+        inDate = inDate.replace(/\./g, '-');
+      }
+    }
+
+    var testDate = new Date(inDate);
+    var yr = testDate.getFullYear();
+    var mo = testDate.getMonth() + 1;
+    var day = testDate.getDate();
+
+    var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    if (yr < 1000) { return false; }
+    if (isNaN(mo)) { return false; }
+    if (mo > 12) { return false; }
+    if (isNaN(day)) { return false; }
+    if (day > daysInMonth[mo]) { return false; }
+
+    return valid;
+}
+
 var rules = {
 
   required: function(val) {
@@ -277,13 +308,70 @@ var rules = {
     return !!val.match(req);
   },
 
-  date: function(val) {
-    var valid = (new Date(val).toString()) !== 'Invalid Date';
-    if (typeof val === 'number') {
-      return val.toString().length === 12 && valid;
+  date: function(val, format) {
+    return isValidDate(val);
+  },
+    
+  present: function(val) {
+    return typeof val !== 'undefined';
+  },
+
+  after: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() < new Date(val2).getTime()) {
+      return true;
     }
-    return valid;
+
+    return false;
+  },
+
+   after_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() <= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+  before: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() > new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+   before_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() >= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
   }
+
 
 };
 
@@ -423,7 +511,7 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted'],
+  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted', 'present'],
 
   /**
    * Get rule by name
@@ -491,6 +579,7 @@ var manager = {
   }
 
 };
+
 
 
 module.exports = manager;

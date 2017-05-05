@@ -1,5 +1,6 @@
 module.exports = {
   accepted: 'El campo :attribute debe ser aceptado.',
+  after: 'El campo :attribute debe ser una fecha posterior a :after.',
   alpha: 'El campo :attribute solo debe contener letras.',
   alpha_dash: 'El campo :attribute solo debe contener letras, números y guiones.',
   alpha_num: 'El campo :attribute solo debe contener letras y números.',
@@ -21,6 +22,7 @@ module.exports = {
   },
   not_in: 'El campo :attribute es inválido.',
   numeric: 'El campo :attribute debe ser numérico.',
+  present: 'El campo de :attribute debe estar presente (pero puede estar vacío)',
   regex: 'El formato del campo :attribute es inválido.',
   required: 'El campo :attribute es obligatorio.',
   required_if: 'El campo :attribute es obligatorio cuando :other es :value.',

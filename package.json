@@ -1,7 +1,7 @@
 {
   "name": "validatorjs",
   "description": "Validation library inspired by Laravel's Validator",
-  "version": "3.11.0",
+  "version": "3.12.0",
   "author": "David <david@thejsguy.com>",
   "contributors": [
     {
@@ -11,6 +11,10 @@
     {
       "name": "Karol Janyst",
       "email": "lapkom@gmail.com"
+    },
+    {
+      "name": "Mike Erickson",
+      "email": "codedungeon@gmail.com"
     }
   ],
   "license": "MIT",
@@ -52,10 +56,12 @@
     "karma-growl-notifications-reporter": "0.0.2",
     "karma-mocha": "~1.1.1",
     "karma-phantomjs-launcher": "~1.0.1",
-    "mocha": "~2.5.3"
+    "mocha": "~2.5.3",
+    "mocha-better-spec-reporter": "github:mikeerickson/mocha-better-spec-reporter"
   },
   "scripts": {
     "test-node": "node node_modules/mocha/bin/mocha spec",
+    "test-node:watch": "node node_modules/mocha/bin/mocha --watch spec",
     "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
     "test": "npm run test-node && npm run test-browser"
   }

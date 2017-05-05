@@ -6,7 +6,7 @@ var AsyncResolvers = require('./async');
 
 var Validator = function(input, rules, customMessages) {
   var lang = Validator.getDefaultLang();
-  this.input = input;
+  this.input = input || {};
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -328,7 +328,7 @@ Validator.prototype = {
   _shouldStopValidating: function(attribute, rulePassed) {
 
     var stopOnAttributes = this.stopOnAttributes;
-    if (stopOnAttributes === false || rulePassed === true) {
+    if (typeof stopOnAttributes === 'undefined' || stopOnAttributes === false || rulePassed === true) {
       return false;
     }
 
