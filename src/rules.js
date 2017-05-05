@@ -311,7 +311,7 @@ var rules = {
   date: function(val, format) {
     return isValidDate(val);
   },
-    
+
   present: function(val) {
     return typeof val !== 'undefined';
   },
@@ -573,8 +573,8 @@ var manager = {
    * @param  {function} fn
    * @return {void}
    */
-  registerAsync: function(name, fn) {
-    this.register(name, fn);
+  registerAsync: function(name, fn, implicit = false) {
+    this.register(name, fn, implicit);
     this.asyncRules.push(name);
   }
 
