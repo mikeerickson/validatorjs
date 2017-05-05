@@ -1,4 +1,4 @@
-/*! validatorjs - v3.12.0 -  - 2017-04-11 */
+/*! validatorjs - v3.12.0 -  - 2017-04-19 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -627,14 +627,14 @@ function isValidDate(inDate) {
 
     var testDate = new Date(inDate);
     var yr = testDate.getFullYear();
-    var mo = testDate.getMonth() + 1;
+    var mo = testDate.getMonth();
     var day = testDate.getDate();
 
     var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     if (yr < 1000) { return false; }
     if (isNaN(mo)) { return false; }
-    if (mo > 12) { return false; }
+    if (mo + 1 > 12) { return false; }
     if (isNaN(day)) { return false; }
     if (day > daysInMonth[mo]) { return false; }
 

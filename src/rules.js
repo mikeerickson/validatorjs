@@ -15,14 +15,14 @@ function isValidDate(inDate) {
 
     var testDate = new Date(inDate);
     var yr = testDate.getFullYear();
-    var mo = testDate.getMonth() + 1;
+    var mo = testDate.getMonth();
     var day = testDate.getDate();
 
     var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     if (yr < 1000) { return false; }
     if (isNaN(mo)) { return false; }
-    if (mo > 12) { return false; }
+    if (mo + 1 > 12) { return false; }
     if (isNaN(day)) { return false; }
     if (day > daysInMonth[mo]) { return false; }
 
