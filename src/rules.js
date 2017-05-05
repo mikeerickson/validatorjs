@@ -15,14 +15,14 @@ function isValidDate(inDate) {
 
     var testDate = new Date(inDate);
     var yr = testDate.getFullYear();
-    var mo = testDate.getMonth() + 1;
+    var mo = testDate.getMonth();
     var day = testDate.getDate();
 
     var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     if (yr < 1000) { return false; }
     if (isNaN(mo)) { return false; }
-    if (mo > 12) { return false; }
+    if (mo + 1 > 12) { return false; }
     if (isNaN(day)) { return false; }
     if (day > daysInMonth[mo]) { return false; }
 
@@ -322,7 +322,64 @@ var rules = {
 
   present: function(val) {
     return typeof val !== 'undefined';
+  },
+
+  after: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() < new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+   after_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() <= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+  before: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() > new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
+  },
+
+   before_or_equal: function(val, req){
+    var val1 = this.validator.input[req];
+    var val2 = val;
+
+    if(!isValidDate(val1)){ return false;}
+    if(!isValidDate(val2)){ return false;}
+
+    if (new Date(val1).getTime() >= new Date(val2).getTime()) {
+      return true;
+    }
+
+    return false;
   }
+
 
 };
 
