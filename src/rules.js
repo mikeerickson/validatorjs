@@ -225,14 +225,18 @@ var rules = {
     var list, i;
 
     if (val) {
-      list = req.split(',');
+      list = this.getParameters();
     }
 
     if (val && !(val instanceof Array)) {
-      val = String(val); // if it is a number
+      var localValue = val;
 
       for (i = 0; i < list.length; i++) {
-        if (val === list[i]) {
+        if (typeof list[i] === 'string') {
+          localValue = String(val);
+        }
+
+        if (localValue === list[i]) {
           return true;
         }
       }
@@ -252,14 +256,18 @@ var rules = {
   },
 
   not_in: function(val, req) {
-    var list = req.split(',');
+    var list = this.getParameters();
     var len = list.length;
     var returnVal = true;
 
-    val = String(val); // convert val to a string if it is a number
-
     for (var i = 0; i < len; i++) {
-      if (val === list[i]) {
+      var localValue = val;
+
+      if (typeof list[i] === 'string') {
+        localValue = String(val);
+      }
+
+      if (localValue === list[i]) {
         returnVal = false;
         break;
       }
@@ -311,7 +319,7 @@ var rules = {
   date: function(val, format) {
     return isValidDate(val);
   },
-    
+
   present: function(val) {
     return typeof val !== 'undefined';
   },
@@ -432,7 +440,21 @@ Rule.prototype = {
    * @return {array}
    */
   getParameters: function() {
-    return this.ruleValue ? this.ruleValue.split(',') : [];
+    var value = [];
+
+    if (typeof this.ruleValue === 'string') {
+      value = this.ruleValue.split(',');
+    }
+
+    if (typeof this.ruleValue === 'number') {
+      value.push(this.ruleValue);
+    }
+
+    if (this.ruleValue instanceof Array) {
+      value = this.ruleValue;
+    }
+
+    return value;
   },
 
   /**
