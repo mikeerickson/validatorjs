@@ -571,7 +571,7 @@ var manager = {
    * @return {void}
    */
   registerImplicit: function(name, fn) {
-    rules[name] = fn;
+    this.register(name, fn);
     this.implicitRules.push(name);
   },
 
