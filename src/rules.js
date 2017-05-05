@@ -559,11 +559,20 @@ var manager = {
    * @param  {function} fn
    * @return {void}
    */
-  register: function(name, fn, implicit = false) {
+  register: function(name, fn) {
     rules[name] = fn;
-    if(implicit) {
-        this.implicitRules.push(name);
-    }
+  },
+
+    /**
+   * Register new implicit rule
+   *
+   * @param  {string}   name
+   * @param  {function} fn
+   * @return {void}
+   */
+  registerImplicit: function(name, fn) {
+    rules[name] = fn;
+    this.implicitRules.push(name);
   },
 
   /**
@@ -573,8 +582,20 @@ var manager = {
    * @param  {function} fn
    * @return {void}
    */
-  registerAsync: function(name, fn, implicit = false) {
-    this.register(name, fn, implicit);
+  registerAsync: function(name, fn) {
+    this.register(name, fn);
+    this.asyncRules.push(name);
+  },
+
+  /**
+   * Register implicit async rule
+   *
+   * @param  {string}   name
+   * @param  {function} fn
+   * @return {void}
+   */
+  registerAsyncImplicit: function(name, fn) {
+    this.registerImplicit(name, fn);
     this.asyncRules.push(name);
   }
 
