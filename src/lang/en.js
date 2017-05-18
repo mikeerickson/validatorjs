@@ -10,7 +10,7 @@ module.exports = {
   between: 'The :attribute field must be between :min and :max.',
   confirmed: 'The :attribute confirmation does not match.',
   email: 'The :attribute format is invalid.',
-  date: 'The :attribute is not a valid date format',
+  date: 'The :attribute is not a valid date format.',
   def: 'The :attribute attribute has errors.',
   digits: 'The :attribute must be :digits digits.',
   different: 'The :attribute and :different must be different.',
@@ -41,6 +41,6 @@ module.exports = {
   },
   string: 'The :attribute must be a string.',
   url: 'The :attribute format is invalid.',
-  regex: 'The :attribute format is invalid',
+  regex: 'The :attribute format is invalid.',
   attributes: {}
 };
