@@ -4,7 +4,7 @@ module.exports = {
   after: 'Das :attribute muss ein Datum nach dem :after sein.',
   after_or_equal: 'Das :attribute Datum muss kleiner oder gleich dem :after_or_equal sein.',
   alpha: 'Das :attribute Feld darf nur aus Buchstaben bestehen.',
-  alpha_dash: 'Das :attribute Feld darf nur aus Buchstaben, Zahlen, Binde- und Unterstrichen bestehen',
+  alpha_dash: 'Das :attribute Feld darf nur aus Buchstaben, Zahlen, Binde- und Unterstrichen bestehen.',
   alpha_num: 'Das :attribute Feld darf nur aus Buchstaben und Zahlen bestehen.',
   before: 'Das :attribute muss ein Datum vor dem :before sein.',
   before_or_equal: 'Das :attribute Datum muss größer oder gleich dem :before_or_equal sein.',

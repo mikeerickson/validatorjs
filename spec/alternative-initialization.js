@@ -26,6 +26,6 @@ describe('alternative initialization using an array instead pipe', function() {
   it('should fail 1 validation rule', function() {
     expect(validator.passes()).to.be.false;
     expect(validator.fails()).to.be.true;
-    expect(validator.errors.first('nick')).to.equal('The nick format is invalid');
+    expect(validator.errors.first('nick')).to.equal('The nick format is invalid.');
   });
 }); // Page constructor
