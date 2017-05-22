@@ -46,6 +46,9 @@ describe('date rule', function() {
     validator = new Validator({passingDate: '2017.03.18'}, {passingDate: 'date'});
     expect(validator.passes()).to.be.true;
 
+    validator = new Validator({passingDate: '2017-03-31'}, {passingDate: 'date'});
+    expect(validator.passes()).to.be.true;
+
   });
 
   it('should fail for incorrect date formats', function() {
