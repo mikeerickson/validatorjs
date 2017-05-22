@@ -532,6 +532,20 @@ Validator.register = function(name, fn, message) {
 };
 
 /**
+ * Register custom validation rule
+ *
+ * @param  {string}   name
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.registerImplicit = function(name, fn, message) {
+  var lang = Validator.getDefaultLang();
+  Rules.registerImplicit(name, fn);
+  Lang._setRuleMessage(lang, name, message);
+};
+
+/**
  * Register asynchronous validation rule
  *
  * @param  {string}   name
@@ -542,6 +556,20 @@ Validator.register = function(name, fn, message) {
 Validator.registerAsync = function(name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.registerAsync(name, fn);
+  Lang._setRuleMessage(lang, name, message);
+};
+
+/**
+ * Register asynchronous validation rule
+ *
+ * @param  {string}   name
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.registerAsyncImplicit = function(name, fn, message) {
+  var lang = Validator.getDefaultLang();
+  Rules.registerAsyncImplicit(name, fn);
   Lang._setRuleMessage(lang, name, message);
 };
 
