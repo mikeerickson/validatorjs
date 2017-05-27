@@ -18,8 +18,18 @@ describe('url validation rule', function() {
     expect(validator.passes()).to.be.false;
   });
 
-  it('should pass with a url starting with http:// followed by 1 or more characters', function() {
-    var link = 'http://g';
+  it('should fail with a url starting with http:// followed by 1 or more characters without a `.`', function() {
+    var link = 'http://google';
+    var validator = new Validator({
+      link: link
+    }, {
+      link: 'url'
+    });
+    expect(validator.fails()).to.be.true;
+  });
+
+  it('should pass with an https url', function() {
+    var link = 'https://google.com';
     var validator = new Validator({
       link: link
     }, {
@@ -28,8 +38,8 @@ describe('url validation rule', function() {
     expect(validator.passes()).to.be.true;
   });
 
-  it('should pass with an https url', function() {
-    var link = 'https://google.com';
+  it('should pass for url with short domain name', function() {
+    var link = 'https://t.co';
     var validator = new Validator({
       link: link
     }, {
