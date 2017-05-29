@@ -7,4 +7,5 @@ npm-debug.log
 .idea
 .vscode
 sandbox
-/dist
+/dist/validator*.js
+notes.md
