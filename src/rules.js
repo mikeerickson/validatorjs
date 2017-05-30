@@ -15,14 +15,14 @@ function isValidDate(inDate) {
 
     var testDate = new Date(inDate);
     var yr = testDate.getFullYear();
-    var mo = testDate.getMonth() + 1;
+    var mo = testDate.getMonth();
     var day = testDate.getDate();
 
     var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     if (yr < 1000) { return false; }
     if (isNaN(mo)) { return false; }
-    if (mo > 12) { return false; }
+    if (mo + 1 > 12) { return false; }
     if (isNaN(day)) { return false; }
     if (day > daysInMonth[mo]) { return false; }
 
@@ -184,7 +184,7 @@ var rules = {
   },
 
   url: function(url) {
-    return (/^https?:\/\/\S+/).test(url);
+    return (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i).test(url);
   },
 
   alpha: function(val) {
@@ -225,14 +225,18 @@ var rules = {
     var list, i;
 
     if (val) {
-      list = req.split(',');
+      list = this.getParameters();
     }
 
     if (val && !(val instanceof Array)) {
-      val = String(val); // if it is a number
+      var localValue = val;
 
       for (i = 0; i < list.length; i++) {
-        if (val === list[i]) {
+        if (typeof list[i] === 'string') {
+          localValue = String(val);
+        }
+
+        if (localValue === list[i]) {
           return true;
         }
       }
@@ -252,14 +256,18 @@ var rules = {
   },
 
   not_in: function(val, req) {
-    var list = req.split(',');
+    var list = this.getParameters();
     var len = list.length;
     var returnVal = true;
 
-    val = String(val); // convert val to a string if it is a number
-
     for (var i = 0; i < len; i++) {
-      if (val === list[i]) {
+      var localValue = val;
+
+      if (typeof list[i] === 'string') {
+        localValue = String(val);
+      }
+
+      if (localValue === list[i]) {
         returnVal = false;
         break;
       }
@@ -311,7 +319,7 @@ var rules = {
   date: function(val, format) {
     return isValidDate(val);
   },
-    
+
   present: function(val) {
     return typeof val !== 'undefined';
   },
@@ -432,7 +440,21 @@ Rule.prototype = {
    * @return {array}
    */
   getParameters: function() {
-    return this.ruleValue ? this.ruleValue.split(',') : [];
+    var value = [];
+
+    if (typeof this.ruleValue === 'string') {
+      value = this.ruleValue.split(',');
+    }
+
+    if (typeof this.ruleValue === 'number') {
+      value.push(this.ruleValue);
+    }
+
+    if (this.ruleValue instanceof Array) {
+      value = this.ruleValue;
+    }
+
+    return value;
   },
 
   /**
@@ -563,6 +585,18 @@ var manager = {
     rules[name] = fn;
   },
 
+    /**
+   * Register new implicit rule
+   *
+   * @param  {string}   name
+   * @param  {function} fn
+   * @return {void}
+   */
+  registerImplicit: function(name, fn) {
+    this.register(name, fn);
+    this.implicitRules.push(name);
+  },
+
   /**
    * Register async rule
    *
@@ -572,6 +606,18 @@ var manager = {
    */
   registerAsync: function(name, fn) {
     this.register(name, fn);
+    this.asyncRules.push(name);
+  },
+
+  /**
+   * Register implicit async rule
+   *
+   * @param  {string}   name
+   * @param  {function} fn
+   * @return {void}
+   */
+  registerAsyncImplicit: function(name, fn) {
+    this.registerImplicit(name, fn);
     this.asyncRules.push(name);
   }
 

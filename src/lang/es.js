@@ -9,7 +9,7 @@ module.exports = {
   confirmed: 'La confirmación de :attribute no coincide.',
   different: 'El campo :attribute y :other deben ser diferentes.',
   digits: 'El campo :attribute debe tener :digits dígitos.',
-  email: 'El campo :attribute no es un correo válido',
+  email: 'El campo :attribute no es un correo válido.',
   'in': 'El campo :attribute es inválido.',
   integer: 'El campo :attribute debe ser un número entero.',
   max: {
@@ -22,7 +22,7 @@ module.exports = {
   },
   not_in: 'El campo :attribute es inválido.',
   numeric: 'El campo :attribute debe ser numérico.',
-  present: 'El campo de :attribute debe estar presente (pero puede estar vacío)',
+  present: 'El campo de :attribute debe estar presente (pero puede estar vacío).',
   regex: 'El formato del campo :attribute es inválido.',
   required: 'El campo :attribute es obligatorio.',
   required_if: 'El campo :attribute es obligatorio cuando :other es :value.',

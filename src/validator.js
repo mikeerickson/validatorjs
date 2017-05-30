@@ -228,21 +228,52 @@ Validator.prototype = {
       var rulesArray = rules[attribute];
       var attributeRules = [];
 
+      if (rulesArray instanceof Array) {
+        rulesArray = this._prepareRulesArray(rulesArray);
+      }
+
       if (typeof rulesArray === 'string') {
         rulesArray = rulesArray.split('|');
       }
 
       for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
-        rule = this._extractRuleAndRuleValue(rulesArray[i]);
+        rule = typeof rulesArray[i] === 'string' ? this._extractRuleAndRuleValue(rulesArray[i]) : rulesArray[i];
+
         if (Rules.isAsync(rule.name)) {
           this.hasAsync = true;
         }
+
         attributeRules.push(rule);
       }
 
       parsedRules[attribute] = attributeRules;
     }
     return parsedRules;
+  },
+
+  /**
+   * Prepare rules if it comes in Array. Check for objects. Need for type validation.
+   *
+   * @param  {array} rulesArray
+   * @return {array}
+   */
+  _prepareRulesArray: function(rulesArray) {
+    var rules = [];
+
+    for (var i = 0, len = rulesArray.length; i < len; i++) {
+      if (typeof rulesArray[i] === 'object') {
+        for (var rule in rulesArray[i]) {
+          rules.push({
+            name: rule,
+            value: rulesArray[i][rule]
+          });
+        }
+      } else {
+        rules.push(rulesArray[i]);
+      }
+    }
+
+    return rules;
   },
 
   /**
@@ -501,6 +532,20 @@ Validator.register = function(name, fn, message) {
 };
 
 /**
+ * Register custom validation rule
+ *
+ * @param  {string}   name
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.registerImplicit = function(name, fn, message) {
+  var lang = Validator.getDefaultLang();
+  Rules.registerImplicit(name, fn);
+  Lang._setRuleMessage(lang, name, message);
+};
+
+/**
  * Register asynchronous validation rule
  *
  * @param  {string}   name
@@ -511,6 +556,20 @@ Validator.register = function(name, fn, message) {
 Validator.registerAsync = function(name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.registerAsync(name, fn);
+  Lang._setRuleMessage(lang, name, message);
+};
+
+/**
+ * Register asynchronous validation rule
+ *
+ * @param  {string}   name
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.registerAsyncImplicit = function(name, fn, message) {
+  var lang = Validator.getDefaultLang();
+  Rules.registerAsyncImplicit(name, fn);
   Lang._setRuleMessage(lang, name, message);
 };
 
