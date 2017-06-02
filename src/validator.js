@@ -198,7 +198,6 @@ Validator.prototype = {
 
     var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
     var copy = {};
-
     for (var attr in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, attr)) {
         copy[attr] = obj[attr];
@@ -226,20 +225,35 @@ Validator.prototype = {
     rules = this._flattenObject(rules);
     for (var attribute in rules) {
       var rulesArray = rules[attribute];
-      this._parserRulesCheck(attribute, rulesArray, parsedRules);
+      this._parseRule(this._parseWildCard(attribute), rulesArray, parsedRules);
     }
     return parsedRules;
   },
 
-  _parserRulesCheck: function (attribute, rulesArray, parsedRules) {
-    if (attribute.indexOf('*') > -1) {
-      this._parseRuleRecursive(attribute, rulesArray, parsedRules);
-    } else {
-      this._parseRulesDefault(attribute, rulesArray, parsedRules);
+  _parseWildCard: function (attribute) {
+    var attributes = [];
+    var self = this;
+    function recurse(attr, position) {
+      if (attr.indexOf('*') > -1) {
+        var parentPath = attr.substr(0, attr.indexOf('*') - 1);
+        var propertyValue = self._objectPath(self.input, parentPath);
+        if (propertyValue) {
+          for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
+            var position = position ? position.slice() : [];
+            position.push(propertyNumber);
+            recurse(attr.replace('*', propertyNumber), position);
+          }
+        }
+      }
+      else {
+        attributes.push(attr)
+      }
     }
+    recurse(attribute)
+    return attributes.length ? attributes : attribute
   },
 
-  _parseRulesDefault: function (attribute, rulesArray, parsedRules) {
+  _parseRule: function (attribute, rulesArray, parsedRules) {
     var attributeRules = [];
 
     if (rulesArray instanceof Array) {
@@ -260,21 +274,15 @@ Validator.prototype = {
       attributeRules.push(rule);
     }
 
-    parsedRules[attribute] = attributeRules;
-  },
-
-  _parseRuleRecursive: function (attribute, rulesArray, parsedRules, wildCard) {
-    var parentPath = attribute.substr(0, attribute.indexOf('*') - 1);
-    var propertyValue = this._objectPath(this.input, parentPath);
-    if (propertyValue) {
-      for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
-        var wildCard = wildCard ? wildCard.slice() : [];
-        wildCard.push(propertyNumber);
-        this._parseRuleRecursive(attribute.replace('*', propertyNumber), rulesArray, parsedRules, wildCard);
+    if (attribute instanceof Array) {
+      for (var i = 0; i < attribute.length; i++) {
+        parsedRules[attribute[i]] = attributeRules;
       }
+    } else {
+      parsedRules[attribute] = attributeRules;
     }
-  },
 
+  },
   /**
    * Prepare rules if it comes in Array. Check for objects. Need for type validation.
    *
