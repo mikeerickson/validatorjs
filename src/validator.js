@@ -53,6 +53,7 @@ Validator.prototype = {
     var self = this;
 
     for (var attribute in this.rules) {
+      console.log(attribute);
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
@@ -203,6 +204,7 @@ Validator.prototype = {
         copy[attr] = obj[attr];
       }
     }
+    console.log(keys);
 
     for (var i = 0, l = keys.length; i < l; i++) {
       if (Object.hasOwnProperty.call(copy, keys[i])) {
@@ -230,6 +232,12 @@ Validator.prototype = {
     return parsedRules;
   },
 
+  /**
+   * Parse attribute and  If the attribute equal foo.*.bar it will be convert from foo.0.bar
+   * 
+   * @param {String} attribute
+   * @return {Array}
+   */
   _parseWildCard: function (attribute) {
     var attributes = [];
     var self = this;
