@@ -1,4 +1,4 @@
-/*! validatorjs - v3.13.3 -  - 2017-06-01 */
+/*! validatorjs - v3.13.3 -  - 2017-06-06 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -1333,8 +1333,8 @@ Validator.prototype = {
    */
   checkAsync: function (passes, fails) {
     var _this = this;
-    passes = passes || function () { };
-    fails = fails || function () { };
+    passes = passes || function () {};
+    fails = fails || function () {};
 
     var failsOne = function (rule, message) {
       _this._addFailure(rule, message);
@@ -1403,6 +1403,7 @@ Validator.prototype = {
    */
   _flattenObject: function (obj) {
     var flattened = {};
+
     function recurse(current, property) {
       if (!property && Object.getOwnPropertyNames(current).length === 0) {
         return;
@@ -1440,7 +1441,6 @@ Validator.prototype = {
 
     var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
     var copy = {};
-
     for (var attr in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, attr)) {
         copy[attr] = obj[attr];
@@ -1464,24 +1464,43 @@ Validator.prototype = {
    * @return {object}
    */
   _parseRules: function (rules) {
+
     var parsedRules = {};
     rules = this._flattenObject(rules);
+
     for (var attribute in rules) {
+
       var rulesArray = rules[attribute];
-      this._parserRulesCheck(attribute, rulesArray, parsedRules);
+
+      this._parseRulesCheck(attribute, rulesArray, parsedRules);
     }
     return parsedRules;
+
+
   },
 
-  _parserRulesCheck: function (attribute, rulesArray, parsedRules) {
+  _parseRulesCheck: function (attribute, rulesArray, parsedRules, wildCardValues) {
     if (attribute.indexOf('*') > -1) {
-      this._parseRuleRecursive(attribute, rulesArray, parsedRules);
+      this._parsedRulesRecurse(attribute, rulesArray, parsedRules, wildCardValues);
     } else {
-      this._parseRulesDefault(attribute, rulesArray, parsedRules);
+      this._parseRulesDefault(attribute, rulesArray, parsedRules, wildCardValues);
     }
   },
 
-  _parseRulesDefault: function (attribute, rulesArray, parsedRules) {
+  _parsedRulesRecurse: function (attribute, rulesArray, parsedRules, wildCardValues) {
+    var parentPath = attribute.substr(0, attribute.indexOf('*') - 1);
+    var propertyValue = this._objectPath(this.input, parentPath);
+
+    if (propertyValue) {
+      for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
+        var workingValues = wildCardValues ? wildCardValues.slice() : [];
+        workingValues.push(propertyNumber);
+        this._parseRulesCheck(attribute.replace('*', propertyNumber), rulesArray, parsedRules, workingValues);
+      }
+    }
+  },
+
+  _parseRulesDefault: function (attribute, rulesArray, parsedRules, wildCardValues) {
     var attributeRules = [];
 
     if (rulesArray instanceof Array) {
@@ -1494,21 +1513,49 @@ Validator.prototype = {
 
     for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
       rule = typeof rulesArray[i] === 'string' ? this._extractRuleAndRuleValue(rulesArray[i]) : rulesArray[i];
+      if (rule.value) {
+        rule.value = this._replaceWildCards(rule.value, wildCardValues);
+        this._replaceWildCardsMessages(wildCardValues);
+      }
 
       if (Rules.isAsync(rule.name)) {
         this.hasAsync = true;
       }
-
       attributeRules.push(rule);
     }
 
     parsedRules[attribute] = attributeRules;
   },
 
-  _parseRuleRecursive: function (attribute, rulesArray, parsedRules) {
-      console.log(attribute, rulesArray, parsedRules);
+  _replaceWildCards: function (path, nums) {
+
+    if (!nums) {
+      return path;
+    }
+
+    var path2 = path;
+    nums.forEach(function (value) {
+      var pos = path2.indexOf('*');
+      if (pos === -1) {
+        return path2;
+      }
+      path2 = path2.substr(0, pos) + value + path2.substr(pos + 1);
+    });
+    return path2;
   },
 
+  _replaceWildCardsMessages: function (nums) {
+    var customMessages = this.messages.customMessages;
+    var self = this;
+    Object.keys(customMessages).forEach(function (key) {
+      if (nums) {
+        var newKey = self._replaceWildCards(key, nums);
+        customMessages[newKey] = customMessages[key];
+      }
+    });
+
+    this.messages._setCustom(customMessages);
+  },
   /**
    * Prepare rules if it comes in Array. Check for objects. Need for type validation.
    *
@@ -1691,7 +1738,7 @@ Validator.prototype = {
   fails: function (fails) {
     var async = this._checkAsync('fails', fails);
     if (async) {
-      return this.checkAsync(function () { }, fails);
+      return this.checkAsync(function () {}, fails);
     }
     return !this.check();
   },
@@ -1832,6 +1879,5 @@ Validator.registerAsyncImplicit = function (name, fn, message) {
 };
 
 module.exports = Validator;
-
 },{"./async":1,"./attributes":2,"./errors":3,"./lang":4,"./rules":7}]},{},[8])(8)
 });
