@@ -6,117 +6,95 @@ if (typeof require !== 'undefined') {
     var expect = window.chai.expect;
 }
 
-describe('Wildcard', () => {
-    describe('Simples Rules ', () => {
-        it('should have validation a deep level fails', () => {
-            var validator = new Validator(
-                {
-                    foo: [{
-                        bar: [
-                            {
-                                people: [
-                                    {
-                                        name: '',
-                                        age: 'aa',
-                                        term: false,
-                                        isActive: 'not'
-                                    },
-                                    {
-                                        name: '',
-                                        age: 'aa',
-                                        term: false,
-                                        isActive: 'not'
-                                    }
-                                ]
-                            },
-                            {
-                                people: [
-                                    {
-                                        name: '',
-                                        age: 'aa',
-                                        term: false,
-                                        isActive: 'not'
-                                    },
-                                    {
-                                        name: '',
-                                        age: 'aa',
-                                        term: false,
-                                        isActive: 'not'
-                                    }
-                                ]
-                            }
-                        ]
-                    }]
-                },
-                {
-                    'foo.*.bar.*.people.*.name': 'required',
-                    'foo.*.bar.*.people.*.age': 'numeric',
-                    'foo.*.bar.*.people.*.term': 'accepted',
-                    'foo.*.bar.*.people.*.isActive': 'boolean',
-                }
-            );
+describe('Wildcard', function () {
+    describe('Simple Rules ', function () {
+        it('should have validation a deep level fails', function () {
+            var validator = new Validator({
+                foo: [{
+                    bar: [{
+                            people: [{
+                                    name: '',
+                                    age: 'aa',
+                                    term: false,
+                                    isActive: 'not'
+                                },
+                                {
+                                    name: '',
+                                    age: 'aa',
+                                    term: false,
+                                    isActive: 'not'
+                                }
+                            ]
+                        },
+                        {
+                            people: [{
+                                    name: '',
+                                    age: 'aa',
+                                    term: false,
+                                    isActive: 'not'
+                                },
+                                {
+                                    name: '',
+                                    age: 'aa',
+                                    term: false,
+                                    isActive: 'not'
+                                }
+                            ]
+                        }
+                    ]
+                }]
+            }, {
+                'foo.*.bar.*.people.*.name': 'required',
+                'foo.*.bar.*.people.*.age': 'numeric',
+                'foo.*.bar.*.people.*.term': 'accepted',
+                'foo.*.bar.*.people.*.isActive': 'boolean',
+            });
             expect(validator.fails()).to.be.true;
             expect(validator.passes()).to.be.false;
         });
-        it('should have validation a deep level passes', () => {
-            var validator = new Validator(
-                {
-                    foo: [{
-                        bar: [
-                            {
-                                people: [
-                                    {
-                                        name: 'Test',
-                                        age: '100',
-                                        term: true,
-                                        isActive: '0'
-                                    }
-                                ]
-                            }]
+        it('should have validation a deep level passes', function () {
+            var validator = new Validator({
+                foo: [{
+                    bar: [{
+                        people: [{
+                            name: 'Test',
+                            age: '100',
+                            term: true,
+                            isActive: '0'
+                        }]
                     }]
-                },
-                {
-                    'foo.*.bar.*.people.*.name': 'required',
-                    'foo.*.bar.*.people.*.age': 'numeric',
-                    'foo.*.bar.*.people.*.term': 'accepted',
-                    'foo.*.bar.*.people.*.isActive': 'boolean',
-                }
-            );
+                }]
+            }, {
+                'foo.*.bar.*.people.*.name': 'required',
+                'foo.*.bar.*.people.*.age': 'numeric',
+                'foo.*.bar.*.people.*.term': 'accepted',
+                'foo.*.bar.*.people.*.isActive': 'boolean',
+            });
             expect(validator.fails()).to.be.false;
             expect(validator.passes()).to.be.true;
         });
     });
-    describe('Rules with dependent of another field', () => {
-        it.only('should have validation fail with required_*', () => {
-            var validator = new Validator(
-                {
-                    id: '12,500.00',
-                    addresses: [
-                        {
-                            street: '',
-                            phones: [{
-                                home: '44',
-                                work: '123',
-                                requireHome: 'true'
-                            },
-                            {
-                                home: '345',
-                                work: '125',
-                                requireHome: 'false'
-                            }]
-                        },
-                        {
-                            street: '',
-                            phones: []
-                        }
-                    ]
-                },
-                {
-                    'addresses.*.phones.*.home': 'required_if:addresses.*.phones.*.requireHome,true'
-                }
-            );
+    describe('Rules with dependent of another field', function () {
+        it('should have validation fail with required_* and show customMessage', function () {
+            var validator = new Validator({
+                users: [{
+                    name: 'Teste',
+                    lastName: '',
+                    age: '',
+                    requiredAge: 'true',
+                }]
+            }, {
+                'users.*.age': 'required_if:users.*.requiredAge,true',
+                'users.*.lastName': 'required_with:users.*.name',
+            }, {
+                'required_if.users.*.age': 'Required'
+            });
             expect(validator.fails()).to.be.true;
             expect(validator.passes()).to.be.false;
+            expect(validator.errors.all()).to.eql({
+                'users.0.age': ['Required'],
+                'users.0.lastName': ['The users.0.lastName field is required when users.0.name is not empty.']
+            })
         });
     });
 });

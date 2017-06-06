@@ -53,7 +53,6 @@ Validator.prototype = {
     var self = this;
 
     for (var attribute in this.rules) {
-      console.log(attribute);
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
@@ -92,8 +91,8 @@ Validator.prototype = {
    */
   checkAsync: function (passes, fails) {
     var _this = this;
-    passes = passes || function () { };
-    fails = fails || function () { };
+    passes = passes || function () {};
+    fails = fails || function () {};
 
     var failsOne = function (rule, message) {
       _this._addFailure(rule, message);
@@ -162,6 +161,7 @@ Validator.prototype = {
    */
   _flattenObject: function (obj) {
     var flattened = {};
+
     function recurse(current, property) {
       if (!property && Object.getOwnPropertyNames(current).length === 0) {
         return;
@@ -204,7 +204,6 @@ Validator.prototype = {
         copy[attr] = obj[attr];
       }
     }
-    console.log(keys);
 
     for (var i = 0, l = keys.length; i < l; i++) {
       if (Object.hasOwnProperty.call(copy, keys[i])) {
@@ -223,45 +222,43 @@ Validator.prototype = {
    * @return {object}
    */
   _parseRules: function (rules) {
+
     var parsedRules = {};
     rules = this._flattenObject(rules);
+
     for (var attribute in rules) {
+
       var rulesArray = rules[attribute];
-      this._parseRule(this._parseWildCard(attribute), rulesArray, parsedRules);
+
+      this._parseRulesCheck(attribute, rulesArray, parsedRules);
     }
     return parsedRules;
+
+
   },
 
-  /**
-   * Parse attribute and  If the attribute equal foo.*.bar it will be convert from foo.0.bar
-   * 
-   * @param {String} attribute
-   * @return {Array}
-   */
-  _parseWildCard: function (attribute) {
-    var attributes = [];
-    var self = this;
-    function recurse(attr, position) {
-      if (attr.indexOf('*') > -1) {
-        var parentPath = attr.substr(0, attr.indexOf('*') - 1);
-        var propertyValue = self._objectPath(self.input, parentPath);
-        if (propertyValue) {
-          for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
-            var position = position ? position.slice() : [];
-            position.push(propertyNumber);
-            recurse(attr.replace('*', propertyNumber), position);
-          }
-        }
-      }
-      else {
-        attributes.push(attr)
+  _parseRulesCheck: function (attribute, rulesArray, parsedRules, wildCardValues) {
+    if (attribute.indexOf('*') > -1) {
+      this._parsedRulesRecurse(attribute, rulesArray, parsedRules, wildCardValues);
+    } else {
+      this._parseRulesDefault(attribute, rulesArray, parsedRules, wildCardValues);
+    }
+  },
+
+  _parsedRulesRecurse: function (attribute, rulesArray, parsedRules, wildCardValues) {
+    var parentPath = attribute.substr(0, attribute.indexOf('*') - 1);
+    var propertyValue = this._objectPath(this.input, parentPath);
+
+    if (propertyValue) {
+      for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
+        var workingValues = wildCardValues ? wildCardValues.slice() : [];
+        workingValues.push(propertyNumber);
+        this._parseRulesCheck(attribute.replace('*', propertyNumber), rulesArray, parsedRules, workingValues);
       }
     }
-    recurse(attribute)
-    return attributes.length ? attributes : attribute
   },
 
-  _parseRule: function (attribute, rulesArray, parsedRules) {
+  _parseRulesDefault: function (attribute, rulesArray, parsedRules, wildCardValues) {
     var attributeRules = [];
 
     if (rulesArray instanceof Array) {
@@ -274,22 +271,48 @@ Validator.prototype = {
 
     for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
       rule = typeof rulesArray[i] === 'string' ? this._extractRuleAndRuleValue(rulesArray[i]) : rulesArray[i];
+      if (rule.value) {
+        rule.value = this._replaceWildCards(rule.value, wildCardValues);
+        this._replaceWildCardsMessages(wildCardValues);
+      }
 
       if (Rules.isAsync(rule.name)) {
         this.hasAsync = true;
       }
-
       attributeRules.push(rule);
     }
 
-    if (attribute instanceof Array) {
-      for (var i = 0; i < attribute.length; i++) {
-        parsedRules[attribute[i]] = attributeRules;
-      }
-    } else {
-      parsedRules[attribute] = attributeRules;
+    parsedRules[attribute] = attributeRules;
+  },
+
+  _replaceWildCards: function (path, nums) {
+
+    if (!nums) {
+      return path;
     }
 
+    var path2 = path;
+    nums.forEach(function (value) {
+      var pos = path2.indexOf('*');
+      if (pos === -1) {
+        return path2;
+      }
+      path2 = path2.substr(0, pos) + value + path2.substr(pos + 1);
+    });
+    return path2;
+  },
+
+  _replaceWildCardsMessages: function (nums) {
+    var customMessages = this.messages.customMessages;
+    var self = this;
+    Object.keys(customMessages).forEach(function (key) {
+      if (nums) {
+        var newKey = self._replaceWildCards(key, nums);
+        customMessages[newKey] = customMessages[key];
+      }
+    });
+
+    this.messages._setCustom(customMessages);
   },
   /**
    * Prepare rules if it comes in Array. Check for objects. Need for type validation.
@@ -473,7 +496,7 @@ Validator.prototype = {
   fails: function (fails) {
     var async = this._checkAsync('fails', fails);
     if (async) {
-      return this.checkAsync(function () { }, fails);
+      return this.checkAsync(function () {}, fails);
     }
     return !this.check();
   },
