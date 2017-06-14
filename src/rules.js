@@ -200,7 +200,7 @@ var rules = {
   },
 
   same: function(val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = this.validator._flattenObject(this.validator.input)[req];
     var val2 = val;
 
     if (val1 === val2) {
@@ -211,7 +211,7 @@ var rules = {
   },
 
   different: function(val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = this.validator._flattenObject(this.validator.input)[req];
     var val2 = val;
 
     if (val1 !== val2) {
