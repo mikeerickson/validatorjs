@@ -1,4 +1,4 @@
-/*! validatorjs - v3.13.3 -  - 2017-05-29 */
+/*! validatorjs - v3.13.3 -  - 2017-06-23 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -995,11 +995,16 @@ var rules = {
 
 };
 
+var missedRuleValidator = function() {
+  throw new Error('Validator `' + this.name + '` is not defined!');
+};
+var missedRuleMessage;
+
 function Rule(name, fn, async) {
   this.name = name;
   this.fn = fn;
   this.passes = null;
-  this.customMessage = undefined;
+  this._customMessage = undefined;
   this.async = async;
 }
 
@@ -1024,12 +1029,27 @@ Rule.prototype = {
       };
 
       if (this.async) {
-        return this.fn.apply(this, [inputValue, ruleValue, attribute, handleResponse]);
+        return this._apply(inputValue, ruleValue, attribute, handleResponse);
       } else {
-        return handleResponse(this.fn.apply(this, [inputValue, ruleValue, attribute]));
+        return handleResponse(this._apply(inputValue, ruleValue, attribute));
       }
     }
-    return this.fn.apply(this, [inputValue, ruleValue, attribute]);
+    return this._apply(inputValue, ruleValue, attribute);
+  },
+
+  /**
+   * Apply validation function
+   *
+   * @param  {mixed} inputValue
+   * @param  {mixed} ruleValue
+   * @param  {string} attribute
+   * @param  {function} callback
+   * @return {boolean|undefined}
+   */
+  _apply: function(inputValue, ruleValue, attribute, callback) {
+    var fn = this.isMissed() ? missedRuleValidator : this.fn;
+
+    return fn.apply(this, [inputValue, ruleValue, attribute, callback]);
   },
 
   /**
@@ -1115,7 +1135,7 @@ Rule.prototype = {
    */
   response: function(passes, message) {
     this.passes = (passes === undefined || passes === true);
-    this.customMessage = message;
+    this._customMessage = message;
     this.callback(this.passes, message);
   },
 
@@ -1127,8 +1147,20 @@ Rule.prototype = {
    */
   setValidator: function(validator) {
     this.validator = validator;
-  }
+  },
 
+  /**
+   * Check if rule is missed
+   *
+   * @return {boolean}
+   */
+  isMissed: function() {
+    return typeof this.fn !== 'function';
+  },
+
+  get customMessage() {
+    return this.isMissed() ? missedRuleMessage : this._customMessage;
+  }
 };
 
 var manager = {
@@ -1231,8 +1263,12 @@ var manager = {
   registerAsyncImplicit: function(name, fn) {
     this.registerImplicit(name, fn);
     this.asyncRules.push(name);
-  }
+  },
 
+  registerMissedRuleValidator: function(fn, message) {
+    missedRuleValidator = fn;
+    missedRuleMessage = message;
+  }
 };
 
 
@@ -1259,6 +1295,10 @@ var Validator = function(input, rules, customMessages) {
 
   this.hasAsync = false;
   this.rules = this._parseRules(rules);
+
+  this.missingRulesValidator = function () {
+    throw new Error();
+  };
 };
 
 Validator.prototype = {
@@ -1813,6 +1853,18 @@ Validator.registerAsyncImplicit = function(name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.registerAsyncImplicit(name, fn);
   Lang._setRuleMessage(lang, name, message);
+};
+
+/**
+ * Register validator for missed validation rule
+ *
+ * @param  {string}   name
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.registerMissedRuleValidator = function(fn, message) {
+  Rules.registerMissedRuleValidator(fn, message);
 };
 
 module.exports = Validator;
