@@ -40,4 +40,33 @@ describe('same validation rule', function() {
     expect(validator.passes()).to.be.true;
     expect(validator.fails()).to.be.false;
   });
+
+  it('should pass if one of the 2 attributes is a nested path', function() {
+    var validator = new Validator({
+      payload: {
+        pw: 'abc123',
+        username: 'test',
+      },
+      username: 'test',
+    }, {
+      username: 'same:payload.username'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
+
+  it('should fail if one of the 2 attributes is an invalid nested path', function() {
+    var validator = new Validator({
+      payload: {
+        pw: 'abc123',
+        username: 'test123',
+      },
+      username: 'test',
+    }, {
+      username: 'same:payload.username'
+    });
+    expect(validator.fails()).to.be.true;
+    expect(validator.passes()).to.be.false;
+    expect(validator.errors.first('username')).to.equal('The username and payload.username fields must match.');
+  });
 });
