@@ -383,11 +383,16 @@ var rules = {
 
 };
 
+var missedRuleValidator = function() {
+  throw new Error('Validator `' + this.name + '` is not defined!');
+};
+var missedRuleMessage;
+
 function Rule(name, fn, async) {
   this.name = name;
   this.fn = fn;
   this.passes = null;
-  this.customMessage = undefined;
+  this._customMessage = undefined;
   this.async = async;
 }
 
@@ -412,12 +417,27 @@ Rule.prototype = {
       };
 
       if (this.async) {
-        return this.fn.apply(this, [inputValue, ruleValue, attribute, handleResponse]);
+        return this._apply(inputValue, ruleValue, attribute, handleResponse);
       } else {
-        return handleResponse(this.fn.apply(this, [inputValue, ruleValue, attribute]));
+        return handleResponse(this._apply(inputValue, ruleValue, attribute));
       }
     }
-    return this.fn.apply(this, [inputValue, ruleValue, attribute]);
+    return this._apply(inputValue, ruleValue, attribute);
+  },
+
+  /**
+   * Apply validation function
+   *
+   * @param  {mixed} inputValue
+   * @param  {mixed} ruleValue
+   * @param  {string} attribute
+   * @param  {function} callback
+   * @return {boolean|undefined}
+   */
+  _apply: function(inputValue, ruleValue, attribute, callback) {
+    var fn = this.isMissed() ? missedRuleValidator : this.fn;
+
+    return fn.apply(this, [inputValue, ruleValue, attribute, callback]);
   },
 
   /**
@@ -503,7 +523,7 @@ Rule.prototype = {
    */
   response: function(passes, message) {
     this.passes = (passes === undefined || passes === true);
-    this.customMessage = message;
+    this._customMessage = message;
     this.callback(this.passes, message);
   },
 
@@ -515,8 +535,20 @@ Rule.prototype = {
    */
   setValidator: function(validator) {
     this.validator = validator;
-  }
+  },
 
+  /**
+   * Check if rule is missed
+   *
+   * @return {boolean}
+   */
+  isMissed: function() {
+    return typeof this.fn !== 'function';
+  },
+
+  get customMessage() {
+    return this.isMissed() ? missedRuleMessage : this._customMessage;
+  }
 };
 
 var manager = {
@@ -619,8 +651,12 @@ var manager = {
   registerAsyncImplicit: function(name, fn) {
     this.registerImplicit(name, fn);
     this.asyncRules.push(name);
-  }
+  },
 
+  registerMissedRuleValidator: function(fn, message) {
+    missedRuleValidator = fn;
+    missedRuleMessage = message;
+  }
 };
 
 
