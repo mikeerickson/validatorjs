@@ -573,4 +573,16 @@ Validator.registerAsyncImplicit = function(name, fn, message) {
   Lang._setRuleMessage(lang, name, message);
 };
 
+/**
+ * Register validator for missed validation rule
+ *
+ * @param  {string}   name
+ * @param  {function} fn
+ * @param  {string}   message
+ * @return {void}
+ */
+Validator.registerMissedRuleValidator = function(fn, message) {
+  Rules.registerMissedRuleValidator(fn, message);
+};
+
 module.exports = Validator;
