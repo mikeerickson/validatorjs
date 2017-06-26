@@ -40,14 +40,16 @@ var Validator = require('validatorjs');
 ### Basic Usage
 
 ```js
-var validation = new Validator(data, rules [, customErrorMessages]);
+var validation = new Validator(data, rules, [options]);
 ```
 
 __data__ {Object} - The data you want to validate
 
 __rules__ {Object} - Validation rules
 
-__customErrorMessages__ {Object} - Optional custom error messages to return
+__options__ {Object} - Validator Options<br/>
+__options.flat__ {Boolean} [flat = true] - Should `error.all()` return a flat object<br/>
+__options.customErrorMessages__ {Object} - Optional custom error messages to return
 
 #### Example 1 - Passing validation
 
@@ -379,6 +381,18 @@ returns an array of error messages for an attribute, or an empty array if there 
 #### .all()
 
 returns an object containing all error messages for all failing attributes
+
+Depending on `options.flat` value, method returns a flattened /un-flattened object
+
+```javascript
+const validation = new Validator(data, rules);
+const errors = validation.errors.all();
+// > {'foo.bar': 1}
+
+const validation = new Validator(data, rules, {flat: false});
+const errors = validation.errors.all();
+// > {foo: {bar: 1}}
+```
 
 #### .has(attribute)
 

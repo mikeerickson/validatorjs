@@ -230,6 +230,50 @@ describe('Error messages', function() {
       expect(validation.passes()).to.be.false;
       expect(JSON.stringify(validation.errors.all())).to.equal(expected);
     });
+
+    it('should return an flat array of all email error messages', function() {
+      var validation = new Validator({
+        hair: {
+          color: 'brown',
+        }
+      }, {
+        hair: {
+          color: 'required',
+          length: 'required',
+        }
+      });
+
+      var expected = JSON.stringify({
+        'hair.length': ['The hair.length field is required.']
+      });
+
+      expect(validation.passes()).to.be.false;
+      expect(JSON.stringify(validation.errors.all())).to.equal(expected);
+    });
+
+    it('should return an unflat array of all email error messages', function() {
+      var validation = new Validator({
+        hair: {
+          color: 'brown',
+        }
+      }, {
+        hair: {
+          color: 'required',
+          length: 'required',
+        }
+      }, {
+        flat: false
+      });
+
+      var expected = JSON.stringify({
+        hair: {
+          length: ['The hair.length field is required.']
+        }
+      });
+
+      expect(validation.passes()).to.be.false;
+      expect(JSON.stringify(validation.errors.all())).to.equal(expected);
+    });
   });
 
   describe('ValidatorErrors.prototype.has()', function() {
