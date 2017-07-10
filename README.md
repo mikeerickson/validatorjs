@@ -132,6 +132,38 @@ var flattened = {
 };
 ```
 
+### WildCards rules
+
+WildCards can also be validated.
+
+```js
+var data = {
+  users:[
+	{
+		name: 'John',
+		bio: {
+			age: 28,
+			education: {
+			primary: 'Elementary School',
+			secondary: 'Secondary School'
+			}
+		}
+	}
+  ]
+};
+```
+
+We could declare our validation rules as follows:
+
+```js
+var rules = {
+  'users.*.name': 'required',
+  'users.*.bio.age': 'min:18'
+  'users.*.bio.education.primary': 'string',
+  'users.*.bio.education.secondary': 'string'
+};
+```
+
 ### Available Rules
 
 Validation rules do not have an implicit 'required'. If a field is _undefined_ or an empty string, it will pass validation. If you want a validation to fail for undefined or '', use the _required_ rule.
