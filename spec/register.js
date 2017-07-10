@@ -46,4 +46,30 @@ describe('register a custom validation rule', function() {
       return typeof val === 'string';
     }, 'The :attribute must be a string.');
   });
+
+  it('should throw error in case of unknown validator rule', function () {
+    var validator = new Validator({
+      field: 'test'
+    }, {
+      field: 'unknown'
+    });
+
+    expect(validator.passes).to.throw();
+    expect(validator.fails).to.throw();
+  });
+
+  it('should allow to add custom validator to unknown validator rules', function () {
+    Validator.registerMissedRuleValidator(function() {
+      return true;
+    });
+
+      var validator = new Validator({
+          field: 'test'
+      }, {
+          field: 'unknown'
+      });
+
+      expect(validator.passes()).to.be.true;
+      expect(validator.fails()).to.be.false;
+  });
 });
