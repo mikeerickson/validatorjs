@@ -4,7 +4,7 @@ module.exports = {
   alpha_dash: 'Le champ :attribute ne peut contenir que des caractères alphanumériques, des tirets et des underscores.',
   alpha_num: 'Le champ :attribute ne peut contenir que des caractères alphanumériques.',
   between: 'La longueur du champ :attribute doit être comprise entre :min and :max.',
-  confirmed: 'Le champ :attribute ne correspond pas.',
+  confirmed: 'Le champ :attribute n\'est pas confirmé.',
   email: 'Le champ :attribute contient un format invalide.',
   def: 'Le champ :attribute contient un attribut erroné.',
   digits: 'Le champ :attribute doit être composé de :digits chiffres.',
