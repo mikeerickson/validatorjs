@@ -40,7 +40,7 @@ var Validator = require('validatorjs');
 ### Basic Usage
 
 ```js
-var validation = new Validator(data, rules [, customErrorMessages]);
+var validation = new Validator(data, rules, [customErrorMessages]);
 ```
 
 __data__ {Object} - The data you want to validate
