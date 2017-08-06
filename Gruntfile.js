@@ -119,6 +119,13 @@ module.exports = function(grunt) {
           },
           dest: 'dist/lang/nb_NO.js'
       },
+      nlLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/nl:./lang/nl']
+        },
+        dest: 'dist/lang/nl.js'
+      },
       dist: {
         files: {
           'dist/validator.js': 'src/validator.js'
