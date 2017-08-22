@@ -1,3 +1,7 @@
+### 3.13.4
+
+* https://github.com/skaterdav85/validatorjs/issues/187
+
 ### 3.11.0
 
 * Fixes required_if (https://github.com/skaterdav85/validatorjs/pull/148)
