@@ -28,7 +28,7 @@ npm install validatorjs
 ### Browser
 
 ```html
-<script src="validator.min.js"></script>
+<script src="validator.js"></script>
 ```
 
 ### Node.js / Browserify
@@ -178,7 +178,7 @@ The field under validation must be after the given date.
 
 #### after_or_equal:date
 
-The field unter validation must be after or equal to the given field 
+The field unter validation must be after or equal to the given field
 
 #### alpha
 
@@ -516,7 +516,7 @@ Note: by default all _[] characters will be replaced with spaces.
 Error messages are in English by default. To include another language in the browser, reference the language file in a script tag and call `Validator.useLang('lang_code')`.
 
 ```html
-<script src="dist/validator.min.js"></script>
+<script src="dist/validator.js"></script>
 <script src="dist/lang/ru.js"></script>
 <script>
 	Validator.useLang('es');
