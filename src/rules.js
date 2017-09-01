@@ -339,7 +339,7 @@ var rules = {
   },
 
    after_or_equal: function(val, req){
-    var val1 = this.validator.input[req];
+    var val1 = this.validator._objectPath(this.validator.input, req);
     var val2 = val;
 
     if(!isValidDate(val1)){ return false;}
@@ -353,7 +353,7 @@ var rules = {
   },
 
   before: function(val, req){
-    var val1 = this.validator._objectPath(this.validator.input, req);;
+    var val1 = this.validator._objectPath(this.validator.input, req);
     var val2 = val;
 
     if(!isValidDate(val1)){ return false;}
@@ -367,7 +367,7 @@ var rules = {
   },
 
    before_or_equal: function(val, req){
-    var val1 = this.validator.input[req];
+    var val1 = this.validator._objectPath(this.validator.input, req);
     var val2 = val;
 
     if(!isValidDate(val1)){ return false;}

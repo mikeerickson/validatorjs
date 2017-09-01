@@ -30,7 +30,7 @@ describe('after or equal rule', function() {
 
     expect(validator.fails()).to.be.false;
     expect(validator.passes()).to.be.true;
-  
+
   });
 
   it('should pass when the comparing attribute are smaller', function() {
@@ -43,5 +43,75 @@ describe('after or equal rule', function() {
 
     expect(validator.fails()).to.be.false;
     expect(validator.passes()).to.be.true;
+  });
+
+  it('should fail when the comparing attribute doesnt exist', function() {
+    var validator = new Validator({
+      date2: '1995-08-09',
+    },{
+      date2: 'after_or_equal:date'
+    });
+
+    expect(validator.fails()).to.be.true;
+    expect(validator.passes()).to.be.false;
+    expect(validator.errors.first('date2')).to.equal('The date2 must be equal or after date.');
+  });
+
+  it('should fail if one of the 2 dates is an invalid nested path', function() {
+    var validator = new Validator({
+      payload: {
+        name: 'abc123',
+        date: '1995-08-09'
+      },
+      date2: '1994-08-09',
+    }, {
+      date2: 'after_or_equal:payload.date'
+    });
+    expect(validator.passes()).to.be.false;
+    expect(validator.fails()).to.be.true;
+    expect(validator.errors.first('date2')).to.equal('The date2 must be equal or after payload.date.');
+  });
+
+  it('should fail if one of the 2 dates is a invalid nested path with wildcards rule', function(){
+    var validator = new Validator({
+      payloads: [{
+        name: 'abc123',
+        date: '1995-08-09',
+        date2: '1994-08-09',
+      }],
+    }, {
+      'payloads.*.date2': 'after_or_equal:payloads.*.date'
+    });
+    expect(validator.passes()).to.be.false;
+    expect(validator.fails()).to.be.true;
+    expect(validator.errors.first('payloads.0.date2')).to.equal('The payloads.0.date2 must be equal or after payloads.0.date.');
+  });
+
+  it('should pass if one of the 2 dates is a nested path and equal', function() {
+    var validator = new Validator({
+      payload: {
+        name: 'abc123',
+        date: '1995-08-09'
+      },
+      date2: '1995-08-09',
+    }, {
+      date2: 'after_or_equal:payload.date'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
+
+  it('should pass if one of the 2 dates is a nested path, date is smaller and rules are wildcards', function(){
+    var validator = new Validator({
+      payloads: [{
+        name: 'abc123',
+        date: '1995-08-09',
+        date2: '1996-12-09',
+      }],
+    }, {
+      'payloads.*.date2': 'after_or_equal:payloads.*.date'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
   });
 });

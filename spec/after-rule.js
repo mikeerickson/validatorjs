@@ -58,7 +58,7 @@ describe('after rule', function() {
     expect(validator.passes()).to.be.false;
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('date2')).to.equal('The date2 must be after payload.date.');
-  })
+  });
 
   it('should fail if one of the 2 date is a invalid nested path with wildcards rule', function(){
     var validator = new Validator({
