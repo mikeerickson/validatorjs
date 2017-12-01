@@ -158,6 +158,20 @@ var replacements = {
       before_or_equal: this._getAttributeName(parameters[0])
     });
   },
+
+  /**
+   * Same replacement.
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  same: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      same: this._getAttributeName(parameters[0])
+    });
+  },
 };
 
 function formatter(attribute) {
