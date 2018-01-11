@@ -378,14 +378,17 @@ Validator.registerAsync('username_available', function(username, attribute, req,
 Then call your validator passing a callback to `fails` or `passes` like so:
 
 ```js
-let validator = new Validator({ username: 'test123' }, { username: 'required|min:3|username_available' });
+let validator = new Validator({
+	username: 'test123'
+}, {
+	username: 'required|min:3|username_available'
+});
+
 validator.passes(function() {
   // Validation passed
 });
 
-// Or call fails()
 validator.fails(function() {
-  // Error message:
   validator.errors.first('username');
 });
 ```
@@ -394,7 +397,7 @@ Note: if you attempt to call `passes` or `fails` without a callback and the vali
 
 ### Error Messages
 
-This contructor will automatically generate error messages for validation rules that failed.
+This constructor will automatically generate error messages for validation rules that failed.
 
 If there are errors, the Validator instance will have its __errors__ property object populated with the error messages for all failing attributes. The methods and properties on the __errors__ property object are:
 
@@ -534,9 +537,7 @@ You can also add your own custom language by calling `setMessages`:
 
 ```js
 Validator.setMessages('lang_code', {
-  required: 'The :attribute field is required.',
-  ....
-  ....
+  required: 'The :attribute field is required.'
 });
 ```
 
