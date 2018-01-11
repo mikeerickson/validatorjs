@@ -34,13 +34,13 @@ npm install validatorjs
 ### Node.js / Browserify
 
 ```js
-var Validator = require('validatorjs');
+let Validator = require('validatorjs');
 ```
 
 ### Basic Usage
 
 ```js
-var validation = new Validator(data, rules [, customErrorMessages]);
+let validation = new Validator(data, rules [, customErrorMessages]);
 ```
 
 __data__ {Object} - The data you want to validate
@@ -52,19 +52,19 @@ __customErrorMessages__ {Object} - Optional custom error messages to return
 #### Example 1 - Passing validation
 
 ```js
-var data = {
+let data = {
 	name: 'John',
 	email: 'johndoe@gmail.com',
 	age: 28
 };
 
-var rules = {
+let rules = {
 	name: 'required',
 	email: 'required|email',
 	age: 'min:18'
 };
 
-var validation = new Validator(data, rules);
+let validation = new Validator(data, rules);
 
 validation.passes(); // true
 validation.fails(); // false
@@ -75,7 +75,7 @@ To apply validation rules to the _data_ object, use the same object key names fo
 #### Example 2 - Failing validation
 
 ```js
-var validation = new Validator({
+let validation = new Validator({
 	name: 'D',
 	email: 'not an email address.com'
 }, {
@@ -96,7 +96,7 @@ validation.errors.get('email'); // returns an array of all email error messages
 Nested objects can also be validated. There are two ways to declare validation rules for nested objects. The first way is to declare the validation rules with a corresponding nested object structure that reflects the data. The second way is to declare validation rules with flattened key names. For example, to validate the following data:
 
 ```js
-var data = {
+let data = {
   name: 'John',
   bio: {
     age: 28,
@@ -111,7 +111,7 @@ var data = {
 We could declare our validation rules as follows:
 
 ```js
-var nested = {
+let nested = {
   name: 'required',
   bio: {
     age: 'min:18',
@@ -124,7 +124,7 @@ var nested = {
 
 // OR
 
-var flattened = {
+let flattened = {
   'name': 'required',
   'bio.age': 'min:18'
   'bio.education.primary': 'string',
@@ -137,26 +137,24 @@ var flattened = {
 WildCards can also be validated.
 
 ```js
-var data = {
-  users:[
-	{
-		name: 'John',
-		bio: {
-			age: 28,
-			education: {
-			primary: 'Elementary School',
-			secondary: 'Secondary School'
-			}
-		}
-	}
-  ]
+let data = {
+  users: [{
+    name: 'John',
+    bio: {
+      age: 28,
+      education: {
+        primary: 'Elementary School',
+        secondary: 'Secondary School'
+      }
+    }
+  }]
 };
 ```
 
 We could declare our validation rules as follows:
 
 ```js
-var rules = {
+let rules = {
   'users.*.name': 'required',
   'users.*.bio.age': 'min:18'
   'users.*.bio.education.primary': 'string',
@@ -315,7 +313,7 @@ For each backward slash that you used in your regex pattern, you must escape eac
 #### Example 3 - Regex validation
 
 ```js
-var validation = new Validator({
+let validation = new Validator({
 	name: 'Doe',
 	salary: '10,000.00',
 	yearOfBirth: '1980'
@@ -333,7 +331,7 @@ validation.passes(); // true
 #### Example 4 - Type checking validation
 
 ```js
-var validation = new Validator({
+let validation = new Validator({
 	age: 30,
 	name: ''
 }, {
@@ -380,7 +378,7 @@ Validator.registerAsync('username_available', function(username, attribute, req,
 Then call your validator passing a callback to `fails` or `passes` like so:
 
 ```js
-var validator = new Validator({ username: 'test123' }, { username: 'required|min:3|username_available' });
+let validator = new Validator({ username: 'test123' }, { username: 'required|min:3|username_available' });
 validator.passes(function() {
 	// Validation passed
 });
@@ -421,7 +419,7 @@ returns true if error messages exist for an attribute, false otherwise
 the number of validation errors
 
 ```js
-var validation = new Validator(input, rules);
+let validation = new Validator(input, rules);
 validation.errors.first('email'); // returns first error message for email attribute
 validator.errors.get('email'); // returns an array of error messages for the email attribute
 ```
@@ -431,30 +429,30 @@ validator.errors.get('email'); // returns an array of error messages for the ema
 If you need a specific error message and you don't want to override the default one, you can pass an override as the third argument to the Validator object, just like with [Laravel](http://laravel.com/docs/validation#custom-error-messages).
 
 ```js
-var input = {
+let input = {
 	name: ''
 };
 
-var rules = {
+let rules = {
 	name : 'required'
 };
 
-var validation = new Validator(input, rules, { required: 'You forgot to give a :attribute' });
+let validation = new Validator(input, rules, { required: 'You forgot to give a :attribute' });
 validation.errors.first('name'); // returns 'You forgot to give a name'
 ```
 
 Some of the validators have string and numeric versions. You can change them too.
 
 ```js
-var input = {
+let input = {
 	username: 'myusernameistoolong'
 };
 
-var rules = {
+let rules = {
 	username : 'max:16'
 };
 
-var validation = new Validator(input, rules, {
+let validation = new Validator(input, rules, {
 	max: {
 		string: 'The :attribute is too long. Max length is :max.'
 	}
@@ -466,10 +464,10 @@ validation.errors.first('username'); // returns 'The username is too long. Max l
 You can even provide error messages on a per attribute basis! Just set the message's key to 'validator.attribute'
 
 ```js
-var input = { name: '', email: '' };
-var rules = { name : 'required', email : 'required' };
+let input = { name: '', email: '' };
+let rules = { name : 'required', email : 'required' };
 
-var validation = new Validator(input, rules, {
+let validation = new Validator(input, rules, {
 	"required.email": "Without an :attribute we can't reach you!"
 });
 
@@ -482,7 +480,7 @@ validation.errors.first('email'); // returns 'Without an email we can\'t reach y
 To display a custom "friendly" attribute name in error messages, use `.setAttributeNames()`
 
 ```js
-var validator = new Validator({ name: '' }, { name: 'required' });
+let validator = new Validator({ name: '' }, { name: 'required' });
 validator.setAttributeNames({ name: 'custom_name' });
 if (validator.fails()) {
 	validator.errors.first('name'); // "The custom_name field is required."
@@ -500,7 +498,7 @@ Validator.setAttributeFormatter(function(attribute) {
 });
 
 // Or configure formatter for particular instance.
-var validator = new Validator({ first_name: '' }, { first_name: 'required' });
+let validator = new Validator({ first_name: '' }, { first_name: 'required' });
 validator.setAttributeFormatter(function(attribute) {
 	return attribute.replace(/_/g, ' ');
 });
@@ -509,7 +507,7 @@ if (validator.fails()) {
 }
 ```
 
-Note: by default all _[] characters will be replaced with spaces.
+Note: by default all _ characters will be replaced with spaces.
 
 ### Language Support
 
@@ -526,7 +524,7 @@ Error messages are in English by default. To include another language in the bro
 In Node, it will automatically pickup on the language source files.
 
 ```js
-var Validator = require('validatorjs');
+let Validator = require('validatorjs');
 Validator.useLang('ru');
 ```
 
@@ -563,7 +561,7 @@ Validator.getDefaultLang(); // returns e.g. 'en'
 Override default messages for language:
 
 ```js
-var messages = Validator.getMessages('en');
+let messages = Validator.getMessages('en');
 messages.required = 'Whoops, :attribute field is required.';
 Validator.setMessages('en', messages);
 ```
