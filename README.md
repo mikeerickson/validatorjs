@@ -53,15 +53,15 @@ __customErrorMessages__ {Object} - Optional custom error messages to return
 
 ```js
 let data = {
-	name: 'John',
-	email: 'johndoe@gmail.com',
-	age: 28
+  name: 'John',
+  email: 'johndoe@gmail.com',
+  age: 28
 };
 
 let rules = {
-	name: 'required',
-	email: 'required|email',
-	age: 'min:18'
+  name: 'required',
+  email: 'required|email',
+  age: 'min:18'
 };
 
 let validation = new Validator(data, rules);
@@ -76,11 +76,11 @@ To apply validation rules to the _data_ object, use the same object key names fo
 
 ```js
 let validation = new Validator({
-	name: 'D',
-	email: 'not an email address.com'
+  name: 'D',
+  email: 'not an email address.com'
 }, {
-	name: 'size:3',
-	email: 'required|email'
+  name: 'size:3',
+  email: 'required|email'
 });
 
 validation.fails(); // true
@@ -314,13 +314,13 @@ For each backward slash that you used in your regex pattern, you must escape eac
 
 ```js
 let validation = new Validator({
-	name: 'Doe',
-	salary: '10,000.00',
-	yearOfBirth: '1980'
+  name: 'Doe',
+  salary: '10,000.00',
+  yearOfBirth: '1980'
 }, {
-	name: 'required|size:3',
-	salary: ['required', 'regex:/^(?!0\\.00)\\d{1,3}(,\\d{3})*(\\.\\d\\d)?$/'],
-	yearOfBirth: ['required', 'regex:/^(19|20)[\\d]{2,2}$/']
+  name: 'required|size:3',
+  salary: ['required', 'regex:/^(?!0\\.00)\\d{1,3}(,\\d{3})*(\\.\\d\\d)?$/'],
+  yearOfBirth: ['required', 'regex:/^(19|20)[\\d]{2,2}$/']
 });
 
 validation.fails(); // false
@@ -332,11 +332,11 @@ validation.passes(); // true
 
 ```js
 let validation = new Validator({
-	age: 30,
-	name: ''
+  age: 30,
+  name: ''
 }, {
-	age: ['required', { 'in': [29, 30] }],
-	name: [{ required_if: ['age', 30] }]
+  age: ['required', { 'in': [29, 30] }],
+  name: [{ required_if: ['age', 30] }]
 });
 
 validation.fails(); // true
@@ -358,7 +358,7 @@ __errorMessage__ {String} - An optional string where you can specify a custom er
 
 ```js
 Validator.register('telephone', function(value, requirement, attribute) { // requirement parameter defaults to null
-	return value.match(/^\d{3}-\d{3}-\d{4}$/);
+  return value.match(/^\d{3}-\d{3}-\d{4}$/);
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
 
@@ -368,10 +368,10 @@ Register an asynchronous rule which accepts a `passes` callback:
 
 ```js
 Validator.registerAsync('username_available', function(username, attribute, req, passes) {
-	// do your database/api checks here etc
-	// then call the `passes` method where appropriate:
-	passes(); // if username is available
-	passes(false, 'Username has already been taken.'); // if username is not available
+  // do your database/api checks here etc
+  // then call the `passes` method where appropriate:
+  passes(); // if username is available
+  passes(false, 'Username has already been taken.'); // if username is not available
 });
 ```
 
@@ -380,13 +380,13 @@ Then call your validator passing a callback to `fails` or `passes` like so:
 ```js
 let validator = new Validator({ username: 'test123' }, { username: 'required|min:3|username_available' });
 validator.passes(function() {
-	// Validation passed
+  // Validation passed
 });
 
 // Or call fails()
 validator.fails(function() {
-	// Error message:
-	validator.errors.first('username');
+  // Error message:
+  validator.errors.first('username');
 });
 ```
 
@@ -430,11 +430,11 @@ If you need a specific error message and you don't want to override the default 
 
 ```js
 let input = {
-	name: ''
+  name: ''
 };
 
 let rules = {
-	name : 'required'
+  name : 'required'
 };
 
 let validation = new Validator(input, rules, { required: 'You forgot to give a :attribute' });
@@ -445,17 +445,17 @@ Some of the validators have string and numeric versions. You can change them too
 
 ```js
 let input = {
-	username: 'myusernameistoolong'
+  username: 'myusernameistoolong'
 };
 
 let rules = {
-	username : 'max:16'
+  username : 'max:16'
 };
 
 let validation = new Validator(input, rules, {
-	max: {
-		string: 'The :attribute is too long. Max length is :max.'
-	}
+  max: {
+    string: 'The :attribute is too long. Max length is :max.'
+  }
 });
 
 validation.errors.first('username'); // returns 'The username is too long. Max length is 16.'
@@ -468,7 +468,7 @@ let input = { name: '', email: '' };
 let rules = { name : 'required', email : 'required' };
 
 let validation = new Validator(input, rules, {
-	"required.email": "Without an :attribute we can't reach you!"
+  "required.email": "Without an :attribute we can't reach you!"
 });
 
 validation.errors.first('name'); // returns  'The name field is required.'
@@ -483,7 +483,7 @@ To display a custom "friendly" attribute name in error messages, use `.setAttrib
 let validator = new Validator({ name: '' }, { name: 'required' });
 validator.setAttributeNames({ name: 'custom_name' });
 if (validator.fails()) {
-	validator.errors.first('name'); // "The custom_name field is required."
+  validator.errors.first('name'); // "The custom_name field is required."
 }
 ```
 
@@ -494,16 +494,16 @@ You can also configure a custom attribute formatter:
 ```js
 // Configure global formatter.
 Validator.setAttributeFormatter(function(attribute) {
-	return attribute.replace(/_/g, ' ');
+  return attribute.replace(/_/g, ' ');
 });
 
 // Or configure formatter for particular instance.
 let validator = new Validator({ first_name: '' }, { first_name: 'required' });
 validator.setAttributeFormatter(function(attribute) {
-	return attribute.replace(/_/g, ' ');
+  return attribute.replace(/_/g, ' ');
 });
 if (validator.fails()) {
-	console.log(validator.errors.first('first_name')); // The first name field is required.
+  console.log(validator.errors.first('first_name')); // The first name field is required.
 }
 ```
 
@@ -517,7 +517,7 @@ Error messages are in English by default. To include another language in the bro
 <script src="dist/validator.js"></script>
 <script src="dist/lang/ru.js"></script>
 <script>
-	Validator.useLang('es');
+  Validator.useLang('es');
 </script>
 ```
 
@@ -534,9 +534,9 @@ You can also add your own custom language by calling `setMessages`:
 
 ```js
 Validator.setMessages('lang_code', {
-	required: 'The :attribute field is required.',
-	....
-	....
+  required: 'The :attribute field is required.',
+  ....
+  ....
 });
 ```
 
