@@ -49,7 +49,7 @@ __rules__ {Object} - Validation rules
 
 __customErrorMessages__ {Object} - Optional custom error messages to return
 
-#### Example 1 - Passing validation
+#### Example 1 - Passing Validation
 
 ```js
 let data = {
@@ -72,7 +72,7 @@ validation.fails(); // false
 
 To apply validation rules to the _data_ object, use the same object key names for the _rules_ object.
 
-#### Example 2 - Failing validation
+#### Example 2 - Failing Validation
 
 ```js
 let validation = new Validator({
@@ -91,7 +91,7 @@ validation.errors.first('email'); // 'The email format is invalid.'
 validation.errors.get('email'); // returns an array of all email error messages
 ```
 
-### Nested rules
+### Nested Rules
 
 Nested objects can also be validated. There are two ways to declare validation rules for nested objects. The first way is to declare the validation rules with a corresponding nested object structure that reflects the data. The second way is to declare validation rules with flattened key names. For example, to validate the following data:
 
@@ -132,7 +132,7 @@ let flattened = {
 };
 ```
 
-### WildCards rules
+### WildCards Rules
 
 WildCards can also be validated.
 
@@ -328,7 +328,7 @@ validation.passes(); // true
 
 ```
 
-#### Example 4 - Type checking validation
+#### Example 4 - Type Checking Validation
 
 ```js
 let validation = new Validator({
@@ -344,7 +344,7 @@ validation.passes(); // false
 
 ```
 
-### Registering Custom Validation Rules
+### Register Custom Validation Rules
 
 ```js
 Validator.register(name, callbackFn, errorMessage);
@@ -362,7 +362,7 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
 
-### Asynchronous validation
+### Asynchronous Validation
 
 Register an asynchronous rule which accepts a `passes` callback:
 
@@ -478,7 +478,7 @@ validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
 
-### Custom attribute names
+### Custom Attribute Names
 
 To display a custom "friendly" attribute name in error messages, use `.setAttributeNames()`
 
