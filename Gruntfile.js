@@ -14,6 +14,13 @@ module.exports = function(grunt) {
       }
     },
     browserify: {
+      uaLang: {
+        src: [],
+	options: {
+         require: ['./src/lang/ua:./lang/ua']
+	},
+	dest: 'dist/lang/ua.js'
+      },
       ruLang: {
         src: [],
         options: {
@@ -118,6 +125,13 @@ module.exports = function(grunt) {
               require: ['./src/lang/nb_NO:./lang/nb_NO']
           },
           dest: 'dist/lang/nb_NO.js'
+      },
+      nlLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/nl:./lang/nl']
+        },
+        dest: 'dist/lang/nl.js'
       },
       dist: {
         files: {
