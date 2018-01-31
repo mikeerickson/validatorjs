@@ -14,6 +14,13 @@ module.exports = function(grunt) {
       }
     },
     browserify: {
+      uaLang: {
+        src: [],
+	options: {
+         require: ['./src/lang/ua:./lang/ua']
+	},
+	dest: 'dist/lang/ua.js'
+      },
       ruLang: {
         src: [],
         options: {
