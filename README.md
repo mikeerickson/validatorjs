@@ -231,6 +231,9 @@ The given field must be different than the field under validation.
 
 The field under validation must be formatted as an e-mail address.
 
+#### hex
+The field under validation should be a hexadecimal format. Useful in combination with other rules, like `hex|size:6` for hex color code validation.
+
 #### in:foo,bar,...
 
 The field under validation must be included in the given list of values. The field can be an array or string.

@@ -378,9 +378,11 @@ var rules = {
     }
 
     return false;
+  },
+
+  hex: function(val) {
+    return (/^[0-9a-f]+$/i).test(val);
   }
-
-
 };
 
 var missedRuleValidator = function() {
