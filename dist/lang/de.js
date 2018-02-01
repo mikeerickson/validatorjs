@@ -16,6 +16,7 @@ module.exports = {
   digits: 'Das :attribute Feld muss :digits Stellen haben.',
   different: 'Die Felder :attribute und :different müssen sich unterscheiden.',
   'in': 'Der gewählte Wert für :attribute ist ungültig.',
+  hex: 'Das :attribute sollte hexadezimal sein',
   integer: 'Das :attribute Feld muss eine ganze Zahl sein.',
   min: {
     numeric: 'Das :attribute Feld muss mindestens :min sein.',
