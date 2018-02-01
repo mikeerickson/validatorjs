@@ -12,6 +12,7 @@ module.exports = {
   digits: 'Το πεδίο :attribute πρέπει να είναι :digits ψηφία.',
   different: 'Το πεδίο :attribute  και :different πρέπει να είναι διαφορετικά.',
   'in': 'Το επιλεγμένο :attribute δεν είναι έγκυρο.',
+  hex: 'The :attribute should have hexadecimal format',
   integer: 'Το πεδίο :attribute πρέπει να είναι ακέραιος.',
   min: {
     numeric: 'Το πεδίο :attribute πρέπει να είναι τουλάχιστον :min.',
