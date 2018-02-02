@@ -12,6 +12,7 @@ module.exports = {
   digits: 'O atributo :attribute precisa ter :digits dígitos.',
   different: 'O :attribute e :different precisam ser diferentes.',
   'in': 'O atributo selecionado :attribute é inválido.',
+  hex: 'The :attribute should have hexadecimal format',
   integer: 'O :attribute precisa ser um inteiro.',
   min: {
     numeric: 'O :attribute precisa ser no mínimo :min.',

@@ -11,6 +11,7 @@ module.exports = {
   digits: ':attribute必須是:digits位小數。',
   different: ':attribute和:different必須不同。',
   'in': '選擇的:attribute無效',
+  hex: 'The :attribute should have hexadecimal format',
   integer: ':attribute必須是一個整數。',
   min: {
     numeric: ':attribute不能小於:min。',
