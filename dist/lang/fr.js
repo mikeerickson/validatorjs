@@ -11,8 +11,8 @@ module.exports = {
   digits: 'Le champ :attribute doit être composé de :digits chiffres.',
   different: 'Les champs :attribute et :different doivent être différents.',
   'in': 'Le champ :attribute est invalide.',
-  hex: 'The :attribute should have hexadecimal format',
   integer: 'Le champ :attribute doit être un entier.',
+  hex: 'Le champ :attribute doit être au format hexadécimal.',
   min: {
     numeric: 'Le champ :attribute doit être supérieur à :min.',
     string: 'Le champ :attribute doit contenir plus de :min caractères.'
