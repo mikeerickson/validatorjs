@@ -273,9 +273,8 @@ Validator.prototype = {
       rule = typeof rulesArray[i] === 'string' ? this._extractRuleAndRuleValue(rulesArray[i]) : rulesArray[i];
       if (rule.value) {
         rule.value = this._replaceWildCards(rule.value, wildCardValues);
-        this._replaceWildCardsMessages(wildCardValues);
       }
-
+      this._replaceWildCardsMessages(wildCardValues);
       if (Rules.isAsync(rule.name)) {
         this.hasAsync = true;
       }
