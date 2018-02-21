@@ -147,4 +147,68 @@ describe('regex validation rule for most common regular expressions', function()
 
     expect(validator.fails()).to.be.true;
   });
+
+  it('should pass with the string: 12-500.00A', function() {
+    var validator = new Validator({
+      pattern: '12-500.00A'
+    }, {
+      pattern: ['regex:/^[A-Za-z0-9_\\-\\.]+$/']
+    });
+    expect(validator.passes()).to.be.true;
+  });
+
+  it('should fail with the string: 12-500.00/A', function() {
+    var validator = new Validator({
+      pattern: '12-500.00/A'
+    }, {
+      pattern: ['regex:/^[A-Za-z0-9_\\-\\.]+$/']
+    });
+    expect(validator.fails()).to.be.true;
+  });
+
+  it('should pass with the string: 12.500', function() {
+    var validator = new Validator({
+      pattern: '12.500'
+    }, {
+      pattern: ['regex:/^[A-Za-z0-9_\\-\\.]+$/i']
+    });
+    expect(validator.passes()).to.be.true;
+  });
+
+  it('should fail with the string: 12.500,00', function() {
+    var validator = new Validator({
+      pattern: '12.500,00'
+    }, {
+      pattern: ['regex:/^[A-Za-z0-9_\\-\\.]+$/i']
+    });
+    expect(validator.fails()).to.be.true;
+  });
+
+  it('should pass with the number: 12.500', function() {
+    var validator = new Validator({
+      pattern: 12.500
+    }, {
+      pattern: ['regex:/^[A-Za-z0-9_\\-\\.]+$/i']
+    });
+    expect(validator.passes()).to.be.true;
+  });
+
+  it('should fail with the number: -12.500', function() {
+    var validator = new Validator({
+      pattern: -12.500
+    }, {
+      pattern: ['regex:/^[A-Za-z0-9_\\.]+$/i']
+    });
+    expect(validator.fails()).to.be.true;
+  });
+
+  it('should pass with the number: 999', function() {
+    var validator = new Validator({
+      pattern: 999
+    }, {
+      pattern: ['regex:/^[A-Za-z0-9_\\-\\.]+$/i']
+    });
+    expect(validator.passes()).to.be.true;
+  });
+
 });
