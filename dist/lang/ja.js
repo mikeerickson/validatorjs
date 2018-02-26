@@ -12,7 +12,7 @@ module.exports = {
     digits: ':attributeは:digitsの数字のみで入力してください。',
     different: ':attributeと:differentは同じであってはなりません。',
     'in': '選択された:attributeは無効です。',
-    hex: 'The :attribute should have hexadecimal format',
+    hex: ':attributeは16進数で入力してください。',
     integer: ':attributeは整数で入力してください。',
     min        : {
         numeric : ":attributeは:min以上で入力してください。",
