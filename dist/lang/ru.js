@@ -12,7 +12,7 @@ module.exports = {
   different: 'Поля :attribute и :different должны различаться.',
   'in': 'Выбранное значение для :attribute ошибочно.',
   integer: 'Поле :attribute должно быть целым числом.',
-  hex: 'Полу :attribute должно иметь шестнадцатеричный формат',
+  hex: 'Поле :attribute должно иметь шестнадцатеричный формат',
   min: {
     numeric: 'Значение поля :attribute должно быть больше или равно :min.',
     string: 'Количество символов в поле :attribute должно быть не менее :min.'
