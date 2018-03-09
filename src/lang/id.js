@@ -15,8 +15,8 @@ module.exports = {
   digits: ':attribute harus :digits digit.',
   different: ':attribute dan :different harus berbeda.',
   'in': ':attribute tidak benar.',
-  hex: ':attribute harus berformat heksadesimal',
   integer: ':attribute harus berupa angka.',
+  hex: ':attribute harus berformat heksadesimal',
   min: {
     numeric: ':attribute minimal :min.',
     string: ':attribute minimal :min karakter.'
