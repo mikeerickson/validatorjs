@@ -36,7 +36,7 @@ module.exports = {
   required_with_all: 'حقل الصفة :attribute مطلوب حين تكون الحقول :fields غير فارغة.',
   required_without: 'حقل الصفة :attribute مطلوب حين يكون الحقل :field فارغا.',
   required_without_all: 'حقل الصفة :attribute مطلوب حين تكون الحقول :fields فارغة.',
-  same: 'The :attribute and :same fields must match.',
+  same: 'حقل الصفة :attribute و حقل الصفة :same يجب أن يتطابقا.',
   size: {
     numeric: 'الصفة :attribute يجب أن تكون :size.',
     string: 'الصفة :attribute يجب أن تكون :size حرفا.'
