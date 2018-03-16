@@ -1,4 +1,4 @@
-/*! validatorjs - v3.14.2 -  - 2018-02-01 */
+/*! validatorjs - v3.14.2 -  - 2018-03-09 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -445,8 +445,8 @@ module.exports = {
   digits: 'The :attribute must be :digits digits.',
   different: 'The :attribute and :different must be different.',
   'in': 'The selected :attribute is invalid.',
-  hex: 'The :attribute should have hexadecimal format',
   integer: 'The :attribute must be an integer.',
+  hex: 'The :attribute field should have hexadecimal format',
   min: {
     numeric: 'The :attribute must be at least :min.',
     string: 'The :attribute must be at least :min characters.'
@@ -946,7 +946,7 @@ var rules = {
     flag = flag ? flag[0] : "";
     req = req.replace(mod, "").slice(1, -1);
     req = new RegExp(req, flag);
-    return !!val.match(req);
+    return !!req.test(val);
   },
 
   date: function(val, format) {

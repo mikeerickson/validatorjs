@@ -11,8 +11,8 @@ module.exports = {
   digits: ':attribute må være på :digits siffer.',
   different: ':attribute og :different må være forskjellige.',
   'in': 'Den oppgitte verdien for :attribute er ugyldig.',
-  hex: 'The :attribute should have hexadecimal format',
   integer: ':attribute må være et heltall.',
+  hex: 'The :attribute should have hexadecimal format',
   min: {
     numeric: ':attribute må minst være :min.',
     string: ':attribute må være på minst :min tegn.'

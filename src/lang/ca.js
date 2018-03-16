@@ -11,8 +11,8 @@ module.exports = {
   digits: 'El camp :attribute pot tindre :digits dígitos.',
   email: 'El camp :attribute no es un correu válido.',
   'in': 'El camp :attribute es invàlid.',
-  hex: 'The :attribute hauria de tenir format hexadecimal',
   integer: 'El camp :attribute pot ser un nombre enter.',
+  hex: 'El camp :attribute hauria de tenir format hexadecimal',
   max: {
       numeric: 'El camp :attribute no pot ser mayor a :max.',
       string: 'El camp :attribute no pot ser mayor que :max caràcters.'
