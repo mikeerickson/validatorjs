@@ -14,12 +14,19 @@ module.exports = function(grunt) {
       }
     },
     browserify: {
+      daLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/da:./lang/da']
+        },
+        dest: 'dist/lang/da.js'
+      },
       uaLang: {
         src: [],
-	options: {
-         require: ['./src/lang/ua:./lang/ua']
-	},
-	dest: 'dist/lang/ua.js'
+        options: {
+          require: ['./src/lang/ua:./lang/ua']
+        },
+        dest: 'dist/lang/ua.js'
       },
       ruLang: {
         src: [],
