@@ -11,6 +11,7 @@ module.exports = {
   different: 'Поля :attribute і :different повинні відрізнятись.',
   'in': 'Обране значення для :attribute помилкове.',
   integer: 'Значення поля :attribute повинно бути цілим числом.',
+  hex: 'Значення поля :attribute повинно бути шістнадцяткового формату',
   min: {
     numeric: 'Значення поля :attribute повинно бути більшим або рівним :min.',
     string: 'Кількість символів в полі :attribute повинна бути не менше :min.'

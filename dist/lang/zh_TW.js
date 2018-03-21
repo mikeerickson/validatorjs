@@ -13,6 +13,7 @@ module.exports = {
   different: ':attribute和:different必須不同。',
   'in': '選擇的:attribute無效',
   integer: ':attribute必須是一個整數。',
+  hex: ':attribute 必須是十六進位格式',
   min: {
     numeric: ':attribute不能小於:min。',
     string: ':attribute的長度不能小於:min.'
@@ -23,7 +24,7 @@ module.exports = {
   },
   not_in: '所選的:attribute無效。',
   numeric: ':attribute必須是一個數字。',
-  present: 'The :attribute field must be present (but can be empty).',
+  present: ':attribute 一定要有值 (可以是空值)。',
   required: ':attribute不能空白。',
   required_if: '當:other是:value時,:attribute不能空白。',
   same: ':attribute和:same必須一致。',

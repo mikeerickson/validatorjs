@@ -12,6 +12,7 @@ module.exports = {
   different: 'Il campo :attribute e :different devo essere diversi.',
   'in': 'Il valore del campo :attribute non è valido.',
   integer: 'Il campo :attribute deve essere un valore intero.',
+  hex: 'Il campo :attribute deve essere in formato esadecimale',
   min: {
     numeric: 'Il campo :attribute deve essere maggiore o uguale di :min.',
     string: 'Il campo :attribute deve essere composto da almeno :min caratteri.'

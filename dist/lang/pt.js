@@ -13,6 +13,7 @@ module.exports = {
   different: 'O :attribute e :different precisam ser diferentes.',
   'in': 'O atributo selecionado :attribute é inválido.',
   integer: 'O :attribute precisa ser um inteiro.',
+  hex: 'The :attribute should have hexadecimal format',
   min: {
     numeric: 'O :attribute precisa ser no mínimo :min.',
     string: 'O :attribute precisa ter no mínimo :min caracteres.'

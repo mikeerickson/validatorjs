@@ -12,6 +12,7 @@ module.exports = {
     different: 'Pola :attribute i :different muszą się różnić.',
     'in': 'Pole :attribute musi należeć do zbioru :in.',
     integer: 'Pole :attribute musi być liczbą całkowitą.',
+    hex: 'The :attribute should have hexadecimal format',
     min: {
         numeric: 'Pole :attribute musi być równe conajmniej :min.',
         string: 'Pole :attribute musi zawierać conajmniej :min znaków.'

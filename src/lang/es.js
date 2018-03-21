@@ -12,6 +12,7 @@ module.exports = {
   email: 'El campo :attribute no es un correo válido.',
   'in': 'El campo :attribute es inválido.',
   integer: 'El campo :attribute debe ser un número entero.',
+  hex: 'El campo :attribute debe tener formato hexadecimal.',
   max: {
     numeric: 'El campo :attribute no debe ser mayor a :max.',
     string: 'El campo :attribute no debe ser mayor que :max caracteres.'

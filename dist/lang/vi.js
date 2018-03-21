@@ -13,6 +13,7 @@ module.exports = {
   different: 'Giá trị của hai trường :attribute và :different phải khác nhau.',
   'in': 'Giá trị được chọn của :attribute không hợp lệ.',
   integer: ':attribute phải là số nguyên.',
+  hex: 'The :attribute should have hexadecimal format',
   min: {
     numeric: ':attribute phải lớn hơn hoặc bằng :min.',
     string: ':attribute phải có ít nhất :min ký tự.'

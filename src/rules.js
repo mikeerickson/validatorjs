@@ -313,7 +313,7 @@ var rules = {
     flag = flag ? flag[0] : "";
     req = req.replace(mod, "").slice(1, -1);
     req = new RegExp(req, flag);
-    return !!val.match(req);
+    return !!req.test(val);
   },
 
   date: function(val, format) {
@@ -378,9 +378,11 @@ var rules = {
     }
 
     return false;
+  },
+
+  hex: function(val) {
+    return (/^[0-9a-f]+$/i).test(val);
   }
-
-
 };
 
 var missedRuleValidator = function() {

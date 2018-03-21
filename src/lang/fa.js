@@ -12,6 +12,7 @@ module.exports = {
   different: 'فیلد :attribute می بایست مقداری غیر از :different داشته باشد',
   'in': 'فیلد :attribute انتخاب شده صحیح نمی باشد',
   integer: 'فیلد :attribute می بایست عددی باشد',
+  hex: 'فیلد :attribute باید در فرمت مبنای ۱۶ باشد',
   min: {
     numeric: 'فیلد :attribute می بایست از :min بزرگتر باشد',
     string: 'فیلد :attribute بایستی حداقل :min کاراکتر طول داشته باشد'

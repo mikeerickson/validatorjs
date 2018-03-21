@@ -13,6 +13,7 @@ module.exports = {
   different: 'Το πεδίο :attribute  και :different πρέπει να είναι διαφορετικά.',
   'in': 'Το επιλεγμένο :attribute δεν είναι έγκυρο.',
   integer: 'Το πεδίο :attribute πρέπει να είναι ακέραιος.',
+  hex: 'Το πεδίο :attribute πρέπει να είναι σε δεκαεξαδική μορφή.',
   min: {
     numeric: 'Το πεδίο :attribute πρέπει να είναι τουλάχιστον :min.',
     string: 'Το πεδίο :attribute πρέπει να έχει τουλάχιστον :min χαρακτήρες.'

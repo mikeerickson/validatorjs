@@ -12,6 +12,7 @@ module.exports = {
   different: ':attribute ve :different farklı olmalı.',
   'in': 'Seçilen :attribute geçerli değil.',
   integer: ':attribute tam sayı olmalı.',
+  hex: 'The :attribute should have hexadecimal format',
   min: {
     numeric: ':attribute en az :min olmalı.',
     string: ':attribute en az :min karakter uzunluğunda olmalı.'
