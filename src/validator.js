@@ -293,12 +293,19 @@ Validator.prototype = {
 
     var path2 = path;
     nums.forEach(function (value) {
-      var pos = path2.indexOf('*');
+      if(Array.isArray(path2)){
+        path2 = path2[0];
+      }
+      pos = path2.indexOf('*');
       if (pos === -1) {
         return path2;
       }
       path2 = path2.substr(0, pos) + value + path2.substr(pos + 1);
     });
+    if(Array.isArray(path)){
+      path[0] = path2;
+      path2 = path;
+    }
     return path2;
   },
 
