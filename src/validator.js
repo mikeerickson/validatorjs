@@ -141,7 +141,25 @@ Validator.prototype = {
     asyncResolvers.enableFiring();
     asyncResolvers.fire();
   },
-
+    /**
+     *
+     * @returns {string} returns all error messages joined into one string, or empty string.
+     */
+  getAllMessages(){
+    try {
+      var output = [];
+      var errorsObject = this.errors.errors;
+      for (var key in errorsObject){
+        if (errorsObject.hasOwnProperty(key)){
+            var errorArray = errorsObject[key];
+            output = output.concat(errorArray)
+        }
+      }
+      return output.join(" ");
+    } catch(e){
+      return "";
+    }
+  },
   /**
    * Add failure and error message for given rule
    *
