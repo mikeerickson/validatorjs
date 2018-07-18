@@ -158,8 +158,17 @@ let rules = {
   'users.*.name': 'required',
   'users.*.bio.age': 'min:18'
   'users.*.bio.education.primary': 'string',
-  'users.*.bio.education.secondary': 'string'
+  'users.*.bio.education.secondary': 'string',
+  'users.*.bio.education.primary': 'required_with:users.*.bio.education.secondary'
 };
+```
+
+And provide custom error messages like so:
+
+```js
+let errorMessages = {
+  'required_with.users.*.bio.education.primary': 'Primary education is required when specifying secondary'
+}
 ```
 
 ### Available Rules
