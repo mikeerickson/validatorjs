@@ -14,12 +14,19 @@ module.exports = function(grunt) {
       }
     },
     browserify: {
+      daLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/da:./lang/da']
+        },
+        dest: 'dist/lang/da.js'
+      },
       uaLang: {
         src: [],
-	options: {
-         require: ['./src/lang/ua:./lang/ua']
-	},
-	dest: 'dist/lang/ua.js'
+        options: {
+          require: ['./src/lang/ua:./lang/ua']
+        },
+        dest: 'dist/lang/ua.js'
       },
       ruLang: {
         src: [],
@@ -132,6 +139,13 @@ module.exports = function(grunt) {
           require: ['./src/lang/nl:./lang/nl']
         },
         dest: 'dist/lang/nl.js'
+      },
+      roLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/ro:./lang/ro']
+        },
+        dest: 'dist/lang/ro.js'
       },
       dist: {
         files: {
