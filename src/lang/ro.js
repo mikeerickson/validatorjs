@@ -18,12 +18,12 @@ module.exports = {
     integer: ':attribute trebuie să fie un număr întreg.',
     hex: 'Câmpul :attribute trebuie să aibă format hexazecimal.',
     min: {
-      numeric: ':attribute trebuie să fie mai mare de :min.',
-      string: ':attribute trebuie să contină cel puțin :min caractere.'
+        numeric: ':attribute trebuie să fie mai mare de :min.',
+        string: ':attribute trebuie să contină cel puțin :min caractere.'
     },
     max: {
-      numeric: ':attribute nu trebuie să fie mai mare de :max.',
-      string: ':attribute poate să contină maxim :max caractere.'
+        numeric: ':attribute nu trebuie să fie mai mare de :max.',
+        string: ':attribute poate să contină maxim :max caractere.'
     },
     not_in: ':attribute selectat nu este valid.',
     numeric: ':attribute trebuie sa fie un număr.',
@@ -37,12 +37,12 @@ module.exports = {
     required_without_all: 'Câmpul :attribute este obligatoriu cănd :fields nu sunt completate.',
     same: 'Câmpurile :attribute și :same trebuie să fie egale.',
     size: {
-      numeric: ':attribute trebuie să fie :size.',
-      string: ':attribute trebuie să contina :size caractere.'
+        numeric: ':attribute trebuie să fie :size.',
+        string: ':attribute trebuie să contina :size caractere.'
     },
     string: ':attribute trebuie să fie un contina doar caractere alfabetice.',
     url: 'Formatul :attribute nu este valid.',
     regex: 'Formatul :attribute nu este valid.',
     attributes: {}
-  };
+};
   
