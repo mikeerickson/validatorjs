@@ -16,7 +16,7 @@ AsyncResolvers.prototype = {
    * @param {Rule} rule
    * @return {integer}
    */
-  add: function(rule) {
+  add: function (rule) {
     var index = this.resolversCount;
     this.resolvers[index] = rule;
     this.resolversCount++;
@@ -29,7 +29,7 @@ AsyncResolvers.prototype = {
    * @param  {integer} index
    * @return {void}
    */
-  resolve: function(index) {
+  resolve: function (index) {
     var rule = this.resolvers[index];
     if (rule.passes === true) {
       this.passed.push(rule);
@@ -46,7 +46,7 @@ AsyncResolvers.prototype = {
    *
    * @return {boolean}
    */
-  isAllResolved: function() {
+  isAllResolved: function () {
     return (this.passed.length + this.failed.length) === this.resolversCount;
   },
 
@@ -55,7 +55,7 @@ AsyncResolvers.prototype = {
    *
    * @return {void}
    */
-  fire: function() {
+  fire: function () {
 
     if (!this.firing) {
       return;
@@ -72,7 +72,7 @@ AsyncResolvers.prototype = {
    *
    * @return {void}
    */
-  enableFiring: function() {
+  enableFiring: function () {
     this.firing = true;
   }
 

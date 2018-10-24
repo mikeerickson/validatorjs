@@ -1,6 +1,6 @@
 var Attributes = require('./attributes');
 
-var Messages = function(lang, messages) {
+var Messages = function (lang, messages) {
   this.lang = lang;
   this.messages = messages;
   this.customMessages = {};
@@ -16,7 +16,7 @@ Messages.prototype = {
    * @param {object} customMessages
    * @return {void}
    */
-  _setCustom: function(customMessages) {
+  _setCustom: function (customMessages) {
     this.customMessages = customMessages || {};
   },
 
@@ -25,7 +25,7 @@ Messages.prototype = {
    *
    * @param {object} attributes
    */
-  _setAttributeNames: function(attributes) {
+  _setAttributeNames: function (attributes) {
     this.attributeNames = attributes;
   },
 
@@ -35,7 +35,7 @@ Messages.prototype = {
    * @param {fuction} func
    * @return {void}
    */
-  _setAttributeFormatter: function(func) {
+  _setAttributeFormatter: function (func) {
     this.attributeFormatter = func;
   },
 
@@ -45,7 +45,7 @@ Messages.prototype = {
    * @param  {string} attribute
    * @return {string}
    */
-  _getAttributeName: function(attribute) {
+  _getAttributeName: function (attribute) {
     var name = attribute;
     if (this.attributeNames.hasOwnProperty(attribute)) {
       return this.attributeNames[attribute];
@@ -65,7 +65,7 @@ Messages.prototype = {
    *
    * @return {object}
    */
-  all: function() {
+  all: function () {
     return this.messages;
   },
 
@@ -75,7 +75,7 @@ Messages.prototype = {
    * @param  {Rule} rule
    * @return {string}
    */
-  render: function(rule) {
+  render: function (rule) {
     if (rule.customMessage) {
       return rule.customMessage;
     }
@@ -97,7 +97,7 @@ Messages.prototype = {
    * @param  {Rule} rule
    * @return {string}
    */
-  _getTemplate: function(rule) {
+  _getTemplate: function (rule) {
 
     var messages = this.messages;
     var template = messages.def;
@@ -130,7 +130,7 @@ Messages.prototype = {
    * @param  {object} data
    * @return {string}
    */
-  _replacePlaceholders: function(rule, template, data) {
+  _replacePlaceholders: function (rule, template, data) {
     var message, attribute;
 
     data.attribute = this._getAttributeName(rule.attribute);
