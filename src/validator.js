@@ -91,10 +91,8 @@ Validator.prototype = {
    */
   checkAsync: function (passes, fails) {
     var _this = this;
-    passes = passes || function () {
-    };
-    fails = fails || function () {
-    };
+    passes = passes || function () {};
+    fails = fails || function () {};
 
     var failsOne = function (rule, message) {
       _this._addFailure(rule, message);
@@ -181,7 +179,6 @@ Validator.prototype = {
         }
       }
     }
-
     if (obj) {
       recurse(obj);
     }
@@ -296,7 +293,7 @@ Validator.prototype = {
 
     var path2 = path;
     nums.forEach(function (value) {
-      if (Array.isArray(path2)) {
+      if(Array.isArray(path2)){
         path2 = path2[0];
       }
       pos = path2.indexOf('*');
@@ -305,7 +302,7 @@ Validator.prototype = {
       }
       path2 = path2.substr(0, pos) + value + path2.substr(pos + 1);
     });
-    if (Array.isArray(path)) {
+    if(Array.isArray(path)){
       path[0] = path2;
       path2 = path;
     }
@@ -506,8 +503,7 @@ Validator.prototype = {
   fails: function (fails) {
     var async = this._checkAsync('fails', fails);
     if (async) {
-      return this.checkAsync(function () {
-      }, fails);
+      return this.checkAsync(function () {}, fails);
     }
     return !this.check();
   },
@@ -655,7 +651,7 @@ Validator.registerAsyncImplicit = function (name, fn, message) {
  * @param  {string}   message
  * @return {void}
  */
-Validator.registerMissedRuleValidator = function (fn, message) {
+Validator.registerMissedRuleValidator = function(fn, message) {
   Rules.registerMissedRuleValidator(fn, message);
 };
 
