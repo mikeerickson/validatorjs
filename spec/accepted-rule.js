@@ -17,7 +17,7 @@ describe('accepted validation rule', function() {
       }
     );
     expect(validator.passes()).to.be.true;
-    expect(validator.fails()).to.be.true;
+    expect(validator.fails()).to.be.false;
   });
 
   it('should pass if the value is on', function() {
