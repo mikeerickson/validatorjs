@@ -40,13 +40,13 @@
   "devDependencies": {
     "browserify": "^13.0.1",
     "chai": "~3.5.0",
+    "eslint": "5.8.0",
     "grunt": "1.0.1",
     "grunt-browserify": "^5.0.0",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "~1.0.1",
-    "grunt-contrib-jshint": "1.0.0",
-    "grunt-contrib-uglify": "1.0.1",
     "grunt-contrib-watch": "~1.0.0",
+    "husky": "1.1.2",
     "jit-grunt": "^0.10.0",
     "karma": "~1.1.0",
     "karma-browserify": "^5.0.5",
@@ -57,14 +57,24 @@
     "karma-mocha": "~1.1.1",
     "mocha": "~2.5.3",
     "mocha-better-spec-reporter": "github:mikeerickson/mocha-better-spec-reporter",
+    "pump": "3.0.0",
     "puppeteer": "1.9.0"
   },
   "scripts": {
     "build": "grunt dist",
+    "lint": "eslint \"./src/**/*.js\"",
+    "lint:fix": "eslint \"./src/**/*.js\" --fix",
     "test-node": "node node_modules/mocha/bin/mocha spec",
     "test-node:watch": "node node_modules/mocha/bin/mocha --watch spec",
     "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run",
-    "test": "npm run test-node && npm run test-browser"
+    "test": "npm run test-node && npm run test-browser",
+    "uglify": "uglifyjs dist/validator.js"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
+  }
 }

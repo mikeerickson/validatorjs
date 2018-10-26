@@ -15,7 +15,7 @@ module.exports = {
     string: 'Simbolių skaičius lauke :attribute turi būti tarp :min ir :max.',
     array: 'Elementų skaičius lauke :attribute turi turėti nuo :min iki :max.',
   },
-  boolean: "Lauko reikšmė :attribute turi būti 'taip' arba 'ne'.",
+  boolean: 'Lauko reikšmė :attribute turi būti \'taip\' arba \'ne\'.',
   confirmed: 'Lauko :attribute patvirtinimas nesutampa.',
   date: 'Lauko :attribute reikšmė nėra galiojanti data.',
   date_format: 'Lauko :attribute reikšmė neatitinka formato :format.',

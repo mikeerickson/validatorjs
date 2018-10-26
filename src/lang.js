@@ -1,11 +1,10 @@
-var Messages = require('./messages');
+let Messages = require('./messages');
 
 require('./lang/en');
 
-var require_method = require;
+let require_method = require;
 
-var container = {
-
+let container = {
   messages: {},
 
   /**
@@ -45,9 +44,11 @@ var container = {
   _load: function(lang) {
     if (!this.messages[lang]) {
       try {
-        var rawMessages = require_method('./lang/' + lang);
+        let rawMessages = require_method('./lang/' + lang);
         this._set(lang, rawMessages);
-      } catch (e) {}
+      } catch (e) {
+        throw new Error(e);
+      }
     }
   },
 
@@ -72,7 +73,6 @@ var container = {
     this._load(lang);
     return new Messages(lang, this.messages[lang]);
   }
-
 };
 
 module.exports = container;
