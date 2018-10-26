@@ -61,20 +61,19 @@
     "puppeteer": "1.9.0"
   },
   "scripts": {
+    "pre-commit": "npm run lint && npm run test",
     "build": "grunt dist",
     "lint": "eslint \"./src/**/*.js\"",
     "lint:fix": "eslint \"./src/**/*.js\" --fix",
     "test-node": "node node_modules/mocha/bin/mocha spec",
     "test-node:watch": "node node_modules/mocha/bin/mocha --watch spec",
     "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run",
-    "test": "npm run test-node && npm run test-browser",
-    "uglify": "uglifyjs dist/validator.js"
+    "test": "npm run test-node && npm run test-browser"
   },
   "dependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test"
+      "pre-commit": "npm run pre-commit"
     }
   }
 }
