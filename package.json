@@ -63,9 +63,8 @@
     "build": "grunt dist",
     "test-node": "node node_modules/mocha/bin/mocha spec",
     "test-node:watch": "node node_modules/mocha/bin/mocha --watch spec",
-    "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
-    "test-browser:phantom": "grunt dist && node node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
-    "test": "npm run test-node && npm run build"
+    "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run",
+    "test": "npm run test-node && npm run test-browser"
   },
   "dependencies": {}
 }
