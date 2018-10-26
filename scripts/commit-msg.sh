@@ -1,0 +1,1 @@
+echo "$1" | node_modules/.bin/commitlint
