@@ -51,13 +51,13 @@
     "karma": "~1.1.0",
     "karma-browserify": "^5.0.5",
     "karma-chai": "~0.1.0",
-    "karma-chrome-launcher": "~1.0.1",
+    "karma-chrome-launcher": "2.2.0",
     "karma-coverage": "~1.0.0",
     "karma-growl-notifications-reporter": "0.0.2",
     "karma-mocha": "~1.1.1",
-    "karma-phantomjs-launcher": "~1.0.1",
     "mocha": "~2.5.3",
-    "mocha-better-spec-reporter": "github:mikeerickson/mocha-better-spec-reporter"
+    "mocha-better-spec-reporter": "github:mikeerickson/mocha-better-spec-reporter",
+    "puppeteer": "1.9.0"
   },
   "scripts": {
     "build": "grunt dist",
