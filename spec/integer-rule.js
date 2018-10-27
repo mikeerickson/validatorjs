@@ -57,7 +57,7 @@ describe('integer fail rules', function() {
     });
     expect(validator.fails()).to.be.true;
     expect(validator.passes()).to.be.false;
-    expect(validator.errors.first('age')).to.equal('The age must be an integer.')
+    expect(validator.errors.first('age')).to.equal('The age must be an integer.');
   });
 
   it('should fail with a string value containing numbers and letters', function() {
@@ -68,7 +68,7 @@ describe('integer fail rules', function() {
     });
     expect(validator.fails()).to.be.true;
     expect(validator.passes()).to.be.false;
-    expect(validator.errors.first('age')).to.equal('The age must be an integer.')
+    expect(validator.errors.first('age')).to.equal('The age must be an integer.');
   });
 
   it('should fail with a boolean true value', function() {

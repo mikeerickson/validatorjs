@@ -19,8 +19,8 @@ describe('Validator', function () {
         [{ foo : [] }, { foo : [] }],
         [{ foo: { bar: 1 } }, { 'foo.bar' : 1 }],
         [{ foo: { bar: [] } }, { 'foo.bar' : [] }],
-        [{ foo: { bar: { fizz: "buzz" } } }, { 'foo.bar.fizz' : "buzz" }],
-        [{ foo: { bar: { fizz: ["buzz"] } } }, { 'foo.bar.fizz' : ["buzz"] }]
+        [{ foo: { bar: { fizz: 'buzz' } } }, { 'foo.bar.fizz' : 'buzz' }],
+        [{ foo: { bar: { fizz: ['buzz'] } } }, { 'foo.bar.fizz' : ['buzz'] }]
       ];
       var validator = new Validator({}, {});
 

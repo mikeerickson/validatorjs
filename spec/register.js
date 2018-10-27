@@ -63,13 +63,13 @@ describe('register a custom validation rule', function() {
       return true;
     });
 
-      var validator = new Validator({
-          field: 'test'
-      }, {
-          field: 'unknown'
-      });
+    var validator = new Validator({
+      field: 'test'
+    }, {
+      field: 'unknown'
+    });
 
-      expect(validator.passes()).to.be.true;
-      expect(validator.fails()).to.be.false;
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
   });
 });

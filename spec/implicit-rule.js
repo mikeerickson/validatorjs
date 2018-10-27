@@ -37,7 +37,7 @@ describe('implicit rule tests', function() {
             passes(false);
           }
         }, 50);
-    }, ':attribute already taken');
+      }, ':attribute already taken');
 
     var validator = new Validator({ /* empty */}, { value: 'async_null' });
     validator.fails(done);
@@ -54,7 +54,7 @@ describe('implicit rule tests', function() {
             passes(false);
           }
         }, 50);
-    }, ':attribute already taken');
+      }, ':attribute already taken');
 
     var validator = new Validator({ value: null }, { value: 'async_null' });
     validator.passes(done);

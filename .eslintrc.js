@@ -14,6 +14,8 @@ module.exports = {
     semi: ["error", "always"],
     "no-useless-escape": "off",
     "no-unused-vars": "off",
+    "no-undef": "off",
+    "no-redeclare": "off",
     "no-console": [
       "error",
       {
