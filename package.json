@@ -63,9 +63,10 @@
     "puppeteer": "1.9.0"
   },
   "scripts": {
-    "pre-commit": "npm run lint && npm run test",
+    "pre-commit": "npm run lint:spec && npm run lint && npm run test",
     "build": "grunt dist",
     "lint": "eslint \"./src/**/*.js\"",
+    "lint:spec": "eslint \"./spec/**/*.js\" --rule 'no-redeclare: off'",
     "lint:fix": "eslint \"./src/**/*.js\" --fix",
     "test-node": "node node_modules/mocha/bin/mocha spec",
     "test-node:watch": "node node_modules/mocha/bin/mocha --watch spec",
