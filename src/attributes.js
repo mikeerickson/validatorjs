@@ -55,7 +55,8 @@ var replacements = {
   required_with: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      field: this._getAttributeName(parameters[0])
+      field: this._getAttributeName(parameters[0]),
+      values: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -70,7 +71,8 @@ var replacements = {
     var parameters = rule.getParameters();
     var getAttributeName = this._getAttributeName.bind(this);
     return this._replacePlaceholders(rule, template, {
-      fields: parameters.map(getAttributeName).join(', ')
+      fields: parameters.map(getAttributeName).join(', '),
+      values: parameters.map(getAttributeName).join(', '),
     });
   },
 
@@ -84,7 +86,8 @@ var replacements = {
   required_without: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      field: this._getAttributeName(parameters[0])
+      field: this._getAttributeName(parameters[0]),
+      values: this._getAttributeName(parameters[0])
     });
   },
 
@@ -100,6 +103,7 @@ var replacements = {
     var getAttributeName = this._getAttributeName.bind(this);
     return this._replacePlaceholders(rule, template, {
       fields: parameters.map(getAttributeName).join(', ')
+      values: parameters.map(getAttributeName).join(', ')
     });
   },
 
@@ -113,7 +117,8 @@ var replacements = {
   after: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      after: this._getAttributeName(parameters[0])
+      after: this._getAttributeName(parameters[0]),
+      date: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -127,7 +132,8 @@ var replacements = {
   before: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      before: this._getAttributeName(parameters[0])
+      before: this._getAttributeName(parameters[0]),
+      date: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -141,7 +147,8 @@ var replacements = {
   after_or_equal: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      after_or_equal: this._getAttributeName(parameters[0])
+      after_or_equal: this._getAttributeName(parameters[0]),
+      date: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -155,7 +162,8 @@ var replacements = {
   before_or_equal: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      before_or_equal: this._getAttributeName(parameters[0])
+      before_or_equal: this._getAttributeName(parameters[0]),
+      date: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -169,7 +177,8 @@ var replacements = {
   same: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      same: this._getAttributeName(parameters[0])
+      same: this._getAttributeName(parameters[0]),
+      other: this._getAttributeName(parameters[0]),
     });
   },
 };
