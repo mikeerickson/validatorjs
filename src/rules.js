@@ -324,6 +324,46 @@ var rules = {
     return typeof val !== 'undefined';
   },
 
+  gt: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) > Number(val1)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  lt: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) < Number(val1)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  gte: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) >= Number(val1)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  lte: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) <= Number(val1)) {
+      return true;
+    }
+
+    return false;
+  },
+
   after: function(val, req){
     var val1 = this.validator.input[req];
     var val2 = val;

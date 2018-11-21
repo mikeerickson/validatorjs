@@ -66,7 +66,9 @@ describe('Error messages', function() {
         hours: 3,
         pin: '123',
         range: 20,
-        tweet: 'some tweet'
+        tweet: 'some tweet',
+        gt: 1,
+        lt: 2
       }, {
         age: 'min:18',
         description: 'required|min:5',
@@ -74,7 +76,9 @@ describe('Error messages', function() {
         hours: 'size:5',
         pin: 'size:4',
         range: 'max:10',
-        tweet: 'max:5'
+        tweet: 'max:5',
+        gt: 'gt:lt',
+        lt: 'lt:gt'
       });
 
       expect(validator.passes()).to.be.false;
@@ -85,6 +89,8 @@ describe('Error messages', function() {
       expect(validator.errors.first('pin')).to.equal('The pin must be 4 characters.'); // size string
       expect(validator.errors.first('range')).to.equal('The range may not be greater than 10.'); // max numeric
       expect(validator.errors.first('tweet')).to.equal('The tweet may not be greater than 5 characters.'); // max string
+      expect(validator.errors.first('gt')).to.equal('The gt must be greater than lt.'); // gt numeric
+      expect(validator.errors.first('lt')).to.equal('The lt must be less than gt.'); // lt numeric
     });
 
     it('should return a customized alpha error message', function() {

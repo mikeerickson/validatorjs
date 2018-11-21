@@ -15,9 +15,33 @@ module.exports = {
   def: 'Het :attribute veld bevat fouten.',
   digits: 'Het :attribute veld moet :digits cijfers hebben.',
   different: 'Het :attribute en :different veld moeten verschillend zijn.',
+  gt: {
+    numeric: 'De :attribute moet groter zijn dan :value.',
+    file: 'De :attribute moet groter zijn dan :value kilobytes.',
+    string: 'De :attribute moet meer dan :value karakters bevatten.',
+    array: 'De :attribute moet meer dan :value waardes bevatten.',
+  },
+  gte: {
+    numeric: 'De :attribute moet groter of gelijk zijn aan :value.',
+    file: 'De :attribute moet groter of gelijk zijn aan :value kilobytes.',
+    string: 'De :attribute moet :value karakters of meer bevatten.',
+    array: 'De :attribute moet :value waardes of meer bevatten.',
+  },
+  hex: 'Het :attribute veld moet hexadecimaal zijn',
   'in': 'De gekozen waarde voor :attribute is ongeldig.',
   integer: 'Het :attribute veld moet een geheel getal zijn.',
-  hex: 'Het :attribute veld moet hexadecimaal zijn',
+  lt :{
+    numeric: 'De :attribute moet kleiner zijn dan :value.',
+    file: 'De :attribute moet kleiner zijn dan :value kilobytes.',
+    string: 'De :attribute moet minder dan :value karakters bevatten.',
+    array: 'De :attribute moet minder dan :value waardes bevatten.',
+  },
+  lte: {
+    'numeric': 'De :attribute moet kleiner of gelijk zijn aan :value.',
+    'file': 'De :attribute moet kleiner of gelijk zijn aan :value kilobytes.',
+    'string': 'De :attribute moet :value karakters of minder bevatten.',
+    'array': 'De :attribute moet :value waardes of minder bevatten.',
+  },
   min: {
     numeric: 'Het :attribute veld moet minstens :min zijn.',
     string: 'Het :attribute veld moet minstens :min karakters bevatten.'

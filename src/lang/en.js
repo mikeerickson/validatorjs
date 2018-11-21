@@ -14,8 +14,32 @@ module.exports = {
   def: 'The :attribute attribute has errors.',
   digits: 'The :attribute must be :digits digits.',
   different: 'The :attribute and :different must be different.',
+  gt: {
+    numeric: 'The :attribute must be greater than :value.',
+    file: 'The :attribute must be greater than :value kilobytes.',
+    string: 'The :attribute must be greater than :value characters.',
+    array: 'The :attribute must have more than :value items.',
+  },
+  gte: {
+    numeric: 'The :attribute must be greater than or equal :value.',
+    file: 'The :attribute must be greater than or equal :value kilobytes.',
+    string: 'The :attribute must be greater than or equal :value characters.',
+    array: 'The :attribute must have :value items or more.',
+  },
   'in': 'The selected :attribute is invalid.',
   integer: 'The :attribute must be an integer.',
+  lt :{
+    numeric: 'The :attribute must be less than :value.',
+    file: 'The :attribute must be less than :value kilobytes.',
+    string: 'The :attribute must be less than :value characters.',
+    array: 'The :attribute must have less than :value items.',
+  },
+  lte: {
+    'numeric': 'The :attribute must be less than or equal :value.',
+    'file': 'The :attribute must be less than or equal :value kilobytes.',
+    'string': 'The :attribute must be less than or equal :value characters.',
+    'array': 'The :attribute must not have more than :value items.',
+  },
   hex: 'The :attribute field should have hexadecimal format',
   min: {
     numeric: 'The :attribute must be at least :min.',

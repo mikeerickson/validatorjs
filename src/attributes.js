@@ -15,6 +15,37 @@ var replacements = {
     });
   },
 
+  gt: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
+    });
+  },
+
+  gte: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
+    });
+  },
+  lt: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
+    });
+  },
+
+  lte: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
+    });
+  },
+
   /**
    * Required_if replacement.
    *

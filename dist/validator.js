@@ -1,4 +1,4 @@
-/*! validatorjs - v3.15.0 -  - 2018-10-26 */
+/*! validatorjs - v3.15.0 -  - 2018-11-21 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -97,6 +97,37 @@ var replacements = {
     return this._replacePlaceholders(rule, template, {
       min: parameters[0],
       max: parameters[1]
+    });
+  },
+
+  gt: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
+    });
+  },
+
+  gte: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
+    });
+  },
+  lt: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
+    });
+  },
+
+  lte: function(template, rule) {
+    var parameters = rule.getParameters();
+
+    return this._replacePlaceholders(rule, template, {
+      value: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -444,8 +475,32 @@ module.exports = {
   def: 'The :attribute attribute has errors.',
   digits: 'The :attribute must be :digits digits.',
   different: 'The :attribute and :different must be different.',
+  gt: {
+    numeric: 'The :attribute must be greater than :value.',
+    file: 'The :attribute must be greater than :value kilobytes.',
+    string: 'The :attribute must be greater than :value characters.',
+    array: 'The :attribute must have more than :value items.',
+  },
+  gte: {
+    numeric: 'The :attribute must be greater than or equal :value.',
+    file: 'The :attribute must be greater than or equal :value kilobytes.',
+    string: 'The :attribute must be greater than or equal :value characters.',
+    array: 'The :attribute must have :value items or more.',
+  },
   'in': 'The selected :attribute is invalid.',
   integer: 'The :attribute must be an integer.',
+  lt :{
+    numeric: 'The :attribute must be less than :value.',
+    file: 'The :attribute must be less than :value kilobytes.',
+    string: 'The :attribute must be less than :value characters.',
+    array: 'The :attribute must have less than :value items.',
+  },
+  lte: {
+    'numeric': 'The :attribute must be less than or equal :value.',
+    'file': 'The :attribute must be less than or equal :value kilobytes.',
+    'string': 'The :attribute must be less than or equal :value characters.',
+    'array': 'The :attribute must not have more than :value items.',
+  },
   hex: 'The :attribute field should have hexadecimal format',
   min: {
     numeric: 'The :attribute must be at least :min.',
@@ -955,6 +1010,46 @@ var rules = {
 
   present: function(val) {
     return typeof val !== 'undefined';
+  },
+
+  gt: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) > Number(val1)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  lt: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) < Number(val1)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  gte: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) >= Number(val1)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  lte: function(val, req)  {
+    var val1 = this.validator.input[req];
+
+    if (typeof val1 === 'undefined' || Number(val) <= Number(val1)) {
+      return true;
+    }
+
+    return false;
   },
 
   after: function(val, req){

@@ -234,6 +234,12 @@ The field under validation must be formatted as an e-mail address.
 #### hex
 The field under validation should be a hexadecimal format. Useful in combination with other rules, like `hex|size:6` for hex color code validation.
 
+####gt:field
+The field under validation must be greater than the given field. The two fields must be of the same type.
+
+####gte:field
+The field under validation must be greater than or equal to the given field. The two fields must be of the same type.
+
 #### in:foo,bar,...
 
 The field under validation must be included in the given list of values. The field can be an array or string.
@@ -242,8 +248,13 @@ The field under validation must be included in the given list of values. The fie
 
 The field under validation must have an integer value.
 
-#### max:value
+#### lt:field
+The field under validation must be less than the given field. The two fields must be of the same type.
 
+#### lte:field
+The field under validation must be less than or equal to the given field. The two fields must be of the same type.
+
+#### max:value
 Validate that an attribute is no greater than a given size
 
 _Note: Maximum checks are inclusive._
