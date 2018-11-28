@@ -377,7 +377,7 @@ const { knex } = require('./db.service');
 const name = 'unique';
 
 // the callback that check the value against your database or API
-const callback = (value, args, attribute, passes) => {
+const callback = async (value, args, attribute, passes) => {
   const hasMultipleArgs = args.includes(',');
   let table = null;
   let column = null;
@@ -393,21 +393,21 @@ const callback = (value, args, attribute, passes) => {
 
   if (!table) throw new Error('The table name must be specified.');
 
-  // make the query to the database or the API call
-  const query = knex
-    .select(column)
-    .from(table)
-    .where(column, value);
+  try {
+    // make the query to the database or the API call
+    const [row] = await knex
+      .select(column)
+      .from(table)
+      .where(column, value);
 
-  query
-    .then(() => {
-      // the record already exists
-      passes(false, 'The value has already been taken.');
-    })
-    .catch((error) => (/* error handling */));
-  
-  // the record doesn't exist
-  passes();
+    // the record doesn't exist
+    if (!row) return passes();
+
+    // the record already exists
+    return passes(false, 'The value has already been taken.');
+  } catch {
+    // handle error
+  }
 };
 
 Validator.registerAsync(name, callback);
