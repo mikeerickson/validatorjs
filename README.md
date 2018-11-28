@@ -367,25 +367,60 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 
 ### Asynchronous Validation
 
-Register an asynchronous rule which accepts a `passes` callback:
+Register an asynchronous rule which accepts a callback:
 
 ```js
-Validator.registerAsync('username_available', function(username, attribute, req, passes) {
-  // do your database/api checks here etc
-  // then call the `passes` method where appropriate:
-  passes(); // if username is available
-  passes(false, 'Username has already been taken.'); // if username is not available
-});
+// import your query builder, ORM or database connector
+const { knex } = require('./db.service');
+
+// the name of the rule
+const name = 'unique';
+
+// the callback that check the value against your database or API
+const callback = (value, args, attribute, passes) => {
+  const hasMultipleArgs = args.includes(',');
+  let table = null;
+  let column = null;
+
+  if (hasMultipleArgs) {
+    [table, column] = args.split(','); // unique:tablename,column
+  } else {
+    table = args;
+    // fallback: use the attribute as the column's name
+    // if args only has the tablename. eg: unique:tablename
+    column = attribute;
+  }
+
+  if (!table) throw new Error('The table name must be specified.');
+
+  // make the query to the database or the API call
+  const query = knex
+    .select(column)
+    .from(table)
+    .where(column, value);
+
+  query
+    .then(() => {
+      // the record already exists
+      passes(false, 'The value has already been taken.');
+    })
+    .catch((error) => (/* error handling */));
+  
+  // the record doesn't exist
+  passes();
+};
+
+Validator.registerAsync(name, callback);
 ```
 
 Then call your validator passing a callback to `fails` or `passes` like so:
 
 ```js
-let validator = new Validator({
-	username: 'test123'
-}, {
-	username: 'required|min:3|username_available'
-});
+// unique:tablename,column
+const data = { username: 'test123' };
+const rules = { username: 'required|min:3|unique:users,username' }
+
+let validator = new Validator(data, rules);
 
 validator.passes(function() {
   // Validation passed
@@ -394,6 +429,16 @@ validator.passes(function() {
 validator.fails(function() {
   validator.errors.first('username');
 });
+```
+
+You could also call it only with the tablename:
+
+```js
+// unique:tablename
+const data = { username: 'test123' };
+const rules = { username: 'required|min:3|unique:users' }
+
+let validator = new Validator(data, rules);
 ```
 
 Note: if you attempt to call `passes` or `fails` without a callback and the validator detects there are asynchronous validation rules, an exception will be thrown.
