@@ -36,4 +36,14 @@ describe('lt validation rule', function() {
     });
     expect(validator.passes()).to.be.true;
   });
+
+  it('should pass when values are not numbers', function() {
+    var validator = new Validator({
+      age: 'foo',
+      bar: 'something'
+    }, {
+      age: 'lt:bar'
+    });
+    expect(validator.passes()).to.be.true;
+  });
 });

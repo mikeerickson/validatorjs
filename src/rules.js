@@ -325,43 +325,31 @@ var rules = {
   },
 
   gt: function(val, req)  {
-    var val1 = this.validator.input[req];
+    var val1 = Number(this.validator.input[req]);
+    var val2 = Number(val);
 
-    if (typeof val1 === 'undefined' || Number(val) > Number(val1)) {
-      return true;
-    }
-
-    return false;
+    return isNaN(val1) || isNaN(val2) || val2 > val1;
   },
 
   lt: function(val, req)  {
-    var val1 = this.validator.input[req];
+    var val1 = Number(this.validator.input[req]);
+    var val2 = Number(val);
 
-    if (typeof val1 === 'undefined' || Number(val) < Number(val1)) {
-      return true;
-    }
-
-    return false;
+    return isNaN(val1) || isNaN(val2) || val2 < val1;
   },
 
   gte: function(val, req)  {
-    var val1 = this.validator.input[req];
+    var val1 = Number(this.validator.input[req]);
+    var val2 = Number(val);
 
-    if (typeof val1 === 'undefined' || Number(val) >= Number(val1)) {
-      return true;
-    }
-
-    return false;
+    return isNaN(val1) || isNaN(val2) || val2 >= val1;
   },
 
   lte: function(val, req)  {
-    var val1 = this.validator.input[req];
+    var val1 = Number(this.validator.input[req]);
+    var val2 = Number(val);
 
-    if (typeof val1 === 'undefined' || Number(val) <= Number(val1)) {
-      return true;
-    }
-
-    return false;
+    return isNaN(val1) || isNaN(val2) || val2 <= val1;
   },
 
   after: function(val, req){
