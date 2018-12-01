@@ -370,7 +370,7 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 Register an asynchronous rule which accepts a `passes` callback:
 
 ```js
-Validator.registerAsync('username_available', function(username, attribute, req, passes) {
+Validator.registerAsync('username_available', function(username, req, attribute, passes) {
   // do your database/api checks here etc
   // then call the `passes` method where appropriate:
   passes(); // if username is available
