@@ -21,6 +21,36 @@ describe('required with', function() {
     expect(validator.errors.first('flavour')).to.equal('The flavour field is required when desert.first is not empty.');
   });
 
+  it('should fail', function() {
+    var validator = new Validator({
+      desert: {
+        first: '',
+        second: 'icecream'
+      },
+      flavour: ''
+    }, {
+      flavour: 'required_with:desert.first,desert.second'
+    });
+    expect(validator.fails()).to.be.true;
+    expect(validator.passes()).to.be.false;
+    expect(validator.errors.first('flavour')).to.equal('The flavour field is required when desert.second is not empty.');
+  });
+
+  it('should fail', function() {
+    var validator = new Validator({
+      desert: {
+        first: 'icecream',
+        second: ''
+      },
+      flavour: ''
+    }, {
+      flavour: 'required_with:desert.first,desert.second'
+    });
+    expect(validator.fails()).to.be.true;
+    expect(validator.passes()).to.be.false;
+    expect(validator.errors.first('flavour')).to.equal('The flavour field is required when desert.first is not empty.');
+  });
+
   it('should pass', function() {
     var validator = new Validator({
       desert: {
@@ -29,6 +59,45 @@ describe('required with', function() {
       flavour: 'chocolate'
     }, {
       flavour: 'required_with:desert.first'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
+  it('should pass', function() {
+    var validator = new Validator({
+      desert: {
+        first: '',
+        second: 'icecream'
+      },
+      flavour: 'chocolate'
+    }, {
+      flavour: 'required_with:desert.first,desert.second'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
+  it('should pass', function() {
+    var validator = new Validator({
+      desert: {
+        first: 'icecream',
+        second: ''
+      },
+      flavour: 'chocolate'
+    }, {
+      flavour: 'required_with:desert.first,desert.second'
+    });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
+  it('should pass', function() {
+    var validator = new Validator({
+      desert: {
+        first: '',
+        second: ''
+      },
+      flavour: ''
+    }, {
+      flavour: 'required_with:desert.first,desert.second'
     });
     expect(validator.passes()).to.be.true;
     expect(validator.fails()).to.be.false;

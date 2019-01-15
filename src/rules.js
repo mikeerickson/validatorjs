@@ -61,8 +61,17 @@ var rules = {
   },
 
   required_with: function(val, req, attribute) {
-    if (this.validator._objectPath(this.validator.input, req)) {
-      return this.validator.getRule('required').validate(val);
+    
+    req = this.getParameters();
+
+    for(var i = 0; i < req.length; i++) {
+      if (!!this.validator._objectPath(this.validator.input, req[i])) {
+        var result = this.validator.getRule('required').validate(val);
+        if (!result) {
+          this.setFailParameter(req[i]);
+        }
+        return result;
+      }
     }
 
     return true;
@@ -477,6 +486,14 @@ Rule.prototype = {
     }
 
     return value;
+  },
+
+  setFailParameter: function(parameter) {
+    this.failParameter = parameter;
+  },
+
+  getFailParameter: function() {
+    return this.failParameter;
   },
 
   /**

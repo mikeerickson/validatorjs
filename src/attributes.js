@@ -55,7 +55,7 @@ var replacements = {
   required_with: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      field: this._getAttributeName(parameters[0])
+      field: this._getAttributeName(rule.getFailParameter())
     });
   },
 
