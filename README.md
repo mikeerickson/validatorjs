@@ -365,6 +365,14 @@ Validator.register('telephone', function(value, requirement, attribute) { // req
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
 ```
 
+### Implicit Rules
+
+By default rules do not have an implicit 'required'. To have your rule always validate including if a field is _undefined_ or an empty string use
+
+```js
+Validator.registerImplicit(name, callbackFn, errorMessage);
+```
+
 ### Asynchronous Validation
 
 Register an asynchronous rule which accepts a `passes` callback:
