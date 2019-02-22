@@ -5,6 +5,10 @@ function leapYear(year) {
 function isValidDate(inDate) {
     var valid = true;
 
+    if (inDate instanceof Date) {
+      return true;
+    }
+
     // reformat if supplied as mm.dd.yyyy (period delimiter)
     if (typeof inDate === 'string') {
       var pos = inDate.indexOf('.');
