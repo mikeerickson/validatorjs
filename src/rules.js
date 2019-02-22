@@ -6,7 +6,7 @@ function isValidDate(inDate) {
     var valid = true;
 
     if (inDate instanceof Date) {
-      return true;
+      return !isNaN(inDate);
     }
 
     // reformat if supplied as mm.dd.yyyy (period delimiter)
