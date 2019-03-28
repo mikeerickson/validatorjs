@@ -16,6 +16,21 @@ var replacements = {
   },
 
   /**
+   * Between replacement (replaces :min and :max)
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  digits_between: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      min: parameters[0],
+      max: parameters[1]
+    });
+  },
+
+  /**
    * Required_if replacement.
    *
    * @param  {string} template

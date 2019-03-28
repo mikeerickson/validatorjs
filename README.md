@@ -223,6 +223,10 @@ The field under validation must be a valid date format which is acceptable by Ja
 
 The field under validation must be numeric and must have an exact length of value.
 
+#### digits_between:min,max
+
+The field under validation must be numeric and must have length between given min and max.
+
 #### different:attribute
 
 The given field must be different than the field under validation.
