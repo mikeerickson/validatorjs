@@ -16,7 +16,7 @@ var replacements = {
   },
 
   /**
-   * Between replacement (replaces :min and :max)
+   * Digits-Between replacement (replaces :min and :max)
    *
    * @param  {string} template
    * @param  {Rule} rule
