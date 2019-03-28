@@ -13,6 +13,7 @@ module.exports = {
   date: 'Het :attribute veld moet een geldige datum zijn.',
   def: 'Het :attribute veld bevat fouten.',
   digits: 'Het :attribute veld moet :digits cijfers hebben.',
+  digits_between: ':attribute moet bestaan uit minimaal :min en maximaal :max cijfers.',
   different: 'Het :attribute en :different veld moeten verschillend zijn.',
   'in': 'De gekozen waarde voor :attribute is ongeldig.',
   integer: 'Het :attribute veld moet een geheel getal zijn.',

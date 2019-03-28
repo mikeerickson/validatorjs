@@ -9,6 +9,7 @@ module.exports = {
   date: ':attribute的日期格式錯誤。',
   def: ':attribute屬性錯誤。',
   digits: ':attribute必須是:digits位小數。',
+  digits_between: ':attribute 必須介於 :min 至 :max 位數字。',
   different: ':attribute和:different必須不同。',
   'in': '選擇的:attribute無效',
   integer: ':attribute必須是一個整數。',

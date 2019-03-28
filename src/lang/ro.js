@@ -13,6 +13,7 @@ module.exports = {
   date: ':attribute nu este un format de dată valid.',
   def: 'Atributul :attribute are erori.',
   digits: ':attribute trebuie să aibă  :digits cifre.',
+  digits_between: 'Câmpul :attribute trebuie să aibă între :min și :max cifre.',
   different: ':attribute și :different trebuie sa fie diferite.',
   'in': 'Atributul selectat :attribute nu este valid.',
   integer: ':attribute trebuie să fie un număr întreg.',

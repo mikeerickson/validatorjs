@@ -9,6 +9,7 @@ module.exports = {
   confirmed: 'La confirmación de :attribute no coincide.',
   different: 'El campo :attribute y :other deben ser diferentes.',
   digits: 'El campo :attribute debe tener :digits dígitos.',
+  digits_between: 'El campo :attribute debe tener entre :min y :max dígitos.',
   email: 'El campo :attribute no es un correo válido.',
   'in': 'El campo :attribute es inválido.',
   integer: 'El campo :attribute debe ser un número entero.',
