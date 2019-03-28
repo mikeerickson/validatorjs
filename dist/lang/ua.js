@@ -9,6 +9,7 @@ module.exports = {
   email: 'Значення поля :attribute повинно бути існуючою електронною адресою.',
   def: 'Поле :attribute містить помилки.',
   digits: 'Довжина числового поля :attribute повинна бути :digits.',
+  digits_between: 'Довжина цифрового поля :attribute повинна бути від :min до :max.',
   different: 'Поля :attribute і :different повинні відрізнятись.',
   'in': 'Обране значення для :attribute помилкове.',
   integer: 'Значення поля :attribute повинно бути цілим числом.',

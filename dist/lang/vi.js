@@ -10,6 +10,7 @@ module.exports = {
   date: ':attribute không phải là ngày hợp lệ',
   def: 'Thuộc tính :attribute có lỗi.',
   digits: ':attribute phải là số và có chiều dài bằng :digits.',
+  digits_between: 'Độ dài của trường :attribute phải nằm trong khoảng :min and :max chữ số.',
   different: 'Giá trị của hai trường :attribute và :different phải khác nhau.',
   'in': 'Giá trị được chọn của :attribute không hợp lệ.',
   integer: ':attribute phải là số nguyên.',
