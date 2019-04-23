@@ -6,6 +6,7 @@ module.exports = {
   alpha: "Dim ond llythrennau'n unig gall :attribute gynnwys.",
   alpha_dash: 'Dim ond llythrennau, rhifau a dash yn unig gall :attribute gynnwys.',
   alpha_num: 'Dim ond llythrennau a rhifau yn unig gall :attribute gynnwys.',
+  attributes: {},
   array: 'Rhaid i :attribute fod yn array.',
   before: 'Rhaid i :attribute fod yn ddyddiad sydd cyn :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',

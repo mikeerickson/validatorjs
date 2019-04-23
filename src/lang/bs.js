@@ -6,6 +6,7 @@ module.exports = {
   alpha: 'Polje :attribute može sadržati samo slova.',
   alpha_dash: 'Polje :attribute može sadržati samo slova, brojeve i povlake.',
   alpha_num: 'Polje :attribute može sadržati samo slova i brojeve.',
+  attributes: {},
   array: 'Polje :attribute mora biti niz.',
   before: 'Polje :attribute mora biti datum prije :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',

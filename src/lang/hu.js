@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: 'A(z) :attribute kizárólag betűket, számokat és kötőjeleket tartalmazhat!',
   alpha_num: 'A(z) :attribute kizárólag betűket és számokat tartalmazhat!',
   array: 'A(z) :attribute egy tömb kell, hogy legyen!',
+  attributes: {},
   before: 'A(z) :attribute :date előtti dátum kell, hogy legyen!',
   before_or_equal: 'A(z) :attribute nem lehet későbbi dátum, mint :date!',
   between: {

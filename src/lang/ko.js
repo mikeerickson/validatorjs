@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: ':attribute은(는) 문자, 숫자, 대쉬(-)만 포함할 수 있습니다.',
   alpha_num: ':attribute은(는) 문자와 숫자만 포함할 수 있습니다.',
   array: ':attribute은(는) 배열이어야 합니다.',
+  attributes: {},
   before: ':attribute은(는) :date 이전 날짜여야 합니다.',
   before_or_equal: ':attribute은(는) :date 이전 날짜이거나 같은 날짜여야 합니다.',
   between: {

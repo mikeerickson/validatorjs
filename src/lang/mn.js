@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: ':Attribute талбарт латин үсэг, тоо болон зураас оруулах боломжтой.',
   alpha_num: ':Attribute талбарт латин үсэг болон тоо оруулах боломжтой.',
   array: ':Attribute талбар массив байх шаардлагатай.',
+  attributes: {},
   before: ':Attribute талбарт :date-с өмнөх огноо оруулна уу.',
   before_or_equal: ':attribute талбарт :date эсвэл түүнээс өмнөх огноо оруулна уу.',
   between: {

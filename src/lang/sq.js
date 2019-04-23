@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: ':attribute mund të përmbajë vetëm shkronja, numra, dhe viza.',
   alpha_num: ':attribute mund të përmbajë vetëm shkronja dhe numra.',
   array: ':attribute duhet të jetë një bashkësi (array).',
+  attributes: {},
   before: ':attribute duhet të jetë datë para :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',
   between: {

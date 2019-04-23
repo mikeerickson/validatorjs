@@ -6,6 +6,7 @@ module.exports = {
   alpha: ':attribute უნდა შეიცავდეს მხოლოდ ასოებს.',
   alpha_dash: ':attribute უნდა შეიცავდეს მხოლოდ ასოებს, რიცხვებს და ტირეებს.',
   alpha_num: ':attribute უნდა შეიცავდეს მხოლოდ ასოებს და რიცხვებს.',
+  attributes: {},
   array: ':attribute უნდა იყოს მასივი.',
   before: ':attribute უნდა იყოს :date-მდე.',
   before_or_equal: ':attribute უნდა იყოს :date-მდე ან მისი ტოლი.',

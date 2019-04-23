@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: ':attribute boleh mengandungi huruf, nombor, dan sengkang.',
   alpha_num: ':attribute boleh mengandungi huruf dan nombor.',
   array: ':attribute mesti jujukan.',
+  attributes: {},
   before: ':attribute mesti tarikh sebelum :date.',
   before_or_equal: ':attribute mesti tarikh sebelum atau sama dengan :date.',
   between: {

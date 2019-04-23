@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: ' :attribute var saturēt tikai burtus, nummurus un atstarpes.',
   alpha_num: ' :attribute var tikai saturēt burtus un nummurus.',
   array: ' :attribute ir jābūt sakārtotam.',
+  attributes: {},
   before: ' :attribute ir jābūt ar datumu pirms :datums.',
   before_or_equal: ' :attribute ir jābūt ar datumu pirms vai vienādu ar :datums.',
   between: {

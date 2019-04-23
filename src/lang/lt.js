@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: 'Laukas :attribute gali turėti tik raides, skaičius ir brūkšnelius.',
   alpha_num: 'Laukas :attribute gali turėti tik raides ir skaičius.',
   array: 'Laukas :attribute turi būti masyvas.',
+  attributes: {},
   before: 'Laukas :attribute turi būti data prieš :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',
   between: {

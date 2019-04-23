@@ -6,6 +6,7 @@ module.exports = {
   alpha: 'Поле :attribute можа мець толькі літары.',
   alpha_dash: 'Поле :attribute можа мець толькі літары, лічбы і злучок.',
   alpha_num: 'Поле :attribute можа мець толькі літары і лічбы.',
+  attributes: {},
   array: 'Поле :attribute павінна быць масівам.',
   before: 'У полі :attribute павінна быць дата да :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',

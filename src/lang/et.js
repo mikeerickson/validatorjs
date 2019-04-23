@@ -6,6 +6,7 @@ module.exports = {
   alpha: ':attribute võib sisaldada vaid tähemärke.',
   alpha_dash: ':attribute võib sisaldada vaid tähti, numbreid ja kriipse.',
   alpha_num: ':attribute võib sisaldada vaid tähti ja numbreid.',
+  attributes: {},
   array: ':attribute peab olema massiiv.',
   before: ':attribute peab olema kuupäev enne :date.',
   before_or_equal: ':attribute peab olema kuupäev enne või samastuma :date.',

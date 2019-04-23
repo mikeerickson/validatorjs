@@ -5,6 +5,7 @@ module.exports = {
   alpha: 'حقل الصفة  :attribute يجب أن تحتوي على أحرف فقط',
   alpha_dash: 'حقل الصفة :attribute مسموح بأن يحتوي على حروف و أرقام و شرطة و شرطة منخفضة',
   alpha_num: 'حقل الصفة :attribute يجب أن يحتوي على أحرف و أرقام',
+  attributes: {},
   before: 'الصفة :attribute يجب أن تكون قبل :before.',
   before_or_equal: 'الصفة :attribute يجب أن تكون مساوية أو قبل الصفة :before_or_equal.',
   between: 'حقل الصفة :attribute يجب أن يكون بين :min و :max.',

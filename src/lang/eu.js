@@ -6,6 +6,7 @@ module.exports = {
   alpha: ':attribute hizkiak besterik ezin ditu izan.',
   alpha_dash: ':attribute hizkiak, zenbakiak eta marrak besterik ezin ditu izan.',
   alpha_num: ':attribute hizkiak eta zenbakiak besterik ezin ditu izan.',
+  attributes: {},
   array: ':attribute bilduma izan behar da.',
   before: ':attribute :date aurreko data izan behar da.',
   before_or_equal: ':attribute :date aurreko data edo data berdina izan behar da.',

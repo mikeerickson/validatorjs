@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: ':attribute lahko vsebuje samo črke, številke in črtice.',
   alpha_num: ':attribute lahko vsebuje samo črke in številke.',
   array: ':attribute mora biti polje.',
+  attributes: {},
   before: ':attribute mora biti pred datumom :date.',
   before_or_equal: ':attribute mora biti pred ali enak :date.',
   between: {
