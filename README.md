@@ -381,7 +381,7 @@ Validator.registerAsync('username_available', function(username, attribute, req,
 });
 ```
 
-Then call your validator passing a callback to `fails` or `passes` like so:
+Then call your validator using `checkAsync` passing `fails` and `passes` callbacks like so:
 
 ```js
 let validator = new Validator({
@@ -390,16 +390,17 @@ let validator = new Validator({
 	username: 'required|min:3|username_available'
 });
 
-validator.passes(function() {
+function passes() {
   // Validation passed
-});
+}
 
-validator.fails(function() {
+function fails() {
   validator.errors.first('username');
-});
-```
+}
 
-Note: if you attempt to call `passes` or `fails` without a callback and the validator detects there are asynchronous validation rules, an exception will be thrown.
+validator.checkAsync(passes, fails);
+
+```
 
 ### Error Messages
 
