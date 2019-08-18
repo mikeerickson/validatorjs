@@ -14,6 +14,7 @@ module.exports = {
   date: ':attribute er ikke en gyldig dato.',
   def: ':attribute attributen har fejl.',
   digits: ':attribute skal have :digits cifre.',
+  digits_between: ':attribute skal have mellem :min og :max cifre.',
   different: ':attribute og :different skal være forskellige.',
   in: 'Det valgte :attribute er ugyldigt.',
   integer: ':attribute skal være et heltal.',

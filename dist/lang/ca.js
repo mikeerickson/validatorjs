@@ -10,6 +10,7 @@ module.exports = {
   confirmed: 'La confirmació de :attribute no coincideix.',
   different: 'El camp :attribute y :other poden ser diferents.',
   digits: 'El camp :attribute pot tindre :digits dígitos.',
+  digits_between: 'El camp  :attribute ha de tenir entre :min i :max dígits.',
   email: 'El camp :attribute no es un correu válido.',
   'in': 'El camp :attribute es invàlid.',
   integer: 'El camp :attribute pot ser un nombre enter.',

@@ -1,4 +1,4 @@
-/*! validatorjs - v3.15.0 -  - 2018-10-26 */
+/*! validatorjs - v3.15.0 -  - 2019-03-28 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -93,6 +93,21 @@ var replacements = {
    * @return {string}
    */
   between: function(template, rule) {
+    var parameters = rule.getParameters();
+    return this._replacePlaceholders(rule, template, {
+      min: parameters[0],
+      max: parameters[1]
+    });
+  },
+
+  /**
+   * Digits-Between replacement (replaces :min and :max)
+   *
+   * @param  {string} template
+   * @param  {Rule} rule
+   * @return {string}
+   */
+  digits_between: function(template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       min: parameters[0],
@@ -443,6 +458,7 @@ module.exports = {
   date: 'The :attribute is not a valid date format.',
   def: 'The :attribute attribute has errors.',
   digits: 'The :attribute must be :digits digits.',
+  digits_between: 'The :attribute field must be between :min and :max digits.',
   different: 'The :attribute and :different must be different.',
   'in': 'The selected :attribute is invalid.',
   integer: 'The :attribute must be an integer.',
@@ -934,6 +950,20 @@ var rules = {
   digits: function(val, req) {
     var numericRule = this.validator.getRule('numeric');
     if (numericRule.validate(val) && String(val).length === parseInt(req)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  digits_between: function(val) {
+    var numericRule = this.validator.getRule('numeric');
+    var req = this.getParameters();
+    var valueDigitsCount = String(val).length;
+    var min = parseFloat(req[0], 10);
+    var max = parseFloat(req[1], 10);
+
+    if (numericRule.validate(val) && valueDigitsCount >= min && valueDigitsCount <= max) {
       return true;
     }
 

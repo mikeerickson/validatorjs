@@ -9,6 +9,7 @@ module.exports = {
   date: ':attribute er et ugyldig datoformat.',
   def: ':attribute attributtet har feil.',
   digits: ':attribute må være på :digits siffer.',
+  digits_between: ':attribute må være mellom :min og :max siffer.',
   different: ':attribute og :different må være forskjellige.',
   'in': 'Den oppgitte verdien for :attribute er ugyldig.',
   integer: ':attribute må være et heltall.',

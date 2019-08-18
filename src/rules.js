@@ -307,6 +307,20 @@ var rules = {
     return false;
   },
 
+  digits_between: function(val) {
+    var numericRule = this.validator.getRule('numeric');
+    var req = this.getParameters();
+    var valueDigitsCount = String(val).length;
+    var min = parseFloat(req[0], 10);
+    var max = parseFloat(req[1], 10);
+
+    if (numericRule.validate(val) && valueDigitsCount >= min && valueDigitsCount <= max) {
+      return true;
+    }
+
+    return false;
+  },
+
   regex: function(val, req) {
     var mod = /[g|i|m]{1,3}$/;
     var flag = req.match(mod);
