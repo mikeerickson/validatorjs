@@ -1,6 +1,8 @@
 validatorjs
 ===========
 
+This package is forked from skaterdav85/validatorjs, he doesn't seem to maintain it anymore
+
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
 The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).

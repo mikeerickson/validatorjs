@@ -21,10 +21,7 @@
   "main": "./src/validator.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skaterdav85/validatorjs"
-  },
-  "bugs": {
-    "url": "https://github.com/skaterdav85/validatorjs/issues?labels=bug&milestone=1&page=1&state=open"
+    "url": "https://github.com/kaareloun/validatorjs"
   },
   "keywords": [
     "validatorjs",
