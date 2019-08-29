@@ -14,6 +14,7 @@ module.exports = {
   date: ':attribute format tanggal tidak benar.',
   def: ':attribute attribute has errors.',
   digits: ':attribute harus :digits digit.',
+  digits_between: 'Isian :attribute harus antara angka :min dan :max.',
   different: ':attribute dan :different harus berbeda.',
   'in': ':attribute tidak benar.',
   integer: ':attribute harus berupa angka.',

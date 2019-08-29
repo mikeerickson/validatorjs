@@ -8,6 +8,7 @@ module.exports = {
   email: 'Il formato dell\'attributo :attribute non è valido.',
   def: 'Gli attributi del campo :attribute contengono degli errori.',
   digits: 'Il campo :attribute deve essere di :digits cifre.',
+  digits_between: 'Il campo :attribute deve essere tra :min e :max cifre.',
   different: 'Il campo :attribute e :different devo essere diversi.',
   'in': 'Il valore del campo :attribute non è valido.',
   integer: 'Il campo :attribute deve essere un valore intero.',

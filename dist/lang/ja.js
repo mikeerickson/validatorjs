@@ -14,6 +14,7 @@ module.exports = {
   date: ':attributeは正しい日付形式を入力してください',
   def: ':attributeは検証エラーが含まれています。',
   digits: ':attributeは:digitsの数字のみで入力してください。',
+  digits_between: ':attributeは、:min桁から:max桁にしてください。',
   different: ':attributeと:differentは同じであってはなりません。',
   'in': '選択された:attributeは無効です。',
   integer: ':attributeは整数で入力してください。',

@@ -13,6 +13,7 @@ module.exports = {
   date: 'The :attribute is not a valid date format.',
   def: 'The :attribute attribute has errors.',
   digits: 'The :attribute must be :digits digits.',
+  digits_between: 'The :attribute field must be between :min and :max digits.',
   different: 'The :attribute and :different must be different.',
   'in': 'The selected :attribute is invalid.',
   integer: 'The :attribute must be an integer.',

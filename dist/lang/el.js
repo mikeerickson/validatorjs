@@ -11,6 +11,7 @@ module.exports = {
   date: 'Το πεδίο :attribute δεν είναι έγκυρη ημερομηνία.',
   def: 'Το πεδίο :attribute περιέχει σφάλματα.',
   digits: 'Το πεδίο :attribute πρέπει να είναι :digits ψηφία.',
+  digits_between: 'Το πεδίο :attribute πρέπει να είναι μεταξύ :min και :max ψηφία.',
   different: 'Το πεδίο :attribute  και :different πρέπει να είναι διαφορετικά.',
   'in': 'Το επιλεγμένο :attribute δεν είναι έγκυρο.',
   integer: 'Το πεδίο :attribute πρέπει να είναι ακέραιος.',
