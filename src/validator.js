@@ -206,7 +206,7 @@ Validator.prototype = {
     }
 
     for (var i = 0, l = keys.length; i < l; i++) {
-      if (Object.hasOwnProperty.call(copy, keys[i])) {
+      if (typeof copy === 'object' && copy !== null && Object.hasOwnProperty.call(copy, keys[i])) {
         copy = copy[keys[i]];
       } else {
         return;
