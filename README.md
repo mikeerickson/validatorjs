@@ -15,12 +15,6 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 
 ## Installation
 
-Grab validatorjs from Bower, NPM, or the /dist directory on Github:
-
-```
-bower install validatorjs
-```
-
 ```
 npm install validatorjs
 ```
@@ -158,9 +152,18 @@ let rules = {
   'users.*.name': 'required',
   'users.*.bio.age': 'min:18'
   'users.*.bio.education.primary': 'string',
-  'users.*.bio.education.secondary': 'string'
+  'users.*.bio.education.secondary': 'string',
+  'users.*.bio.education.primary': 'required_with:users.*.bio.education.secondary'
 };
 ```
+
+And provide custom error messages like so:
+
+```js
+let errorMessages = {
+  'required_with.users.*.bio.education.primary': 'Primary education is required when specifying secondary'
+}
+
 
 ### Available Rules
 
@@ -304,6 +307,7 @@ The given field must match the field under validation.
 #### size:value
 
 The field under validation must have a size matching the given value. For string data, value corresponds to the number of characters. For numeric data, value corresponds to a given integer value.
+For Array data, value corresponds to Array.length.
 
 #### string
 
@@ -370,6 +374,14 @@ __errorMessage__ {String} - An optional string where you can specify a custom er
 Validator.register('telephone', function(value, requirement, attribute) { // requirement parameter defaults to null
   return value.match(/^\d{3}-\d{3}-\d{4}$/);
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
+```
+
+### Implicit Rules
+
+By default rules do not have an implicit 'required'. To have your rule always validate including if a field is _undefined_ or an empty string use
+
+```js
+Validator.registerImplicit(name, callbackFn, errorMessage);
 ```
 
 ### Asynchronous Validation
