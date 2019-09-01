@@ -172,7 +172,7 @@ Validator.prototype = {
         var isEmpty = true;
         for (var p in current) {
           isEmpty = false;
-          recurse(current[p], property ? property + "." + p : p);
+          recurse(current[p], property ? property + '.' + p : p);
         }
         if (isEmpty) {
           flattened[property] = {};
@@ -197,7 +197,7 @@ Validator.prototype = {
       return obj[path];
     }
 
-    var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
+    var keys = path.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.');
     var copy = {};
     for (var attr in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, attr)) {
@@ -371,7 +371,7 @@ Validator.prototype = {
     if (ruleString.indexOf(':') >= 0) {
       ruleArray = ruleString.split(':');
       rule.name = ruleArray[0];
-      rule.value = ruleArray.slice(1).join(":");
+      rule.value = ruleArray.slice(1).join(':');
     }
 
     return rule;

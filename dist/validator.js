@@ -1,5 +1,5 @@
 /*! validatorjs - v3.16.0 -  - 2019-08-31 */
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
   this.onFailedOne = onFailedOne;
@@ -203,7 +203,7 @@ var replacements = {
     });
   },
 
- /**
+  /**
    * After replacement.
    *
    * @param  {string} template
@@ -444,52 +444,51 @@ module.exports = container;
 
 },{"./lang/en":5,"./messages":6}],5:[function(require,module,exports){
 module.exports = {
-  accepted: "The :attribute must be accepted.",
-  after: "The :attribute must be after :after.",
-  after_or_equal: "The :attribute must be equal or after :after_or_equal.",
-  alpha: "The :attribute field must contain only alphabetic characters.",
-  alpha_dash: "The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.",
-  alpha_num: "The :attribute field must be alphanumeric.",
-  attributes: {},
-  before: "The :attribute must be before :before.",
-  before_or_equal: "The :attribute must be equal or before :before_or_equal.",
-  between: "The :attribute field must be between :min and :max.",
-  confirmed: "The :attribute confirmation does not match.",
-  email: "The :attribute format is invalid.",
-  date: "The :attribute is not a valid date format.",
-  def: "The :attribute attribute has errors.",
-  digits: "The :attribute must be :digits digits.",
-  digits_between: "The :attribute field must be between :min and :max digits.",
-  different: "The :attribute and :different must be different.",
-  in: "The selected :attribute is invalid.",
-  integer: "The :attribute must be an integer.",
-  hex: "The :attribute field should have hexadecimal format",
+  accepted: 'The :attribute must be accepted.',
+  after: 'The :attribute must be after :after.',
+  after_or_equal: 'The :attribute must be equal or after :after_or_equal.',
+  alpha: 'The :attribute field must contain only alphabetic characters.',
+  alpha_dash: 'The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.',
+  alpha_num: 'The :attribute field must be alphanumeric.',
+  before: 'The :attribute must be before :before.',
+  before_or_equal: 'The :attribute must be equal or before :before_or_equal.',
+  between: 'The :attribute field must be between :min and :max.',
+  confirmed: 'The :attribute confirmation does not match.',
+  email: 'The :attribute format is invalid.',
+  date: 'The :attribute is not a valid date format.',
+  def: 'The :attribute attribute has errors.',
+  digits: 'The :attribute must be :digits digits.',
+  digits_between: 'The :attribute field must be between :min and :max digits.',
+  different: 'The :attribute and :different must be different.',
+  in: 'The selected :attribute is invalid.',
+  integer: 'The :attribute must be an integer.',
+  hex: 'The :attribute field should have hexadecimal format',
   min: {
-    numeric: "The :attribute must be at least :min.",
-    string: "The :attribute must be at least :min characters."
+    numeric: 'The :attribute must be at least :min.',
+    string: 'The :attribute must be at least :min characters.'
   },
   max: {
-    numeric: "The :attribute may not be greater than :max.",
-    string: "The :attribute may not be greater than :max characters."
+    numeric: 'The :attribute may not be greater than :max.',
+    string: 'The :attribute may not be greater than :max characters.'
   },
-  not_in: "The selected :attribute is invalid.",
-  numeric: "The :attribute must be a number.",
-  present: "The :attribute field must be present (but can be empty).",
-  required: "The :attribute field is required.",
-  required_if: "The :attribute field is required when :other is :value.",
-  required_unless: "The :attribute field is required when :other is not :value.",
-  required_with: "The :attribute field is required when :field is not empty.",
-  required_with_all: "The :attribute field is required when :fields are not empty.",
-  required_without: "The :attribute field is required when :field is empty.",
-  required_without_all: "The :attribute field is required when :fields are empty.",
-  same: "The :attribute and :same fields must match.",
+  not_in: 'The selected :attribute is invalid.',
+  numeric: 'The :attribute must be a number.',
+  present: 'The :attribute field must be present (but can be empty).',
+  required: 'The :attribute field is required.',
+  required_if: 'The :attribute field is required when :other is :value.',
+  required_unless: 'The :attribute field is required when :other is not :value.',
+  required_with: 'The :attribute field is required when :field is not empty.',
+  required_with_all: 'The :attribute field is required when :fields are not empty.',
+  required_without: 'The :attribute field is required when :field is empty.',
+  required_without_all: 'The :attribute field is required when :fields are empty.',
+  same: 'The :attribute and :same fields must match.',
   size: {
-    numeric: "The :attribute must be :size.",
-    string: "The :attribute must be :size characters."
+    numeric: 'The :attribute must be :size.',
+    string: 'The :attribute must be :size characters.'
   },
-  string: "The :attribute must be a string.",
-  url: "The :attribute format is invalid.",
-  regex: "The :attribute format is invalid.",
+  string: 'The :attribute must be a string.',
+  url: 'The :attribute format is invalid.',
+  regex: 'The :attribute format is invalid.',
   attributes: {}
 };
 
@@ -660,10 +659,10 @@ function isValidDate(inDate) {
   }
 
   // reformat if supplied as mm.dd.yyyy (period delimiter)
-  if (typeof inDate === "string") {
-    var pos = inDate.indexOf(".");
+  if (typeof inDate === 'string') {
+    var pos = inDate.indexOf('.');
     if (pos > 0 && pos <= 6) {
-      inDate = inDate.replace(/\./g, "-");
+      inDate = inDate.replace(/\./g, '-');
     }
   }
 
@@ -701,14 +700,14 @@ var rules = {
       return false;
     }
 
-    str = String(val).replace(/\s/g, "");
+    str = String(val).replace(/\s/g, '');
     return str.length > 0 ? true : false;
   },
 
   required_if: function(val, req, attribute) {
     req = this.getParameters();
     if (this.validator._objectPath(this.validator.input, req[0]) === req[1]) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule('required').validate(val);
     }
 
     return true;
@@ -717,7 +716,7 @@ var rules = {
   required_unless: function(val, req, attribute) {
     req = this.getParameters();
     if (this.validator._objectPath(this.validator.input, req[0]) !== req[1]) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule('required').validate(val);
     }
 
     return true;
@@ -725,7 +724,7 @@ var rules = {
 
   required_with: function(val, req, attribute) {
     if (this.validator._objectPath(this.validator.input, req)) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule('required').validate(val);
     }
 
     return true;
@@ -740,7 +739,7 @@ var rules = {
       }
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule('required').validate(val);
   },
 
   required_without: function(val, req, attribute) {
@@ -748,7 +747,7 @@ var rules = {
       return true;
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule('required').validate(val);
   },
 
   required_without_all: function(val, req, attribute) {
@@ -760,7 +759,7 @@ var rules = {
       }
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule('required').validate(val);
   },
 
   boolean: function(val) {
@@ -769,10 +768,10 @@ var rules = {
       val === false ||
       val === 0 ||
       val === 1 ||
-      val === "0" ||
-      val === "1" ||
-      val === "true" ||
-      val === "false"
+      val === '0' ||
+      val === '1' ||
+      val === 'true' ||
+      val === 'false'
     );
   },
 
@@ -791,7 +790,7 @@ var rules = {
   },
 
   string: function(val, req, attribute) {
-    return typeof val === "string";
+    return typeof val === 'string';
   },
 
   sometimes: function(val) {
@@ -832,7 +831,7 @@ var rules = {
 
     num = Number(val); // tries to convert value to a number. useful if value is coming from form element
 
-    if (typeof num === "number" && !isNaN(num) && typeof val !== "boolean") {
+    if (typeof num === 'number' && !isNaN(num) && typeof val !== 'boolean') {
       return true;
     } else {
       return false;
@@ -892,7 +891,7 @@ var rules = {
       var localValue = val;
 
       for (i = 0; i < list.length; i++) {
-        if (typeof list[i] === "string") {
+        if (typeof list[i] === 'string') {
           localValue = String(val);
         }
 
@@ -923,7 +922,7 @@ var rules = {
     for (var i = 0; i < len; i++) {
       var localValue = val;
 
-      if (typeof list[i] === "string") {
+      if (typeof list[i] === 'string') {
         localValue = String(val);
       }
 
@@ -937,7 +936,7 @@ var rules = {
   },
 
   accepted: function(val) {
-    if (val === "on" || val === "yes" || val === 1 || val === "1" || val === true) {
+    if (val === 'on' || val === 'yes' || val === 1 || val === '1' || val === true) {
       return true;
     }
 
@@ -945,7 +944,7 @@ var rules = {
   },
 
   confirmed: function(val, req, key) {
-    var confirmedKey = key + "_confirmation";
+    var confirmedKey = key + '_confirmation';
 
     if (this.validator.input[confirmedKey] === val) {
       return true;
@@ -959,7 +958,7 @@ var rules = {
   },
 
   digits: function(val, req) {
-    var numericRule = this.validator.getRule("numeric");
+    var numericRule = this.validator.getRule('numeric');
     if (numericRule.validate(val) && String(val).length === parseInt(req)) {
       return true;
     }
@@ -968,7 +967,7 @@ var rules = {
   },
 
   digits_between: function(val) {
-    var numericRule = this.validator.getRule("numeric");
+    var numericRule = this.validator.getRule('numeric');
     var req = this.getParameters();
     var valueDigitsCount = String(val).length;
     var min = parseFloat(req[0], 10);
@@ -984,8 +983,8 @@ var rules = {
   regex: function(val, req) {
     var mod = /[g|i|m]{1,3}$/;
     var flag = req.match(mod);
-    flag = flag ? flag[0] : "";
-    req = req.replace(mod, "").slice(1, -1);
+    flag = flag ? flag[0] : '';
+    req = req.replace(mod, '').slice(1, -1);
     req = new RegExp(req, flag);
     return !!req.test(val);
   },
@@ -995,7 +994,7 @@ var rules = {
   },
 
   present: function(val) {
-    return typeof val !== "undefined";
+    return typeof val !== 'undefined';
   },
 
   after: function(val, req) {
@@ -1076,7 +1075,7 @@ var rules = {
 };
 
 var missedRuleValidator = function() {
-  throw new Error("Validator `" + this.name + "` is not defined!");
+  throw new Error('Validator `' + this.name + '` is not defined!');
 };
 var missedRuleMessage;
 
@@ -1101,7 +1100,7 @@ Rule.prototype = {
   validate: function(inputValue, ruleValue, attribute, callback) {
     var _this = this;
     this._setValidatingData(attribute, inputValue, ruleValue);
-    if (typeof callback === "function") {
+    if (typeof callback === 'function') {
       this.callback = callback;
       var handleResponse = function(passes, message) {
         _this.response(passes, message);
@@ -1153,11 +1152,11 @@ Rule.prototype = {
   getParameters: function() {
     var value = [];
 
-    if (typeof this.ruleValue === "string") {
-      value = this.ruleValue.split(",");
+    if (typeof this.ruleValue === 'string') {
+      value = this.ruleValue.split(',');
     }
 
-    if (typeof this.ruleValue === "number") {
+    if (typeof this.ruleValue === 'number') {
       value.push(this.ruleValue);
     }
 
@@ -1180,7 +1179,7 @@ Rule.prototype = {
       return value.length;
     }
 
-    if (typeof value === "number") {
+    if (typeof value === 'number') {
       return value;
     }
 
@@ -1197,11 +1196,11 @@ Rule.prototype = {
    * @return {string}
    */
   _getValueType: function() {
-    if (typeof this.inputValue === "number" || this.validator._hasNumericRule(this.attribute)) {
-      return "numeric";
+    if (typeof this.inputValue === 'number' || this.validator._hasNumericRule(this.attribute)) {
+      return 'numeric';
     }
 
-    return "string";
+    return 'string';
   },
 
   /**
@@ -1233,7 +1232,7 @@ Rule.prototype = {
    * @return {boolean}
    */
   isMissed: function() {
-    return typeof this.fn !== "function";
+    return typeof this.fn !== 'function';
   },
 
   get customMessage() {
@@ -1255,15 +1254,15 @@ var manager = {
    * @type {Array}
    */
   implicitRules: [
-    "required",
-    "required_if",
-    "required_unless",
-    "required_with",
-    "required_with_all",
-    "required_without",
-    "required_without_all",
-    "accepted",
-    "present"
+    'required',
+    'required_if',
+    'required_unless',
+    'required_with',
+    'required_with_all',
+    'required_without',
+    'required_without_all',
+    'accepted',
+    'present'
   ],
 
   /**
@@ -1535,7 +1534,7 @@ Validator.prototype = {
         var isEmpty = true;
         for (var p in current) {
           isEmpty = false;
-          recurse(current[p], property ? property + "." + p : p);
+          recurse(current[p], property ? property + '.' + p : p);
         }
         if (isEmpty) {
           flattened[property] = {};
@@ -1560,7 +1559,7 @@ Validator.prototype = {
       return obj[path];
     }
 
-    var keys = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "").split(".");
+    var keys = path.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.');
     var copy = {};
     for (var attr in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, attr)) {
@@ -1734,7 +1733,7 @@ Validator.prototype = {
     if (ruleString.indexOf(':') >= 0) {
       ruleArray = ruleString.split(':');
       rule.name = ruleArray[0];
-      rule.value = ruleArray.slice(1).join(":");
+      rule.value = ruleArray.slice(1).join(':');
     }
 
     return rule;
