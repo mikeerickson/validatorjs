@@ -1,14 +1,14 @@
-validatorjs
-===========
+# validatorjs
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).
+The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js.
+This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).
 
 ## Why use validatorjs?
 
 * Not dependent on any libraries.
-* Works in both the browser and Node.
+* Works in both modern browsers and Node.
 * Readable and declarative validation rules.
 * Error messages with multilingual support.
 * AMD/Require.js and CommonJS/Browserify support.
@@ -321,7 +321,7 @@ Validate that an attribute has a valid URL format
 
 The field under validation must match the given regular expression.
 
-**Note**: When using the ``regex`` pattern, it may be necessary to specify rules in an array instead of using pipe delimiters, especially if the regular expression contains a pipe character.
+**Note**: When using the `regex` pattern, it may be necessary to specify rules in an array instead of using pipe delimiters, especially if the regular expression contains a pipe character.
 For each backward slash that you used in your regex pattern, you must escape each one with another backward slash.
 
 #### Example 3 - Regex validation

@@ -1,3 +1,5 @@
+let dateTools = require('date-fns');
+
 if (typeof require !== 'undefined') {
   var Validator = require('../src/validator.js');
   var expect = require('chai').expect;
@@ -17,15 +19,18 @@ describe('date rule', function() {
       '1995-08-09T00:00:00+00:00',
       '1995-08-09T00:00:00Z',
       '1995-08-09T00:00:00.000Z',
-      (new Date())
+      new Date()
     ];
 
-    asserts.forEach(function (assert) {
-      var validator = new Validator({
-        date: assert
-      }, {
-        date: 'date'
-      });
+    asserts.forEach(function(assert) {
+      var validator = new Validator(
+        {
+          date: assert
+        },
+        {
+          date: 'date'
+        }
+      );
       expect(validator.passes()).to.be.true;
       expect(validator.fails()).to.be.false;
     });
@@ -34,38 +39,84 @@ describe('date rule', function() {
   it('should pass for correct date formats', function() {
     var validator;
 
-    validator = new Validator({passingDate: 'Friday, March 17 2017'}, {passingDate: 'date'});
+    validator = new Validator({ passingDate: 'Friday, March 17 2017' }, { passingDate: 'date' });
     expect(validator.passes()).to.be.true;
 
-    validator = new Validator({passingDate: '2017-03-18'}, {passingDate: 'date'});
+    validator = new Validator({ passingDate: '2017-03-18' }, { passingDate: 'date' });
     expect(validator.passes()).to.be.true;
 
-    validator = new Validator({passingDate: '2017-03-18'}, {passingDate: 'date'});
+    validator = new Validator({ passingDate: '2017-03-18' }, { passingDate: 'date' });
     expect(validator.passes()).to.be.true;
 
-    validator = new Validator({passingDate: '2017.03.18'}, {passingDate: 'date'});
+    validator = new Validator({ passingDate: '2017.03.18' }, { passingDate: 'date' });
     expect(validator.passes()).to.be.true;
 
-    validator = new Validator({passingDate: '2017-03-31'}, {passingDate: 'date'});
+    validator = new Validator({ passingDate: '2017-03-31' }, { passingDate: 'date' });
     expect(validator.passes()).to.be.true;
-
   });
 
   it('should fail for incorrect date formats', function() {
-
     var validator;
 
-    validator = new Validator({failDate: '2014-25-23'}, {failDate: 'date'});
+    validator = new Validator({ failDate: '2014-25-23' }, { failDate: 'date' });
     expect(validator.fails()).to.be.true;
 
-    validator = new Validator({failDate: 'foo-bar'}, {failDate: 'date'});
+    validator = new Validator({ failDate: 'foo-bar' }, { failDate: 'date' });
     expect(validator.fails()).to.be.true;
 
-    validator = new Validator({failDate: '0908 1995'}, {failDate: 'date'});
+    validator = new Validator({ failDate: '0908 1995' }, { failDate: 'date' });
     expect(validator.fails()).to.be.true;
 
-    validator = new Validator({failDate: '9/39/19'}, {failDate: 'date'});
+    validator = new Validator({ failDate: '9/39/19' }, { failDate: 'date' });
     expect(validator.fails()).to.be.true;
+  });
 
+  it('should use custom "isValidDate" rule', () => {
+    Validator.register(
+      'isValidDate',
+      (value, requirement, attribute) => {
+        return dateTools.isValid(dateTools.parseISO(value));
+      },
+      'The :attribute is not a valid date'
+    );
+
+    var validator;
+    let invalidDates = [
+      '2019-01-32',
+      '2019-02-31',
+      '2019-03-32',
+      '2019-04-31',
+      '2019-05-32',
+      '2019-06-31',
+      '2019-07-32',
+      '2019-08-32',
+      '2019-09-31',
+      '2019-10-32',
+      '2019-11-31',
+      '2019-12-32'
+    ];
+    invalidDates.forEach(dateValue => {
+      validator = new Validator({ failDate: dateValue }, { failDate: 'isValidDate' });
+      expect(validator.passes()).to.be.false;
+    });
+
+    let validDates = [
+      '2019-01-31',
+      '2019-02-28',
+      '2019-03-31',
+      '2019-04-30',
+      '2019-05-31',
+      '2019-06-30',
+      '2019-07-31',
+      '2019-08-31',
+      '2019-09-30',
+      '2019-10-31',
+      '2019-11-30',
+      '2019-12-31'
+    ];
+    validDates.forEach(dateValue => {
+      validator = new Validator({ failDate: dateValue }, { failDate: 'isValidDate' });
+      expect(validator.passes()).to.be.true;
+    });
   });
 });

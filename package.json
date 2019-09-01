@@ -38,8 +38,6 @@
     "laravel-validator-for-js"
   ],
   "devDependencies": {
-    "@commitlint/cli": "7.2.1",
-    "@commitlint/config-conventional": "7.1.2",
     "browserify": "^13.0.1",
     "chai": "~3.5.0",
     "eslint": "5.8.0",
@@ -48,7 +46,6 @@
     "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "~1.0.1",
     "grunt-contrib-watch": "~1.0.0",
-    "husky": "1.1.2",
     "jit-grunt": "^0.10.0",
     "karma": "~1.1.0",
     "karma-browserify": "^5.0.5",
@@ -74,11 +71,7 @@
     "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run",
     "test": "npm run test-node && npm run test-browser"
   },
-  "dependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pre-commit",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+  "dependencies": {
+    "date-fns": "2.0.1"
   }
 }
