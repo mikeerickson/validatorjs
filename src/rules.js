@@ -1,8 +1,24 @@
+var dateTools = require('date-fns');
+
 function leapYear(year) {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 function isValidDate(inDate) {
+  let test = inDate;
+  if (typeof inDate === 'string') {
+    let dateParsed = dateTools.parseISO(inDate);
+    if (typeof dateParsed === 'object') {
+      if (dateParsed.toString() === 'Invalid Date') {
+        return isValidDate2(inDate);
+      }
+    }
+    return dateTools.isValid(dateParsed);
+  }
+  return isValidDate2(inDate);
+}
+
+function isValidDate2(inDate) {
   var valid = true;
 
   if (inDate instanceof Date) {
@@ -16,6 +32,10 @@ function isValidDate(inDate) {
       inDate = inDate.replace(/\./g, '-');
     }
   }
+
+  // TODO: This approach is not going to work as Date conversion will always be accurate
+  // For example: 2019-02-31 will return as 2019-03-03 thus calculations will always be correct
+  // Need to devise another method of check validity
 
   var testDate = new Date(inDate);
   var yr = testDate.getFullYear();

@@ -1,5 +1,3 @@
-let dateTools = require('date-fns');
-
 if (typeof require !== 'undefined') {
   var Validator = require('../src/validator.js');
   var expect = require('chai').expect;
@@ -72,51 +70,61 @@ describe('date rule', function() {
   });
 
   it('should use custom "isValidDate" rule', () => {
-    Validator.register(
-      'isValidDate',
-      (value, requirement, attribute) => {
-        return dateTools.isValid(dateTools.parseISO(value));
-      },
-      'The :attribute is not a valid date'
-    );
+    /**
+     * NOTE
+     * this test case will only be executed via node as we will be extending to use the`date-fns` package
+     */
 
-    var validator;
-    let invalidDates = [
-      '2019-01-32',
-      '2019-02-31',
-      '2019-03-32',
-      '2019-04-31',
-      '2019-05-32',
-      '2019-06-31',
-      '2019-07-32',
-      '2019-08-32',
-      '2019-09-31',
-      '2019-10-32',
-      '2019-11-31',
-      '2019-12-32'
-    ];
-    invalidDates.forEach(dateValue => {
-      validator = new Validator({ failDate: dateValue }, { failDate: 'isValidDate' });
-      expect(validator.passes()).to.be.false;
-    });
+    if (typeof require !== 'undefined') {
+      Validator.register(
+        'isValidDate',
+        (value, requirement, attribute) => {
+          let { isValid, parseISO } = require('date-fns');
+          return isValid(parseISO(value));
+        },
+        'The :attribute is not a valid date'
+      );
 
-    let validDates = [
-      '2019-01-31',
-      '2019-02-28',
-      '2019-03-31',
-      '2019-04-30',
-      '2019-05-31',
-      '2019-06-30',
-      '2019-07-31',
-      '2019-08-31',
-      '2019-09-30',
-      '2019-10-31',
-      '2019-11-30',
-      '2019-12-31'
-    ];
-    validDates.forEach(dateValue => {
-      validator = new Validator({ failDate: dateValue }, { failDate: 'isValidDate' });
-      expect(validator.passes()).to.be.true;
-    });
+      var validator;
+      let invalidDates = [
+        '2019-01-32',
+        '2019-02-31',
+        '2019-03-32',
+        '2019-04-31',
+        '2019-05-32',
+        '2019-06-31',
+        '2019-07-32',
+        '2019-08-32',
+        '2019-09-31',
+        '2019-10-32',
+        '2019-11-31',
+        '2019-12-32'
+      ];
+      invalidDates.forEach(dateValue => {
+        validator = new Validator({ failDate: dateValue }, { failDate: 'isValidDate' });
+        expect(validator.passes()).to.be.false;
+      });
+
+      let validDates = [
+        '2019-01-31',
+        '2019-02-28',
+        '2019-03-31',
+        '2019-04-30',
+        '2019-05-31',
+        '2019-06-30',
+        '2019-07-31',
+        '2019-08-31',
+        '2019-09-30',
+        '2019-10-31',
+        '2019-11-30',
+        '2019-12-31'
+      ];
+      validDates.forEach(dateValue => {
+        validator = new Validator({ failDate: dateValue }, { failDate: 'isValidDate' });
+        expect(validator.passes()).to.be.true;
+      });
+    } else {
+      expect(true).to.be.true;
+    }
   });
 });

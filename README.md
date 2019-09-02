@@ -8,15 +8,23 @@ This library was inspired by the [Laravel framework's Validator](http://laravel.
 ## Why use validatorjs?
 
 * Not dependent on any libraries.
-* Works in both modern browsers and Node.
+* Works in both the browser and Node.
 * Readable and declarative validation rules.
 * Error messages with multilingual support.
 * AMD/Require.js and CommonJS/Browserify support.
 
 ## Installation
 
-```
+### Using npm
+
+```bash
 npm install validatorjs
+```
+
+### Using yarn
+
+```bash
+yarn add validatorjs
 ```
 
 ### Browser
@@ -28,7 +36,13 @@ npm install validatorjs
 ### Node.js / Browserify
 
 ```js
+// ES5
 let Validator = require('validatorjs');
+```
+
+```js
+// ES6
+import Validator from 'validatorjs';
 ```
 
 ### Basic Usage
@@ -152,18 +166,9 @@ let rules = {
   'users.*.name': 'required',
   'users.*.bio.age': 'min:18'
   'users.*.bio.education.primary': 'string',
-  'users.*.bio.education.secondary': 'string',
-  'users.*.bio.education.primary': 'required_with:users.*.bio.education.secondary'
+  'users.*.bio.education.secondary': 'string'
 };
 ```
-
-And provide custom error messages like so:
-
-```js
-let errorMessages = {
-  'required_with.users.*.bio.education.primary': 'Primary education is required when specifying secondary'
-}
-
 
 ### Available Rules
 
@@ -307,7 +312,6 @@ The given field must match the field under validation.
 #### size:value
 
 The field under validation must have a size matching the given value. For string data, value corresponds to the number of characters. For numeric data, value corresponds to a given integer value.
-For Array data, value corresponds to Array.length.
 
 #### string
 
@@ -321,7 +325,7 @@ Validate that an attribute has a valid URL format
 
 The field under validation must match the given regular expression.
 
-**Note**: When using the `regex` pattern, it may be necessary to specify rules in an array instead of using pipe delimiters, especially if the regular expression contains a pipe character.
+**Note**: When using the ``regex`` pattern, it may be necessary to specify rules in an array instead of using pipe delimiters, especially if the regular expression contains a pipe character.
 For each backward slash that you used in your regex pattern, you must escape each one with another backward slash.
 
 #### Example 3 - Regex validation
@@ -374,14 +378,6 @@ __errorMessage__ {String} - An optional string where you can specify a custom er
 Validator.register('telephone', function(value, requirement, attribute) { // requirement parameter defaults to null
   return value.match(/^\d{3}-\d{3}-\d{4}$/);
 }, 'The :attribute phone number is not in the format XXX-XXX-XXXX.');
-```
-
-### Implicit Rules
-
-By default rules do not have an implicit 'required'. To have your rule always validate including if a field is _undefined_ or an empty string use
-
-```js
-Validator.registerImplicit(name, callbackFn, errorMessage);
 ```
 
 ### Asynchronous Validation
@@ -589,3 +585,19 @@ let messages = Validator.getMessages('en');
 messages.required = 'Whoops, :attribute field is required.';
 Validator.setMessages('en', messages);
 ```
+
+### License
+
+Copyright &copy; 2012-2019 David Tang
+Released under the MIT license
+
+### Credits
+
+validatorjs created by David Tang
+validatorjs maintained by Mike Erickson and Contributors
+
+E-Mail: [codedungeon@gmail.com](mailto:codedungeon@gmail.com)
+
+Twitter: [@codedungeon](http://twitter.com/codedungeon)
+
+Website: [codedungeon.io](http://codedungeon.io)
