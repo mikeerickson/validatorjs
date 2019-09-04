@@ -15,7 +15,7 @@ describe('custom attribute names', function() {
     });
     validator.setAttributeNames({
       name: 'custom_name'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name field is required.');
   });
@@ -30,7 +30,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       name: 'custom_name',
       req: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name field is required when other_field is is_required.');
   });
@@ -45,7 +45,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       name: 'custom_name',
       req: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name field is required when other_field is not is_required.');
   });
@@ -60,7 +60,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       name: 'custom_name',
       req: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name field is required when other_field is not empty.');
   });
@@ -77,7 +77,7 @@ describe('custom attribute names', function() {
       name: 'custom_name',
       req1: 'other_field_1',
       req2: 'other_field_2'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name field is required when other_field_1, other_field_2 are not empty.');
   });
@@ -91,7 +91,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       name: 'custom_name',
       req: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name field is required when other_field is empty.');
   });
@@ -106,7 +106,7 @@ describe('custom attribute names', function() {
       name: 'custom_name',
       req1: 'other_field_1',
       req2: 'other_field_2'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name field is required when other_field_1, other_field_2 are empty.');
   });
@@ -121,7 +121,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       date: 'custom_name',
       other: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('date')).to.equal('The custom_name must be after other_field.');
   });
@@ -136,7 +136,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       date: 'custom_name',
       other: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('date')).to.equal('The custom_name must be before other_field.');
   });
@@ -151,7 +151,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       date: 'custom_name',
       other: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('date')).to.equal('The custom_name must be equal or after other_field.');
   });
@@ -166,7 +166,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       date: 'custom_name',
       other: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('date')).to.equal('The custom_name must be equal or before other_field.');
   });
@@ -181,7 +181,7 @@ describe('custom attribute names', function() {
     validator.setAttributeNames({
       name: 'custom_name',
       other: 'other_field'
-    })
+    });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.first('name')).to.equal('The custom_name and other_field fields must match.');
   });

@@ -11,7 +11,7 @@ module.exports = {
   digits: 'Pole :attribute może zawierać tylko cyfry ze zbioru :digits.',
   digits_between: 'Pole :attribute musi mieć od :min do :max cyfr.',
   different: 'Pola :attribute i :different muszą się różnić.',
-  'in': 'Pole :attribute musi należeć do zbioru :in.',
+  in: 'Pole :attribute musi należeć do zbioru :in.',
   integer: 'Pole :attribute musi być liczbą całkowitą.',
   hex: 'The :attribute should have hexadecimal format',
   min: {

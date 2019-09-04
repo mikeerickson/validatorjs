@@ -11,7 +11,7 @@ module.exports = {
   digits: ':attribute必須是:digits位小數。',
   digits_between: ':attribute 必須介於 :min 至 :max 位數字。',
   different: ':attribute和:different必須不同。',
-  'in': '選擇的:attribute無效',
+  in: '選擇的:attribute無效',
   integer: ':attribute必須是一個整數。',
   hex: ':attribute 必須是十六進位格式',
   min: {

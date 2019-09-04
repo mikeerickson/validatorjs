@@ -136,7 +136,7 @@ describe('regex validation rule for most common regular expressions', function()
     });
 
     expect(validator.passes()).to.be.true;
-  })
+  });
 
   it('should not be case insensitive unless specified', function() {
     var validator = new Validator({

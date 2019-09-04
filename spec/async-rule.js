@@ -170,7 +170,7 @@ describe('async rule tests', function() {
       name: 'required'
     });
     validator.fails(function() {
-      throw 'Should not be called.'
+      throw 'Should not be called.';
     });
 
     validator.passes(function() {
@@ -186,7 +186,7 @@ describe('async rule tests', function() {
       name: 'required'
     });
     validator.passes(function() {
-      throw 'Should not be called.'
+      throw 'Should not be called.';
     });
 
     validator.fails(function() {

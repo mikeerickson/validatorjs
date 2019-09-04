@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./lang/hr":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/hr":[function(require,module,exports){
 module.exports = {
   accepted: 'Polje :attribute mora biti prihvaćeno.',
   active_url: 'Polje :attribute nije ispravan URL.',
@@ -7,6 +7,7 @@ module.exports = {
   alpha: 'Polje :attribute smije sadržavati samo slova.',
   alpha_dash: 'Polje :attribute smije sadržavati samo slova, brojeve i crtice.',
   alpha_num: 'Polje :attribute smije sadržavati samo slova i brojeve.',
+  attributes: {},
   array: 'Polje :attribute mora biti niz.',
   before: 'Polje :attribute mora biti datum prije :date.',
   before_or_equal: 'Polje :attribute mora biti datum manji ili jednak :date.',
@@ -14,7 +15,7 @@ module.exports = {
     numeric: 'Polje :attribute mora biti između :min - :max.',
     file: 'Polje :attribute mora biti između :min - :max kilobajta.',
     string: 'Polje :attribute mora biti između :min - :max znakova.',
-    array: 'Polje :attribute mora imati između :min - :max stavki.',
+    array: 'Polje :attribute mora imati između :min - :max stavki.'
   },
   boolean: 'Polje :attribute mora biti false ili true.',
   confirmed: 'Potvrda polja :attribute se ne podudara.',
@@ -33,13 +34,13 @@ module.exports = {
     numeric: 'Polje :attribute mora biti veće od :value.',
     file: 'Polje :attribute mora biti veće od :value kilobajta.',
     string: 'Polje :attribute mora biti veće od :value karaktera.',
-    array: 'Polje :attribute mora biti veće od :value stavki.',
+    array: 'Polje :attribute mora biti veće od :value stavki.'
   },
   gte: {
     numeric: 'Polje :attribute mora biti veće ili jednako :value.',
     file: 'Polje :attribute mora biti veće ili jednako :value kilobajta.',
     string: 'Polje :attribute mora biti veće ili jednako :value znakova.',
-    array: 'Polje :attribute mora imati :value stavki ili više.',
+    array: 'Polje :attribute mora imati :value stavki ili više.'
   },
   image: 'Polje :attribute mora biti slika.',
   in: 'Odabrano polje :attribute nije ispravno.',
@@ -53,19 +54,19 @@ module.exports = {
     numeric: 'Polje :attribute mora biti manje od :value.',
     file: 'Polje :attribute mora biti manje od :value kilobajta.',
     string: 'Polje :attribute mora biti manje od :value znakova.',
-    array: 'Polje :attribute mora biti manje od :value stavki.',
+    array: 'Polje :attribute mora biti manje od :value stavki.'
   },
   lte: {
     numeric: 'Polje :attribute mora biti manje ili jednako :value.',
     file: 'Polje :attribute mora biti manje ili jednako :value kilobajta.',
     string: 'Polje :attribute mora biti manje ili jednako :value znakova.',
-    array: 'Polje :attribute ne smije imati više od :value stavki.',
+    array: 'Polje :attribute ne smije imati više od :value stavki.'
   },
   max: {
     numeric: 'Polje :attribute mora biti manje od :max.',
     file: 'Polje :attribute mora biti manje od :max kilobajta.',
     string: 'Polje :attribute mora sadržavati manje od :max znakova.',
-    array: 'Polje :attribute ne smije imati više od :max stavki.',
+    array: 'Polje :attribute ne smije imati više od :max stavki.'
   },
   mimes: 'Polje :attribute mora biti datoteka tipa: :values.',
   mimetypes: 'Polje :attribute mora biti datoteka tipa: :values.',
@@ -73,7 +74,7 @@ module.exports = {
     numeric: 'Polje :attribute mora biti najmanje :min.',
     file: 'Polje :attribute mora biti najmanje :min kilobajta.',
     string: 'Polje :attribute mora sadržavati najmanje :min znakova.',
-    array: 'Polje :attribute mora sadržavati najmanje :min stavki.',
+    array: 'Polje :attribute mora sadržavati najmanje :min stavki.'
   },
   not_in: 'Odabrano polje :attribute nije ispravno.',
   not_regex: 'Format polja :attribute je neispravan.',
@@ -92,13 +93,13 @@ module.exports = {
     numeric: 'Polje :attribute mora biti :size.',
     file: 'Polje :attribute mora biti :size kilobajta.',
     string: 'Polje :attribute mora biti :size znakova.',
-    array: 'Polje :attribute mora sadržavati :size stavki.',
+    array: 'Polje :attribute mora sadržavati :size stavki.'
   },
   string: 'Polje :attribute mora biti string.',
   timezone: 'Polje :attribute mora biti ispravna vremenska zona.',
   unique: 'Polje :attribute već postoji.',
   uploaded: 'Polje :attribute nije uspešno učitano.',
-  url: 'Polje :attribute nije ispravnog formata.',
+  url: 'Polje :attribute nije ispravnog formata.'
 };
 
 },{}]},{},[]);

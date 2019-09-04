@@ -15,7 +15,7 @@ module.exports = {
   digits: ':attribute harus :digits digit.',
   digits_between: 'Isian :attribute harus antara angka :min dan :max.',
   different: ':attribute dan :different harus berbeda.',
-  'in': ':attribute tidak benar.',
+  in: ':attribute tidak benar.',
   integer: ':attribute harus berupa angka.',
   hex: ':attribute harus berformat heksadesimal',
   min: {

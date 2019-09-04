@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./lang/mn":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/mn":[function(require,module,exports){
 module.exports = {
   accepted: ':Attribute баталсан байх шаардлагатай.',
   active_url: ':Attribute талбарт зөв URL хаяг оруулна уу.',
@@ -7,6 +7,7 @@ module.exports = {
   alpha: ':Attribute талбарт латин үсэг оруулна уу.',
   alpha_dash: ':Attribute талбарт латин үсэг, тоо болон зураас оруулах боломжтой.',
   alpha_num: ':Attribute талбарт латин үсэг болон тоо оруулах боломжтой.',
+  attributes: {},
   array: ':Attribute талбар массив байх шаардлагатай.',
   before: ':Attribute талбарт :date-с өмнөх огноо оруулна уу.',
   before_or_equal: ':attribute талбарт :date эсвэл түүнээс өмнөх огноо оруулна уу.',
@@ -14,7 +15,7 @@ module.exports = {
     numeric: ':Attribute талбарт :min-:max хооронд тоо оруулна уу.',
     file: ':Attribute талбарт :min-:max килобайт хэмжээтэй файл оруулна уу.',
     string: ':Attribute талбарт :min-:max урттай текст оруулна уу.',
-    array: ':Attribute массивт :min-:max элемэнт байх шаардлагатай.',
+    array: ':Attribute массивт :min-:max элемэнт байх шаардлагатай.'
   },
   boolean: ':Attribute талбарын утга үнэн эсвэл худал байх шаардлагатай.',
   confirmed: ':Attribute талбарын баталагажуулалт тохирохгүй байна.',
@@ -33,13 +34,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: ':Attribute талбарт зураг оруулна уу.',
   in: 'Сонгогдсон :attribute буруу байна.',
@@ -53,19 +54,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: ':Attribute талбарт :max буюу түүнээс бага утга оруулна уу.',
     file: ':Attribute талбарт :max килобайтаас бага хэмжээтэй файл оруулна уу.',
     string: ':Attribute талбарт :max-с бага урттай текст оруулна уу.',
-    array: ':Attribute талбарт хамгийн ихдээ :max элемэнт оруулах боломжтой.',
+    array: ':Attribute талбарт хамгийн ихдээ :max элемэнт оруулах боломжтой.'
   },
   mimes: ':Attribute талбарт дараах төрлийн файл оруулах боломжтой: :values.',
   mimetypes: ':Attribute талбарт дараах төрлийн файл оруулах боломжтой: :values.',
@@ -73,7 +74,7 @@ module.exports = {
     numeric: ':Attribute талбарт :min буюу түүнээс их тоо оруулна уу.',
     file: ':Attribute талбарт :min килобайтаас их хэмжээтэй файл оруулна уу.',
     string: ':Attribute талбарт :min буюу түүнээс их үсэг бүхий текст оруулна уу.',
-    array: ':Attribute талбарт хамгийн багадаа :min элемэнт оруулах боломжтой.',
+    array: ':Attribute талбарт хамгийн багадаа :min элемэнт оруулах боломжтой.'
   },
   not_in: 'Буруу :attribute сонгогдсон байна.',
   not_regex: 'The :attribute format is invalid.',
@@ -92,13 +93,13 @@ module.exports = {
     numeric: ':Attribute :size хэмжээтэй байх шаардлагатай.',
     file: ':Attribute :size килобайт хэмжээтэй байх шаардлагатай.',
     string: ':Attribute :size тэмдэгтийн урттай байх шаардлагатай.',
-    array: ':Attribute :size элемэнттэй байх шаардлагатай.',
+    array: ':Attribute :size элемэнттэй байх шаардлагатай.'
   },
   string: ':Attribute талбарт текст оруулна уу.',
   timezone: ':Attribute талбарт зөв цагийн бүс оруулна уу.',
   unique: 'Оруулсан :attribute аль хэдий нь бүртгэгдсэн байна.',
   uploaded: ':Attribute талбарт оруулсан файлыг хуулхад алдаа гарлаа.',
-  url: ':Attribute зөв url хаяг оруулна уу.',
+  url: ':Attribute зөв url хаяг оруулна уу.'
 };
 
 },{}]},{},[]);

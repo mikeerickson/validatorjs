@@ -6,6 +6,7 @@ module.exports = {
   alpha: ':attribute უნდა შეიცავდეს მხოლოდ ასოებს.',
   alpha_dash: ':attribute უნდა შეიცავდეს მხოლოდ ასოებს, რიცხვებს და ტირეებს.',
   alpha_num: ':attribute უნდა შეიცავდეს მხოლოდ ასოებს და რიცხვებს.',
+  attributes: {},
   array: ':attribute უნდა იყოს მასივი.',
   before: ':attribute უნდა იყოს :date-მდე.',
   before_or_equal: ':attribute უნდა იყოს :date-მდე ან მისი ტოლი.',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: ':attribute უნდა იყოს :min-სა და :max-ს შორის.',
     file: ':attribute უნდა იყოს :min-სა და :max კილობაიტს შორის.',
     string: ':attribute უნდა იყოს :min-სა და :max სიმბოლოს შორის.',
-    array: ':attribute-ის რაოდენობა უნდა იყოს :min-დან :max-მდე.',
+    array: ':attribute-ის რაოდენობა უნდა იყოს :min-დან :max-მდე.'
   },
   boolean: ':attribute უნდა იყოს true, false, 0 ან 1.',
   confirmed: ':attribute არ ემთხვევა დადასტურებას.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: ':attribute უნდა იყოს :value-ზე მეტი.',
     file: ':attribute უნდა იყოს :value კილობაიტზე მეტი.',
     string: ':attribute უნდა შეიცავდეს :value სიმბოლოზე მეტს.',
-    array: ':attribute უნდა შეიცავლდეს :value ელემენტზე მეტს.',
+    array: ':attribute უნდა შეიცავლდეს :value ელემენტზე მეტს.'
   },
   gte: {
     numeric: ':attribute უნდა იყოს მინიმუმ :value.',
     file: ':attribute უნდა იყოს მინიმუმ :value კილობაიტი.',
     string: ':attribute უნდა შეიცავდეს მინიმუმ :value სიმბოლოს.',
-    array: ':attribute უნდა შეიცავდეს მინიმუმ :value ელემენტს.',
+    array: ':attribute უნდა შეიცავდეს მინიმუმ :value ელემენტს.'
   },
   image: ':attribute უნდა იყოს სურათი.',
   in: 'მითითებული :attribute არასწორია.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: ':attribute უნდა იყოს :value-ზე ნაკლები.',
     file: ':attribute უნდა იყოს :value კილობაიტზე ნაკლები.',
     string: ':attribute უნდა შეიცავდეს :value სიმბოლოზე ნაკლებს.',
-    array: ':attribute უნდა შეიცავლდეს :value ელემენტზე ნაკლებს.',
+    array: ':attribute უნდა შეიცავლდეს :value ელემენტზე ნაკლებს.'
   },
   lte: {
     numeric: ':attribute უნდა იყოს მაქსიმუმ :value.',
     file: ':attribute უნდა იყოს მაქსიმუმ :value კილობაიტი.',
     string: ':attribute უნდა შეიცავდეს მაქსიმუმ :value სიმბოლოს.',
-    array: ':attribute უნდა შეიცავდეს მაქსიმუმ :value ელემენტს.',
+    array: ':attribute უნდა შეიცავდეს მაქსიმუმ :value ელემენტს.'
   },
   max: {
     numeric: ':attribute არ უნდა აღემატებოდეს :max-ს.',
     file: ':attribute არ უნდა აღემატებოდეს :max კილობაიტს.',
     string: ':attribute არ უნდა აღემატებოდეს :max სიმბოლოს.',
-    array: ':attribute-ის რაოდენობა არ უნდა აღემატებოდეს :max-ს.',
+    array: ':attribute-ის რაოდენობა არ უნდა აღემატებოდეს :max-ს.'
   },
   mimes: ':attribute უნდა იყოს შემდეგი ტიპის: :values.',
   mimetypes: ':attribute უნდა იყოს შემდეგი ტიპის: :values.',
@@ -72,7 +73,7 @@ module.exports = {
     numeric: ':attribute უნდა იყოს მინიმუმ :min.',
     file: ':attribute უნდა იყოს მინიმუმ :min კილობაიტი.',
     string: ':attribute უნდა შეიცავდეს მინიმუმ :min სიმბოლოს.',
-    array: ':attribute უნდა იყოს მინიმუმ :min.',
+    array: ':attribute უნდა იყოს მინიმუმ :min.'
   },
   not_in: 'მითითებული :attribute არასწორია.',
   not_regex: ':attribute არასწორ ფორმატშია.',
@@ -91,11 +92,11 @@ module.exports = {
     numeric: ':attribute უნდა იყოს :size-ის ტოლი.',
     file: ':attribute უნდა იყოს :size კილობაიტი.',
     string: ':attribute უნდა შედგებოდეს :size სიმბოლოსგან.',
-    array: ':attribute უნდა შეიცავდეს :size ელემენტს.',
+    array: ':attribute უნდა შეიცავდეს :size ელემენტს.'
   },
   string: ':attribute უნდა იყოს ტექსტი.',
   timezone: ':attribute უნდა იყოს სასაათო სარტყელი.',
   unique: 'ასეთი :attribute უკვე არსებობს.',
   uploaded: ':attribute-ის ატვირთვა ვერ მოხერხდა.',
-  url: ':attribute უნდა იყოს URL მისამართი.',
+  url: ':attribute უნდა იყოს URL მისამართი.'
 };

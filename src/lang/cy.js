@@ -3,9 +3,10 @@ module.exports = {
   active_url: 'Nid yw :attribute yn URL dilys.',
   after: 'Rhaid i :attribute fod yn ddyddiad sydd ar ôl :date.',
   after_or_equal: 'The :attribute must be a date after or equal to :date.',
-  alpha: "Dim ond llythrennau'n unig gall :attribute gynnwys.",
+  alpha: 'Dim ond llythrennau\'n unig gall :attribute gynnwys.',
   alpha_dash: 'Dim ond llythrennau, rhifau a dash yn unig gall :attribute gynnwys.',
   alpha_num: 'Dim ond llythrennau a rhifau yn unig gall :attribute gynnwys.',
+  attributes: {},
   array: 'Rhaid i :attribute fod yn array.',
   before: 'Rhaid i :attribute fod yn ddyddiad sydd cyn :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',
@@ -13,10 +14,10 @@ module.exports = {
     numeric: 'Rhaid i :attribute fod rhwng :min a :max.',
     file: 'Rhaid i :attribute fod rhwng :min a :max kilobytes.',
     string: 'Rhaid i :attribute fod rhwng :min a :max nodyn.',
-    array: 'Rhaid i :attribute fod rhwng :min a :max eitem.',
+    array: 'Rhaid i :attribute fod rhwng :min a :max eitem.'
   },
-  boolean: "Rhaid i'r maes :attribute fod yn wir neu gau.",
-  confirmed: "Nid yw'r cadarnhad :attribute yn gyfwerth.",
+  boolean: 'Rhaid i\'r maes :attribute fod yn wir neu gau.',
+  confirmed: 'Nid yw\'r cadarnhad :attribute yn gyfwerth.',
   date: 'Nid yw :attribute yn ddyddiad dilys.',
   date_format: 'Nid yw :attribute yn y fformat :format.',
   different: 'Rhaid i :attribute a :other fod yn wahanol.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: 'Rhaid i :attribute fod yn lun.',
   in: 'Nid yw :attribute yn ddilys.',
@@ -52,27 +53,27 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: 'Ni chai :attribute fod yn fwy na :max.',
     file: 'Ni chai :attribute fod yn fwy na :max kilobytes.',
     string: 'Ni chai :attribute fod yn fwy na :max nodyn.',
-    array: 'Ni chai :attribute fod yn fwy na :max eitem.',
+    array: 'Ni chai :attribute fod yn fwy na :max eitem.'
   },
-  mimes: "Rhaid i :attribute fod yn ffeil o'r math: :values.",
-  mimetypes: "Rhaid i :attribute fod yn ffeil o'r math: :values.",
+  mimes: 'Rhaid i :attribute fod yn ffeil o\'r math: :values.',
+  mimetypes: 'Rhaid i :attribute fod yn ffeil o\'r math: :values.',
   min: {
     numeric: 'Rhaid i :attribute fod o leiaf :min.',
     file: 'Rhaid i :attribute fod o leiaf :min kilobytes.',
     string: 'Rhaid i :attribute fod o leiaf :min nodyn.',
-    array: 'Rhaid i :attribute fod o leiaf :min eitem.',
+    array: 'Rhaid i :attribute fod o leiaf :min eitem.'
   },
   not_in: 'Nid yw :attribute yn ddilys.',
   not_regex: 'The :attribute format is invalid.',
@@ -91,11 +92,11 @@ module.exports = {
     numeric: 'Rhaid i :attribute fod yn :size.',
     file: 'Rhaid i :attribute fod yn :size kilobytes.',
     string: 'Rhaid i :attribute fod yn :size nodyn.',
-    array: 'Rhaid i :attribute fod yn :size eitem.',
+    array: 'Rhaid i :attribute fod yn :size eitem.'
   },
   string: 'The :attribute must be a string.',
   timezone: 'Rhaid i :attribute fod yn timezone dilys.',
   unique: 'Mae :attribute eisoes yn bodoli.',
   uploaded: 'The :attribute failed to upload.',
-  url: 'Nid yw fformat :attribute yn ddilys.',
+  url: 'Nid yw fformat :attribute yn ddilys.'
 };

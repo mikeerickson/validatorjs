@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./lang/it":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/it":[function(require,module,exports){
 module.exports = {
   accepted: 'Il campo :attribute deve essere accettato.',
   alpha: 'Il campo :attribute deve contenere sono caratteri alfabetici.',
@@ -11,7 +11,7 @@ module.exports = {
   digits: 'Il campo :attribute deve essere di :digits cifre.',
   digits_between: 'Il campo :attribute deve essere tra :min e :max cifre.',
   different: 'Il campo :attribute e :different devo essere diversi.',
-  'in': 'Il valore del campo :attribute non è valido.',
+  in: 'Il valore del campo :attribute non è valido.',
   integer: 'Il campo :attribute deve essere un valore intero.',
   hex: 'Il campo :attribute deve essere in formato esadecimale',
   min: {

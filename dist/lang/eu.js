@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./lang/eu":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/eu":[function(require,module,exports){
 module.exports = {
   accepted: ':attribute onartua izan behar da.',
   active_url: ':attribute ez da baliozko URL bat.',
@@ -7,6 +7,7 @@ module.exports = {
   alpha: ':attribute hizkiak besterik ezin ditu izan.',
   alpha_dash: ':attribute hizkiak, zenbakiak eta marrak besterik ezin ditu izan.',
   alpha_num: ':attribute hizkiak eta zenbakiak besterik ezin ditu izan.',
+  attributes: {},
   array: ':attribute bilduma izan behar da.',
   before: ':attribute :date aurreko data izan behar da.',
   before_or_equal: ':attribute :date aurreko data edo data berdina izan behar da.',
@@ -14,7 +15,7 @@ module.exports = {
     numeric: ':attribute :min eta :max artean egon behar da.',
     file: ':attribute-k :min eta :max kilobyte arteko pisua izan behar du.',
     string: ':attribute :min eta :max karaktere artean egon behar da.',
-    array: ':attribute-k :min eta :max arteko ale kantitatea euki behar du.',
+    array: ':attribute-k :min eta :max arteko ale kantitatea euki behar du.'
   },
   boolean: ':attribute-ren balioa egia edo gezurra izan behar da.',
   confirmed: ':attribute-ren konfirmazioa ez dator bat.',
@@ -33,13 +34,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: ':attribute irudi bat izan behar da.',
   in: 'Hautatutako :attribute baliogabea da.',
@@ -53,19 +54,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: ':attribute ezin da :max baino handiagoa izan.',
     file: ':attribute-k ezin du :max kilobyte baino gehiagoko pisua euki.',
     string: ':attribute-k ezin du :max karaktere baino gehiago euki.',
-    array: ':attribute-k ezin du :max ale baino gehiago euki.',
+    array: ':attribute-k ezin du :max ale baino gehiago euki.'
   },
   mimes: ':attribute :values motatako fitxategia izan behar da.',
   mimetypes: ':attribute :values motatako fitxategia izan behar da.',
@@ -73,7 +74,7 @@ module.exports = {
     numeric: ':attribute-k gutxienez :min-eko tamaina izan behar du.',
     file: ':attribute-k gutxienez :min kilobyteko pisua euki behar du.',
     string: ':attribute-k gutxienez :min karaktere euki behar ditu.',
-    array: ':attribute-k gutxienez :min ale euki behar ditu.',
+    array: ':attribute-k gutxienez :min ale euki behar ditu.'
   },
   not_in: 'Hautatutako :attribute baliogabea da.',
   not_regex: 'The :attribute format is invalid.',
@@ -92,13 +93,13 @@ module.exports = {
     numeric: ':attribute-k :size-eko tamaina izan behar du.',
     file: ':attribute-k :size kilobyteko pisua euki behar du.',
     string: ':attribute-k :size karaktere euki beha ditu.',
-    array: ':attribute-k :size ale euki behar ditu.',
+    array: ':attribute-k :size ale euki behar ditu.'
   },
   string: ':attribute karaktere-katea izan behar da.',
   timezone: ':attribute baliozko gunea izan behar da.',
   unique: ':attribute jadanik erregistratua izan da.',
   uploaded: ':attribute igotzerakoan huts egin du.',
-  url: ':attribute-k ez dauka formatu egokirik.',
+  url: ':attribute-k ez dauka formatu egokirik.'
 };
 
 },{}]},{},[]);

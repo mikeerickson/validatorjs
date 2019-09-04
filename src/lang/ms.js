@@ -6,6 +6,7 @@ module.exports = {
   alpha: ':attribute hanya boleh mengandungi huruf.',
   alpha_dash: ':attribute boleh mengandungi huruf, nombor, dan sengkang.',
   alpha_num: ':attribute boleh mengandungi huruf dan nombor.',
+  attributes: {},
   array: ':attribute mesti jujukan.',
   before: ':attribute mesti tarikh sebelum :date.',
   before_or_equal: ':attribute mesti tarikh sebelum atau sama dengan :date.',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: ':attribute mesti mengandungi antara :min dan :max.',
     file: ':attribute mesti mengandungi antara :min dan :max kilobait.',
     string: ':attribute mesti mengandungi antara :min dan :max aksara.',
-    array: ':attribute mesti mengandungi antara :min dan :max perkara.',
+    array: ':attribute mesti mengandungi antara :min dan :max perkara.'
   },
   boolean: ':attribute mesti benar atau salah.',
   confirmed: ':attribute pengesahan yang tidak sepadan.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: ':attribute mesti melebihi :value.',
     file: ':attribute mesti melebihi :value kilobait.',
     string: ':attribute mesti melebihi :value aksara.',
-    array: ':attribute mesti mengandungi lebih daripada :value perkara.',
+    array: ':attribute mesti mengandungi lebih daripada :value perkara.'
   },
   gte: {
     numeric: ':attribute mesti melebihi atau bersamaan :value.',
     file: ':attribute mesti melebihi atau bersamaan :value kilobait.',
     string: ':attribute mesti melebihi atau bersamaan :value aksara.',
-    array: ':attribute mesti mengandungi :value perkara atau lebih.',
+    array: ':attribute mesti mengandungi :value perkara atau lebih.'
   },
   image: ':attribute mesti imej.',
   in: ':attribute tidak sah.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: ':attribute mesti kurang daripada :value.',
     file: ':attribute mesti kurang daripada :value kilobait.',
     string: ':attribute mesti kurang daripada :value aksara.',
-    array: ':attribute mesti mengandungi kurang daripada :value perkara.',
+    array: ':attribute mesti mengandungi kurang daripada :value perkara.'
   },
   lte: {
     numeric: ':attribute mesti kurang daripada atau bersamaan dengan :value.',
     file: ':attribute mesti kurang daripada atau bersamaan dengan :value kilobait.',
     string: ':attribute mesti kurang daripada atau bersamaan dengan :value aksara.',
-    array: ':attribute mesti mengandungi kurang daripada atau bersamaan dengan :value perkara.',
+    array: ':attribute mesti mengandungi kurang daripada atau bersamaan dengan :value perkara.'
   },
   max: {
     numeric: 'Jumlah :attribute mesti tidak melebihi :max.',
     file: 'Jumlah :attribute mesti tidak melebihi :max kilobait.',
     string: 'Jumlah :attribute mesti tidak melebihi :max aksara.',
-    array: 'Jumlah :attribute mesti tidak melebihi :max perkara.',
+    array: 'Jumlah :attribute mesti tidak melebihi :max perkara.'
   },
   mimes: ':attribute mesti fail type: :values.',
   mimetypes: ':attribute mesti fail type: :values.',
@@ -72,7 +73,7 @@ module.exports = {
     numeric: 'Jumlah :attribute mesti sekurang-kurangnya :min.',
     file: 'Jumlah :attribute mesti sekurang-kurangnya :min kilobait.',
     string: 'Jumlah :attribute mesti sekurang-kurangnya :min aksara.',
-    array: 'Jumlah :attribute mesti sekurang-kurangnya :min perkara.',
+    array: 'Jumlah :attribute mesti sekurang-kurangnya :min perkara.'
   },
   not_in: ':attribute tidak sah.',
   not_regex: 'Format :attribute adalah tidak sah.',
@@ -91,11 +92,11 @@ module.exports = {
     numeric: 'Saiz :attribute mesti :size.',
     file: 'Saiz :attribute mesti :size kilobait.',
     string: 'Saiz :attribute mesti :size aksara.',
-    array: 'Saiz :attribute mesti mengandungi :size perkara.',
+    array: 'Saiz :attribute mesti mengandungi :size perkara.'
   },
   string: ':attribute mesti aksara.',
   timezone: ':attribute mesti zon masa yang sah.',
   unique: ':attribute telah wujud.',
   uploaded: ':attribute gagal dimuat naik.',
-  url: ':attribute format tidak sah.',
+  url: ':attribute format tidak sah.'
 };

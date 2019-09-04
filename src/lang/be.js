@@ -13,7 +13,7 @@ module.exports = {
     numeric: 'Поле :attribute павінна быць паміж :min і :max.',
     file: 'Памер файла ў поле :attribute павінен быць паміж :min і :max кілабайт.',
     string: 'Колькасць сiмвалаў у поле :attribute павінна быць паміж :min і :max.',
-    array: 'Колькасць элементаў у поле :attribute павінна быць паміж :min і :max.',
+    array: 'Колькасць элементаў у поле :attribute павінна быць паміж :min і :max.'
   },
   boolean: 'Поле :attribute павінна мець значэнне лагічнага тыпу.',
   confirmed: 'Поле :attribute не супадае з пацвярджэннем.',
@@ -32,13 +32,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: 'Поле :attribute павінна быць малюнкам.',
   in: 'Выбранае значэнне для :attribute памылкова.',
@@ -52,19 +52,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: 'Поле :attribute не можа быць больш :max.',
     file: 'Памер файла ў поле :attribute не можа быць больш :max кілабайт).',
     string: 'Колькасць сiмвалаў у поле :attribute не можа перавышаць :max.',
-    array: 'Колькасць элементаў у поле :attribute не можа перавышаць :max.',
+    array: 'Колькасць элементаў у поле :attribute не можа перавышаць :max.'
   },
   mimes: 'Поле :attribute павінна быць файлам аднаго з наступных тыпаў: :values.',
   mimetypes: 'Поле :attribute павінна быць файлам аднаго з наступных тыпаў: :values.',
@@ -72,7 +72,7 @@ module.exports = {
     numeric: 'Поле :attribute павінна быць не менш :min.',
     file: 'Памер файла ў полее :attribute павінен быць не менш :min кілабайт.',
     string: 'Колькасць сiмвалаў у поле :attribute павінна быць не менш :min.',
-    array: 'Колькасць элементаў у поле :attribute павінна быць не менш :min.',
+    array: 'Колькасць элементаў у поле :attribute павінна быць не менш :min.'
   },
   not_in: 'Выбранае значэнне для :attribute памылкова.',
   not_regex: 'The :attribute format is invalid.',
@@ -91,11 +91,11 @@ module.exports = {
     numeric: 'Поле :attribute павінна быць :size.',
     file: 'Размер файла в поле :attribute павінен быць :size кілабайт.',
     string: 'Колькасць сiмвалаў у поле :attribute павінна быць :size.',
-    array: 'Колькасць элементаў у поле :attribute павінна быць :size.',
+    array: 'Колькасць элементаў у поле :attribute павінна быць :size.'
   },
   string: 'Поле :attribute павінна быць радком.',
   timezone: 'Поле :attribute павінна быць сапраўдным гадзінным поясам.',
   unique: 'Такое значэнне поля :attribute ўжо існуе.',
   uploaded: 'The :attribute failed to upload.',
-  url: 'Поле :attribute мае памылковы фармат.',
+  url: 'Поле :attribute мае памылковы фармат.'
 };

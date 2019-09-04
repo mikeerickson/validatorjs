@@ -11,7 +11,7 @@ module.exports = {
   digits: ':attribute må være på :digits siffer.',
   digits_between: ':attribute må være mellom :min og :max siffer.',
   different: ':attribute og :different må være forskjellige.',
-  'in': 'Den oppgitte verdien for :attribute er ugyldig.',
+  in: 'Den oppgitte verdien for :attribute er ugyldig.',
   integer: ':attribute må være et heltall.',
   hex: 'The :attribute should have hexadecimal format',
   min: {
@@ -22,7 +22,7 @@ module.exports = {
     numeric: ':attribute kan ikke være større enn :max.',
     string: ':attribute kan maks ha :max tegn.'
   },
-  'not_in': 'Den oppgitte verdien for :attribute er ugyldig.',
+  not_in: 'Den oppgitte verdien for :attribute er ugyldig.',
   numeric: ':attribute må være et tall.',
   present: 'The :attribute field must be present (but can be empty).',
   required: ':attribute feltet er påkrevd.',

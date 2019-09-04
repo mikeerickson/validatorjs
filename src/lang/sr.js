@@ -6,6 +6,7 @@ module.exports = {
   alpha: 'Polje :attribute može sadržati samo slova.',
   alpha_dash: 'Polje :attribute može sadržati samo slova, brojeve i povlake.',
   alpha_num: 'Polje :attribute može sadržati samo slova i brojeve.',
+  attributes: {},
   array: 'Polje :attribute mora sadržati nekih niz stavki.',
   before: 'Polje :attribute mora biti datum pre :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: 'Polje :attribute mora biti između :min - :max.',
     file: 'Fajl :attribute mora biti između :min - :max kilobajta.',
     string: 'Polje :attribute mora biti između :min - :max karaktera.',
-    array: 'Polje :attribute mora biti između :min - :max stavki.',
+    array: 'Polje :attribute mora biti između :min - :max stavki.'
   },
   boolean: 'Polje :attribute mora biti tačno ili netačno',
   confirmed: 'Potvrda polja :attribute se ne poklapa.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: 'Polje :attribute mora biti slika.',
   in: 'Odabrano polje :attribute nije validno.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: 'Polje :attribute mora biti manje od :max.',
     file: 'Polje :attribute mora biti manje od :max kilobajta.',
     string: 'Polje :attribute mora sadržati manje od :max karaktera.',
-    array: 'Polje :attribute ne smije da image više od :max stavki.',
+    array: 'Polje :attribute ne smije da image više od :max stavki.'
   },
   mimes: 'Polje :attribute mora biti fajl tipa: :values.',
   mimetypes: 'Polje :attribute mora biti fajl tipa: :values.',
@@ -72,7 +73,7 @@ module.exports = {
     numeric: 'Polje :attribute mora biti najmanje :min.',
     file: 'Fajl :attribute mora biti najmanje :min kilobajta.',
     string: 'Polje :attribute mora sadržati najmanje :min karaktera.',
-    array: 'Polje :attribute mora sadrzati najmanje :min stavku.',
+    array: 'Polje :attribute mora sadrzati najmanje :min stavku.'
   },
   not_in: 'Odabrani element polja :attribute nije validan.',
   not_regex: 'The :attribute format is invalid.',
@@ -91,11 +92,11 @@ module.exports = {
     numeric: 'Polje :attribute mora biti :size.',
     file: 'Fajl :attribute mora biti :size kilobajta.',
     string: 'Polje :attribute mora biti :size karaktera.',
-    array: 'Polje :attribute mora sadržati :size stavki.',
+    array: 'Polje :attribute mora sadržati :size stavki.'
   },
   string: 'Polje :attribute mora sadržati slova.',
   timezone: 'Polje :attribute mora biti ispravna vremenska zona.',
   unique: 'Polje :attribute već postoji.',
   uploaded: 'The :attribute failed to upload.',
-  url: 'Format polja :attribute ne važi.',
+  url: 'Format polja :attribute ne važi.'
 };

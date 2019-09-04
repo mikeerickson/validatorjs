@@ -15,7 +15,7 @@ module.exports = {
   digits: ':attribute on oltava :digits numeroa pitkä.',
   digits_between: 'Kentän :attribute arvon tulee olla :min - :max numeroa.',
   different: ':attribute ei saa olla yhtä kuin :different.',
-  'in': 'Valittu :attribute ei kelpaa.',
+  in: 'Valittu :attribute ei kelpaa.',
   integer: ':attribute ei ole numero.',
   hex: ':attribute on oltava heksadesimaali.',
   min: {
@@ -46,4 +46,3 @@ module.exports = {
   regex: ':attribute on väärässä muodossa.',
   attributes: {}
 };
-

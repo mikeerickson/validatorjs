@@ -1,36 +1,69 @@
+var dateTools = require('date-fns');
+
 function leapYear(year) {
-  return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
 function isValidDate(inDate) {
-    var valid = true;
-
-    // reformat if supplied as mm.dd.yyyy (period delimiter)
-    if (typeof inDate === 'string') {
-      var pos = inDate.indexOf('.');
-      if ((pos > 0 && pos <= 6)) {
-        inDate = inDate.replace(/\./g, '-');
+  let test = inDate;
+  if (typeof inDate === 'string') {
+    let dateParsed = dateTools.parseISO(inDate);
+    if (typeof dateParsed === 'object') {
+      if (dateParsed.toString() === 'Invalid Date') {
+        return isValidDate2(inDate);
       }
     }
+    return dateTools.isValid(dateParsed);
+  }
+  return isValidDate2(inDate);
+}
 
-    var testDate = new Date(inDate);
-    var yr = testDate.getFullYear();
-    var mo = testDate.getMonth();
-    var day = testDate.getDate();
+function isValidDate2(inDate) {
+  var valid = true;
 
-    var daysInMonth = [31, (leapYear(yr) ? 29 : 28), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (inDate instanceof Date) {
+    return !isNaN(inDate);
+  }
 
-    if (yr < 1000) { return false; }
-    if (isNaN(mo)) { return false; }
-    if (mo + 1 > 12) { return false; }
-    if (isNaN(day)) { return false; }
-    if (day > daysInMonth[mo]) { return false; }
+  // reformat if supplied as mm.dd.yyyy (period delimiter)
+  if (typeof inDate === 'string') {
+    var pos = inDate.indexOf('.');
+    if (pos > 0 && pos <= 6) {
+      inDate = inDate.replace(/\./g, '-');
+    }
+  }
 
-    return valid;
+  // TODO: This approach is not going to work as Date conversion will always be accurate
+  // For example: 2019-02-31 will return as 2019-03-03 thus calculations will always be correct
+  // Need to devise another method of check validity
+
+  var testDate = new Date(inDate);
+  var yr = testDate.getFullYear();
+  var mo = testDate.getMonth();
+  var day = testDate.getDate();
+
+  var daysInMonth = [31, leapYear(yr) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  if (yr < 1000) {
+    return false;
+  }
+  if (isNaN(mo)) {
+    return false;
+  }
+  if (mo + 1 > 12) {
+    return false;
+  }
+  if (isNaN(day)) {
+    return false;
+  }
+  if (day > daysInMonth[mo]) {
+    return false;
+  }
+
+  return valid;
 }
 
 var rules = {
-
   required: function(val) {
     var str;
 
@@ -38,7 +71,7 @@ var rules = {
       return false;
     }
 
-    str = String(val).replace(/\s/g, "");
+    str = String(val).replace(/\s/g, '');
     return str.length > 0 ? true : false;
   },
 
@@ -69,10 +102,9 @@ var rules = {
   },
 
   required_with_all: function(val, req, attribute) {
-
     req = this.getParameters();
 
-    for(var i = 0; i < req.length; i++) {
+    for (var i = 0; i < req.length; i++) {
       if (!this.validator._objectPath(this.validator.input, req[i])) {
         return true;
       }
@@ -82,7 +114,6 @@ var rules = {
   },
 
   required_without: function(val, req, attribute) {
-
     if (this.validator._objectPath(this.validator.input, req)) {
       return true;
     }
@@ -91,10 +122,9 @@ var rules = {
   },
 
   required_without_all: function(val, req, attribute) {
-
     req = this.getParameters();
 
-    for(var i = 0; i < req.length; i++) {
+    for (var i = 0; i < req.length; i++) {
       if (this.validator._objectPath(this.validator.input, req[i])) {
         return true;
       }
@@ -103,7 +133,7 @@ var rules = {
     return this.validator.getRule('required').validate(val);
   },
 
-  'boolean': function (val) {
+  boolean: function(val) {
     return (
       val === true ||
       val === false ||
@@ -184,19 +214,19 @@ var rules = {
   },
 
   url: function(url) {
-    return (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i).test(url);
+    return /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_\+.~#?&/=]*)/i.test(url);
   },
 
   alpha: function(val) {
-    return (/^[a-zA-Z]+$/).test(val);
+    return /^[a-zA-Z]+$/.test(val);
   },
 
   alpha_dash: function(val) {
-    return (/^[a-zA-Z0-9_\-]+$/).test(val);
+    return /^[a-zA-Z0-9_\-]+$/.test(val);
   },
 
   alpha_num: function(val) {
-    return (/^[a-zA-Z0-9]+$/).test(val);
+    return /^[a-zA-Z0-9]+$/.test(val);
   },
 
   same: function(val, req) {
@@ -221,7 +251,7 @@ var rules = {
     return false;
   },
 
-  "in": function(val, req) {
+  in: function(val, req) {
     var list, i;
 
     if (val) {
@@ -324,8 +354,8 @@ var rules = {
   regex: function(val, req) {
     var mod = /[g|i|m]{1,3}$/;
     var flag = req.match(mod);
-    flag = flag ? flag[0] : "";
-    req = req.replace(mod, "").slice(1, -1);
+    flag = flag ? flag[0] : '';
+    req = req.replace(mod, '').slice(1, -1);
     req = new RegExp(req, flag);
     return !!req.test(val);
   },
@@ -338,12 +368,16 @@ var rules = {
     return typeof val !== 'undefined';
   },
 
-  after: function(val, req){
+  after: function(val, req) {
     var val1 = this.validator.input[req];
     var val2 = val;
 
-    if(!isValidDate(val1)){ return false;}
-    if(!isValidDate(val2)){ return false;}
+    if (!isValidDate(val1)) {
+      return false;
+    }
+    if (!isValidDate(val2)) {
+      return false;
+    }
 
     if (new Date(val1).getTime() < new Date(val2).getTime()) {
       return true;
@@ -352,12 +386,16 @@ var rules = {
     return false;
   },
 
-   after_or_equal: function(val, req){
+  after_or_equal: function(val, req) {
     var val1 = this.validator.input[req];
     var val2 = val;
 
-    if(!isValidDate(val1)){ return false;}
-    if(!isValidDate(val2)){ return false;}
+    if (!isValidDate(val1)) {
+      return false;
+    }
+    if (!isValidDate(val2)) {
+      return false;
+    }
 
     if (new Date(val1).getTime() <= new Date(val2).getTime()) {
       return true;
@@ -366,12 +404,16 @@ var rules = {
     return false;
   },
 
-  before: function(val, req){
+  before: function(val, req) {
     var val1 = this.validator.input[req];
     var val2 = val;
 
-    if(!isValidDate(val1)){ return false;}
-    if(!isValidDate(val2)){ return false;}
+    if (!isValidDate(val1)) {
+      return false;
+    }
+    if (!isValidDate(val2)) {
+      return false;
+    }
 
     if (new Date(val1).getTime() > new Date(val2).getTime()) {
       return true;
@@ -380,12 +422,16 @@ var rules = {
     return false;
   },
 
-   before_or_equal: function(val, req){
+  before_or_equal: function(val, req) {
     var val1 = this.validator.input[req];
     var val2 = val;
 
-    if(!isValidDate(val1)){ return false;}
-    if(!isValidDate(val2)){ return false;}
+    if (!isValidDate(val1)) {
+      return false;
+    }
+    if (!isValidDate(val2)) {
+      return false;
+    }
 
     if (new Date(val1).getTime() >= new Date(val2).getTime()) {
       return true;
@@ -395,7 +441,7 @@ var rules = {
   },
 
   hex: function(val) {
-    return (/^[0-9a-f]+$/i).test(val);
+    return /^[0-9a-f]+$/i.test(val);
   }
 };
 
@@ -413,7 +459,6 @@ function Rule(name, fn, async) {
 }
 
 Rule.prototype = {
-
   /**
    * Validate rule
    *
@@ -522,7 +567,6 @@ Rule.prototype = {
    * @return {string}
    */
   _getValueType: function() {
-
     if (typeof this.inputValue === 'number' || this.validator._hasNumericRule(this.attribute)) {
       return 'numeric';
     }
@@ -538,7 +582,7 @@ Rule.prototype = {
    * @return {void}
    */
   response: function(passes, message) {
-    this.passes = (passes === undefined || passes === true);
+    this.passes = passes === undefined || passes === true;
     this._customMessage = message;
     this.callback(this.passes, message);
   },
@@ -568,7 +612,6 @@ Rule.prototype = {
 };
 
 var manager = {
-
   /**
    * List of async rule names
    *
@@ -581,7 +624,17 @@ var manager = {
    *
    * @type {Array}
    */
-  implicitRules: ['required', 'required_if', 'required_unless', 'required_with', 'required_with_all', 'required_without', 'required_without_all', 'accepted', 'present'],
+  implicitRules: [
+    'required',
+    'required_if',
+    'required_unless',
+    'required_with',
+    'required_with_all',
+    'required_without',
+    'required_without_all',
+    'accepted',
+    'present'
+  ],
 
   /**
    * Get rule by name
@@ -633,7 +686,7 @@ var manager = {
     rules[name] = fn;
   },
 
-    /**
+  /**
    * Register new implicit rule
    *
    * @param  {string}   name
@@ -674,7 +727,5 @@ var manager = {
     missedRuleMessage = message;
   }
 };
-
-
 
 module.exports = manager;

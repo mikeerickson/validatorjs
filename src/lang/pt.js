@@ -6,6 +6,7 @@ module.exports = {
   alpha: 'O campo :attribute deverá conter apenas letras.',
   alpha_dash: 'O campo :attribute deverá conter apenas letras, números e traços.',
   alpha_num: 'O campo :attribute deverá conter apenas letras e números .',
+  attributes: {},
   array: 'O campo :attribute deverá conter uma coleção de elementos.',
   before: 'O campo :attribute deverá conter uma data anterior a :date.',
   before_or_equal: 'O Campo :attribute deverá conter uma data anterior ou igual a :date.',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: 'O campo :attribute deverá ter um valor entre :min - :max.',
     file: 'O campo :attribute deverá ter um tamanho entre :min - :max kilobytes.',
     string: 'O campo :attribute deverá conter entre :min - :max caracteres.',
-    array: 'O campo :attribute deverá conter entre :min - :max elementos.',
+    array: 'O campo :attribute deverá conter entre :min - :max elementos.'
   },
   boolean: 'O campo :attribute deverá conter o valor verdadeiro ou falso.',
   confirmed: 'A confirmação para o campo :attribute não coincide.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: 'O campo :attribute deverá conter uma imagem.',
   in: 'O campo :attribute não contém um valor válido.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: 'O campo :attribute não deverá conter um valor superior a :max.',
     file: 'O campo :attribute não deverá ter um tamanho superior a :max kilobytes.',
     string: 'O campo :attribute não deverá conter mais de :max caracteres.',
-    array: 'O campo :attribute não deverá conter mais de :max elementos.',
+    array: 'O campo :attribute não deverá conter mais de :max elementos.'
   },
   mimes: 'O campo :attribute deverá conter um ficheiro do tipo: :values.',
   mimetypes: 'O campo :attribute deverá conter um ficheiro do tipo: :values.',
@@ -72,7 +73,7 @@ module.exports = {
     numeric: 'O campo :attribute deverá ter um valor superior ou igual a :min.',
     file: 'O campo :attribute deverá ter no mínimo :min kilobytes.',
     string: 'O campo :attribute deverá conter no mínimo :min caracteres.',
-    array: 'O campo :attribute deverá conter no mínimo :min elementos.',
+    array: 'O campo :attribute deverá conter no mínimo :min elementos.'
   },
   not_in: 'O campo :attribute contém um valor inválido.',
   not_regex: 'The :attribute format is invalid.',
@@ -80,22 +81,26 @@ module.exports = {
   present: 'O campo :attribute deverá estar presente.',
   regex: 'O formato do valor para o campo :attribute é inválido.',
   required: 'É obrigatória a indicação de um valor para o campo :attribute.',
-  required_if: 'É obrigatória a indicação de um valor para o campo :attribute quando o valor do campo :other é igual a :value.',
-  required_unless: 'É obrigatória a indicação de um valor para o campo :attribute a menos que :other esteja presente em :values.',
+  required_if:
+    'É obrigatória a indicação de um valor para o campo :attribute quando o valor do campo :other é igual a :value.',
+  required_unless:
+    'É obrigatória a indicação de um valor para o campo :attribute a menos que :other esteja presente em :values.',
   required_with: 'É obrigatória a indicação de um valor para o campo :attribute quando :values está presente.',
-  required_with_all: 'É obrigatória a indicação de um valor para o campo :attribute quando um dos :values está presente.',
+  required_with_all:
+    'É obrigatória a indicação de um valor para o campo :attribute quando um dos :values está presente.',
   required_without: 'É obrigatória a indicação de um valor para o campo :attribute quando :values não está presente.',
-  required_without_all: 'É obrigatória a indicação de um valor para o campo :attribute quando nenhum dos :values está presente.',
+  required_without_all:
+    'É obrigatória a indicação de um valor para o campo :attribute quando nenhum dos :values está presente.',
   same: 'Os campos :attribute e :other deverão conter valores iguais.',
   size: {
     numeric: 'O campo :attribute deverá conter o valor :size.',
     file: 'O campo :attribute deverá ter o tamanho de :size kilobytes.',
     string: 'O campo :attribute deverá conter :size caracteres.',
-    array: 'O campo :attribute deverá conter :size elementos.',
+    array: 'O campo :attribute deverá conter :size elementos.'
   },
   string: 'O campo :attribute deverá conter texto.',
   timezone: 'O campo :attribute deverá ter um fuso horário válido.',
   unique: 'O valor indicado para o campo :attribute já se encontra registado.',
   uploaded: 'O upload do ficheiro :attribute falhou.',
-  url: 'O formato do URL indicado para o campo :attribute é inválido.',
+  url: 'O formato do URL indicado para o campo :attribute é inválido.'
 };

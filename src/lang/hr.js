@@ -6,6 +6,7 @@ module.exports = {
   alpha: 'Polje :attribute smije sadržavati samo slova.',
   alpha_dash: 'Polje :attribute smije sadržavati samo slova, brojeve i crtice.',
   alpha_num: 'Polje :attribute smije sadržavati samo slova i brojeve.',
+  attributes: {},
   array: 'Polje :attribute mora biti niz.',
   before: 'Polje :attribute mora biti datum prije :date.',
   before_or_equal: 'Polje :attribute mora biti datum manji ili jednak :date.',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: 'Polje :attribute mora biti između :min - :max.',
     file: 'Polje :attribute mora biti između :min - :max kilobajta.',
     string: 'Polje :attribute mora biti između :min - :max znakova.',
-    array: 'Polje :attribute mora imati između :min - :max stavki.',
+    array: 'Polje :attribute mora imati između :min - :max stavki.'
   },
   boolean: 'Polje :attribute mora biti false ili true.',
   confirmed: 'Potvrda polja :attribute se ne podudara.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: 'Polje :attribute mora biti veće od :value.',
     file: 'Polje :attribute mora biti veće od :value kilobajta.',
     string: 'Polje :attribute mora biti veće od :value karaktera.',
-    array: 'Polje :attribute mora biti veće od :value stavki.',
+    array: 'Polje :attribute mora biti veće od :value stavki.'
   },
   gte: {
     numeric: 'Polje :attribute mora biti veće ili jednako :value.',
     file: 'Polje :attribute mora biti veće ili jednako :value kilobajta.',
     string: 'Polje :attribute mora biti veće ili jednako :value znakova.',
-    array: 'Polje :attribute mora imati :value stavki ili više.',
+    array: 'Polje :attribute mora imati :value stavki ili više.'
   },
   image: 'Polje :attribute mora biti slika.',
   in: 'Odabrano polje :attribute nije ispravno.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: 'Polje :attribute mora biti manje od :value.',
     file: 'Polje :attribute mora biti manje od :value kilobajta.',
     string: 'Polje :attribute mora biti manje od :value znakova.',
-    array: 'Polje :attribute mora biti manje od :value stavki.',
+    array: 'Polje :attribute mora biti manje od :value stavki.'
   },
   lte: {
     numeric: 'Polje :attribute mora biti manje ili jednako :value.',
     file: 'Polje :attribute mora biti manje ili jednako :value kilobajta.',
     string: 'Polje :attribute mora biti manje ili jednako :value znakova.',
-    array: 'Polje :attribute ne smije imati više od :value stavki.',
+    array: 'Polje :attribute ne smije imati više od :value stavki.'
   },
   max: {
     numeric: 'Polje :attribute mora biti manje od :max.',
     file: 'Polje :attribute mora biti manje od :max kilobajta.',
     string: 'Polje :attribute mora sadržavati manje od :max znakova.',
-    array: 'Polje :attribute ne smije imati više od :max stavki.',
+    array: 'Polje :attribute ne smije imati više od :max stavki.'
   },
   mimes: 'Polje :attribute mora biti datoteka tipa: :values.',
   mimetypes: 'Polje :attribute mora biti datoteka tipa: :values.',
@@ -72,7 +73,7 @@ module.exports = {
     numeric: 'Polje :attribute mora biti najmanje :min.',
     file: 'Polje :attribute mora biti najmanje :min kilobajta.',
     string: 'Polje :attribute mora sadržavati najmanje :min znakova.',
-    array: 'Polje :attribute mora sadržavati najmanje :min stavki.',
+    array: 'Polje :attribute mora sadržavati najmanje :min stavki.'
   },
   not_in: 'Odabrano polje :attribute nije ispravno.',
   not_regex: 'Format polja :attribute je neispravan.',
@@ -91,11 +92,11 @@ module.exports = {
     numeric: 'Polje :attribute mora biti :size.',
     file: 'Polje :attribute mora biti :size kilobajta.',
     string: 'Polje :attribute mora biti :size znakova.',
-    array: 'Polje :attribute mora sadržavati :size stavki.',
+    array: 'Polje :attribute mora sadržavati :size stavki.'
   },
   string: 'Polje :attribute mora biti string.',
   timezone: 'Polje :attribute mora biti ispravna vremenska zona.',
   unique: 'Polje :attribute već postoji.',
   uploaded: 'Polje :attribute nije uspešno učitano.',
-  url: 'Polje :attribute nije ispravnog formata.',
+  url: 'Polje :attribute nije ispravnog formata.'
 };

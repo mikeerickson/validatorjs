@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./lang/sq":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/sq":[function(require,module,exports){
 module.exports = {
   accepted: ':attribute duhet të pranohet.',
   active_url: ':attribute nuk është adresë e saktë.',
@@ -7,6 +7,7 @@ module.exports = {
   alpha: ':attribute mund të përmbajë vetëm shkronja.',
   alpha_dash: ':attribute mund të përmbajë vetëm shkronja, numra, dhe viza.',
   alpha_num: ':attribute mund të përmbajë vetëm shkronja dhe numra.',
+  attributes: {},
   array: ':attribute duhet të jetë një bashkësi (array).',
   before: ':attribute duhet të jetë datë para :date.',
   before_or_equal: 'The :attribute must be a date before or equal to :date.',
@@ -14,7 +15,7 @@ module.exports = {
     numeric: ':attribute duhet të jetë midis :min - :max.',
     file: ':attribute duhet të jetë midis :min - :max kilobajtëve.',
     string: ':attribute duhet të jetë midis :min - :max karaktereve.',
-    array: ':attribute duhet të jetë midis :min - :max elementëve.',
+    array: ':attribute duhet të jetë midis :min - :max elementëve.'
   },
   boolean: 'Fusha :attribute duhet të jetë e vërtetë ose e gabuar',
   confirmed: ':attribute konfirmimi nuk përputhet.',
@@ -33,13 +34,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: ':attribute duhet të jetë imazh.',
   in: ':attribute përzgjedhur është i/e pasaktë.',
@@ -53,19 +54,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: ':attribute nuk mund të jetë më tepër se :max.',
     file: ':attribute nuk mund të jetë më tepër se :max kilobajtë.',
     string: ':attribute nuk mund të jetë më tepër se :max karaktere.',
-    array: ':attribute nuk mund të ketë më tepër se :max elemente.',
+    array: ':attribute nuk mund të ketë më tepër se :max elemente.'
   },
   mimes: ':attribute duhet të jetë një dokument i tipit: :values.',
   mimetypes: ':attribute duhet të jetë një dokument i tipit: :values.',
@@ -73,7 +74,7 @@ module.exports = {
     numeric: ':attribute nuk mund të jetë më pak se :min.',
     file: ':attribute nuk mund të jetë më pak se :min kilobajtë.',
     string: ':attribute nuk mund të jetë më pak se :min karaktere.',
-    array: ':attribute nuk mund të ketë më pak se :min elemente.',
+    array: ':attribute nuk mund të ketë më pak se :min elemente.'
   },
   not_in: ':attribute përzgjedhur është i/e pasaktë.',
   not_regex: 'The :attribute format is invalid.',
@@ -92,13 +93,13 @@ module.exports = {
     numeric: ':attribute duhet të jetë :size.',
     file: ':attribute duhet të jetë :size kilobajtë.',
     string: ':attribute duhet të jetë :size karaktere.',
-    array: ':attribute duhet të ketë :size elemente.',
+    array: ':attribute duhet të ketë :size elemente.'
   },
   string: ':attribute duhet të jetë varg.',
   timezone: ':attribute duhet të jetë zonë e saktë.',
   unique: ':attribute është marrë tashmë.',
   uploaded: 'The :attribute failed to upload.',
-  url: 'Formati i :attribute është i pasaktë.',
+  url: 'Formati i :attribute është i pasaktë.'
 };
 
 },{}]},{},[]);

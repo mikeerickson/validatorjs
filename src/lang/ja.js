@@ -15,34 +15,34 @@ module.exports = {
   digits: ':attributeは:digitsの数字のみで入力してください。',
   digits_between: ':attributeは、:min桁から:max桁にしてください。',
   different: ':attributeと:differentは同じであってはなりません。',
-  'in': '選択された:attributeは無効です。',
+  in: '選択された:attributeは無効です。',
   integer: ':attributeは整数で入力してください。',
   hex: ':attributeは16進数で入力してください。',
   min: {
-    numeric: ":attributeは:min以上で入力してください。",
-    string: ":attributeは:min文字以上で入力してください。"
+    numeric: ':attributeは:min以上で入力してください。',
+    string: ':attributeは:min文字以上で入力してください。'
   },
   max: {
-    numeric: ":attributeは:max以下で入力してください。",
-    string: ":attributeは:max文字以下で入力してください。"
+    numeric: ':attributeは:max以下で入力してください。',
+    string: ':attributeは:max文字以下で入力してください。'
   },
-  not_in: "選択された:attributeは無効です。",
-  numeric: ":attributeは数値で入力してください。",
+  not_in: '選択された:attributeは無効です。',
+  numeric: ':attributeは数値で入力してください。',
   present: ':attributeを入力してください（空欄も可能です）。',
-  required: ":attributeは必須です。",
-  required_if: ":otherは:valueになったら:attributeは必須です。",
+  required: ':attributeは必須です。',
+  required_if: ':otherは:valueになったら:attributeは必須です。',
   required_unless: ':otherが:valueでなければ:attributeは必須です。',
   required_with: ':fieldが空欄でなければ:attributeは必須です。',
   required_with_all: ':fieldsが空欄でなければ:attributeは必須です。',
   required_without: ':fieldが空欄なら:attributeは必須です。',
   required_without_all: ':fieldsが空欄なら:attributeは必須です。',
-  same: ":attributeと:sameは同じでなければなりません。",
+  same: ':attributeと:sameは同じでなければなりません。',
   size: {
-    numeric: ":attributeは:sizeを入力してください。",
-    string: ":attributeは:size文字で入力してください。"
+    numeric: ':attributeは:sizeを入力してください。',
+    string: ':attributeは:size文字で入力してください。'
   },
   string: ':attributeは文字のみで入力してください。',
-  url: ":attributeは正しいURIを入力してください。",
-  regex: ":attributeの値はパターンにマッチする必要があります。",
+  url: ':attributeは正しいURIを入力してください。',
+  regex: ':attributeの値はパターンにマッチする必要があります。',
   attributes: {}
 };

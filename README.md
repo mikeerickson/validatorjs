@@ -1,9 +1,9 @@
-validatorjs
-===========
+# validatorjs
 
 [![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
 
-The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js. This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).
+The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js.
+This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).
 
 ## Why use validatorjs?
 
@@ -15,14 +15,16 @@ The validatorjs library makes data validation in JavaScript very easy in both th
 
 ## Installation
 
-Grab validatorjs from Bower, NPM, or the /dist directory on Github:
+### Using npm
 
-```
-bower install validatorjs
-```
-
-```
+```bash
 npm install validatorjs
+```
+
+### Using yarn
+
+```bash
+yarn add validatorjs
 ```
 
 ### Browser
@@ -34,7 +36,13 @@ npm install validatorjs
 ### Node.js / Browserify
 
 ```js
+// ES5
 let Validator = require('validatorjs');
+```
+
+```js
+// ES6
+import Validator from 'validatorjs';
 ```
 
 ### Basic Usage
@@ -577,3 +585,19 @@ let messages = Validator.getMessages('en');
 messages.required = 'Whoops, :attribute field is required.';
 Validator.setMessages('en', messages);
 ```
+
+### License
+
+Copyright &copy; 2012-2019 David Tang
+Released under the MIT license
+
+### Credits
+
+validatorjs created by David Tang
+validatorjs maintained by Mike Erickson and Contributors
+
+E-Mail: [codedungeon@gmail.com](mailto:codedungeon@gmail.com)
+
+Twitter: [@codedungeon](http://twitter.com/codedungeon)
+
+Website: [codedungeon.io](http://codedungeon.io)

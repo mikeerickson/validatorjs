@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./lang/bg":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/bg":[function(require,module,exports){
 module.exports = {
   accepted: 'Трябва да приемете :attribute.',
   active_url: 'Полето :attribute не е валиден URL адрес.',
@@ -14,7 +14,7 @@ module.exports = {
     numeric: 'Полето :attribute трябва да бъде между :min и :max.',
     file: 'Полето :attribute трябва да бъде между :min и :max килобайта.',
     string: 'Полето :attribute трябва да бъде между :min и :max знака.',
-    array: 'Полето :attribute трябва да има между :min - :max елемента.',
+    array: 'Полето :attribute трябва да има между :min - :max елемента.'
   },
   boolean: 'Полето :attribute трябва да съдържа Да или Не',
   confirmed: 'Полето :attribute не е потвърдено.',
@@ -33,13 +33,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: 'Полето :attribute трябва да бъде изображение.',
   in: 'Избраното поле :attribute е невалидно.',
@@ -53,19 +53,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: 'Полето :attribute трябва да бъде по-малко от :max.',
     file: 'Полето :attribute трябва да бъде по-малко от :max килобайта.',
     string: 'Полето :attribute трябва да бъде по-малко от :max знака.',
-    array: 'Полето :attribute трябва да има по-малко от :max елемента.',
+    array: 'Полето :attribute трябва да има по-малко от :max елемента.'
   },
   mimes: 'Полето :attribute трябва да бъде файл от тип: :values.',
   mimetypes: 'Полето :attribute трябва да бъде файл от тип: :values.',
@@ -73,7 +73,7 @@ module.exports = {
     numeric: 'Полето :attribute трябва да бъде минимум :min.',
     file: 'Полето :attribute трябва да бъде минимум :min килобайта.',
     string: 'Полето :attribute трябва да бъде минимум :min знака.',
-    array: 'Полето :attribute трябва има минимум :min елемента.',
+    array: 'Полето :attribute трябва има минимум :min елемента.'
   },
   not_in: 'Избраното поле :attribute е невалидно.',
   not_regex: 'The :attribute format is invalid.',
@@ -92,13 +92,13 @@ module.exports = {
     numeric: 'Полето :attribute трябва да бъде :size.',
     file: 'Полето :attribute трябва да бъде :size килобайта.',
     string: 'Полето :attribute трябва да бъде :size знака.',
-    array: 'Полето :attribute трябва да има :size елемента.',
+    array: 'Полето :attribute трябва да има :size елемента.'
   },
   string: 'Полето :attribute трябва да бъде знаков низ.',
   timezone: 'Полето :attribute трябва да съдържа валидна часова зона.',
   unique: 'Полето :attribute вече съществува.',
   uploaded: 'Неуспешно качване на :attribute.',
-  url: 'Полето :attribute е в невалиден формат.',
+  url: 'Полето :attribute е в невалиден формат.'
 };
 
 },{}]},{},[]);

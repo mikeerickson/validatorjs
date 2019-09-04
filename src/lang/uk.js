@@ -6,6 +6,7 @@ module.exports = {
   alpha: 'Поле :attribute має містити лише літери.',
   alpha_dash: 'Поле :attribute має містити лише літери, цифри та підкреслення.',
   alpha_num: 'Поле :attribute має містити лише літери та цифри.',
+  attributes: {},
   array: 'Поле :attribute має бути масивом.',
   before: 'Поле :attribute має містити дату не пізніше :date.',
   before_or_equal: 'Поле :attribute має містити дату не пізніше або дорівнюватися :date.',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: 'Поле :attribute має бути між :min та :max.',
     file: 'Розмір файлу в полі :attribute має бути не менше :min та не більше :max кілобайт.',
     string: 'Текст в полі :attribute має бути не менше :min та не більше :max символів.',
-    array: 'Поле :attribute має містити від :min до :max елементів.',
+    array: 'Поле :attribute має містити від :min до :max елементів.'
   },
   boolean: 'Поле :attribute повинне містити логічний тип.',
   confirmed: 'Поле :attribute не збігається з підтвердженням.',
@@ -26,19 +27,19 @@ module.exports = {
   distinct: 'Поле :attribute містить значення, яке дублюється.',
   email: 'Поле :attribute повинне містити коректну електронну адресу.',
   file: 'Поле :attribute має містити файл.',
-  filled: "Поле :attribute є обов'язковим для заповнення.",
+  filled: 'Поле :attribute є обов\'язковим для заповнення.',
   exists: 'Вибране для :attribute значення не коректне.',
   gt: {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: 'Поле :attribute має містити зображення.',
   in: 'Вибране для :attribute значення не коректне.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: 'Поле :attribute має бути не більше :max.',
     file: 'Файл в полі :attribute має бути не більше :max кілобайт.',
     string: 'Текст в полі :attribute повинен мати довжину не більшу за :max.',
-    array: 'Поле :attribute повинне містити не більше :max елементів.',
+    array: 'Поле :attribute повинне містити не більше :max елементів.'
   },
   mimes: 'Поле :attribute повинне містити файл одного з типів: :values.',
   mimetypes: 'Поле :attribute повинне містити файл одного з типів: :values.',
@@ -72,31 +73,30 @@ module.exports = {
     numeric: 'Поле :attribute повинне бути не менше :min.',
     file: 'Розмір файлу в полі :attribute має бути не меншим :min кілобайт.',
     string: 'Текст в полі :attribute повинен містити не менше :min символів.',
-    array: 'Поле :attribute повинне містити не менше :min елементів.',
+    array: 'Поле :attribute повинне містити не менше :min елементів.'
   },
   not_in: 'Вибране для :attribute значення не коректне.',
   not_regex: 'The :attribute format is invalid.',
   numeric: 'Поле :attribute повинно містити число.',
   present: 'Поле :attribute повинне бути присутнє.',
   regex: 'Поле :attribute має хибний формат.',
-  required: "Поле :attribute є обов'язковим для заповнення.",
-  required_if: "Поле :attribute є обов'язковим для заповнення, коли :other є рівним :value.",
-  required_unless: "Поле :attribute є обов'язковим для заповнення, коли :other відрізняється від :values",
-  required_with: "Поле :attribute є обов'язковим для заповнення, коли :values вказано.",
-  required_with_all: "Поле :attribute є обов'язковим для заповнення, коли :values вказано.",
-  required_without: "Поле :attribute є обов'язковим для заповнення, коли :values не вказано.",
-  required_without_all: "Поле :attribute є обов'язковим для заповнення, коли :values не вказано.",
+  required: 'Поле :attribute є обов\'язковим для заповнення.',
+  required_if: 'Поле :attribute є обов\'язковим для заповнення, коли :other є рівним :value.',
+  required_unless: 'Поле :attribute є обов\'язковим для заповнення, коли :other відрізняється від :values',
+  required_with: 'Поле :attribute є обов\'язковим для заповнення, коли :values вказано.',
+  required_with_all: 'Поле :attribute є обов\'язковим для заповнення, коли :values вказано.',
+  required_without: 'Поле :attribute є обов\'язковим для заповнення, коли :values не вказано.',
+  required_without_all: 'Поле :attribute є обов\'язковим для заповнення, коли :values не вказано.',
   same: 'Поля :attribute та :other мають співпадати.',
   size: {
     numeric: 'Поле :attribute має бути довжини :size.',
     file: 'Файл в полі :attribute має бути розміром :size кілобайт.',
     string: 'Текст в полі :attribute повинен містити :size символів.',
-    array: 'Поле :attribute повинне містити :size елементів.',
+    array: 'Поле :attribute повинне містити :size елементів.'
   },
   string: 'Поле :attribute повинне містити текст.',
   timezone: 'Поле :attribute повинне містити коректну часову зону.',
   unique: 'Таке значення поля :attribute вже існує.',
   uploaded: 'Завантаження поля :attribute не вдалося.',
-  url: 'Формат поля :attribute неправильний.',
-
+  url: 'Формат поля :attribute неправильний.'
 };

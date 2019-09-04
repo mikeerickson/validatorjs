@@ -15,7 +15,7 @@ module.exports = {
   digits: ':attribute trebuie să aibă  :digits cifre.',
   digits_between: 'Câmpul :attribute trebuie să aibă între :min și :max cifre.',
   different: ':attribute și :different trebuie sa fie diferite.',
-  'in': 'Atributul selectat :attribute nu este valid.',
+  in: 'Atributul selectat :attribute nu este valid.',
   integer: ':attribute trebuie să fie un număr întreg.',
   hex: 'Câmpul :attribute trebuie să aibă format hexazecimal.',
   min: {
@@ -46,4 +46,3 @@ module.exports = {
   regex: 'Formatul :attribute nu este valid.',
   attributes: {}
 };
-  

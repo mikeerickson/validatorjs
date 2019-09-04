@@ -6,6 +6,7 @@ module.exports = {
   alpha: ':attribute võib sisaldada vaid tähemärke.',
   alpha_dash: ':attribute võib sisaldada vaid tähti, numbreid ja kriipse.',
   alpha_num: ':attribute võib sisaldada vaid tähti ja numbreid.',
+  attributes: {},
   array: ':attribute peab olema massiiv.',
   before: ':attribute peab olema kuupäev enne :date.',
   before_or_equal: ':attribute peab olema kuupäev enne või samastuma :date.',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: ':attribute peab olema :min ja :max vahel.',
     file: ':attribute peab olema :min ja :max kilobaidi vahel.',
     string: ':attribute peab olema :min ja :max tähemärgi vahel.',
-    array: ':attribute peab olema :min ja :max kirje vahel.',
+    array: ':attribute peab olema :min ja :max kirje vahel.'
   },
   boolean: ':attribute väli peab olema tõene või väär.',
   confirmed: ':attribute kinnitus ei vasta.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: ':attribute peab olema pilt.',
   in: 'Valitud :attribute on vigane.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: ':attribute ei tohi olla suurem kui :max.',
     file: ':attribute ei tohi olla suurem kui :max kilobaiti.',
     string: ':attribute ei tohi olla suurem kui :max tähemärki.',
-    array: ':attribute ei tohi sisaldada rohkem kui :max kirjet.',
+    array: ':attribute ei tohi sisaldada rohkem kui :max kirjet.'
   },
   mimes: ':attribute peab olema :values tüüpi.',
   mimetypes: ':attribute peab olema :values tüüpi.',
@@ -72,7 +73,7 @@ module.exports = {
     numeric: ':attribute peab olema vähemalt :min.',
     file: ':attribute peab olema vähemalt :min kilobaiti.',
     string: ':attribute peab olema vähemalt :min tähemärki.',
-    array: ':attribute peab olema vähemalt :min kirjet.',
+    array: ':attribute peab olema vähemalt :min kirjet.'
   },
   not_in: 'Valitud :attribute on vigane.',
   not_regex: 'The :attribute format is invalid.',
@@ -91,11 +92,11 @@ module.exports = {
     numeric: ':attribute peab olema :size.',
     file: ':attribute peab olema :size kilobaiti.',
     string: ':attribute peab olema :size tähemärki.',
-    array: ':attribute peab sisaldama :size kirjet.',
+    array: ':attribute peab sisaldama :size kirjet.'
   },
   string: ':attribute peab olema string.',
   timezone: ':attribute peab olema kehtiv tsoon.',
   unique: ':attribute on juba hõivatud.',
   uploaded: ':attribute ei õnnestunud laadida.',
-  url: ':attribute vorming on vigane.',
+  url: ':attribute vorming on vigane.'
 };

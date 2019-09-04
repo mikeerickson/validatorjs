@@ -6,6 +6,7 @@ module.exports = {
   alpha: 'A(z) :attribute kizárólag betűket tartalmazhat!',
   alpha_dash: 'A(z) :attribute kizárólag betűket, számokat és kötőjeleket tartalmazhat!',
   alpha_num: 'A(z) :attribute kizárólag betűket és számokat tartalmazhat!',
+  attributes: {},
   array: 'A(z) :attribute egy tömb kell, hogy legyen!',
   before: 'A(z) :attribute :date előtti dátum kell, hogy legyen!',
   before_or_equal: 'A(z) :attribute nem lehet későbbi dátum, mint :date!',
@@ -13,7 +14,7 @@ module.exports = {
     numeric: 'A(z) :attribute :min és :max közötti szám kell, hogy legyen!',
     file: 'A(z) :attribute mérete :min és :max kilobájt között kell, hogy legyen!',
     string: 'A(z) :attribute hossza :min és :max karakter között kell, hogy legyen!',
-    array: 'A(z) :attribute :min - :max közötti elemet kell, hogy tartalmazzon!',
+    array: 'A(z) :attribute :min - :max közötti elemet kell, hogy tartalmazzon!'
   },
   boolean: 'A(z) :attribute mező csak true vagy false értéket kaphat!',
   confirmed: 'A(z) :attribute nem egyezik a megerősítéssel.',
@@ -32,13 +33,13 @@ module.exports = {
     numeric: 'A(z) :attribute nagyobb kell, hogy legyen, mint :value!',
     file: 'A(z) :attribute mérete nagyobb kell, hogy legyen, mint :value kilobájt.',
     string: 'A(z) :attribute hosszabb kell, hogy legyen, mint :value karakter.',
-    array: 'A(z) :attribute több, mint :value elemet kell, hogy tartalmazzon.',
+    array: 'A(z) :attribute több, mint :value elemet kell, hogy tartalmazzon.'
   },
   gte: {
     numeric: 'A(z) :attribute nagyobb vagy egyenlő kell, hogy legyen, mint :value!',
     file: 'A(z) :attribute mérete nem lehet kevesebb, mint :value kilobájt.',
     string: 'A(z) :attribute hossza nem lehet kevesebb, mint :value karakter.',
-    array: 'A(z) :attribute legalább :value elemet kell, hogy tartalmazzon.',
+    array: 'A(z) :attribute legalább :value elemet kell, hogy tartalmazzon.'
   },
   image: 'A(z) :attribute képfájl kell, hogy legyen!',
   in: 'A kiválasztott :attribute érvénytelen.',
@@ -52,19 +53,19 @@ module.exports = {
     numeric: 'A(z) :attribute kisebb kell, hogy legyen, mint :value!',
     file: 'A(z) :attribute mérete kisebb kell, hogy legyen, mint :value kilobájt.',
     string: 'A(z) :attribute rövidebb kell, hogy legyen, mint :value karakter.',
-    array: 'A(z) :attribute kevesebb, mint :value elemet kell, hogy tartalmazzon.',
+    array: 'A(z) :attribute kevesebb, mint :value elemet kell, hogy tartalmazzon.'
   },
   lte: {
     numeric: 'A(z) :attribute kisebb vagy egyenlő kell, hogy legyen, mint :value!',
     file: 'A(z) :attribute mérete nem lehet több, mint :value kilobájt.',
     string: 'A(z) :attribute hossza nem lehet több, mint :value karakter.',
-    array: 'A(z) :attribute legfeljebb :value elemet kell, hogy tartalmazzon.',
+    array: 'A(z) :attribute legfeljebb :value elemet kell, hogy tartalmazzon.'
   },
   max: {
     numeric: 'A(z) :attribute értéke nem lehet nagyobb, mint :max!',
     file: 'A(z) :attribute mérete nem lehet több, mint :max kilobájt.',
     string: 'A(z) :attribute hossza nem lehet több, mint :max karakter.',
-    array: 'A(z) :attribute legfeljebb :max elemet kell, hogy tartalmazzon.',
+    array: 'A(z) :attribute legfeljebb :max elemet kell, hogy tartalmazzon.'
   },
   mimes: 'A(z) :attribute kizárólag az alábbi fájlformátumok egyike lehet: :values.',
   mimetypes: 'A(z) :attribute kizárólag az alábbi fájlformátumok egyike lehet: :values.',
@@ -72,7 +73,7 @@ module.exports = {
     numeric: 'A(z) :attribute értéke nem lehet kisebb, mint :min!',
     file: 'A(z) :attribute mérete nem lehet kevesebb, mint :min kilobájt.',
     string: 'A(z) :attribute hossza nem lehet kevesebb, mint :min karakter.',
-    array: 'A(z) :attribute legalább :min elemet kell, hogy tartalmazzon.',
+    array: 'A(z) :attribute legalább :min elemet kell, hogy tartalmazzon.'
   },
   not_in: 'A(z) :attribute értéke érvénytelen.',
   not_regex: 'A(z) :attribute formátuma érvénytelen.',
@@ -91,11 +92,11 @@ module.exports = {
     numeric: 'A(z) :attribute értéke :size kell, hogy legyen!',
     file: 'A(z) :attribute mérete :size kilobájt kell, hogy legyen!',
     string: 'A(z) :attribute hossza :size karakter kell, hogy legyen!',
-    array: 'A(z) :attribute :size elemet kell tartalmazzon!',
+    array: 'A(z) :attribute :size elemet kell tartalmazzon!'
   },
   string: 'A(z) :attribute szöveg kell, hogy legyen.',
   timezone: 'A(z) :attribute nem létező időzona.',
   unique: 'A(z) :attribute már foglalt.',
   uploaded: 'A(z) :attribute feltöltése sikertelen.',
-  url: 'A(z) :attribute érvénytelen link.',
+  url: 'A(z) :attribute érvénytelen link.'
 };

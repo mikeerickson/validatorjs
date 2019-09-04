@@ -13,7 +13,7 @@ module.exports = {
     numeric: 'O campo :attribute deve conter um número entre :min e :max.',
     file: 'O campo :attribute deve conter um arquivo de :min a :max kilobytes.',
     string: 'O campo :attribute deve conter entre :min a :max caracteres.',
-    array: 'O campo :attribute deve conter de :min a :max itens.',
+    array: 'O campo :attribute deve conter de :min a :max itens.'
   },
   boolean: 'O campo :attribute deve conter o valor verdadeiro ou falso.',
   confirmed: 'A confirmação para o campo :attribute não coincide.',
@@ -32,13 +32,13 @@ module.exports = {
     numeric: 'O campo :attribute deve ser maior que :value.',
     file: 'O arquivo :attribute deve ser maior que :value kilobytes.',
     string: 'O campo :attribute deve ser maior que :value caracteres.',
-    array: 'O campo :attribute deve ter mais que :value itens.',
+    array: 'O campo :attribute deve ter mais que :value itens.'
   },
   gte: {
     numeric: 'O campo :attribute deve ser maior ou igual a :value.',
     file: 'O arquivo :attribute deve ser maior ou igual a :value kilobytes.',
     string: 'O campo :attribute deve ser maior ou igual a :value caracteres.',
-    array: 'O campo :attribute deve ter :value itens ou mais.',
+    array: 'O campo :attribute deve ter :value itens ou mais.'
   },
   image: 'O campo :attribute deve conter uma imagem.',
   in: 'O campo :attribute não contém um valor válido.',
@@ -52,19 +52,19 @@ module.exports = {
     numeric: 'O campo :attribute deve ser menor que :value.',
     file: 'O arquivo :attribute ser menor que :value kilobytes.',
     string: 'O campo :attribute deve ser menor que :value caracteres.',
-    array: 'O campo :attribute deve ter menos que :value itens.',
+    array: 'O campo :attribute deve ter menos que :value itens.'
   },
   lte: {
     numeric: 'O campo :attribute deve ser menor ou igual a :value.',
     file: 'O arquivo :attribute ser menor ou igual a :value kilobytes.',
     string: 'O campo :attribute deve ser menor ou igual a :value caracteres.',
-    array: 'O campo :attribute não deve ter mais que :value itens.',
+    array: 'O campo :attribute não deve ter mais que :value itens.'
   },
   max: {
     numeric: 'O campo :attribute não pode conter um valor superior a :max.',
     file: 'O campo :attribute não pode conter um arquivo com mais de :max kilobytes.',
     string: 'O campo :attribute não pode conter mais de :max caracteres.',
-    array: 'O campo :attribute deve conter no máximo :max itens.',
+    array: 'O campo :attribute deve conter no máximo :max itens.'
   },
   mimes: 'O campo :attribute deve conter um arquivo do tipo: :values.',
   mimetypes: 'O campo :attribute deve conter um arquivo do tipo: :values.',
@@ -72,7 +72,7 @@ module.exports = {
     numeric: 'O campo :attribute deve conter um número superior ou igual a :min.',
     file: 'O campo :attribute deve conter um arquivo com no mínimo :min kilobytes.',
     string: 'O campo :attribute deve conter no mínimo :min caracteres.',
-    array: 'O campo :attribute deve conter no mínimo :min itens.',
+    array: 'O campo :attribute deve conter no mínimo :min itens.'
   },
   not_in: 'O campo :attribute contém um valor inválido.',
   not_regex: 'O formato do valor :attribute é inválido.',
@@ -91,12 +91,11 @@ module.exports = {
     numeric: 'O campo :attribute deve conter o número :size.',
     file: 'O campo :attribute deve conter um arquivo com o tamanho de :size kilobytes.',
     string: 'O campo :attribute deve conter :size caracteres.',
-    array: 'O campo :attribute deve conter :size itens.',
+    array: 'O campo :attribute deve conter :size itens.'
   },
   string: 'O campo :attribute deve ser uma string.',
   timezone: 'O campo :attribute deve conter um fuso horário válido.',
   unique: 'O valor informado para o campo :attribute já está em uso.',
   uploaded: 'Falha no Upload do arquivo :attribute.',
-  url: 'O formato da URL informada para o campo :attribute é inválido.',
-  url: 'O formato da URL informada para o campo :attribute é inválido.',
+  url: 'O formato da URL informada para o campo :attribute é inválido.'
 };

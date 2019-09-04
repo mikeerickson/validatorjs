@@ -118,7 +118,7 @@ var replacements = {
     });
   },
 
- /**
+  /**
    * After replacement.
    *
    * @param  {string} template

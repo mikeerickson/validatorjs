@@ -11,7 +11,7 @@ module.exports = {
   digits: 'فیلد :attribute می بایست شامل :digits رقم باشد',
   digits_between: ':attribute باید بین :min و :max رقم باشد.',
   different: 'فیلد :attribute می بایست مقداری غیر از :different داشته باشد',
-  'in': 'فیلد :attribute انتخاب شده صحیح نمی باشد',
+  in: 'فیلد :attribute انتخاب شده صحیح نمی باشد',
   integer: 'فیلد :attribute می بایست عددی باشد',
   hex: 'فیلد :attribute باید در فرمت مبنای ۱۶ باشد',
   min: {

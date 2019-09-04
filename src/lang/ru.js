@@ -10,7 +10,7 @@ module.exports = {
   digits: 'Длина цифрового поля :attribute должна быть :digits.',
   digits_between: 'Длинна цифрового поля :attribute должна быть от :min до :max знаков.',
   different: 'Поля :attribute и :different должны различаться.',
-  'in': 'Выбранное значение для :attribute ошибочно.',
+  in: 'Выбранное значение для :attribute ошибочно.',
   integer: 'Поле :attribute должно быть целым числом.',
   hex: 'Поле :attribute должно иметь шестнадцатеричный формат',
   min: {

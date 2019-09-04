@@ -15,7 +15,7 @@ module.exports = {
   digits: 'الصفة :attribute يجب أن تكون :digits أرقام.',
   digits_between: 'يجب أن يحتوي :attribute بين :min و :max رقمًا/أرقام .',
   different: 'الصفة :attribute و الصفة :different يجب أن تكونا مختلفتين',
-  'in': 'الصفة :attribute المختارة، غير صحيحة.',
+  in: 'الصفة :attribute المختارة، غير صحيحة.',
   integer: 'الصفة :attribute يجب أن تكون عدد صحيح',
   hex: 'حقل الصفة :attribute يجب أن يحتوي على صيغة هكسيديسمل',
   min: {

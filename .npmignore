@@ -1,0 +1,8 @@
+tests/
+test/
+dist/validator.min.js
+spec/
+scripts/
+karma.conf.js
+Gruntfile.js
+gulpfile.js

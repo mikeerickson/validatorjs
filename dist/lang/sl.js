@@ -1,4 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"./lang/sl":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/sl":[function(require,module,exports){
 module.exports = {
   accepted: ':attribute mora biti sprejet.',
   active_url: ':attribute ni pravilen.',
@@ -7,6 +7,7 @@ module.exports = {
   alpha: ':attribute lahko vsebuje samo črke.',
   alpha_dash: ':attribute lahko vsebuje samo črke, številke in črtice.',
   alpha_num: ':attribute lahko vsebuje samo črke in številke.',
+  attributes: {},
   array: ':attribute mora biti polje.',
   before: ':attribute mora biti pred datumom :date.',
   before_or_equal: ':attribute mora biti pred ali enak :date.',
@@ -14,7 +15,7 @@ module.exports = {
     numeric: ':attribute mora biti med :min in :max.',
     file: ':attribute mora biti med :min in :max kilobajti.',
     string: ':attribute mora biti med :min in :max znaki.',
-    array: ':attribute mora imeti med :min in :max elementov.',
+    array: ':attribute mora imeti med :min in :max elementov.'
   },
   boolean: ':attribute polje mora biti 1 ali 0',
   confirmed: ':attribute potrditev se ne ujema.',
@@ -33,13 +34,13 @@ module.exports = {
     numeric: 'The :attribute must be greater than :value.',
     file: 'The :attribute must be greater than :value kilobytes.',
     string: 'The :attribute must be greater than :value characters.',
-    array: 'The :attribute must have more than :value items.',
+    array: 'The :attribute must have more than :value items.'
   },
   gte: {
     numeric: 'The :attribute must be greater than or equal :value.',
     file: 'The :attribute must be greater than or equal :value kilobytes.',
     string: 'The :attribute must be greater than or equal :value characters.',
-    array: 'The :attribute must have :value items or more.',
+    array: 'The :attribute must have :value items or more.'
   },
   image: ':attribute mora biti slika.',
   in: 'izbran :attribute je neveljaven.',
@@ -53,19 +54,19 @@ module.exports = {
     numeric: 'The :attribute must be less than :value.',
     file: 'The :attribute must be less than :value kilobytes.',
     string: 'The :attribute must be less than :value characters.',
-    array: 'The :attribute must have less than :value items.',
+    array: 'The :attribute must have less than :value items.'
   },
   lte: {
     numeric: 'The :attribute must be less than or equal :value.',
     file: 'The :attribute must be less than or equal :value kilobytes.',
     string: 'The :attribute must be less than or equal :value characters.',
-    array: 'The :attribute must not have more than :value items.',
+    array: 'The :attribute must not have more than :value items.'
   },
   max: {
     numeric: ':attribute ne sme biti večje od :max.',
     file: ':attribute ne sme biti večje :max kilobajtov.',
     string: ':attribute ne sme biti večje :max znakov.',
-    array: ':attribute ne smejo imeti več kot :max elementov.',
+    array: ':attribute ne smejo imeti več kot :max elementov.'
   },
   mimes: ':attribute mora biti datoteka tipa: :values.',
   mimetypes: ':attribute mora biti datoteka tipa: :values.',
@@ -73,7 +74,7 @@ module.exports = {
     numeric: ':attribute mora biti vsaj dolžine :min.',
     file: ':attribute mora imeti vsaj :min kilobajtov.',
     string: ':attribute mora imeti vsaj :min znakov.',
-    array: ':attribute mora imeti vsaj :min elementov.',
+    array: ':attribute mora imeti vsaj :min elementov.'
   },
   not_in: 'izbran :attribute je neveljaven.',
   not_regex: 'The :attribute format is invalid.',
@@ -92,13 +93,13 @@ module.exports = {
     numeric: ':attribute mora biti :size.',
     file: ':attribute mora biti :size kilobajtov.',
     string: ':attribute mora biti :size znakov.',
-    array: ':attribute mora vsebovati :size elementov.',
+    array: ':attribute mora vsebovati :size elementov.'
   },
   string: ':attribute mora biti tekst.',
   timezone: ':attribute mora biti časovna cona.',
   unique: ':attribute je že zaseden.',
   uploaded: 'Nalaganje :attribute ni uspelo.',
-  url: ':attribute format je neveljaven.',
+  url: ':attribute format je neveljaven.'
 };
 
 },{}]},{},[]);

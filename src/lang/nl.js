@@ -15,7 +15,7 @@ module.exports = {
   digits: 'Het :attribute veld moet :digits cijfers hebben.',
   digits_between: ':attribute moet bestaan uit minimaal :min en maximaal :max cijfers.',
   different: 'Het :attribute en :different veld moeten verschillend zijn.',
-  'in': 'De gekozen waarde voor :attribute is ongeldig.',
+  in: 'De gekozen waarde voor :attribute is ongeldig.',
   integer: 'Het :attribute veld moet een geheel getal zijn.',
   hex: 'Het :attribute veld moet hexadecimaal zijn',
   min: {

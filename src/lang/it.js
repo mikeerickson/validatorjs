@@ -10,7 +10,7 @@ module.exports = {
   digits: 'Il campo :attribute deve essere di :digits cifre.',
   digits_between: 'Il campo :attribute deve essere tra :min e :max cifre.',
   different: 'Il campo :attribute e :different devo essere diversi.',
-  'in': 'Il valore del campo :attribute non è valido.',
+  in: 'Il valore del campo :attribute non è valido.',
   integer: 'Il campo :attribute deve essere un valore intero.',
   hex: 'Il campo :attribute deve essere in formato esadecimale',
   min: {
