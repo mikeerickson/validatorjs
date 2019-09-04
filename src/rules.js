@@ -5,22 +5,6 @@ function leapYear(year) {
 }
 
 function isValidDate(inDate) {
-  let test = inDate;
-  if (typeof inDate === 'string') {
-    let dateParsed = dateTools.parseISO(inDate);
-    if (typeof dateParsed === 'object') {
-      if (dateParsed.toString() === 'Invalid Date') {
-        return isValidDate2(inDate);
-      }
-    }
-    return dateTools.isValid(dateParsed);
-  }
-  return isValidDate2(inDate);
-}
-
-function isValidDate2(inDate) {
-  var valid = true;
-
   if (inDate instanceof Date) {
     return !isNaN(inDate);
   }
@@ -31,11 +15,10 @@ function isValidDate2(inDate) {
     if (pos > 0 && pos <= 6) {
       inDate = inDate.replace(/\./g, '-');
     }
+    if (inDate.length === 10) {
+      return dateTools.isValid(dateTools.parseISO(inDate));
+    }
   }
-
-  // TODO: This approach is not going to work as Date conversion will always be accurate
-  // For example: 2019-02-31 will return as 2019-03-03 thus calculations will always be correct
-  // Need to devise another method of check validity
 
   var testDate = new Date(inDate);
   var yr = testDate.getFullYear();
@@ -60,7 +43,7 @@ function isValidDate2(inDate) {
     return false;
   }
 
-  return valid;
+  return true;
 }
 
 var rules = {
