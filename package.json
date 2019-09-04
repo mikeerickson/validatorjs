@@ -1,7 +1,7 @@
 {
   "name": "validatorjs",
   "description": "Validation library inspired by Laravel's Validator",
-  "version": "3.16.1",
+  "version": "3.17.0",
   "author": "David <david@thejsguy.com>",
   "contributors": [
     {
@@ -70,9 +70,9 @@
     "lint": "eslint \"./src/**/*.js\"",
     "lint:spec": "eslint \"./spec/**/*.js\" --rule 'no-redeclare: off'",
     "lint:fix": "eslint \"./src/**/*.js\" --fix",
-    "test-node": "node node_modules/mocha/bin/mocha spec --slow 500 --reporter mocha-better-spec-reporter",
-    "test-node:watch": "node node_modules/mocha/bin/mocha --watch spec --slow 500 --reporter mocha-better-spec-reporter",
-    "test-browser": "grunt dist && node node_modules/karma/bin/karma start --single-run",
-    "test": "npm run test-node && npm run test-browser"
+    "test:node": "node node_modules/mocha/bin/mocha spec --slow 500 --reporter mocha-better-spec-reporter",
+    "test:node-watch": "node node_modules/mocha/bin/mocha --watch spec --slow 500 --reporter mocha-better-spec-reporter",
+    "test:browser": "grunt dist && node node_modules/karma/bin/karma start --single-run",
+    "test": "npm run test:node && npm run test:browser"
   }
 }

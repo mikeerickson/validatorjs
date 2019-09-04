@@ -69,12 +69,48 @@ describe('date rule', function() {
     expect(validator.fails()).to.be.true;
   });
 
-  it('should use custom "isValidDate" rule', () => {
-    /**
-     * NOTE
-     * this test case will only be executed via node as we will be extending to use the`date-fns` package
-     */
+  it('should properly check invalid dates', () => {
+    let invalidDates = [
+      '2019-01-32',
+      '2019-02-31',
+      '2019-03-32',
+      '2019-04-31',
+      '2019-05-32',
+      '2019-06-31',
+      '2019-07-32',
+      '2019-08-32',
+      '2019-09-31',
+      '2019-10-32',
+      '2019-11-31',
+      '2019-12-32'
+    ];
+    invalidDates.forEach(dateValue => {
+      validator = new Validator({ failDate: dateValue }, { failDate: 'date' });
+      expect(validator.passes()).to.be.false;
+    });
 
+    let validDates = [
+      '2019-01-31',
+      '2019-02-28',
+      '2019-03-31',
+      '2019-04-30',
+      '2019-05-31',
+      '2019-06-30',
+      '2019-07-31',
+      '2019-08-31',
+      '2019-09-30',
+      '2019-10-31',
+      '2019-11-30',
+      '2019-12-31'
+    ];
+    validDates.forEach(dateValue => {
+      validator = new Validator({ failDate: dateValue }, { failDate: 'date' });
+      expect(validator.passes()).to.be.true;
+    });
+  });
+
+  it('should use custom "isValidDate" rule', () => {
+    // NOTE: This test should only be used when running with node as it using `date-fns` node module
     if (typeof require !== 'undefined') {
       Validator.register(
         'isValidDate',
@@ -101,7 +137,7 @@ describe('date rule', function() {
         '2019-12-32'
       ];
       invalidDates.forEach(dateValue => {
-        validator = new Validator({ failDate: dateValue }, { failDate: 'isValidDate' });
+        validator = new Validator({ failDate: dateValue }, { failDate: 'date' });
         expect(validator.passes()).to.be.false;
       });
 
@@ -124,6 +160,7 @@ describe('date rule', function() {
         expect(validator.passes()).to.be.true;
       });
     } else {
+      // if running in browser, always pass
       expect(true).to.be.true;
     }
   });

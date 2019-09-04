@@ -1,4 +1,4 @@
-/*! validatorjs - v3.16.1 -  - 2019-09-04 */
+/*! validatorjs - v3.17.0 -  - 2019-09-04 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 
@@ -17318,22 +17318,6 @@ function leapYear(year) {
 }
 
 function isValidDate(inDate) {
-  let test = inDate;
-  if (typeof inDate === 'string') {
-    let dateParsed = dateTools.parseISO(inDate);
-    if (typeof dateParsed === 'object') {
-      if (dateParsed.toString() === 'Invalid Date') {
-        return isValidDate2(inDate);
-      }
-    }
-    return dateTools.isValid(dateParsed);
-  }
-  return isValidDate2(inDate);
-}
-
-function isValidDate2(inDate) {
-  var valid = true;
-
   if (inDate instanceof Date) {
     return !isNaN(inDate);
   }
@@ -17344,11 +17328,10 @@ function isValidDate2(inDate) {
     if (pos > 0 && pos <= 6) {
       inDate = inDate.replace(/\./g, '-');
     }
+    if (inDate.length === 10) {
+      return dateTools.isValid(dateTools.parseISO(inDate));
+    }
   }
-
-  // TODO: This approach is not going to work as Date conversion will always be accurate
-  // For example: 2019-02-31 will return as 2019-03-03 thus calculations will always be correct
-  // Need to devise another method of check validity
 
   var testDate = new Date(inDate);
   var yr = testDate.getFullYear();
@@ -17373,7 +17356,7 @@ function isValidDate2(inDate) {
     return false;
   }
 
-  return valid;
+  return true;
 }
 
 var rules = {
