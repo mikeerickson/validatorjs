@@ -267,6 +267,13 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/ru.js'
       },
+      seLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/sl:./lang/se']
+        },
+        dest: 'dist/lang/se.js'
+      },
       slLang: {
         src: [],
         options: {
