@@ -350,9 +350,7 @@ module.exports = function(grunt) {
           'dist/validator.js': 'src/validator.js'
         },
         options: {
-          banner:
-            '/*! <%= pkg.name %> - v<%= pkg.version %> - <%= pkg.homepage %> - ' +
-            '<%= grunt.template.today(\'yyyy-mm-dd\') %> */',
+          banner: '/*! <%= pkg.name %> - <%= pkg.homepage %>' + '<%= grunt.template.today(\'yyyy-mm-dd\') %> */',
           browserifyOptions: {
             standalone: 'Validator'
           }
