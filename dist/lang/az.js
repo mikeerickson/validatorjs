@@ -8,6 +8,7 @@ module.exports = {
   alpha_dash: ':attribute yalnız hərf, rəqəm və tire simvolundan ibarət ola bilər',
   alpha_num: ':attribute yalnız hərf və rəqəmlərdən ibarət ola bilər',
   array: ':attribute massiv formatında olmalıdır',
+  attributes: {},
   before: ':attribute :date tarixindən əvvəl olmalıdır',
   before_or_equal: ':attribute :date tarixindən əvvəl və ya bərabər olmalıdır',
   between: {

@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: 'Полето :attribute трябва да съдържа само букви, цифри, долна черта и тире.',
   alpha_num: 'Полето :attribute трябва да съдържа само букви и цифри.',
   array: 'Полето :attribute трябва да бъде масив.',
+  attributes: {},
   before: 'Полето :attribute трябва да бъде дата преди :date.',
   before_or_equal: 'Полето :attribute трябва да бъде дата преди или равна на :date.',
   between: {
