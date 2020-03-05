@@ -326,7 +326,7 @@ Validate that an attribute has a valid URL format
 The field under validation must match the given regular expression.
 
 **Note**: When using the ``regex`` pattern, it may be necessary to specify rules in an array instead of using pipe delimiters, especially if the regular expression contains a pipe character.
-For each backward slash that you used in your regex pattern, you must escape each one with another backward slash.
+For each backward slash that you used in your regex pattern, you must escape each one with another backward slash. Note that validatorjs uses the standard JavaScript [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) flavor of regular expressions.
 
 #### Example 3 - Regex validation
 
