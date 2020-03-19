@@ -296,7 +296,7 @@ Validator.prototype = {
       if(Array.isArray(path2)){
         path2 = path2[0];
       }
-      pos = path2.indexOf('*');
+      const pos = path2.indexOf('*');
       if (pos === -1) {
         return path2;
       }
