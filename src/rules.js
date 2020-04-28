@@ -429,6 +429,28 @@ var rules = {
   },
 
   ipv4: function (val, req, attribute) {
+    // regex to check that each octet is valid
+    var er = /^[0-9]+$/;
+    // ipv4 octets are delimited by dot 
+    octets = val.split('.');
+    // check 1: ipv4 address should contains 4 octets
+    if (octets.length != 4)
+      return false;
+
+    for (let i = 0; i < octets.length; i++) {
+      const element = octets[i];
+      // check 2: each octet should be integer bigger than 0
+      if (!er.test(element))
+        return false;
+
+      // check 3: each octet value should be less than 256
+      var octetValue = parseInt(element);
+      if (octetValue >= 256)
+        return false;
+    }
+
+    // if all checks passed, we know it's valid IPv4 address!
+    return true;
   }
 };
 
