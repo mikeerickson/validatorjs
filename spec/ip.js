@@ -42,7 +42,7 @@ describe('IP Validation rules', function () {
       }, {
         ipAddr: 'ipv4'
       });
-      expect(validator.passes()).to.be.fail;
+      expect(validator.passes()).to.be.false;
     });
 
     it('should fail ip address containing non integer octants', function () {
@@ -51,7 +51,7 @@ describe('IP Validation rules', function () {
       }, {
         ipAddr: 'ipv4'
       });
-      expect(validator.passes()).to.be.fail;
+      expect(validator.passes()).to.be.false;
     });
 
     it('should fail ip address more than 4 octants', function () {
@@ -60,7 +60,7 @@ describe('IP Validation rules', function () {
       }, {
         ipAddr: 'ipv4'
       });
-      expect(validator.passes()).to.be.fail;
+      expect(validator.passes()).to.be.false;
     });
 
     it('should fail ip address less than 4 octants', function () {
@@ -69,7 +69,7 @@ describe('IP Validation rules', function () {
       }, {
         ipAddr: 'ipv4'
       });
-      expect(validator.passes()).to.be.fail;
+      expect(validator.passes()).to.be.false;
     });
 
     it('should fail ip address which contains octant values more than 255', function () {
@@ -78,7 +78,7 @@ describe('IP Validation rules', function () {
       }, {
         ipAddr: 'ipv4'
       });
-      expect(validator.passes()).to.be.fail;
+      expect(validator.passes()).to.be.false;
     });
 
     it('should fail ip address which contains empty octants', function () {
@@ -87,7 +87,7 @@ describe('IP Validation rules', function () {
       }, {
         ipAddr: 'ipv4'
       });
-      expect(validator.passes()).to.be.fail;
+      expect(validator.passes()).to.be.false;
     });
   });
 
