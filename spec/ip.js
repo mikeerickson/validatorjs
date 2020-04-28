@@ -146,6 +146,24 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.true;
     });
 
+    it('should pass ipv6 input with 7 hextets and ending omitting sector', function () {
+      var validator = new Validator({
+        ipAddr: '1:2:3:4:5:6:7::'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should pass ipv6 input with 7 hextets and leading omitting sector', function () {
+      var validator = new Validator({
+        ipAddr: '::2:3:4:5:6:7:8'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
     it('should fail on ipv4 address', function () {
       var validator = new Validator({
         ipAddr: '192.168.33.10'
@@ -194,6 +212,33 @@ describe('IP Validation rules', function () {
     it('should fail on non string input', function () {
       var validator = new Validator({
         ipAddr: 1234
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on ipv6 input with less then 8 hextets and no omitting sector', function () {
+      var validator = new Validator({
+        ipAddr: '2001:0db8:85a3:9876:1234:8a2e'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail ipv6 input with 8 hextets and one omitting sector', function () {
+      var validator = new Validator({
+        ipAddr: '1:2:3:4:5::6:7:8'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail ipv6 starting with one colon', function () {
+      var validator = new Validator({
+        ipAddr: ':1:2:3:4:5:6:7'
       }, {
         ipAddr: 'ipv6'
       });

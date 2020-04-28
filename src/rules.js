@@ -465,14 +465,32 @@ var rules = {
     // ipv6 hextets are delimited by colon
     hextets = val.split(':');
 
-    // check 1: ipv6 should contain no more than 8 sectors and no less than 3 sector
-    //         minimum ipv6 addres - ::1
-    if(3 > hextets.length  || hextets.length > 8)
+    // check 1: ipv6 should contain only one consecutive colons
+    colons = val.match(/::/);
+    if(colons != null && val.match(/::/g).length > 1)
       return false;
 
-    // check 2: ipv6 should contain only one consecutive colons
-    consColonOccurances = val.match(/::/g);
-    if(consColonOccurances != null && consColonOccurances.length > 1)
+    // check 2: ipv6 should not be ending or starting with colon
+    //          edge case: not with consecutive colons
+    if(val[0] == ':' && (colons == null || (colons != null && colons.index != 0)))
+      return false;
+    if(val[val.length-1] == ':' && (colons == null || (colons != null && colons.index != val.length-2)))
+      return false;
+      
+    // check 3: ipv6 should contain no less than 3 sector
+    //         minimum ipv6 addres - ::1
+    if(3 > hextets.length)
+      return false;
+
+    // console.log()
+    // check 4: ipv6 should contain no more than 8 sectors
+    //         only 1 edge case: when first or last sector is ommited
+    var isEdgeCase = (hextets.length == 9 && colons != null && (colons.index == 0 || colons.index == val.length-2));
+    if(hextets.length > 8 && !isEdgeCase)
+      return false;
+
+    // check 5: ipv6 should contain exactly one consecutive colons if it has less than 8 sectors
+    if (hextets.length != 8 && colons == null)
       return false;
 
     for (let i = 0; i < hextets.length; i++) {
@@ -481,11 +499,11 @@ var rules = {
       if(element.length == 0)
         continue;
 
-      // check 3: all of hextets should contain numbers from 0 to f (in hexadecimal)
+      // check 6: all of hextets should contain numbers from 0 to f (in hexadecimal)
       if (!er.test(element))
         return false;
 
-      // check 4: all of hextet values should be less then ffff (in hexadeimal)
+      // check 7: all of hextet values should be less then ffff (in hexadeimal)
       //          checking using length of hextet. lowest invalid value's length is 5. 
       //          so all valid hextets are length of 4 or less
       if (element.length > 4)
