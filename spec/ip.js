@@ -89,6 +89,15 @@ describe('IP Validation rules', function () {
       });
       expect(validator.passes()).to.be.false;
     });
+
+    it('should fail on non string input', function () {
+      var validator = new Validator({
+        ipAddr: 1234
+      }, {
+        ipAddr: 'ipv4'
+      });
+      expect(validator.passes()).to.be.false;
+    });
   });
 
   describe('IPv6 Validation rule', function () {
@@ -176,6 +185,15 @@ describe('IP Validation rules', function () {
     it('should fail on ipv6 address when consecutive ommiting sections occure', function () {
       var validator = new Validator({
         ipAddr: '234::123::23'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on non string input', function () {
+      var validator = new Validator({
+        ipAddr: 1234
       }, {
         ipAddr: 'ipv6'
       });
