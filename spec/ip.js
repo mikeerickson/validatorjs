@@ -245,4 +245,60 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.false;
     });
   });
+
+  describe('IP General Validation rule', function () {
+    it('should accept localhost ipv4 addres', function () {
+      var validator = new Validator({
+        ipAddr: '127.0.0.1'
+      }, {
+        ipAddr: 'ip'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should accept minimum ipv4 addres', function () {
+      var validator = new Validator({
+        ipAddr: '0.0.0.0'
+      }, {
+        ipAddr: 'ip'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should accept localhost ipv6 addres', function () {
+      var validator = new Validator({
+        ipAddr: '::1'
+      }, {
+        ipAddr: 'ip'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should accept normal ipv6 addres', function () {
+      var validator = new Validator({
+        ipAddr: '2001:0db8:85a3:0:0:8a2e:0370:7334'
+      }, {
+        ipAddr: 'ip'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should fail on random string ipv4 type', function () {
+      var validator = new Validator({
+        ipAddr: 'F.A.I.L'
+      }, {
+        ipAddr: 'ip'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on random string ipv6 type', function () {
+      var validator = new Validator({
+        ipAddr: 'F:A:I:L:U:R:E:!:'
+      }, {
+        ipAddr: 'ip'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+  });
 });
