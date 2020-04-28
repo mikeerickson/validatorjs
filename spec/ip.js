@@ -146,15 +146,6 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.false;
     });
 
-    it('should fail on ipv4 address', function () {
-      var validator = new Validator({
-        ipAddr: '192.168.33.10'
-      }, {
-        ipAddr: 'ipv6'
-      });
-      expect(validator.passes()).to.be.false;
-    });
-
     it('should fail on ipv6 address with more than 8 sectors', function () {
       var validator = new Validator({
         ipAddr: '2001:0db8:85a3:1234:5349:8a2e:0370:7334:1234'
@@ -175,7 +166,7 @@ describe('IP Validation rules', function () {
 
     it('should fail on ipv6 address with bigger values in octet than ffff', function () {
       var validator = new Validator({
-        ipAddr: '2001:0db8:85a3:1234:123456789:8a2e:0370:7334:'
+        ipAddr: '2001:0db8:85a3:1234:123456789:8a2e:0370:7334'
       }, {
         ipAddr: 'ipv6'
       });
