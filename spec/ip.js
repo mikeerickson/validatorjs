@@ -92,5 +92,103 @@ describe('IP Validation rules', function () {
   });
 
   describe('IPv6 Validation rule', function () {
+    it('should pass normal ipv6 address ', function () {
+      var validator = new Validator({
+        ipAddr: '2001:0db8:85a3:0000:0000:8a2e:0370:7334'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should pass normal ipv6 address with ommited zeros', function () {
+      var validator = new Validator({
+        ipAddr: '2001:0db8:85a3:0:0:8a2e:0370:7334'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should pass max ipv6 address', function () {
+      var validator = new Validator({
+        ipAddr: 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should pass ipv6 address with ommiting section of zeros', function () {
+      var validator = new Validator({
+        ipAddr: '2001:db8::ff00:42:8329'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should pass ipv6 address of localhost', function () {
+      var validator = new Validator({
+        ipAddr: '::1'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.true;
+    });
+
+    it('should fail on ipv4 address', function () {
+      var validator = new Validator({
+        ipAddr: '192.168.33.10'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on ipv4 address', function () {
+      var validator = new Validator({
+        ipAddr: '192.168.33.10'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on ipv6 address with more than 8 sectors', function () {
+      var validator = new Validator({
+        ipAddr: '2001:0db8:85a3:1234:5349:8a2e:0370:7334:1234'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on ipv6 address with less than 2 sectors', function () {
+      var validator = new Validator({
+        ipAddr: ':2000'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on ipv6 address with bigger values in octet than ffff', function () {
+      var validator = new Validator({
+        ipAddr: '2001:0db8:85a3:1234:123456789:8a2e:0370:7334:'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
+
+    it('should fail on ipv6 address when consecutive ommiting sections occure', function () {
+      var validator = new Validator({
+        ipAddr: '234::123::23'
+      }, {
+        ipAddr: 'ipv6'
+      });
+      expect(validator.passes()).to.be.false;
+    });
   });
 });

@@ -451,6 +451,9 @@ var rules = {
 
     // if all checks passed, we know it's valid IPv4 address!
     return true;
+  },
+
+  ipv6: function (val, req, attribute) {
   }
 };
 
