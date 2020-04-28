@@ -9,7 +9,7 @@ if (typeof require !== 'undefined') {
 describe('IP Validation rules', function () {
 
   describe('IPv4 Validation rule', function () {
-    it('should accept localhost ipv4 addres', function () {
+    it('should pass localhost ipv4 addres', function () {
       var validator = new Validator({
         ipAddr: '127.0.0.1'
       }, {
@@ -18,7 +18,7 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.true;
     });
 
-    it('should accept maximum ip range ', function () {
+    it('should pass maximum ip range ', function () {
       var validator = new Validator({
         ipAddr: '255.255.255.255'
       }, {
@@ -27,7 +27,7 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.true;
     });
 
-    it('should accept random ip address withing range ', function () {
+    it('should pass random ip address withing range ', function () {
       var validator = new Validator({
         ipAddr: '192.168.33.10'
       }, {
@@ -247,7 +247,7 @@ describe('IP Validation rules', function () {
   });
 
   describe('IP General Validation rule', function () {
-    it('should accept localhost ipv4 addres', function () {
+    it('should pass localhost ipv4 addres', function () {
       var validator = new Validator({
         ipAddr: '127.0.0.1'
       }, {
@@ -256,7 +256,7 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.true;
     });
 
-    it('should accept minimum ipv4 addres', function () {
+    it('should pass minimum ipv4 addres', function () {
       var validator = new Validator({
         ipAddr: '0.0.0.0'
       }, {
@@ -265,7 +265,7 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.true;
     });
 
-    it('should accept localhost ipv6 addres', function () {
+    it('should pass localhost ipv6 addres', function () {
       var validator = new Validator({
         ipAddr: '::1'
       }, {
@@ -274,7 +274,7 @@ describe('IP Validation rules', function () {
       expect(validator.passes()).to.be.true;
     });
 
-    it('should accept normal ipv6 addres', function () {
+    it('should pass normal ipv6 addres', function () {
       var validator = new Validator({
         ipAddr: '2001:0db8:85a3:0:0:8a2e:0370:7334'
       }, {
