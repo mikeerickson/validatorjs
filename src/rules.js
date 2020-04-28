@@ -429,6 +429,9 @@ var rules = {
   },
 
   ipv4: function (val, req, attribute) {
+    if(typeof val != 'string')
+      return false;
+      
     // regex to check that each octet is valid
     var er = /^[0-9]+$/;
     // ipv4 octets are delimited by dot 
@@ -454,6 +457,9 @@ var rules = {
   },
 
   ipv6: function (val, req, attribute) {
+    if(typeof val != 'string')
+      return false;
+
     // regex to check that each hextet is valid
     var er = /^[0-9a-f]+$/;
     // ipv6 hextets are delimited by colon
