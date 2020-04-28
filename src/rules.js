@@ -510,6 +510,10 @@ var rules = {
         return false;
     }
     return true;
+  },
+  
+  ip: function (val, req, attribute) {
+    return rules['ipv4'](val,req,attribute) || rules['ipv6'](val,req,attribute);
   }
 };
 
