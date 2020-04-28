@@ -426,6 +426,9 @@ var rules = {
 
   hex: function(val) {
     return /^[0-9a-f]+$/i.test(val);
+  },
+
+  ipv4: function (val, req, attribute) {
   }
 };
 
