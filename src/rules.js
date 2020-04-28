@@ -454,6 +454,38 @@ var rules = {
   },
 
   ipv6: function (val, req, attribute) {
+    // regex to check that each hextet is valid
+    var er = /^[0-9a-f]+$/;
+    // ipv6 hextets are delimited by colon
+    hextets = val.split(':');
+
+    // check 1: ipv6 should contain no more than 8 sectors and no less than 3 sector
+    //         minimum ipv6 addres - ::1
+    if(3 > hextets.length  || hextets.length > 8)
+      return false;
+
+    // check 2: ipv6 should contain only one consecutive colons
+    consColonOccurances = val.match(/::/g);
+    if(consColonOccurances != null && consColonOccurances.length > 1)
+      return false;
+
+    for (let i = 0; i < hextets.length; i++) {
+      const element = hextets[i];
+      
+      if(element.length == 0)
+        continue;
+
+      // check 3: all of hextets should contain numbers from 0 to f (in hexadecimal)
+      if (!er.test(element))
+        return false;
+
+      // check 4: all of hextet values should be less then ffff (in hexadeimal)
+      //          checking using length of hextet. lowest invalid value's length is 5. 
+      //          so all valid hextets are length of 4 or less
+      if (element.length > 4)
+        return false;
+    }
+    return true;
   }
 };
 
