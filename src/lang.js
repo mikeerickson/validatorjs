@@ -45,7 +45,6 @@ var container = {
    * @param {function} fn 
    */
   _setCustomReplement: function(name, fn) {
-    console.log('opa!');
     if (fn !== undefined) {
       this.attributes[name] = function(template, rule) {
         const replacement = fn(template, rule, this._getAttributeName);
