@@ -6,8 +6,6 @@ var require_method = require;
 
 var container = {
 
-  attributes: {},
-
   messages: {},
 
   /**
@@ -36,22 +34,6 @@ var container = {
     }
 
     this.messages[lang][attribute] = message;
-  },
-
-  /**
-   * Set a custom replacement to message
-   * 
-   * @param {string} name 
-   * @param {function} fn 
-   */
-  _setCustomReplement: function(name, fn) {
-    console.log('opa!');
-    if (fn !== undefined) {
-      this.attributes[name] = function(template, rule) {
-        const replacement = fn(template, rule, this._getAttributeName);
-        return this._replacePlaceholders(rule, template, replacement);
-      };
-    }
   },
 
   /**
@@ -88,7 +70,7 @@ var container = {
    */
   _make: function(lang) {
     this._load(lang);
-    return new Messages(lang, this.messages[lang], this.attributes);
+    return new Messages(lang, this.messages[lang]);
   }
 
 };

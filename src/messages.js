@@ -1,11 +1,10 @@
 var Attributes = require('./attributes');
 
-var Messages = function(lang, messages, customReplacements) {
+var Messages = function(lang, messages) {
   this.lang = lang;
   this.messages = messages;
   this.customMessages = {};
   this.attributeNames = {};
-  Attributes.replacements = { ...Attributes.replacements, ...customReplacements };
 };
 
 Messages.prototype = {

@@ -296,6 +296,7 @@ Validator.prototype = {
       if(Array.isArray(path2)){
         path2 = path2[0];
       }
+      const pos = path2.indexOf('*');
       if (pos === -1) {
         return path2;
       }
@@ -592,14 +593,12 @@ Validator.stopOnError = function (attributes) {
  * @param  {string}   name
  * @param  {function} fn
  * @param  {string}   message
- * @param  {function} fnReplacement
  * @return {void}
  */
-Validator.register = function (name, fn, message, fnReplacement) {
+Validator.register = function (name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.register(name, fn);
   Lang._setRuleMessage(lang, name, message);
-  Lang._setCustomReplement(name, fnReplacement);
 };
 
 /**
@@ -608,14 +607,12 @@ Validator.register = function (name, fn, message, fnReplacement) {
  * @param  {string}   name
  * @param  {function} fn
  * @param  {string}   message
- * @param  {function} fnReplacement
  * @return {void}
  */
-Validator.registerImplicit = function (name, fn, message, fnReplacement) {
+Validator.registerImplicit = function (name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.registerImplicit(name, fn);
   Lang._setRuleMessage(lang, name, message);
-  Lang._setCustomReplement(name, fnReplacement);
 };
 
 /**
@@ -626,11 +623,10 @@ Validator.registerImplicit = function (name, fn, message, fnReplacement) {
  * @param  {string}   message
  * @return {void}
  */
-Validator.registerAsync = function (name, fn, message, fnReplacement) {
+Validator.registerAsync = function (name, fn, message) {
   var lang = Validator.getDefaultLang();
   Rules.registerAsync(name, fn);
   Lang._setRuleMessage(lang, name, message);
-  Lang._setCustomReplement(name, fnReplacement);
 };
 
 /**
