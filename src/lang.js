@@ -48,7 +48,9 @@ var container = {
     if (fn !== undefined) {
       this.attributes[name] = function(template, rule) {
         const replacement = fn(template, rule, this._getAttributeName);
-        return this._replacePlaceholders(rule, template, replacement);
+        return 'object' === typeof replacement
+          ? this._replacePlaceholders(rule, template, replacement)
+          : replacement;
       };
     }
   },
