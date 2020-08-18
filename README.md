@@ -325,6 +325,10 @@ Validate that an attribute has a valid URL format
 
 The field under validation must match the given regular expression.
 
+#### sometimes
+
+In some situations, you may wish to run validation checks against a field only if that field is present in the input array. To quickly accomplish this, add the sometimes rule to your rule list. Useful in combination with other rules, like `sometimes|required` (if present should be required)
+
 **Note**: When using the ``regex`` pattern, it may be necessary to specify rules in an array instead of using pipe delimiters, especially if the regular expression contains a pipe character.
 For each backward slash that you used in your regex pattern, you must escape each one with another backward slash.
 
