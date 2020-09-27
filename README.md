@@ -134,7 +134,7 @@ let nested = {
 
 let flattened = {
   'name': 'required',
-  'bio.age': 'min:18'
+  'bio.age': 'min:18',
   'bio.education.primary': 'string',
   'bio.education.secondary': 'string'
 };
@@ -164,7 +164,7 @@ We could declare our validation rules as follows:
 ```js
 let rules = {
   'users.*.name': 'required',
-  'users.*.bio.age': 'min:18'
+  'users.*.bio.age': 'min:18',
   'users.*.bio.education.primary': 'string',
   'users.*.bio.education.secondary': 'string'
 };
