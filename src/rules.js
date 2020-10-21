@@ -171,8 +171,8 @@ var rules = {
   between: function(val, req, attribute) {
     req = this.getParameters();
     var size = this.getSize();
-    var min = parseFloat(req[0], 10);
-    var max = parseFloat(req[1], 10);
+    var min = parseFloat(req[0]);
+    var max = parseFloat(req[1]);
     return size >= min && size <= max;
   },
 
@@ -325,8 +325,8 @@ var rules = {
     var numericRule = this.validator.getRule('numeric');
     var req = this.getParameters();
     var valueDigitsCount = String(val).length;
-    var min = parseFloat(req[0], 10);
-    var max = parseFloat(req[1], 10);
+    var min = parseFloat(req[0]);
+    var max = parseFloat(req[1]);
 
     if (numericRule.validate(val) && valueDigitsCount >= min && valueDigitsCount <= max) {
       return true;
@@ -525,10 +525,11 @@ Rule.prototype = {
   /**
    * Get true size of value
    *
+   * @param {mixed} val // How to ensure this.inputValue has .length
    * @return {integer|float}
    */
-  getSize: function() {
-    var value = this.inputValue;
+  getSize: function(val) {
+    var value = val || this.inputValue;
 
     if (value instanceof Array) {
       return value.length;
@@ -539,7 +540,7 @@ Rule.prototype = {
     }
 
     if (this.validator._hasNumericRule(this.attribute)) {
-      return parseFloat(value, 10);
+      return parseFloat(value);
     }
 
     return value.length;
