@@ -193,7 +193,12 @@ function formatter(attribute) {
   return attribute.replace(/[_\[]/g, ' ').replace(/]/g, '');
 }
 
+function register(name, fn) {
+  replacements[name] = fn;
+}
+
 module.exports = {
   replacements: replacements,
-  formatter: formatter
+  formatter: formatter,
+  register: register
 };
