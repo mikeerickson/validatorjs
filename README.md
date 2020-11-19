@@ -460,6 +460,7 @@ let rules = {
 };
 
 let validation = new Validator(input, rules, { required: 'You forgot to give a :attribute' });
+validation.passes();
 validation.errors.first('name'); // returns 'You forgot to give a name'
 ```
 
@@ -480,6 +481,7 @@ let validation = new Validator(input, rules, {
   }
 });
 
+validation.passes();
 validation.errors.first('username'); // returns 'The username is too long. Max length is 16.'
 ```
 
@@ -493,6 +495,7 @@ let validation = new Validator(input, rules, {
   "required.email": "Without an :attribute we can't reach you!"
 });
 
+validation.passes();
 validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```
