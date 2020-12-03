@@ -1,39 +1,32 @@
-if (typeof require !== 'undefined') {
-  var Validator = require('../src/validator.js');
-  var expect = require('chai').expect;
-} else {
-  var Validator = window.Validator;
-  var expect = window.chai.expect;
-}
+const { Validator, expect } = require("./setup.js");
 
-describe('array rule', function() {
-  it('should pass when array', function() {
-    var validator = new Validator({
-      users: []
-    }, {
-      users: 'array'
-    });
+describe("array rule", function() {
+  it("should pass when array", function() {
+    const validator = new Validator({ users: [] }, { users: "array" });
     expect(validator.passes()).to.be.true;
     expect(validator.fails()).to.be.false;
   });
 
-  it('should fail when given object', function() {
-    var validator = new Validator({
-      users: {}
+  it("should fail when given object", function() {
+    const validator = new Validator({ users: {} }, { users: "array" });
+    expect(validator.fails()).to.be.true;
+    expect(validator.passes()).to.be.false;
+  });
+
+  it("should fail when given boolean", function() {
+    const validator = new Validator({ users: true }, { users: "array" });
+    expect(validator.fails()).to.be.true;
+    expect(validator.passes()).to.be.false;
+  });
+
+  it("should have a minimum number of array items ", function() {
+    const validator = new Validator({
+      names: []
     }, {
-      users: 'array'
+      'names': 'array|min:1'
     });
     expect(validator.fails()).to.be.true;
     expect(validator.passes()).to.be.false;
   });
 
-  it('should fail when given boolean', function() {
-    var validator = new Validator({
-      users: true
-    }, {
-      users: 'array'
-    });
-    expect(validator.fails()).to.be.true;
-    expect(validator.passes()).to.be.false;
-  });
 });

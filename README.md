@@ -1,23 +1,15 @@
 # validatorjs
 
-[![Build Status](https://travis-ci.org/skaterdav85/validatorjs.png?branch=master)](https://travis-ci.org/skaterdav85/validatorjs)
-
 The validatorjs library makes data validation in JavaScript very easy in both the browser and Node.js.
 This library was inspired by the [Laravel framework's Validator](http://laravel.com/docs/validation).
 
-## Important Notice - New Source Repository
-We are experiencing issues with updating this repository and will be moving to a new repository maintained by [Mike Erickson] (https://github.com/mikeerickson). 
-
-Please visit the following [repository](https://github.com/mikeerickson/validatorjs) as it will be current moving forward.
-
-
 ## Why use validatorjs?
 
-* Not dependent on any libraries.
 * Works in both the browser and Node.
 * Readable and declarative validation rules.
 * Error messages with multilingual support.
-* AMD/Require.js and CommonJS/Browserify support.
+* CommonJS/Browserify support.
+* ES6 support.
 
 ## Installation
 
@@ -48,7 +40,7 @@ let Validator = require('validatorjs');
 
 ```js
 // ES6
-import Validator from 'validatorjs';
+import * as Validator from 'validatorjs';
 ```
 
 ### Basic Usage
@@ -466,6 +458,7 @@ let rules = {
 };
 
 let validation = new Validator(input, rules, { required: 'You forgot to give a :attribute' });
+validation.passes();
 validation.errors.first('name'); // returns 'You forgot to give a name'
 ```
 
@@ -485,7 +478,7 @@ let validation = new Validator(input, rules, {
     string: 'The :attribute is too long. Max length is :max.'
   }
 });
-
+validation.passes();
 validation.errors.first('username'); // returns 'The username is too long. Max length is 16.'
 ```
 
@@ -499,6 +492,7 @@ let validation = new Validator(input, rules, {
   "required.email": "Without an :attribute we can't reach you!"
 });
 
+validation.passes();
 validation.errors.first('name'); // returns  'The name field is required.'
 validation.errors.first('email'); // returns 'Without an email we can\'t reach you!'
 ```

@@ -1,7 +1,7 @@
 {
   "name": "validatorjs",
   "description": "Validation library inspired by Laravel's Validator",
-  "version": "3.17.0",
+  "version": "3.22.0",
   "author": "David <david@thejsguy.com>",
   "contributors": [
     {
@@ -21,12 +21,13 @@
   "main": "./src/validator.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skaterdav85/validatorjs"
+    "url": "https://github.com/mikeerickson/validatorjs"
   },
   "bugs": {
-    "url": "https://github.com/skaterdav85/validatorjs/issues?labels=bug&milestone=1&page=1&state=open"
+    "url": "https://github.com/mikeerickson/validatorjs/issues?labels=bug&milestone=1&page=1&state=open"
   },
   "keywords": [
+    "codedungeon",
     "validatorjs",
     "validator.js",
     "data validation",
@@ -37,42 +38,41 @@
     "laravel",
     "laravel-validator-for-js"
   ],
-  "dependencies": {
-    "date-fns": "2.0.1"
-  },
   "devDependencies": {
     "browserify": "^13.0.1",
     "chai": "~3.5.0",
     "eslint": "5.8.0",
-    "grunt": "1.0.1",
+    "grunt": "1.0.4",
     "grunt-browserify": "^5.0.0",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "~1.0.1",
     "grunt-contrib-watch": "~1.0.0",
     "jit-grunt": "^0.10.0",
-    "karma": "~1.1.0",
-    "karma-browserify": "^5.0.5",
+    "karma": "4.3.0",
+    "karma-browserify": "6.1.0",
     "karma-chai": "~0.1.0",
-    "karma-chrome-launcher": "2.2.0",
+    "karma-chrome-launcher": "3.1.0",
     "karma-coverage": "~1.0.0",
     "karma-growl-notifications-reporter": "0.0.2",
-    "karma-mocha": "~1.1.1",
+    "karma-mocha": "1.3.0",
     "karma-mocha-reporter": "2.2.5",
     "mocha": "~2.5.3",
     "mocha-better-spec-reporter": "github:mikeerickson/mocha-better-spec-reporter",
     "pump": "3.0.0",
-    "puppeteer": "1.9.0",
+    "puppeteer": "1.19.0",
     "rimraf": "3.0.0"
   },
   "scripts": {
     "pre-commit": "npm run lint:spec && npm run lint && npm run test",
+    "build:all": "./scripts/build.sh",
     "build": "rimraf dist && grunt dist",
-    "lint": "eslint \"./src/**/*.js\"",
+    "lint": "eslint \"./src/**/*.js\" --fix",
     "lint:spec": "eslint \"./spec/**/*.js\" --rule 'no-redeclare: off'",
     "lint:fix": "eslint \"./src/**/*.js\" --fix",
     "test:node": "node node_modules/mocha/bin/mocha spec --slow 500 --reporter mocha-better-spec-reporter",
-    "test:node-watch": "node node_modules/mocha/bin/mocha --watch spec --slow 500 --reporter mocha-better-spec-reporter",
-    "test:browser": "grunt dist && node node_modules/karma/bin/karma start --single-run",
-    "test": "npm run test:node && npm run test:browser"
+    "test:watch": "node node_modules/mocha/bin/mocha --watch spec --slow 500 --reporter mocha-better-spec-reporter",
+    "test:browser": "npm run build:all && node node_modules/karma/bin/karma start --single-run",
+    "test": "npm run test:node",
+    "todo": "node scripts/todo.js"
   }
 }

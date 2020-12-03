@@ -8,7 +8,10 @@ module.exports = {
   alpha_num: ':attributeは英数字のみで入力してください。',
   before: ':attributeは:beforeより前の日付を入力してください。',
   before_or_equal: ':attributeは:before_or_equal以前の日付を入力してください。',
-  between: ':attributeは:min〜:max文字で入力してください。',
+  between: {
+    numeric: ':attributeは:min〜:maxの間で指定してください',
+    string: ':attributeは:min〜:max文字を入力してください'
+  },
   confirmed: ':attributeは確認が一致しません。',
   email: ':attributeは正しいメールアドレスを入力してください。',
   date: ':attributeは正しい日付形式を入力してください',

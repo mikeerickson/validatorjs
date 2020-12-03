@@ -7,7 +7,10 @@ module.exports = {
   alpha_num: 'The :attribute field must be alphanumeric.',
   before: 'The :attribute must be before :before.',
   before_or_equal: 'The :attribute must be equal or before :before_or_equal.',
-  between: 'The :attribute field must be between :min and :max.',
+  between: {
+    numeric: 'The :attribute field must be between :min and :max.',
+    string: 'The :attribute field must be between :min and :max characters.',
+  },
   confirmed: 'The :attribute confirmation does not match.',
   email: 'The :attribute format is invalid.',
   date: 'The :attribute is not a valid date format.',

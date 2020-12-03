@@ -8,6 +8,7 @@ npm run lint
 npm run lint:spec
 
 printf "\n"
+./scripts/todo.js
 success "Creating TODOs...\n"
 
 printf "\n"

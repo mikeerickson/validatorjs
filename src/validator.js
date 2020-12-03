@@ -412,6 +412,9 @@ Validator.prototype = {
    * @return {boolean}
    */
   _isValidatable: function (rule, value) {
+    if (Array.isArray(value)) {
+      return true;
+    }
     if (Rules.isImplicit(rule.name)) {
       return true;
     }
@@ -595,7 +598,7 @@ Validator.stopOnError = function (attributes) {
  * @param  {string}   message
  * @return {void}
  */
-Validator.register = function (name, fn, message) {
+Validator.register = function (name, fn, message, fnReplacement) {
   var lang = Validator.getDefaultLang();
   Rules.register(name, fn);
   Lang._setRuleMessage(lang, name, message);
@@ -607,9 +610,10 @@ Validator.register = function (name, fn, message) {
  * @param  {string}   name
  * @param  {function} fn
  * @param  {string}   message
+ * @param  {function} fnReplacement
  * @return {void}
  */
-Validator.registerImplicit = function (name, fn, message) {
+Validator.registerImplicit = function (name, fn, message, fnReplacement) {
   var lang = Validator.getDefaultLang();
   Rules.registerImplicit(name, fn);
   Lang._setRuleMessage(lang, name, message);
@@ -623,7 +627,7 @@ Validator.registerImplicit = function (name, fn, message) {
  * @param  {string}   message
  * @return {void}
  */
-Validator.registerAsync = function (name, fn, message) {
+Validator.registerAsync = function (name, fn, message, fnReplacement) {
   var lang = Validator.getDefaultLang();
   Rules.registerAsync(name, fn);
   Lang._setRuleMessage(lang, name, message);
