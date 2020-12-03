@@ -28,7 +28,7 @@ module.exports = {
   regex: 'El formato del campo :attribute es inválido.',
   required: 'El campo :attribute es obligatorio.',
   required_if: 'El campo :attribute es obligatorio cuando :other es :value.',
-  same: 'El campo :attribute y :other deben coincidir.',
+  same: 'El campo :attribute y :same deben coincidir.',
   size: {
     numeric: 'El tamaño del campo :attribute debe ser :size.',
     string: 'El campo :attribute debe contener :size caracteres.'
