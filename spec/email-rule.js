@@ -59,4 +59,9 @@ describe("email validation rule", function () {
     expect(validator.passes()).to.be.true;
   });
 
+  it("should fail when email contains dot before @", function () {
+    const validator = new Validator({ email: "mike.erickson.@codedungeon.io" }, { email: "email" });
+    expect(validator.passes()).to.be.false;
+  });
+
 });

@@ -17,3 +17,4 @@ npm run build
 printf "\n"
 
 success "Build Process Complete" " SUCCESS "
+printf "\n"

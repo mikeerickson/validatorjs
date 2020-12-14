@@ -1,8 +1,8 @@
-var Rules = require('./rules');
-var Lang = require('./lang');
-var Errors = require('./errors');
-var Attributes = require('./attributes');
-var AsyncResolvers = require('./async');
+var Rules = require("./rules");
+var Lang = require("./lang");
+var Errors = require("./errors");
+var Attributes = require("./attributes");
+var AsyncResolvers = require("./async");
 
 var Validator = function (input, rules, customMessages) {
   var lang = Validator.getDefaultLang();
@@ -20,7 +20,6 @@ var Validator = function (input, rules, customMessages) {
 };
 
 Validator.prototype = {
-
   constructor: Validator,
 
   /**
@@ -28,14 +27,14 @@ Validator.prototype = {
    *
    * @type {string}
    */
-  lang: 'en',
+  lang: "en",
 
   /**
    * Numeric based rules
    *
    * @type {array}
    */
-  numericRules: ['integer', 'numeric'],
+  numericRules: ["integer", "numeric"],
 
   /**
    * Attribute formatter.
@@ -56,7 +55,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
+      if (this._hasRule(attribute, ["sometimes"]) && !this._suppliedWithData(attribute)) {
         continue;
       }
 
@@ -67,10 +66,19 @@ Validator.prototype = {
         if (!this._isValidatable(rule, inputValue)) {
           continue;
         }
+        // console.log(attributeRules);
+
+        let ruleKeys = [];
+        attributeRules.forEach((item) => {
+          return ruleKeys.push(item.name);
+        });
 
         rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
         if (!rulePassed) {
           this._addFailure(rule);
+          if (ruleKeys.includes("bail")) {
+            break;
+          }
         }
 
         if (this._shouldStopValidating(attribute, rulePassed)) {
@@ -121,7 +129,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
+      if (this._hasRule(attribute, ["sometimes"]) && !this._suppliedWithData(attribute)) {
         continue;
       }
 
@@ -133,7 +141,6 @@ Validator.prototype = {
         if (!this._isValidatable(rule, inputValue)) {
           continue;
         }
-
         validateRule(inputValue, ruleOptions, attribute, rule)();
       }
     }
@@ -172,7 +179,7 @@ Validator.prototype = {
         var isEmpty = true;
         for (var p in current) {
           isEmpty = false;
-          recurse(current[p], property ? property + '.' + p : p);
+          recurse(current[p], property ? property + "." + p : p);
         }
         if (isEmpty) {
           flattened[property] = {};
@@ -197,7 +204,10 @@ Validator.prototype = {
       return obj[path];
     }
 
-    var keys = path.replace(/\[(\w+)\]/g, '.$1').replace(/^\./, '').split('.');
+    var keys = path
+      .replace(/\[(\w+)\]/g, ".$1")
+      .replace(/^\./, "")
+      .split(".");
     var copy = {};
     for (var attr in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, attr)) {
@@ -206,7 +216,7 @@ Validator.prototype = {
     }
 
     for (var i = 0, l = keys.length; i < l; i++) {
-      if (typeof copy === 'object' && copy !== null && Object.hasOwnProperty.call(copy, keys[i])) {
+      if (typeof copy === "object" && copy !== null && Object.hasOwnProperty.call(copy, keys[i])) {
         copy = copy[keys[i]];
       } else {
         return;
@@ -222,23 +232,19 @@ Validator.prototype = {
    * @return {object}
    */
   _parseRules: function (rules) {
-
     var parsedRules = {};
     rules = this._flattenObject(rules);
 
     for (var attribute in rules) {
-
       var rulesArray = rules[attribute];
 
       this._parseRulesCheck(attribute, rulesArray, parsedRules);
     }
     return parsedRules;
-
-
   },
 
   _parseRulesCheck: function (attribute, rulesArray, parsedRules, wildCardValues) {
-    if (attribute.indexOf('*') > -1) {
+    if (attribute.indexOf("*") > -1) {
       this._parsedRulesRecurse(attribute, rulesArray, parsedRules, wildCardValues);
     } else {
       this._parseRulesDefault(attribute, rulesArray, parsedRules, wildCardValues);
@@ -246,14 +252,14 @@ Validator.prototype = {
   },
 
   _parsedRulesRecurse: function (attribute, rulesArray, parsedRules, wildCardValues) {
-    var parentPath = attribute.substr(0, attribute.indexOf('*') - 1);
+    var parentPath = attribute.substr(0, attribute.indexOf("*") - 1);
     var propertyValue = this._objectPath(this.input, parentPath);
 
     if (propertyValue) {
       for (var propertyNumber = 0; propertyNumber < propertyValue.length; propertyNumber++) {
         var workingValues = wildCardValues ? wildCardValues.slice() : [];
         workingValues.push(propertyNumber);
-        this._parseRulesCheck(attribute.replace('*', propertyNumber), rulesArray, parsedRules, workingValues);
+        this._parseRulesCheck(attribute.replace("*", propertyNumber), rulesArray, parsedRules, workingValues);
       }
     }
   },
@@ -265,12 +271,12 @@ Validator.prototype = {
       rulesArray = this._prepareRulesArray(rulesArray);
     }
 
-    if (typeof rulesArray === 'string') {
-      rulesArray = rulesArray.split('|');
+    if (typeof rulesArray === "string") {
+      rulesArray = rulesArray.split("|");
     }
 
     for (var i = 0, len = rulesArray.length, rule; i < len; i++) {
-      rule = typeof rulesArray[i] === 'string' ? this._extractRuleAndRuleValue(rulesArray[i]) : rulesArray[i];
+      rule = typeof rulesArray[i] === "string" ? this._extractRuleAndRuleValue(rulesArray[i]) : rulesArray[i];
       if (rule.value) {
         rule.value = this._replaceWildCards(rule.value, wildCardValues);
         this._replaceWildCardsMessages(wildCardValues);
@@ -286,23 +292,22 @@ Validator.prototype = {
   },
 
   _replaceWildCards: function (path, nums) {
-
     if (!nums) {
       return path;
     }
 
     var path2 = path;
     nums.forEach(function (value) {
-      if(Array.isArray(path2)){
+      if (Array.isArray(path2)) {
         path2 = path2[0];
       }
-      const pos = path2.indexOf('*');
+      const pos = path2.indexOf("*");
       if (pos === -1) {
         return path2;
       }
       path2 = path2.substr(0, pos) + value + path2.substr(pos + 1);
     });
-    if(Array.isArray(path)){
+    if (Array.isArray(path)) {
       path[0] = path2;
       path2 = path;
     }
@@ -331,11 +336,11 @@ Validator.prototype = {
     var rules = [];
 
     for (var i = 0, len = rulesArray.length; i < len; i++) {
-      if (typeof rulesArray[i] === 'object') {
+      if (typeof rulesArray[i] === "object") {
         for (var rule in rulesArray[i]) {
           rules.push({
             name: rule,
-            value: rulesArray[i][rule]
+            value: rulesArray[i][rule],
           });
         }
       } else {
@@ -368,10 +373,10 @@ Validator.prototype = {
 
     rule.name = ruleString;
 
-    if (ruleString.indexOf(':') >= 0) {
-      ruleArray = ruleString.split(':');
+    if (ruleString.indexOf(":") >= 0) {
+      ruleArray = ruleString.split(":");
       rule.name = ruleArray[0];
-      rule.value = ruleArray.slice(1).join(':');
+      rule.value = ruleArray.slice(1).join(":");
     }
 
     return rule;
@@ -412,6 +417,9 @@ Validator.prototype = {
    * @return {boolean}
    */
   _isValidatable: function (rule, value) {
+    // if (rule.name === "min") {
+    //   return true;
+    // }
     if (Array.isArray(value)) {
       return true;
     }
@@ -419,7 +427,7 @@ Validator.prototype = {
       return true;
     }
 
-    return this.getRule('required').validate(value);
+    return this.getRule("required").validate(value);
   },
 
   /**
@@ -430,9 +438,8 @@ Validator.prototype = {
    * @return {boolean}
    */
   _shouldStopValidating: function (attribute, rulePassed) {
-
     var stopOnAttributes = this.stopOnAttributes;
-    if (typeof stopOnAttributes === 'undefined' || stopOnAttributes === false || rulePassed === true) {
+    if (typeof stopOnAttributes === "undefined" || stopOnAttributes === false || rulePassed === true) {
       return false;
     }
 
@@ -490,7 +497,7 @@ Validator.prototype = {
    * @return {boolean|undefined}
    */
   passes: function (passes) {
-    var async = this._checkAsync('passes', passes);
+    var async = this._checkAsync("passes", passes);
     if (async) {
       return this.checkAsync(passes);
     }
@@ -504,7 +511,7 @@ Validator.prototype = {
    * @return {boolean|undefined}
    */
   fails: function (fails) {
-    var async = this._checkAsync('fails', fails);
+    var async = this._checkAsync("fails", fails);
     if (async) {
       return this.checkAsync(function () {}, fails);
     }
@@ -519,14 +526,13 @@ Validator.prototype = {
    * @return {boolean}
    */
   _checkAsync: function (funcName, callback) {
-    var hasCallback = typeof callback === 'function';
+    var hasCallback = typeof callback === "function";
     if (this.hasAsync && !hasCallback) {
-      throw funcName + ' expects a callback when async rules are being tested.';
+      throw funcName + " expects a callback when async rules are being tested.";
     }
 
     return this.hasAsync || hasCallback;
-  }
-
+  },
 };
 
 /**
@@ -655,7 +661,7 @@ Validator.registerAsyncImplicit = function (name, fn, message) {
  * @param  {string}   message
  * @return {void}
  */
-Validator.registerMissedRuleValidator = function(fn, message) {
+Validator.registerMissedRuleValidator = function (fn, message) {
   Rules.registerMissedRuleValidator(fn, message);
 };
 
