@@ -35,4 +35,10 @@ describe("url validation rule", function() {
     const validator = new Validator({}, { link: "url" });
     expect(validator.passes()).to.be.true;
   });
+
+  it("should fail if invalid strings precede the valid URL", function() {
+    const link = '==sdkdhttps://t.co/abc.jpg';
+    const validator = new Validator({ link: link }, { link: "url" });
+    expect(validator.passes()).to.be.false;
+  });
 });
