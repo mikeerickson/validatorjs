@@ -14,12 +14,13 @@ module.exports = {
     numeric: ":Attribute талбарт :min-:max хооронд тоо оруулна уу.",
     file: ":Attribute талбарт :min-:max килобайт хэмжээтэй файл оруулна уу.",
     string: ":Attribute талбарт :min-:max урттай текст оруулна уу.",
-    array: ":Attribute массивт :min-:max элемэнт байх шаардлагатай."
+    array: ":Attribute массивт :min-:max элемэнт байх шаардлагатай.",
   },
   boolean: ":Attribute талбарын утга үнэн эсвэл худал байх шаардлагатай.",
   confirmed: ":Attribute талбарын баталагажуулалт тохирохгүй байна.",
   date: ":Attribute талбарт оруулсан огноо буруу байна.",
   date_format: ":Attribute талбарт :format хэлбэртэй огноо оруулна уу.",
+  def: "The :attribute attribute has errors.",
   different: ":Attribute талбарт :other -с өөр утга оруулах шаардлагатай.",
   digits: ":Attribute талбарт дараах цифрүүдээс оруулах боломжтой. :digits.",
   digits_between: ":Attribute талбарт :min-:max хоорондох цифр оруулах боломжтой.",
@@ -33,13 +34,13 @@ module.exports = {
     numeric: "The :attribute must be greater than :value.",
     file: "The :attribute must be greater than :value kilobytes.",
     string: "The :attribute must be greater than :value characters.",
-    array: "The :attribute must have more than :value items."
+    array: "The :attribute must have more than :value items.",
   },
   gte: {
     numeric: "The :attribute must be greater than or equal :value.",
     file: "The :attribute must be greater than or equal :value kilobytes.",
     string: "The :attribute must be greater than or equal :value characters.",
-    array: "The :attribute must have :value items or more."
+    array: "The :attribute must have :value items or more.",
   },
   hex: "The :attribute field should have hexadecimal format",
   image: ":Attribute талбарт зураг оруулна уу.",
@@ -54,19 +55,19 @@ module.exports = {
     numeric: "The :attribute must be less than :value.",
     file: "The :attribute must be less than :value kilobytes.",
     string: "The :attribute must be less than :value characters.",
-    array: "The :attribute must have less than :value items."
+    array: "The :attribute must have less than :value items.",
   },
   lte: {
     numeric: "The :attribute must be less than or equal :value.",
     file: "The :attribute must be less than or equal :value kilobytes.",
     string: "The :attribute must be less than or equal :value characters.",
-    array: "The :attribute must not have more than :value items."
+    array: "The :attribute must not have more than :value items.",
   },
   max: {
     numeric: ":Attribute талбарт :max буюу түүнээс бага утга оруулна уу.",
     file: ":Attribute талбарт :max килобайтаас бага хэмжээтэй файл оруулна уу.",
     string: ":Attribute талбарт :max-с бага урттай текст оруулна уу.",
-    array: ":Attribute талбарт хамгийн ихдээ :max элемэнт оруулах боломжтой."
+    array: ":Attribute талбарт хамгийн ихдээ :max элемэнт оруулах боломжтой.",
   },
   mimes: ":Attribute талбарт дараах төрлийн файл оруулах боломжтой: :values.",
   mimetypes: ":Attribute талбарт дараах төрлийн файл оруулах боломжтой: :values.",
@@ -74,7 +75,7 @@ module.exports = {
     numeric: ":Attribute талбарт :min буюу түүнээс их тоо оруулна уу.",
     file: ":Attribute талбарт :min килобайтаас их хэмжээтэй файл оруулна уу.",
     string: ":Attribute талбарт :min буюу түүнээс их үсэг бүхий текст оруулна уу.",
-    array: ":Attribute талбарт хамгийн багадаа :min элемэнт оруулах боломжтой."
+    array: ":Attribute талбарт хамгийн багадаа :min элемэнт оруулах боломжтой.",
   },
   not_in: "Буруу :attribute сонгогдсон байна.",
   not_regex: "The :attribute format is invalid.",
@@ -93,11 +94,11 @@ module.exports = {
     numeric: ":Attribute :size хэмжээтэй байх шаардлагатай.",
     file: ":Attribute :size килобайт хэмжээтэй байх шаардлагатай.",
     string: ":Attribute :size тэмдэгтийн урттай байх шаардлагатай.",
-    array: ":Attribute :size элемэнттэй байх шаардлагатай."
+    array: ":Attribute :size элемэнттэй байх шаардлагатай.",
   },
   string: ":Attribute талбарт текст оруулна уу.",
   timezone: ":Attribute талбарт зөв цагийн бүс оруулна уу.",
   unique: "Оруулсан :attribute аль хэдий нь бүртгэгдсэн байна.",
   uploaded: ":Attribute талбарт оруулсан файлыг хуулхад алдаа гарлаа.",
-  url: ":Attribute зөв url хаяг оруулна уу."
+  url: ":Attribute зөв url хаяг оруулна уу.",
 };

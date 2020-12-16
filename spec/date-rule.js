@@ -1,7 +1,13 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("date rule", function () {
-  it("should pass for correct, parsable date format", function () {
+describe("date rule", () => {
+  it("should pass for correct, parsable date format", () => {
     var asserts = [
       807926400000,
       "Aug 9, 2020",
@@ -11,7 +17,7 @@ describe("date rule", function () {
       "2020-08-09T00:00:00+00:00",
       "2020-08-09T00:00:00Z",
       "2020-08-09T00:00:00.000Z",
-      new Date()
+      new Date(),
     ];
 
     asserts.forEach(function (assert) {
@@ -21,7 +27,7 @@ describe("date rule", function () {
     });
   });
 
-  it("should pass for correct date formats", function () {
+  it("should pass for correct date formats", () => {
     var validator;
 
     validator = new Validator({ passingDate: "Friday, March 17 2017" }, { passingDate: "date" });
@@ -40,7 +46,7 @@ describe("date rule", function () {
     expect(validator.passes()).to.be.true;
   });
 
-  it("should fail for incorrect date formats", function () {
+  it("should fail for incorrect date formats", () => {
     var validator;
 
     validator = new Validator({ failDate: "2014-25-23" }, { failDate: "date" });
@@ -70,9 +76,9 @@ describe("date rule", function () {
       "2020-09-31",
       "2020-10-32",
       "2020-11-31",
-      "2020-12-32"
+      "2020-12-32",
     ];
-    invalidDates.forEach(dateValue => {
+    invalidDates.forEach((dateValue) => {
       validator = new Validator({ failDate: dateValue }, { failDate: "date" });
       expect(validator.passes()).to.be.false;
     });
@@ -89,9 +95,9 @@ describe("date rule", function () {
       "2020-09-30",
       "2020-10-31",
       "2020-11-30",
-      "2020-12-31"
+      "2020-12-31",
     ];
-    validDates.forEach(dateValue => {
+    validDates.forEach((dateValue) => {
       validator = new Validator({ failDate: dateValue }, { failDate: "date" });
       expect(validator.passes()).to.be.true;
     });
@@ -105,5 +111,4 @@ describe("date rule", function () {
     validator = new Validator({ passingDate: "2020/09/26" }, { passingDate: "date" });
     expect(validator.passes()).to.be.true;
   });
-
 });

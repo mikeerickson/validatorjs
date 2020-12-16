@@ -15,12 +15,13 @@ module.exports = {
     numeric: ":attribute :min eta :max artean egon behar da.",
     file: ":attribute-k :min eta :max kilobyte arteko pisua izan behar du.",
     string: ":attribute :min eta :max karaktere artean egon behar da.",
-    array: ":attribute-k :min eta :max arteko ale kantitatea euki behar du."
+    array: ":attribute-k :min eta :max arteko ale kantitatea euki behar du.",
   },
   boolean: ":attribute-ren balioa egia edo gezurra izan behar da.",
   confirmed: ":attribute-ren konfirmazioa ez dator bat.",
   date: ":attribute ez da baliozko data.",
   date_format: ":attribute datak ez du :format formatua.",
+  def: "The :attribute attribute has errors.",
   different: ":attribute eta :other ezberdinak izan behar dira.",
   digits: ":attribute-k :digits digitu euki behar ditu.",
   digits_between: ":attribute-k :min eta :max arteko digitu kantitatea euki behar du.",
@@ -34,13 +35,13 @@ module.exports = {
     numeric: "The :attribute must be greater than :value.",
     file: "The :attribute must be greater than :value kilobytes.",
     string: "The :attribute must be greater than :value characters.",
-    array: "The :attribute must have more than :value items."
+    array: "The :attribute must have more than :value items.",
   },
   gte: {
     numeric: "The :attribute must be greater than or equal :value.",
     file: "The :attribute must be greater than or equal :value kilobytes.",
     string: "The :attribute must be greater than or equal :value characters.",
-    array: "The :attribute must have :value items or more."
+    array: "The :attribute must have :value items or more.",
   },
   hex: "The :attribute field should have hexadecimal format",
   image: ":attribute irudi bat izan behar da.",
@@ -55,19 +56,19 @@ module.exports = {
     numeric: "The :attribute must be less than :value.",
     file: "The :attribute must be less than :value kilobytes.",
     string: "The :attribute must be less than :value characters.",
-    array: "The :attribute must have less than :value items."
+    array: "The :attribute must have less than :value items.",
   },
   lte: {
     numeric: "The :attribute must be less than or equal :value.",
     file: "The :attribute must be less than or equal :value kilobytes.",
     string: "The :attribute must be less than or equal :value characters.",
-    array: "The :attribute must not have more than :value items."
+    array: "The :attribute must not have more than :value items.",
   },
   max: {
     numeric: ":attribute ezin da :max baino handiagoa izan.",
     file: ":attribute-k ezin du :max kilobyte baino gehiagoko pisua euki.",
     string: ":attribute-k ezin du :max karaktere baino gehiago euki.",
-    array: ":attribute-k ezin du :max ale baino gehiago euki."
+    array: ":attribute-k ezin du :max ale baino gehiago euki.",
   },
   mimes: ":attribute :values motatako fitxategia izan behar da.",
   mimetypes: ":attribute :values motatako fitxategia izan behar da.",
@@ -75,7 +76,7 @@ module.exports = {
     numeric: ":attribute-k gutxienez :min-eko tamaina izan behar du.",
     file: ":attribute-k gutxienez :min kilobyteko pisua euki behar du.",
     string: ":attribute-k gutxienez :min karaktere euki behar ditu.",
-    array: ":attribute-k gutxienez :min ale euki behar ditu."
+    array: ":attribute-k gutxienez :min ale euki behar ditu.",
   },
   not_in: "Hautatutako :attribute baliogabea da.",
   not_regex: "The :attribute format is invalid.",
@@ -94,13 +95,13 @@ module.exports = {
     numeric: ":attribute-k :size-eko tamaina izan behar du.",
     file: ":attribute-k :size kilobyteko pisua euki behar du.",
     string: ":attribute-k :size karaktere euki beha ditu.",
-    array: ":attribute-k :size ale euki behar ditu."
+    array: ":attribute-k :size ale euki behar ditu.",
   },
   string: ":attribute karaktere-katea izan behar da.",
   timezone: ":attribute baliozko gunea izan behar da.",
   unique: ":attribute jadanik erregistratua izan da.",
   uploaded: ":attribute igotzerakoan huts egin du.",
-  url: ":attribute-k ez dauka formatu egokirik."
+  url: ":attribute-k ez dauka formatu egokirik.",
 };
 
 },{}]},{},[]);

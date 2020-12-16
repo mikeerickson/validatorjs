@@ -1,7 +1,13 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("exclude", function () {
-  it("should exclude_if", function () {
+describe("exclude", () => {
+  it("should exclude_if", () => {
     let validator = new Validator({ fname: "mike", lname: "erickson" }, { fname: "exclude_if:lname,erickson" });
     expect(validator.passes()).to.be.true;
 
@@ -10,7 +16,7 @@ describe("exclude", function () {
     expect(validator.errors.first("fname")).to.equal("The fname will be excluded if lname,erickson.");
   });
 
-  it("should exclude_unless", function () {
+  it("should exclude_unless", () => {
     let validator = new Validator({ fname: "mike", lname: "johnson" }, { fname: "exclude_unless:lname,erickson|max:2" });
     expect(validator.fails()).to.be.true;
 

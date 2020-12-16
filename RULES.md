@@ -1,51 +1,50 @@
 # Laravel Rules
 
+\* Added in v3.5
+
 - [x] Accepted
-- [ ] Active URL
 - [x] After (Date)
 - [x] After Or Equal (Date)
 - [x] Alpha
 - [x] Alpha Dash
 - [x] Alpha Numeric (alpha_numeric)
 - [x] Array
-- [x] Bail
+- [x] Bail \*
 - [x] Before (Date)
 - [x] Before Or Equal (Date)
 - [x] Between
-- [x] Boolean
+- [x] Boolean \*
 - [x] Confirmed
 - [x] Date
-- [ ] Date Equals
+- [x] Date Equals
 - [x] Date Format
 - [x] Different
 - [x] Digits
 - [x] Digits Between
 - [x] Distinct
-- [x] Email
-- [x] Ends With
-- [x] Exclude If
-- [x] Exclude Unless
-- [x] Filled
-- [ ] Greather Than
-- [ ] Greater Than Or Equal
+- [x] Email \*
+- [x] Ends With \*
+- [x] Exclude If \*
+- [x] Exclude Unless \*
+- [x] Filled \*
+- [x] Greather Than \*
+- [x] Greater Than Or Equal \*
 - [x] Hex
 - [x] In
-- [ ] In Array
+- [x] In Array \*
 - [x] Integer
-- [x] IP Address
-- [ ] JSON
-- [ ] Less Than
-- [ ] Less Than Or Equal
+- [x] IP Address \*
+- [x] JSON \*
+- [x] Less Than \*
+- [x] Less Than Or Equal \*
 - [x] Max
 - [x] Min
-- [ ] Multiple Of
 - [x] Not In
-- [x] Not Regex
-- [ ] Nullable
+- [x] Not Regex \*
+- [x] Nullable \*
 - [x] Numeric
-- [ ] Password
-- [x] Present
-- [x] Regex
+- [x] Present \*
+- [x] Regex \*
 - [x] Required
 - [x] Required If
 - [x] Required Unless
@@ -55,10 +54,8 @@
 - [x] Required Without All
 - [x] Same
 - [x] Size
-- [] Sometimes
-- [x] Starts With
+- [x] Sometimes \*
+- [x] Starts With \*
 - [x] String
-- [ ] Timezone
-- [ ] Unique
 - [x] URL
-- [x] UUID (v1 and v4)
+- [x] UUID (v1 and v4) \*

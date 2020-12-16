@@ -1,8 +1,14 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("Wildcard", function() {
-  describe("Simple Rules ", function() {
-    it("should have validation a deep level fails", function() {
+describe("Wildcard", () => {
+  describe("Simple Rules ", () => {
+    it("should have validation a deep level fails", () => {
       const validator = new Validator(
         {
           foo: [
@@ -14,15 +20,15 @@ describe("Wildcard", function() {
                       name: "",
                       age: "aa",
                       term: false,
-                      isActive: "not"
+                      isActive: "not",
                     },
                     {
                       name: "",
                       age: "aa",
                       term: false,
-                      isActive: "not"
-                    }
-                  ]
+                      isActive: "not",
+                    },
+                  ],
                 },
                 {
                   people: [
@@ -30,31 +36,31 @@ describe("Wildcard", function() {
                       name: "",
                       age: "aa",
                       term: false,
-                      isActive: "not"
+                      isActive: "not",
                     },
                     {
                       name: "",
                       age: "aa",
                       term: false,
-                      isActive: "not"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+                      isActive: "not",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
           "foo.*.bar.*.people.*.name": "required",
           "foo.*.bar.*.people.*.age": "numeric",
           "foo.*.bar.*.people.*.term": "accepted",
-          "foo.*.bar.*.people.*.isActive": "boolean"
-        }
+          "foo.*.bar.*.people.*.isActive": "boolean",
+        },
       );
       expect(validator.fails()).to.be.true;
       expect(validator.passes()).to.be.false;
     });
-    it("should have validation a deep level passes", function() {
+    it("should have validation a deep level passes", () => {
       const validator = new Validator(
         {
           foo: [
@@ -66,27 +72,27 @@ describe("Wildcard", function() {
                       name: "Test",
                       age: "100",
                       term: true,
-                      isActive: "0"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
+                      isActive: "0",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         {
           "foo.*.bar.*.people.*.name": "required",
           "foo.*.bar.*.people.*.age": "numeric",
           "foo.*.bar.*.people.*.term": "accepted",
-          "foo.*.bar.*.people.*.isActive": "boolean"
-        }
+          "foo.*.bar.*.people.*.isActive": "boolean",
+        },
       );
       expect(validator.fails()).to.be.false;
       expect(validator.passes()).to.be.true;
     });
   });
-  describe("Rules with dependent of another field", function() {
-    it("should have validation fail with required_* and show customMessage", function() {
+  describe("Rules with dependent of another field", () => {
+    it("should have validation fail with required_* and show customMessage", () => {
       const validator = new Validator(
         {
           users: [
@@ -94,23 +100,23 @@ describe("Wildcard", function() {
               name: "Teste",
               lastName: "",
               age: "",
-              requiredAge: "true"
-            }
-          ]
+              requiredAge: "true",
+            },
+          ],
         },
         {
           "users.*.age": "required_if:users.*.requiredAge,true",
-          "users.*.lastName": "required_with:users.*.name"
+          "users.*.lastName": "required_with:users.*.name",
         },
         {
-          "required_if.users.*.age": "Required"
-        }
+          "required_if.users.*.age": "Required",
+        },
       );
       expect(validator.fails()).to.be.true;
       expect(validator.passes()).to.be.false;
       expect(validator.errors.all()).to.eql({
         "users.0.age": ["Required"],
-        "users.0.lastName": ["The users.0.lastName field is required when users.0.name is not empty."]
+        "users.0.lastName": ["The users.0.lastName field is required when users.0.name is not empty."],
       });
     });
   });

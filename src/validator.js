@@ -1,6 +1,7 @@
 var Rules = require("./rules");
 var Lang = require("./lang");
 var Errors = require("./errors");
+var Success = require("./success");
 var Attributes = require("./attributes");
 var AsyncResolvers = require("./async");
 
@@ -14,6 +15,9 @@ var Validator = function (input, rules, customMessages) {
 
   this.errors = new Errors();
   this.errorCount = 0;
+
+  this.successes = new Success();
+  this.successCount = 0;
 
   this.hasAsync = false;
   this.rules = this._parseRules(rules);
@@ -66,7 +70,6 @@ Validator.prototype = {
         if (!this._isValidatable(rule, inputValue)) {
           continue;
         }
-        // console.log(attributeRules);
 
         let ruleKeys = [];
         attributeRules.forEach((item) => {
@@ -74,11 +77,14 @@ Validator.prototype = {
         });
 
         rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
+
         if (!rulePassed) {
           this._addFailure(rule);
           if (ruleKeys.includes("bail")) {
             break;
           }
+        } else {
+          this._addSuccess(rule);
         }
 
         if (this._shouldStopValidating(attribute, rulePassed)) {
@@ -158,6 +164,17 @@ Validator.prototype = {
     var msg = this.messages.render(rule);
     this.errors.add(rule.attribute, msg);
     this.errorCount++;
+  },
+
+  /**
+   * Add failure and error message for given rule
+   *
+   * @param {Rule} rule
+   */
+  _addSuccess: function (rule) {
+    var msg = this.messages.render(rule);
+    this.successes.add(rule.attribute, msg);
+    this.successCount++;
   },
 
   /**

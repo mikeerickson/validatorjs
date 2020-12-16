@@ -14,12 +14,13 @@ module.exports = {
     numeric: "Полето :attribute мора да биде помеѓу :min и :max.",
     file: "Полето :attribute мора да биде помеѓу :min и :max килобајти.",
     string: "Полето :attribute мора да биде помеѓу :min и :max карактери.",
-    array: "Полето :attribute мора да има помеѓу :min - :max карактери."
+    array: "Полето :attribute мора да има помеѓу :min - :max карактери.",
   },
   boolean: "The :attribute field must be true or false",
   confirmed: "Полето :attribute не е потврдено.",
   date: "Полето :attribute не е валиден датум.",
   date_format: "Полето :attribute не е во формат :format.",
+  def: "The :attribute attribute has errors.",
   different: "Полињата :attribute и :other треба да се различни.",
   digits: "Полето :attribute треба да има :digits цифри.",
   digits_between: "Полето :attribute треба да има помеѓу :min и :max цифри.",
@@ -33,13 +34,13 @@ module.exports = {
     numeric: "The :attribute must be greater than :value.",
     file: "The :attribute must be greater than :value kilobytes.",
     string: "The :attribute must be greater than :value characters.",
-    array: "The :attribute must have more than :value items."
+    array: "The :attribute must have more than :value items.",
   },
   gte: {
     numeric: "The :attribute must be greater than or equal :value.",
     file: "The :attribute must be greater than or equal :value kilobytes.",
     string: "The :attribute must be greater than or equal :value characters.",
-    array: "The :attribute must have :value items or more."
+    array: "The :attribute must have :value items or more.",
   },
   hex: "The :attribute field should have hexadecimal format",
   image: "Полето :attribute мора да биде слика.",
@@ -54,19 +55,19 @@ module.exports = {
     numeric: "The :attribute must be less than :value.",
     file: "The :attribute must be less than :value kilobytes.",
     string: "The :attribute must be less than :value characters.",
-    array: "The :attribute must have less than :value items."
+    array: "The :attribute must have less than :value items.",
   },
   lte: {
     numeric: "The :attribute must be less than or equal :value.",
     file: "The :attribute must be less than or equal :value kilobytes.",
     string: "The :attribute must be less than or equal :value characters.",
-    array: "The :attribute must not have more than :value items."
+    array: "The :attribute must not have more than :value items.",
   },
   max: {
     numeric: "Полето :attribute мора да биде помало од :max.",
     file: "Полето :attribute мора да биде помало од :max килобајти.",
     string: "Полето :attribute мора да има помалку од :max карактери.",
-    array: "Полето :attribute не може да има повеќе од :max карактери."
+    array: "Полето :attribute не може да има повеќе од :max карактери.",
   },
   mimes: "Полето :attribute мора да биде фајл од типот: :values.",
   mimetypes: "Полето :attribute мора да биде фајл од типот: :values.",
@@ -74,7 +75,7 @@ module.exports = {
     numeric: "Полето :attribute мора да биде минимум :min.",
     file: "Полето :attribute мора да биде минимум :min килобајти.",
     string: "Полето :attribute мора да има минимум :min карактери.",
-    array: "Полето :attribute мора да има минимум :min карактери."
+    array: "Полето :attribute мора да има минимум :min карактери.",
   },
   not_in: "Избраното поле :attribute е невалидно.",
   not_regex: "The :attribute format is invalid.",
@@ -93,11 +94,11 @@ module.exports = {
     numeric: "Полето :attribute мора да биде :size.",
     file: "Полето :attribute мора да биде :size килобајти.",
     string: "Полето :attribute мора да има :size карактери.",
-    array: "Полето :attribute мора да има :size карактери."
+    array: "Полето :attribute мора да има :size карактери.",
   },
   string: "The :attribute must be a string.",
   timezone: "The :attribute must be a valid zone.",
   unique: "Полето :attribute веќе постои.",
   uploaded: "The :attribute failed to upload.",
-  url: "Полето :attribute не е во валиден формат."
+  url: "Полето :attribute не е во валиден формат.",
 };

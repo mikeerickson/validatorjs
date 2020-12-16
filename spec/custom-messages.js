@@ -1,14 +1,20 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("Validator custom messages", function () {
-  it("override the default message for the validator", function () {
+describe("Validator custom messages", () => {
+  it("override the default message for the validator", () => {
     const validator = new Validator({ name: "" }, { name: "required" }, { required: "Name is missing." });
     expect(validator.fails()).to.be.true;
     expect(validator.errors.get("name").length).to.equal(1);
     expect(validator.errors.first("name")).to.equal("Name is missing.");
   });
 
-  it("override the default message for a type of the validator", function () {
+  it("override the default message for a type of the validator", () => {
     const validator = new Validator(
       { name: "A" },
       { name: "min:4" },
@@ -23,7 +29,7 @@ describe("Validator custom messages", function () {
     expect(validator.errors.first("name")).to.equal("name is not long enough. Should be 4.");
   });
 
-  it("override the default message for the validator with several :attribute in message", function () {
+  it("override the default message for the validator with several :attribute in message", () => {
     const validator = new Validator(
       { name: "" },
       { name: "required" },
@@ -36,7 +42,7 @@ describe("Validator custom messages", function () {
     expect(validator.errors.first("name")).to.equal("name is required. name can't be empty.");
   });
 
-  it("override the default message for a type of the validator", function () {
+  it("override the default message for a type of the validator", () => {
     const validator = new Validator(
       { name: "A" },
       {
@@ -53,7 +59,7 @@ describe("Validator custom messages", function () {
     expect(validator.errors.first("name")).to.equal("name is not long enough. Should be 4.");
   });
 
-  it("override the default message for a type of the validator with several :attribute and :min in message", function () {
+  it("override the default message for a type of the validator with several :attribute and :min in message", () => {
     const validator = new Validator(
       {
         name: "A",
@@ -72,7 +78,7 @@ describe("Validator custom messages", function () {
     expect(validator.errors.first("name")).to.equal("name is not long enough. name should be 4. Because needed string with 4 symbols or more.");
   });
 
-  it("can be specified on a per attribute basis for a validator", function () {
+  it("can be specified on a per attribute basis for a validator", () => {
     const validator = new Validator(
       {
         name: "",
@@ -93,7 +99,7 @@ describe("Validator custom messages", function () {
     expect(validator.errors.first("email")).to.equal("The email field is required.");
   });
 
-  it("can be specified for custom validators", function () {
+  it("can be specified for custom validators", () => {
     Validator.register(
       "telephone",
       function (value, requirement, attribute) {
@@ -118,7 +124,7 @@ describe("Validator custom messages", function () {
     expect(validator.errors.first("phone")).to.equal("Wrong number.");
   });
 
-  it("can be specified for custom validators per attribute", function () {
+  it("can be specified for custom validators per attribute", () => {
     Validator.register(
       "telephone",
       function (value, requirement, attribute) {

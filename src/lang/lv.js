@@ -14,12 +14,13 @@ module.exports = {
     numeric: " :attribute jābūt starp :min un :max.",
     file: " :attribute jābūt starp :min un :max kilobaiti.",
     string: " :attribute jābūt no :min līdz :max zīmēm.",
-    array: " :attribute jābūt no :min līdz :max vienībām."
+    array: " :attribute jābūt no :min līdz :max vienībām.",
   },
   boolean: " :attribute laiciņam jābūt atbilstošam vai neatbilstošam.",
   confirmed: " :attribute apstiprinājums neatbilst.",
   date: " :attribute nav derīgs.",
   date_format: " :attribute neatbilst formātam :format.",
+  def: "The :attribute attribute has errors.",
   different: " :attribute un :other ir jābūt citiem.",
   digits: " :attribute ir jābūt :digits ciparam.",
   digits_between: " :attribute ir jābūt :min un :max ciparam.",
@@ -33,13 +34,13 @@ module.exports = {
     numeric: "The :attribute must be greater than :value.",
     file: "The :attribute must be greater than :value kilobytes.",
     string: "The :attribute must be greater than :value characters.",
-    array: "The :attribute must have more than :value items."
+    array: "The :attribute must have more than :value items.",
   },
   gte: {
     numeric: "The :attribute must be greater than or equal :value.",
     file: "The :attribute must be greater than or equal :value kilobytes.",
     string: "The :attribute must be greater than or equal :value characters.",
-    array: "The :attribute must have :value items or more."
+    array: "The :attribute must have :value items or more.",
   },
   hex: "The :attribute field should have hexadecimal format",
   image: " :attribute jābūt attēlam.",
@@ -54,19 +55,19 @@ module.exports = {
     numeric: "The :attribute must be less than :value.",
     file: "The :attribute must be less than :value kilobytes.",
     string: "The :attribute must be less than :value characters.",
-    array: "The :attribute must have less than :value items."
+    array: "The :attribute must have less than :value items.",
   },
   lte: {
     numeric: "The :attribute must be less than or equal :value.",
     file: "The :attribute must be less than or equal :value kilobytes.",
     string: "The :attribute must be less than or equal :value characters.",
-    array: "The :attribute must not have more than :value items."
+    array: "The :attribute must not have more than :value items.",
   },
   max: {
     numeric: " :attribute nedrīkst pārsniegt :max.",
     file: " :attribute nedrīkst pārsniegt :max kilobaiti.",
     string: " :attribute nedrīkst pārsniegt :max zīmes.",
-    array: " :attribute nedrīkst pārsniegt :max vienības."
+    array: " :attribute nedrīkst pārsniegt :max vienības.",
   },
   mimes: " :attribute jābūt faila tipam: :values",
   mimetypes: " :attribute jābūt faile tipam: :values.",
@@ -74,7 +75,7 @@ module.exports = {
     numeric: " :attribute jābūt vismaz :min.",
     file: " :attribute jābūt vismaz :min kilobaiti.",
     string: " :attribute jābūt vismaz :min zīmes.",
-    array: " :attribute jāsatur vismaz :min vienības."
+    array: " :attribute jāsatur vismaz :min vienības.",
   },
   not_in: " izvēlieties :attribute ir nederīgs.",
   not_regex: "The :attribute format is invalid.",
@@ -93,11 +94,11 @@ module.exports = {
     numeric: " :attribute jābūt :size.",
     file: " :attribute jābūt :size kilobaiti.",
     string: " :attribute jābūt :size zīmes.",
-    array: " :attribute jāsatur :size vienības."
+    array: " :attribute jāsatur :size vienības.",
   },
   string: " :attribute jābūt virknē.",
   timezone: " :attribute jābūt derīgā zonā.",
   unique: " :attribute jau ir aizņemts.",
   uploaded: " :attribute netika augšuplādēts.",
-  url: " :attribute formāts ir nederīgs."
+  url: " :attribute formāts ir nederīgs.",
 };

@@ -274,6 +274,18 @@ The field under validation will be excluded from the request data returned by th
 
 The field under validation must be formatted as an e-mail address.
 
+#### greater_than:condition
+
+#### get:condition (alias)
+
+The field under validation must be greater than the given condition. The two fields must be of the same type. Strings, numerics, arrays, and files are evaluated using the same conventions as the `size` rule.
+
+#### greater_than_or_equal:condition
+
+#### gte:condition (alias)
+
+The field under validation must be greater than or equal to the given condition. The two fields must be of the same type. Strings, numerics, arrays, and files are evaluated using the same conventions as the `size` rule.
+
 #### hex
 
 The field under validation should be a hexadecimal format. Useful in combination with other rules, like `hex|size:6` for hex color code validation.
@@ -282,6 +294,10 @@ The field under validation should be a hexadecimal format. Useful in combination
 
 The field under validation must be included in the given list of values. The field can be an array or string.
 
+#### in_array:condition
+
+The field under validation must exist in condition's values.
+
 #### integer
 
 The field under validation must have an integer value.
@@ -289,6 +305,10 @@ The field under validation must have an integer value.
 #### ip address
 
 The field under validation must be an IP address (IPv4 or IPv6).
+
+#### json
+
+The field under validation must be valid JSON
 
 #### max:value
 
@@ -305,6 +325,10 @@ _Note: Minimum checks are inclusive._
 #### not_in:foo,bar,...
 
 The field under validation must not be included in the given list of values.
+
+#### nullable
+
+The field under validation may be `null`.
 
 #### numeric
 
@@ -504,6 +528,14 @@ This constructor will automatically generate error messages for validation rules
 
 If there are errors, the Validator instance will have its **errors** property object populated with the error messages for all failing attributes. The methods and properties on the **errors** property object are:
 
+#### .fields()
+
+returns array of all fields which have errors
+
+#### .keys() [alias `fields`]
+
+returns array of all keys (fields) which have errors
+
 #### .first(attribute)
 
 returns the first error message for an attribute, false otherwise
@@ -526,8 +558,13 @@ the number of validation errors
 
 ```js
 let validation = new Validator(input, rules);
+validation.errors.all(); // returns all failing validation rules
+validation.errors.fields(); // returns all fields which failed validation
+validation.errors.keys(); // returns all keys which failed validation (alias to `fields` method)
 validation.errors.first("email"); // returns first error message for email attribute
-validator.errors.get("email"); // returns an array of error messages for the email attribute
+validation.errors.get("email"); // returns an array of error messages for the email attribute
+validation.errors.has("email"); // returns true if error has `email` otherwise returns false
+validation.errors.errorCount(); // returns number of error rules
 ```
 
 ### Custom Error Messages
@@ -583,15 +620,60 @@ validation.errors.first("name"); // returns  'The name field is required.'
 validation.errors.first("email"); // returns 'Without an email we can\'t reach you!'
 ```
 
+### Success Messages
+
+Like the `Error Messages`, this will be for success messages.
+This constructor will automatically generate success messages for validadtion rules that pass.
+
+If there are successes, the Validator instance will have its **successes** property object populated with the success messages for all passing attributes. The methods and properties on the **successes** property object are:
+
+_Note: You can perform anything message related on the `validation.successes` object_
+
+#### .fields()
+
+returns array of all fields which have errors
+
+#### .keys() [alias `fields`]
+
+returns array of all keys (fields) which have errors
+
+#### .first(attribute)
+
+returns the first success rule message for an attribute, false otherwise
+
+#### .all()
+
+returns an object containing all success messages for all passing attributes
+
+#### .has(attribute)
+
+returns true if success messages exist for an attribute, false otherwise
+
+#### .successCount
+
+the number of validation successes
+
+```js
+let validation = new Validator(input, rules);
+validation.successes.all(); // returns all passing validation rules
+validation.successes.fields(); // returns all fields which pass validation
+validation.successes.keys(); // returns all keys which pass validation (alias to `fields` method)
+validation.successes.first("email"); // returns first success message for email attribute
+validation.successes.get("email"); // returns an array of success messages for the email attribute
+validation.successes.has("email"); // returns true if success has `email` otherwise returns false
+validation.successes.successCount(); // returns number of success rules
+```
+
 ### Custom Attribute Names
 
 To display a custom "friendly" attribute name in error messages, use `.setAttributeNames()`
+When defining attribute name, you can use anything and may include spaces, or other characters
 
 ```js
 let validator = new Validator({ name: "" }, { name: "required" });
-validator.setAttributeNames({ name: "custom_name" });
+validator.setAttributeNames({ name: "customer name 😀" });
 if (validator.fails()) {
-  validator.errors.first("name"); // "The custom_name field is required."
+  validator.errors.first("name"); // "The customer name 😀 field is required."
 }
 ```
 

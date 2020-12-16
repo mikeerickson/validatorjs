@@ -1,247 +1,253 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("async rule tests", function() {
+describe("async rule tests", function (done) {
   this.timeout(200);
 
-  it("should be able to register and pass async rule", function(done) {
+  it("should be able to register and pass async rule", (done) => {
     Validator.registerAsync(
       "username",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "test") {
             passes();
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     var validator = new Validator(
       {
-        username: "test"
+        username: "test",
       },
       {
-        username: "username"
-      }
+        username: "username",
+      },
     );
     validator.passes(done);
   });
 
-  it("should be able to fail async rules", function(done) {
+  it("should be able to fail async rules", (done) => {
     Validator.registerAsync(
       "username",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "test") {
             passes(false);
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     var validator = new Validator(
       {
-        username: "test"
+        username: "test",
       },
       {
-        username: "username"
-      }
+        username: "username",
+      },
     );
     validator.fails(done);
   });
 
-  it("should pass on multiple async rules", function(done) {
+  it("should pass on multiple async rules", (done) => {
     var passCount = 0;
 
     Validator.registerAsync(
       "username1",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "test") {
             passCount++;
             passes();
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     Validator.registerAsync(
       "username2",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "test") {
             passCount++;
             passes();
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     var validator = new Validator(
       {
-        username: "test"
+        username: "test",
       },
       {
-        username: "username1|username2"
-      }
+        username: "username1|username2",
+      },
     );
-    validator.passes(function() {
+    validator.passes(() => {
       expect(passCount).to.equal(2);
       done();
     });
   });
 
-  it("should fail on mixture of pass/fail async rules", function(done) {
+  it("should fail on mixture of pass/fail async rules", function (done) {
     var failedCount = 0;
     var passCount = 0;
 
     Validator.registerAsync(
       "username1",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "test") {
             passCount++;
             passes();
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     Validator.registerAsync(
       "username2",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "test") {
             failedCount++;
             passes(false);
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     var validator = new Validator(
       {
-        username: "test"
+        username: "test",
       },
       {
-        username: "username1|username2"
-      }
+        username: "username1|username2",
+      },
     );
-    validator.fails(function() {
+    validator.fails(() => {
       expect(passCount).to.equal(1);
       expect(failedCount).to.equal(1);
       done();
     });
   });
 
-  it("should allow custom error message", function(done) {
+  it("should allow custom error message", function (done) {
     Validator.registerAsync(
       "username",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "admin") {
             passes(false, "This username is banned");
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     var validator = new Validator(
       {
-        username: "admin"
+        username: "admin",
       },
       {
-        username: "username"
-      }
+        username: "username",
+      },
     );
-    validator.fails(function() {
+    validator.fails(() => {
       expect(validator.errors.first("username")).to.equal("This username is banned");
       done();
     });
   });
 
-  it("should allow validating by async when no async rules", function(done) {
+  it("should allow validating by async when no async rules", function (done) {
     var validator = new Validator(
       {
         username: "admin",
-        email: "blah"
+        email: "blah",
       },
       {
         username: "required|min:3",
-        email: "required|email"
-      }
+        email: "required|email",
+      },
     );
-    validator.fails(function() {
+    validator.fails(() => {
       done();
     });
 
-    validator.passes(function() {
+    validator.passes(() => {
       throw "Should not have passed.";
     });
   });
 
-  it("should it pass on mixture of sync/async rules", function(done) {
+  it("should it pass on mixture of sync/async rules", (done) => {
     Validator.registerAsync(
       "username",
-      function(desiredUsername, ruleValue, attribute, passes) {
-        setTimeout(function() {
+      function (desiredUsername, ruleValue, attribute, passes) {
+        setTimeout(function () {
           if (desiredUsername == "test") {
             passes();
           }
         }, 50);
       },
-      ":attribute is an invalid username"
+      ":attribute is an invalid username",
     );
 
     var validator = new Validator(
       {
-        username: "test"
+        username: "test",
       },
       {
-        username: "required|min:3|username"
-      }
+        username: "required|min:3|username",
+      },
     );
     validator.passes(done);
   });
 
-  it("should it not call passes if using just fails callback", function(done) {
+  it("should it not call passes if using just fails callback", function (done) {
     var validator = new Validator(
       {
-        name: "gary"
+        name: "gary",
       },
       {
-        name: "required"
-      }
+        name: "required",
+      },
     );
-    validator.fails(function() {
+    validator.fails(() => {
       throw "Should not be called.";
     });
 
-    validator.passes(function() {
+    validator.passes(() => {
       done();
     });
   });
 
-  it("should it not call fails if using just passes callback", function(done) {
+  it("should it not call fails if using just passes callback", function (done) {
     var validator = new Validator(
       {
-        name: ""
+        name: "",
       },
       {
-        name: "required"
-      }
+        name: "required",
+      },
     );
-    validator.passes(function() {
+    validator.passes(() => {
       throw "Should not be called.";
     });
 
-    validator.fails(function() {
+    validator.fails(() => {
       done();
     });
   });

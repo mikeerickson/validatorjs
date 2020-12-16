@@ -14,12 +14,13 @@ module.exports = {
     numeric: "Полето :attribute трябва да бъде между :min и :max.",
     file: "Полето :attribute трябва да бъде между :min и :max килобайта.",
     string: "Полето :attribute трябва да бъде между :min и :max знака.",
-    array: "Полето :attribute трябва да има между :min - :max елемента."
+    array: "Полето :attribute трябва да има между :min - :max елемента.",
   },
   boolean: "Полето :attribute трябва да съдържа Да или Не",
   confirmed: "Полето :attribute не е потвърдено.",
   date: "Полето :attribute не е валидна дата.",
   date_format: "Полето :attribute не е във формат :format.",
+  def: "The :attribute attribute has errors.",
   different: "Полетата :attribute и :other трябва да са различни.",
   digits: "Полето :attribute трябва да има :digits цифри.",
   digits_between: "Полето :attribute трябва да има между :min и :max цифри.",
@@ -33,13 +34,13 @@ module.exports = {
     numeric: "The :attribute must be greater than :value.",
     file: "The :attribute must be greater than :value kilobytes.",
     string: "The :attribute must be greater than :value characters.",
-    array: "The :attribute must have more than :value items."
+    array: "The :attribute must have more than :value items.",
   },
   gte: {
     numeric: "The :attribute must be greater than or equal :value.",
     file: "The :attribute must be greater than or equal :value kilobytes.",
     string: "The :attribute must be greater than or equal :value characters.",
-    array: "The :attribute must have :value items or more."
+    array: "The :attribute must have :value items or more.",
   },
   hex: "The :attribute field should have hexadecimal format",
   image: "Полето :attribute трябва да бъде изображение.",
@@ -54,19 +55,19 @@ module.exports = {
     numeric: "The :attribute must be less than :value.",
     file: "The :attribute must be less than :value kilobytes.",
     string: "The :attribute must be less than :value characters.",
-    array: "The :attribute must have less than :value items."
+    array: "The :attribute must have less than :value items.",
   },
   lte: {
     numeric: "The :attribute must be less than or equal :value.",
     file: "The :attribute must be less than or equal :value kilobytes.",
     string: "The :attribute must be less than or equal :value characters.",
-    array: "The :attribute must not have more than :value items."
+    array: "The :attribute must not have more than :value items.",
   },
   max: {
     numeric: "Полето :attribute трябва да бъде по-малко от :max.",
     file: "Полето :attribute трябва да бъде по-малко от :max килобайта.",
     string: "Полето :attribute трябва да бъде по-малко от :max знака.",
-    array: "Полето :attribute трябва да има по-малко от :max елемента."
+    array: "Полето :attribute трябва да има по-малко от :max елемента.",
   },
   mimes: "Полето :attribute трябва да бъде файл от тип: :values.",
   mimetypes: "Полето :attribute трябва да бъде файл от тип: :values.",
@@ -74,7 +75,7 @@ module.exports = {
     numeric: "Полето :attribute трябва да бъде минимум :min.",
     file: "Полето :attribute трябва да бъде минимум :min килобайта.",
     string: "Полето :attribute трябва да бъде минимум :min знака.",
-    array: "Полето :attribute трябва има минимум :min елемента."
+    array: "Полето :attribute трябва има минимум :min елемента.",
   },
   not_in: "Избраното поле :attribute е невалидно.",
   not_regex: "The :attribute format is invalid.",
@@ -93,13 +94,13 @@ module.exports = {
     numeric: "Полето :attribute трябва да бъде :size.",
     file: "Полето :attribute трябва да бъде :size килобайта.",
     string: "Полето :attribute трябва да бъде :size знака.",
-    array: "Полето :attribute трябва да има :size елемента."
+    array: "Полето :attribute трябва да има :size елемента.",
   },
   string: "Полето :attribute трябва да бъде знаков низ.",
   timezone: "Полето :attribute трябва да съдържа валидна часова зона.",
   unique: "Полето :attribute вече съществува.",
   uploaded: "Неуспешно качване на :attribute.",
-  url: "Полето :attribute е в невалиден формат."
+  url: "Полето :attribute е в невалиден формат.",
 };
 
 },{}]},{},[]);

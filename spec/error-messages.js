@@ -1,38 +1,44 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("Error messages", function () {
-  describe("first()", function () {
-    it("should return an error message that states the email is required", function () {
+describe("Error messages", () => {
+  describe("first()", () => {
+    it("should return an error message that states the email is required", () => {
       const validator = new Validator({ email: "" }, { email: "required|email" });
       expect(validator.passes()).to.be.false;
       expect(validator.errors.first("email")).to.equal("The email field is required.");
     });
 
-    it("should have a method on the errors object to retrieve the first error message for an attribute", function () {
+    it("should have a method on the errors object to retrieve the first error message for an attribute", () => {
       const validator = new Validator({ email: "" }, { email: "required|email" });
       expect(validator.passes()).to.be.false;
       expect(validator.errors.first("email")).to.equal("The email field is required.");
     });
 
-    it("should return false if errors.first() is called and there are no errors", function () {
+    it("should return false if errors.first() is called and there are no errors", () => {
       const validator = new Validator({ email: "john@yahoo.com" }, { email: "required|email" });
       expect(validator.passes()).to.be.true;
       expect(validator.errors.first("email")).to.equal(false);
     });
 
-    it("should return an error message that states the email must be valid", function () {
+    it("should return an error message that states the email must be valid", () => {
       const validator = new Validator({ email: "john@yahoo" }, { email: "required|email" });
       expect(validator.passes()).to.be.false;
       expect(validator.errors.first("email")).to.equal("The email format is invalid.");
     });
 
-    it("should return null for a key without an error message", function () {
+    it("should return null for a key without an error message", () => {
       const validator = new Validator({ name: "David" }, { name: "required" });
       expect(validator.passes()).to.be.true;
       expect(validator.errors.first("name")).to.be.false;
     });
 
-    it("should return error messages with attribute names and values for multi-part rules", function () {
+    it("should return error messages with attribute names and values for multi-part rules", () => {
       const validator = new Validator(
         { age: 17, description: "a", info: "", hours: 3, pin: "123", range: 20, tweet: "some tweet" },
         {
@@ -56,7 +62,7 @@ describe("Error messages", function () {
       expect(validator.errors.first("tweet")).to.equal("The tweet may not be greater than 5 characters."); // max string
     });
 
-    it("should return a customized alpha error message", function () {
+    it("should return a customized alpha error message", () => {
       const validator = new Validator(
         {
           name: "12",
@@ -69,32 +75,32 @@ describe("Error messages", function () {
       expect(validator.errors.first("name")).to.equal("The name field must contain only alphabetic characters.");
     });
 
-    it("should fail with non alpha dash characters", function () {
+    it("should fail with non alpha dash characters", () => {
       const validator = new Validator({ name: "David *" }, { name: "alpha_dash" });
       expect(validator.passes()).to.be.false;
       expect(validator.errors.first("name")).to.equal("The name field may only contain alpha-numeric characters, as well as dashes and underscores.");
     });
 
-    it("should fail without a matching confirmation field for the field under validation", function () {
+    it("should fail without a matching confirmation field for the field under validation", () => {
       const validator = new Validator({ password: "abc" }, { password: "confirmed" });
       expect(validator.passes()).to.be.false;
       expect(validator.errors.first("password")).to.equal("The password confirmation does not match.");
     });
 
-    it("should fail when the 2 attributes are the same", function () {
+    it("should fail when the 2 attributes are the same", () => {
       const validator = new Validator({ field1: "abc", field2: "abc" }, { field2: "different:field1" });
       expect(validator.passes()).to.be.false;
       expect(validator.errors.first("field2")).to.equal("The field2 and field1 must be different.");
     });
 
-    it("should fail with a url only containing http://", function () {
+    it("should fail with a url only containing http://", () => {
       const link = "http://";
       const validator = new Validator({ link: link }, { link: "url" });
       expect(validator.passes()).to.be.false;
       expect(validator.errors.first("link")).to.equal("The link format is invalid.");
     });
 
-    it("should fail the custom telephone rule registration with a default error message", function () {
+    it("should fail the custom telephone rule registration with a default error message", () => {
       Validator.register("telephone", function (val, req, attrs) {
         return val.match(/^\d{3}-\d{3}-\d{4}$/);
       });
@@ -104,7 +110,7 @@ describe("Error messages", function () {
       expect(validator.errors.first("phone")).to.equal("The phone attribute has errors.");
     });
 
-    it("should should assure years is correct number of digits", function () {
+    it("should should assure years is correct number of digits", () => {
       Validator.register("years", function (val, req, attrs) {
         return val.length === parseInt(req);
       });
@@ -113,7 +119,7 @@ describe("Error messages", function () {
       expect(validator.passes()).to.be.true;
     });
 
-    it("should fail the custom telephone rule registration with a custom error message", function () {
+    it("should fail the custom telephone rule registration with a custom error message", () => {
       Validator.register(
         "telephone",
         function (val) {
@@ -135,8 +141,8 @@ describe("Error messages", function () {
     });
   });
 
-  describe("get()", function () {
-    it("should return an array of all email error messages", function () {
+  describe("get()", () => {
+    it("should return an array of all email error messages", () => {
       const validator = new Validator({ email: "" }, { email: "required|email" });
 
       expect(validator.passes()).to.be.false;
@@ -144,7 +150,7 @@ describe("Error messages", function () {
       expect(validator.errors.get("email").length).to.equal(1);
     });
 
-    it("should return an empty array if there are no messages for an attribute", function () {
+    it("should return an empty array if there are no messages for an attribute", () => {
       const validator = new Validator(
         {
           email: "johndoe@gmail.com",
@@ -159,7 +165,7 @@ describe("Error messages", function () {
       expect(validator.errors.get("email").length).to.equal(0);
     });
 
-    it("should return multiple array items for an attribute", function () {
+    it("should return multiple array items for an attribute", () => {
       const validator = new Validator({ email: "x" }, { email: "email|min:10" });
 
       expect(validator.passes()).to.be.false;
@@ -168,8 +174,8 @@ describe("Error messages", function () {
     });
   });
 
-  describe("ValidatorErrors.prototype.all()", function () {
-    it("should return an array of all email error messages", function () {
+  describe("ValidatorErrors.prototype.all()", () => {
+    it("should return an array of all email error messages", () => {
       const validation = new Validator({ name: "d", email: "", age: 28 }, { name: "required|min:2", email: "required|email", age: "min:18" });
 
       const expected = JSON.stringify({
@@ -182,8 +188,8 @@ describe("Error messages", function () {
     });
   });
 
-  describe("ValidatorErrors.prototype.has()", function () {
-    it("should return an array of all email error messages", function () {
+  describe("ValidatorErrors.prototype.has()", () => {
+    it("should return an array of all email error messages", () => {
       const validation = new Validator({ name: "d", email: "", age: 28 }, { name: "required|min:2", email: "required|email", age: "min:18" });
 
       expect(validation.passes()).to.be.false;
@@ -193,14 +199,14 @@ describe("Error messages", function () {
     });
   });
 
-  describe("should output correct error messages for numeric-like rules", function () {
-    it("should give correct error message with numeric rule", function () {
+  describe("should output correct error messages for numeric-like rules", () => {
+    it("should give correct error message with numeric rule", () => {
       const validator = new Validator({ val: "1" }, { val: "numeric|min:2" });
       expect(validator.fails()).to.be.true;
       expect(validator.errors.first("val")).to.equal("The val must be at least 2.");
     });
 
-    it("should give correct error message with integer rule", function () {
+    it("should give correct error message with integer rule", () => {
       const validator = new Validator({ val: "1" }, { val: "integer|min:2" });
       expect(validator.fails()).to.be.true;
       expect(validator.errors.first("val")).to.equal("The val must be at least 2.");

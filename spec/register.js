@@ -1,8 +1,14 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("register a custom validation rule", function() {
-  it("should be able to get validation rule", function() {
-    Validator.register("telephone", function(val) {
+describe("register a custom validation rule", () => {
+  it("should be able to get validation rule", () => {
+    Validator.register("telephone", function (val) {
       return val.match(/^\d{3}-\d{3}-\d{4}$/);
     });
 
@@ -10,8 +16,8 @@ describe("register a custom validation rule", function() {
     expect(validator.getRule("telephone").validate).to.be.a.function;
   });
 
-  it("should pass the custom telephone rule registration", function() {
-    Validator.register("telephone", function(val) {
+  it("should pass the custom telephone rule registration", () => {
+    Validator.register("telephone", function (val) {
       return val.match(/^\d{3}-\d{3}-\d{4}$/);
     });
 
@@ -19,8 +25,8 @@ describe("register a custom validation rule", function() {
     expect(validator.passes()).to.be.true;
   });
 
-  it("should override custom rules", function() {
-    Validator.register("string", function(val) {
+  it("should override custom rules", () => {
+    Validator.register("string", function (val) {
       return true;
     });
 
@@ -30,22 +36,22 @@ describe("register a custom validation rule", function() {
     expect(validator.fails()).to.be.false;
     Validator.register(
       "string",
-      function(val) {
+      function (val) {
         return typeof val === "string";
       },
-      "The :attribute must be a string."
+      "The :attribute must be a string.",
     );
   });
 
-  it("should throw error in case of unknown validator rule", function() {
+  it("should throw error in case of unknown validator rule", () => {
     const validator = new Validator({ field: "test" }, { field: "unknown" });
 
     expect(validator.passes).to.throw();
     expect(validator.fails).to.throw();
   });
 
-  it("should allow to add custom validator to unknown validator rules", function() {
-    Validator.registerMissedRuleValidator(function() {
+  it("should allow to add custom validator to unknown validator rules", () => {
+    Validator.registerMissedRuleValidator(() => {
       return true;
     });
 

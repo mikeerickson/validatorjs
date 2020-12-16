@@ -14,12 +14,13 @@ module.exports = {
     numeric: ":attribute :min ilə :max arasında olmalıdır",
     file: ":attribute :min ilə :max KB ölçüsü intervalında olmalıdır",
     string: ":attribute :min ilə :max simvolu intervalında olmalıdır",
-    array: ":attribute :min ilə :max intervalında hissədən ibarət olmalıdır"
+    array: ":attribute :min ilə :max intervalında hissədən ibarət olmalıdır",
   },
   boolean: " :attribute doğru və ya yanlış ola bilər",
   confirmed: " :attribute doğrulanması yanlışdır",
   date: " :attribute tarix formatında olmalıdır",
   date_format: " :attribute :format formatında olmalıdır",
+  def: "The :attribute attribute has errors.",
   different: " :attribute və :other fərqli olmalıdır",
   digits: " :attribute :digits rəqəmli olmalıdır",
   digits_between: " :attribute :min ilə :max rəqəmləri intervalında olmalıdır",
@@ -33,13 +34,13 @@ module.exports = {
     numeric: "The :attribute must be greater than :value.",
     file: "The :attribute must be greater than :value kilobytes.",
     string: "The :attribute must be greater than :value characters.",
-    array: "The :attribute must have more than :value items."
+    array: "The :attribute must have more than :value items.",
   },
   gte: {
     numeric: "The :attribute must be greater than or equal :value.",
     file: "The :attribute must be greater than or equal :value kilobytes.",
     string: "The :attribute must be greater than or equal :value characters.",
-    array: "The :attribute must have :value items or more."
+    array: "The :attribute must have :value items or more.",
   },
   image: " :attribute şəkil formatında olmalıdır",
   in: " seçilmiş :attribute yanlışdır",
@@ -54,19 +55,19 @@ module.exports = {
     numeric: "The :attribute must be less than :value.",
     file: "The :attribute must be less than :value kilobytes.",
     string: "The :attribute must be less than :value characters.",
-    array: "The :attribute must have less than :value items."
+    array: "The :attribute must have less than :value items.",
   },
   lte: {
     numeric: "The :attribute must be less than or equal :value.",
     file: "The :attribute must be less than or equal :value kilobytes.",
     string: "The :attribute must be less than or equal :value characters.",
-    array: "The :attribute must not have more than :value items."
+    array: "The :attribute must not have more than :value items.",
   },
   max: {
     numeric: " :attribute maksiumum :max rəqəmdən ibarət ola bilər",
     file: " :attribute maksimum :max KB ölçüsündə ola bilər",
     string: " :attribute maksimum :max simvoldan ibarət ola bilər",
-    array: " :attribute maksimum :max hədd'dən ibarət ola bilər"
+    array: " :attribute maksimum :max hədd'dən ibarət ola bilər",
   },
   mimes: " :attribute :values tipində fayl olmalıdır",
   mimetypes: " :attribute :values tipində fayl olmalıdır",
@@ -74,7 +75,7 @@ module.exports = {
     numeric: " :attribute minimum :min rəqəmdən ibarət ola bilər",
     file: " :attribute minimum :min KB ölçüsündə ola bilər",
     string: " :attribute minimum :min simvoldan ibarət ola bilər",
-    array: " :attribute minimum :min hədd'dən ibarət ola bilər"
+    array: " :attribute minimum :min hədd'dən ibarət ola bilər",
   },
   not_in: " seçilmiş :attribute yanlışdır",
   numeric: " :attribute rəqəmlərdən ibarət olmalıdır",
@@ -92,13 +93,13 @@ module.exports = {
     numeric: " :attribute :size ölçüsündə olmalıdır",
     file: " :attribute :size KB ölçüsündə olmalıdır",
     string: " :attribute :size simvoldan ibarət olmalıdır",
-    array: " :attribute :size hədd'dən ibarət olmalıdır"
+    array: " :attribute :size hədd'dən ibarət olmalıdır",
   },
   string: " :attribute hərf formatında olmalıdır",
   timezone: " :attribute ərazi formatında olmalıdır",
   unique: " :attribute artıq iştirak edib",
   uploaded: " :attribute yüklənməsi mümkün olmadı",
-  url: " :attribute formatı yanlışdır"
+  url: " :attribute formatı yanlışdır",
 };
 
 },{}]},{},[]);

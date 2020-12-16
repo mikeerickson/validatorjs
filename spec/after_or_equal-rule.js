@@ -1,7 +1,13 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("after or equal rule", function() {
-  it("should fail when the comparing attribute are greather", function() {
+describe("after or equal rule", () => {
+  it("should fail when the comparing attribute are greather", () => {
     const validator = new Validator({ date: "1996-12-09", date2: "1995-08-09" }, { date2: "after_or_equal:date" });
 
     expect(validator.fails()).to.be.true;
@@ -9,14 +15,14 @@ describe("after or equal rule", function() {
     expect(validator.errors.first("date2")).to.equal("The date2 must be equal or after date.");
   });
 
-  it("should pass when the comparing attribute are equal", function() {
+  it("should pass when the comparing attribute are equal", () => {
     const validator = new Validator({ date: "1995-08-09", date2: "1995-08-09" }, { date2: "after_or_equal:date" });
 
     expect(validator.fails()).to.be.false;
     expect(validator.passes()).to.be.true;
   });
 
-  it("should pass when the comparing attribute are smaller", function() {
+  it("should pass when the comparing attribute are smaller", () => {
     const validator = new Validator({ date: "1995-08-09", date2: "1996-12-09" }, { date2: "after_or_equal:date" });
 
     expect(validator.fails()).to.be.false;

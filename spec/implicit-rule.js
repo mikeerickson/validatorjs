@@ -1,42 +1,48 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("implicit rule tests", function() {
-  it("should fail implicit rule even when undefined", function() {
+describe("implicit rule tests", () => {
+  it("should fail implicit rule even when undefined", () => {
     Validator.registerImplicit(
       "null_or_number",
-      function(val) {
+      function (val) {
         return (val && val.match(/^\d*$/)) || val === null;
       },
-      ":attribute must be a number or empty"
+      ":attribute must be a number or empty",
     );
 
     const validator = new Validator(
       {
         /* empty */
       },
-      { value: "null_or_number" }
+      { value: "null_or_number" },
     );
     expect(validator.passes()).to.be.false;
   });
 
-  it("should pass implicit rule even when null", function() {
+  it("should pass implicit rule even when null", () => {
     Validator.registerImplicit(
       "null_or_number",
-      function(val) {
+      function (val) {
         return (val && val.match(/^\d*$/)) || val === null;
       },
-      ":attribute must be a number or empty"
+      ":attribute must be a number or empty",
     );
 
     const validator = new Validator({ value: null }, { value: "null_or_number" });
     expect(validator.passes()).to.be.true;
   });
 
-  it("should fail async implicit rule even when undefined", function(done) {
+  it("should fail async implicit rule even when undefined", function (done) {
     Validator.registerAsyncImplicit(
       "async_null",
-      function(value, attribute, req, passes) {
-        setTimeout(function() {
+      function (value, attribute, req, passes) {
+        setTimeout(() => {
           if (value === null) {
             passes(true);
           } else {
@@ -44,23 +50,23 @@ describe("implicit rule tests", function() {
           }
         }, 50);
       },
-      ":attribute already taken"
+      ":attribute already taken",
     );
 
     const validator = new Validator(
       {
         /* empty */
       },
-      { value: "async_null" }
+      { value: "async_null" },
     );
     validator.fails(done);
   });
 
-  it("should pass async implicit rule even when null", function(done) {
+  it("should pass async implicit rule even when null", function (done) {
     Validator.registerAsyncImplicit(
       "async_null",
-      function(value, attribute, req, passes) {
-        setTimeout(function() {
+      function (value, attribute, req, passes) {
+        setTimeout(() => {
           if (value === null) {
             passes(true);
           } else {
@@ -68,7 +74,7 @@ describe("implicit rule tests", function() {
           }
         }, 50);
       },
-      ":attribute already taken"
+      ":attribute already taken",
     );
 
     const validator = new Validator({ value: null }, { value: "async_null" });

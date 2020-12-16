@@ -419,6 +419,27 @@ var rules = {
     return true;
   },
 
+  in_array: function (val, req) {
+    let arr = req
+      .replace(/["'\[\]]/g, "")
+      .replace(/[|]/g, ",")
+      .split(/, ?/);
+    return arr.includes(val);
+  },
+
+  json: function (val, req) {
+    try {
+      JSON.parse(val);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  },
+
+  multiple_of: function (val, req) {
+    return req % val === 0;
+  },
+
   not_in: function (val, req) {
     var list = this.getParameters();
     var len = list.length;
@@ -594,6 +615,38 @@ var rules = {
     }
 
     return false;
+  },
+
+  greater_than: function (val, req) {
+    return val > req;
+  },
+
+  gt: function (val, req) {
+    return val > req;
+  },
+
+  greater_than_or_equal: function (val, req) {
+    return val >= req;
+  },
+
+  gte: function (val, req) {
+    return val >= req;
+  },
+
+  less_than: function (val, req) {
+    return val < req;
+  },
+
+  lt: function (val, req) {
+    return val < req;
+  },
+
+  less_than_or_equal: function (val, req) {
+    return val <= req;
+  },
+
+  lte: function (val, req) {
+    return val <= req;
   },
 
   hex: function (val) {

@@ -1,17 +1,21 @@
-const { Validator, expect } = require("./setup.js");
+if (typeof require !== "undefined") {
+  var Validator = require("../src/validator.js");
+  var expect = require("chai").expect;
+} else {
+  var Validator = window.Validator;
+  var expect = window.chai.expect;
+}
 
-describe("attribute formatter tests", function() {
-  it("should replace _[] with spaces by default", function() {
+describe("attribute formatter tests", () => {
+  it("should replace _[] with spaces by default", () => {
     const validator = new Validator({ "all_users[3][first_name]": "" }, { "all_users[3][first_name]": "required" });
     expect(validator.fails()).to.be.true;
-    expect(validator.errors.first("all_users[3][first_name]")).to.equal(
-      "The all users 3 first name field is required."
-    );
+    expect(validator.errors.first("all_users[3][first_name]")).to.equal("The all users 3 first name field is required.");
   });
 
-  it("should be able configure global attribute formatter", function() {
+  it("should be able configure global attribute formatter", () => {
     const originalAttributeFormatter = Validator.prototype.attributeFormatter;
-    Validator.setAttributeFormatter(function(attribute) {
+    Validator.setAttributeFormatter(function (attribute) {
       return attribute.replace(/_/, " ");
     });
     const validator = new Validator({ first_name: "" }, { first_name: "required" });
@@ -20,9 +24,9 @@ describe("attribute formatter tests", function() {
     Validator.setAttributeFormatter(originalAttributeFormatter);
   });
 
-  it("should be able configure attribute formatter for particular instance", function() {
+  it("should be able configure attribute formatter for particular instance", () => {
     const validator = new Validator({ first_name: "" }, { first_name: "required" });
-    validator.setAttributeFormatter(function(attribute) {
+    validator.setAttributeFormatter(function (attribute) {
       return attribute;
     });
     expect(validator.fails()).to.be.true;

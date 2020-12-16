@@ -1,5 +1,7 @@
-/*! validatorjs - 2020-12-14 */
+/*! validatorjs - 2020-12-16 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+"use strict";
+
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
   this.onFailedOne = onFailedOne;
@@ -11,14 +13,13 @@ function AsyncResolvers(onFailedOne, onResolvedAll) {
 }
 
 AsyncResolvers.prototype = {
-
   /**
    * Add resolver
    *
    * @param {Rule} rule
    * @return {integer}
    */
-  add: function(rule) {
+  add: function (rule) {
     var index = this.resolversCount;
     this.resolvers[index] = rule;
     this.resolversCount++;
@@ -31,7 +32,7 @@ AsyncResolvers.prototype = {
    * @param  {integer} index
    * @return {void}
    */
-  resolve: function(index) {
+  resolve: function (index) {
     var rule = this.resolvers[index];
     if (rule.passes === true) {
       this.passed.push(rule);
@@ -48,8 +49,8 @@ AsyncResolvers.prototype = {
    *
    * @return {boolean}
    */
-  isAllResolved: function() {
-    return (this.passed.length + this.failed.length) === this.resolversCount;
+  isAllResolved: function () {
+    return this.passed.length + this.failed.length === this.resolversCount;
   },
 
   /**
@@ -57,8 +58,7 @@ AsyncResolvers.prototype = {
    *
    * @return {void}
    */
-  fire: function() {
-
+  fire: function () {
     if (!this.firing) {
       return;
     }
@@ -66,7 +66,6 @@ AsyncResolvers.prototype = {
     if (this.isAllResolved()) {
       this.onResolvedAll(this.failed.length === 0);
     }
-
   },
 
   /**
@@ -74,17 +73,17 @@ AsyncResolvers.prototype = {
    *
    * @return {void}
    */
-  enableFiring: function() {
+  enableFiring: function () {
     this.firing = true;
-  }
-
+  },
 };
 
 module.exports = AsyncResolvers;
 
 },{}],2:[function(require,module,exports){
-var replacements = {
+"use strict";
 
+var replacements = {
   /**
    * Between replacement (replaces :min and :max)
    *
@@ -92,11 +91,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  between: function(template, rule) {
+  between: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       min: parameters[0],
-      max: parameters[1]
+      max: parameters[1],
     });
   },
 
@@ -107,11 +106,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  digits_between: function(template, rule) {
+  digits_between: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       min: parameters[0],
-      max: parameters[1]
+      max: parameters[1],
     });
   },
 
@@ -122,11 +121,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_if: function(template, rule) {
+  required_if: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       other: this._getAttributeName(parameters[0]),
-      value: parameters[1]
+      value: parameters[1],
     });
   },
 
@@ -137,11 +136,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_unless: function(template, rule) {
+  required_unless: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       other: this._getAttributeName(parameters[0]),
-      value: parameters[1]
+      value: parameters[1],
     });
   },
 
@@ -152,10 +151,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_with: function(template, rule) {
+  required_with: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      field: this._getAttributeName(parameters[0])
+      field: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -166,11 +165,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_with_all: function(template, rule) {
+  required_with_all: function (template, rule) {
     var parameters = rule.getParameters();
     var getAttributeName = this._getAttributeName.bind(this);
     return this._replacePlaceholders(rule, template, {
-      fields: parameters.map(getAttributeName).join(', ')
+      fields: parameters.map(getAttributeName).join(", "),
     });
   },
 
@@ -181,10 +180,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_without: function(template, rule) {
+  required_without: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      field: this._getAttributeName(parameters[0])
+      field: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -195,11 +194,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_without_all: function(template, rule) {
+  required_without_all: function (template, rule) {
     var parameters = rule.getParameters();
     var getAttributeName = this._getAttributeName.bind(this);
     return this._replacePlaceholders(rule, template, {
-      fields: parameters.map(getAttributeName).join(', ')
+      fields: parameters.map(getAttributeName).join(", "),
     });
   },
 
@@ -210,10 +209,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  after: function(template, rule) {
+  after: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      after: this._getAttributeName(parameters[0])
+      after: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -224,10 +223,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  before: function(template, rule) {
+  before: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      before: this._getAttributeName(parameters[0])
+      before: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -238,10 +237,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  after_or_equal: function(template, rule) {
+  after_or_equal: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      after_or_equal: this._getAttributeName(parameters[0])
+      after_or_equal: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -252,10 +251,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  before_or_equal: function(template, rule) {
+  before_or_equal: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      before_or_equal: this._getAttributeName(parameters[0])
+      before_or_equal: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -266,25 +265,25 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  same: function(template, rule) {
+  same: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      same: this._getAttributeName(parameters[0])
+      same: this._getAttributeName(parameters[0]),
     });
   },
 };
 
 function formatter(attribute) {
-  return attribute.replace(/[_\[]/g, ' ').replace(/]/g, '');
+  return attribute.replace(/[_\[]/g, " ").replace(/]/g, "");
 }
 
 module.exports = {
   replacements: replacements,
-  formatter: formatter
+  formatter: formatter,
 };
 
 },{}],3:[function(require,module,exports){
-var Errors = function() {
+var Errors = function () {
   this.errors = {};
 };
 
@@ -298,7 +297,7 @@ Errors.prototype = {
    * @param  {string} message
    * @return {void}
    */
-  add: function(attribute, message) {
+  add: function (attribute, message) {
     if (!this.has(attribute)) {
       this.errors[attribute] = [];
     }
@@ -314,7 +313,7 @@ Errors.prototype = {
    * @param  {string} attribute A key in the data object being validated
    * @return {array} An array of error messages
    */
-  get: function(attribute) {
+  get: function (attribute) {
     if (this.has(attribute)) {
       return this.errors[attribute];
     }
@@ -328,7 +327,7 @@ Errors.prototype = {
    * @param  {string} attribute A key in the data object being validated
    * @return {string|false} First error message or false
    */
-  first: function(attribute) {
+  first: function (attribute) {
     if (this.has(attribute)) {
       return this.errors[attribute][0];
     }
@@ -341,8 +340,26 @@ Errors.prototype = {
    *
    * @return {Object} Failed attribute names for keys and an array of messages for values
    */
-  all: function() {
+  all: function () {
     return this.errors;
+  },
+
+  /**
+   * Get all error messages from all failing attributes
+   *
+   * @return {array} Failed fields
+   */
+  fields: function () {
+    return Object.keys(this.errors);
+  },
+
+  /**
+   * Get all error messages from all failing attributes
+   *
+   * @return {array} Failed fields
+   */
+  keys: function () {
+    return Object.keys(this.errors);
   },
 
   /**
@@ -351,13 +368,22 @@ Errors.prototype = {
    * @param  {string}  attribute A key in the data object being validated
    * @return {boolean}
    */
-  has: function(attribute) {
+  has: function (attribute) {
     if (this.errors.hasOwnProperty(attribute)) {
       return true;
     }
 
     return false;
-  }
+  },
+
+  /**
+   * Returns number of errors
+   *
+   * @return {number}
+   */
+  errorCount: function () {
+    return Object.keys(this.errors).length;
+  },
 };
 
 module.exports = Errors;
@@ -467,8 +493,58 @@ module.exports = {
   ends_with: "The :attribute must end with :ends_with",
   exclude_if: "The :attribute will be excluded if :exclude_if.",
   exclude_unless: "The :attribute will be excluded unless :exclude_unless.",
-  filled: "The :attribute must be filled.",
+  filled: "The :attribute must be filled if supplied.",
+  greater_than: {
+    numeric: "The :attribute must be greater than :greater_than.",
+    file: "The :attribute must be greater than :greater_than kilobytes.",
+    string: "The :attribute must be greater than :greater_than.",
+    array: "The :attribute must have more than :greater_than items.",
+  },
+  gt: {
+    numeric: "The :attribute must be greater than :gt.",
+    file: "The :attribute must be greater than :gt kilobytes.",
+    string: "The :attribute must be greater than :gt.",
+    array: "The :attribute must have more than :gt items.",
+  },
+  greater_than_or_equal: {
+    numeric: "The :attribute must be greater than or equal :greater_than_or_equal.",
+    file: "The :attribute must be greater than or equal :greater_than_or_equal kilobytes.",
+    string: "The :attribute must be greater than or equal :greater_than_or_equal.",
+    array: "The :attribute must have :greater_than_or_equal items or more.",
+  },
+  gte: {
+    numeric: "The :attribute must be greater than or equal :gte.",
+    file: "The :attribute must be greater than or equal :gte kilobytes.",
+    string: "The :attribute must be greater than or equal :gte.",
+    array: "The :attribute must have :gte items or more.",
+  },
   in: "The selected :attribute is invalid.",
+  in_array: "The :attribute must be in :in_array.",
+  json: "The :attribute does not contain valid json.",
+  less_than: {
+    numeric: "The :attribute must be less than :less_than.",
+    file: "The :attribute must be less than :less_than kilobytes.",
+    string: "The :attribute must be less than :less_than.",
+    array: "The :attribute must have less than :less_than items.",
+  },
+  lt: {
+    numeric: "The :attribute must be less than :lt.",
+    file: "The :attribute must be less than :lt kilobytes.",
+    string: "The :attribute must be less than :lt.",
+    array: "The :attribute must have less than :lt items.",
+  },
+  less_than_or_equal: {
+    numeric: "The :attribute must be less than or equal :less_than_or_equal.",
+    file: "The :attribute must be less than or equal :less_than_or_equal kilobytes.",
+    string: "The :attribute must be less than or equal :less_than_or_equal.",
+    array: "The :attribute must not have more than :less_than_or_equal items.",
+  },
+  lte: {
+    numeric: "The :attribute must be less than or equal :lte.",
+    file: "The :attribute must be less than or equal :lte kilobytes.",
+    string: "The :attribute must be less than or equal :lte characters.",
+    array: "The :attribute must not have more than :lte items.",
+  },
   integer: "The :attribute must be an integer.",
   hex: "The :attribute field should have hexadecimal format",
   min: {
@@ -479,6 +555,7 @@ module.exports = {
     numeric: "The :attribute may not be greater than :max.",
     string: "The :attribute may not be greater than :max characters.",
   },
+  multiple_of: "The :attribute is not multiple of :multiple_of",
   not_in: "The selected :attribute is invalid.",
   nullable: "the :attribute is nullable.",
   numeric: "The :attribute must be a number.",
@@ -1079,6 +1156,27 @@ var rules = {
     return true;
   },
 
+  in_array: function (val, req) {
+    let arr = req
+      .replace(/["'\[\]]/g, "")
+      .replace(/[|]/g, ",")
+      .split(/, ?/);
+    return arr.includes(val);
+  },
+
+  json: function (val, req) {
+    try {
+      JSON.parse(val);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  },
+
+  multiple_of: function (val, req) {
+    return req % val === 0;
+  },
+
   not_in: function (val, req) {
     var list = this.getParameters();
     var len = list.length;
@@ -1254,6 +1352,38 @@ var rules = {
     }
 
     return false;
+  },
+
+  greater_than: function (val, req) {
+    return val > req;
+  },
+
+  gt: function (val, req) {
+    return val > req;
+  },
+
+  greater_than_or_equal: function (val, req) {
+    return val >= req;
+  },
+
+  gte: function (val, req) {
+    return val >= req;
+  },
+
+  less_than: function (val, req) {
+    return val < req;
+  },
+
+  lt: function (val, req) {
+    return val < req;
+  },
+
+  less_than_or_equal: function (val, req) {
+    return val <= req;
+  },
+
+  lte: function (val, req) {
+    return val <= req;
   },
 
   hex: function (val) {
@@ -1610,9 +1740,116 @@ var manager = {
 module.exports = manager;
 
 },{}],8:[function(require,module,exports){
+let Success = function () {
+  this.successes = {};
+};
+
+Success.prototype = {
+  constructor: Success,
+
+  /**
+   * Add new success message for given attribute
+   *
+   * @param  {string} attribute
+   * @param  {string} message
+   * @return {void}
+   */
+  add: function (attribute, message) {
+    if (!this.has(attribute)) {
+      this.successes[attribute] = [];
+    }
+
+    if (this.successes[attribute].indexOf(message) === -1) {
+      this.successes[attribute].push(message);
+    }
+  },
+
+  /**
+   * Returns an array of success messages for an attribute, or an empty array
+   *
+   * @param  {string} attribute A key in the data object being validated
+   * @return {array} An array of success messages
+   */
+  get: function (attribute) {
+    if (this.has(attribute)) {
+      return this.successes[attribute];
+    }
+
+    return [];
+  },
+
+  /**
+   * Returns the first success message for an attribute, false otherwise
+   *
+   * @param  {string} attribute A key in the data object being validated
+   * @return {string|false} First success message or false
+   */
+  first: function (attribute) {
+    if (this.has(attribute)) {
+      return this.successes[attribute][0];
+    }
+
+    return false;
+  },
+
+  /**
+   * Get all success messages from all failing attributes
+   *
+   * @return {Object} Failed attribute names for keys and an array of messages for values
+   */
+  all: function () {
+    return this.successes;
+  },
+
+  /**
+   * Get all success messages from all failing attributes
+   *
+   * @return {array} Failed fields
+   */
+  fields: function () {
+    return Object.keys(this.successes);
+  },
+
+  /**
+   * Get all success messages from all failing attributes
+   *
+   * @return {array} Failed fields
+   */
+  keys: function () {
+    return Object.keys(this.successes);
+  },
+
+  /**
+   * Determine if there are any success messages for an attribute
+   *
+   * @param  {string}  attribute A key in the data object being validated
+   * @return {boolean}
+   */
+  has: function (attribute) {
+    if (this.successes.hasOwnProperty(attribute)) {
+      return true;
+    }
+
+    return false;
+  },
+
+  /**
+   * Returns number of successes
+   *
+   * @return {number}
+   */
+  successCount: function () {
+    return Object.keys(this.successes).length;
+  },
+};
+
+module.exports = Success;
+
+},{}],9:[function(require,module,exports){
 var Rules = require("./rules");
 var Lang = require("./lang");
 var Errors = require("./errors");
+var Success = require("./success");
 var Attributes = require("./attributes");
 var AsyncResolvers = require("./async");
 
@@ -1626,6 +1863,9 @@ var Validator = function (input, rules, customMessages) {
 
   this.errors = new Errors();
   this.errorCount = 0;
+
+  this.successes = new Success();
+  this.successCount = 0;
 
   this.hasAsync = false;
   this.rules = this._parseRules(rules);
@@ -1678,7 +1918,6 @@ Validator.prototype = {
         if (!this._isValidatable(rule, inputValue)) {
           continue;
         }
-        // console.log(attributeRules);
 
         let ruleKeys = [];
         attributeRules.forEach((item) => {
@@ -1686,11 +1925,14 @@ Validator.prototype = {
         });
 
         rulePassed = rule.validate(inputValue, ruleOptions.value, attribute);
+
         if (!rulePassed) {
           this._addFailure(rule);
           if (ruleKeys.includes("bail")) {
             break;
           }
+        } else {
+          this._addSuccess(rule);
         }
 
         if (this._shouldStopValidating(attribute, rulePassed)) {
@@ -1770,6 +2012,17 @@ Validator.prototype = {
     var msg = this.messages.render(rule);
     this.errors.add(rule.attribute, msg);
     this.errorCount++;
+  },
+
+  /**
+   * Add failure and error message for given rule
+   *
+   * @param {Rule} rule
+   */
+  _addSuccess: function (rule) {
+    var msg = this.messages.render(rule);
+    this.successes.add(rule.attribute, msg);
+    this.successCount++;
   },
 
   /**
@@ -2279,5 +2532,5 @@ Validator.registerMissedRuleValidator = function (fn, message) {
 
 module.exports = Validator;
 
-},{"./async":1,"./attributes":2,"./errors":3,"./lang":4,"./rules":7}]},{},[8])(8)
+},{"./async":1,"./attributes":2,"./errors":3,"./lang":4,"./rules":7,"./success":8}]},{},[9])(9)
 });

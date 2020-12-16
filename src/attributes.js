@@ -1,5 +1,6 @@
-var replacements = {
+"use strict";
 
+var replacements = {
   /**
    * Between replacement (replaces :min and :max)
    *
@@ -7,11 +8,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  between: function(template, rule) {
+  between: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       min: parameters[0],
-      max: parameters[1]
+      max: parameters[1],
     });
   },
 
@@ -22,11 +23,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  digits_between: function(template, rule) {
+  digits_between: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       min: parameters[0],
-      max: parameters[1]
+      max: parameters[1],
     });
   },
 
@@ -37,11 +38,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_if: function(template, rule) {
+  required_if: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       other: this._getAttributeName(parameters[0]),
-      value: parameters[1]
+      value: parameters[1],
     });
   },
 
@@ -52,11 +53,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_unless: function(template, rule) {
+  required_unless: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
       other: this._getAttributeName(parameters[0]),
-      value: parameters[1]
+      value: parameters[1],
     });
   },
 
@@ -67,10 +68,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_with: function(template, rule) {
+  required_with: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      field: this._getAttributeName(parameters[0])
+      field: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -81,11 +82,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_with_all: function(template, rule) {
+  required_with_all: function (template, rule) {
     var parameters = rule.getParameters();
     var getAttributeName = this._getAttributeName.bind(this);
     return this._replacePlaceholders(rule, template, {
-      fields: parameters.map(getAttributeName).join(', ')
+      fields: parameters.map(getAttributeName).join(", "),
     });
   },
 
@@ -96,10 +97,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_without: function(template, rule) {
+  required_without: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      field: this._getAttributeName(parameters[0])
+      field: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -110,11 +111,11 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  required_without_all: function(template, rule) {
+  required_without_all: function (template, rule) {
     var parameters = rule.getParameters();
     var getAttributeName = this._getAttributeName.bind(this);
     return this._replacePlaceholders(rule, template, {
-      fields: parameters.map(getAttributeName).join(', ')
+      fields: parameters.map(getAttributeName).join(", "),
     });
   },
 
@@ -125,10 +126,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  after: function(template, rule) {
+  after: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      after: this._getAttributeName(parameters[0])
+      after: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -139,10 +140,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  before: function(template, rule) {
+  before: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      before: this._getAttributeName(parameters[0])
+      before: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -153,10 +154,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  after_or_equal: function(template, rule) {
+  after_or_equal: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      after_or_equal: this._getAttributeName(parameters[0])
+      after_or_equal: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -167,10 +168,10 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  before_or_equal: function(template, rule) {
+  before_or_equal: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      before_or_equal: this._getAttributeName(parameters[0])
+      before_or_equal: this._getAttributeName(parameters[0]),
     });
   },
 
@@ -181,19 +182,19 @@ var replacements = {
    * @param  {Rule} rule
    * @return {string}
    */
-  same: function(template, rule) {
+  same: function (template, rule) {
     var parameters = rule.getParameters();
     return this._replacePlaceholders(rule, template, {
-      same: this._getAttributeName(parameters[0])
+      same: this._getAttributeName(parameters[0]),
     });
   },
 };
 
 function formatter(attribute) {
-  return attribute.replace(/[_\[]/g, ' ').replace(/]/g, '');
+  return attribute.replace(/[_\[]/g, " ").replace(/]/g, "");
 }
 
 module.exports = {
   replacements: replacements,
-  formatter: formatter
+  formatter: formatter,
 };
