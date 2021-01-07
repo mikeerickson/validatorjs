@@ -116,7 +116,7 @@ var rules = {
   required_if: function (val, req, attribute) {
     req = this.getParameters();
     if (this.validator._objectPath(this.validator.input, req[0]) === req[1]) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule("required").validate(val, req, attribute);
     }
 
     return true;
@@ -125,7 +125,7 @@ var rules = {
   required_unless: function (val, req, attribute) {
     req = this.getParameters();
     if (this.validator._objectPath(this.validator.input, req[0]) !== req[1]) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule("required").validate(val, req, attribute);
     }
 
     return true;
@@ -133,7 +133,7 @@ var rules = {
 
   required_with: function (val, req, attribute) {
     if (this.validator._objectPath(this.validator.input, req)) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule("required").validate(val, req, attribute);
     }
 
     return true;
@@ -148,7 +148,7 @@ var rules = {
       }
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule("required").validate(val, req, attribute);
   },
 
   required_without: function (val, req, attribute) {
@@ -156,7 +156,7 @@ var rules = {
       return true;
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule("required").validate(val, req, attribute);
   },
 
   required_without_all: function (val, req, attribute) {
@@ -168,7 +168,7 @@ var rules = {
       }
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule("required").validate(val, req, attribute);
   },
 
   boolean: function (val) {
