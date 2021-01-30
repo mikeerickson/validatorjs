@@ -74,4 +74,40 @@ describe("in validation rule", () => {
     validator = new Validator({ fruit: "kiwi" }, { fruit: `in_array:${req}` });
     expect(validator.passes()).to.be.true;
   });
+
+  it("should check simple array interpolation", () => {
+    let states = ["AZ", "CA", "NY"];
+
+    let validator = new Validator({ state: "ca" }, { state: `in_array:${states}` });
+
+    expect(validator.passes()).to.be.true;
+  });
+
+  it("should check simple array interpolation case sensitive", () => {
+    let states = ["AZ", "CA", "NY"];
+
+    let rules = { state: `in_array:${states}:true` };
+
+    let validator = new Validator({ state: "ca" }, { state: `in_array:${states}:true` });
+
+    expect(validator.passes()).to.be.false;
+  });
+
+  it("should use array of non quoted delimited strings", () => {
+    let states = ["AZ", "CA", "NY"];
+    let stateStrings = states.join(",");
+    let rules = { state: `in_array:[${stateStrings}]` };
+
+    let validator = new Validator({ state: "CA" }, rules);
+
+    expect(validator.passes()).to.be.true;
+  });
+
+  it("should check simple array interpolation using numeric array", () => {
+    let years = [2020, 2021, 2022];
+
+    let validator = new Validator({ value: 2020 }, { value: `in_array:${years}` });
+
+    expect(validator.passes()).to.be.true;
+  });
 });

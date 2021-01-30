@@ -1,5 +1,97 @@
 /*! validatorjs - 2021-01-29 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const Validator = require("./validator");
+
+class Validation {
+  constructor() {
+    this.validationErrors = {};
+    this.validationSuccesses = {};
+  }
+
+  validate(data, rules, customMessages = {}, language = "", aliases = {}) {
+    return new Promise((resolve, reject) => {
+      const validator = new Validator(data, rules, customMessages, language, aliases);
+
+      const handleSuccesses = () => {
+        this.validationErrors = validator.errors.all();
+        this.validationSuccesses = validator.successes.all();
+        resolve();
+      };
+
+      const handleErrors = () => {
+        this.validationErrors = validator.errors.all();
+        this.validationSuccesses = validator.successes.all();
+        reject(validator.errors.all());
+      };
+      // Asynchronous handler (with callbacks)
+      if (validator.hasAsync) {
+        validator.passes(() => handleSuccesses());
+        validator.fails(() => handleErrors());
+      } else {
+        // Synchronous handler
+        validator.passes() ? handleSuccesses() : handleErrors();
+      }
+    });
+  }
+
+  errors() {
+    return this.validationErrors;
+  }
+
+  successes() {
+    return this.validationSuccesses;
+  }
+
+  all() {
+    return this.validationErrors;
+  }
+
+  first(attribute = "") {
+    let msg = "";
+    if (this.validationErrors[attribute].length > 0) {
+      msg = this.validationErrors[attribute][0];
+    }
+    return msg;
+  }
+
+  get(attribute) {
+    if (this.validationErrors.hasOwnProperty(attribute)) {
+      return this.validationErrors[attribute];
+    }
+  }
+
+  fields() {
+    return Object.keys(this.validationErrors);
+  }
+
+  keys() {
+    return this.fields();
+  }
+
+  attributes() {
+    return this.fields();
+  }
+
+  has(attribute) {
+    return this.validationErrors.hasOwnProperty(attribute);
+  }
+
+  errorCount() {
+    return Object.keys(this.validationErrors).length;
+  }
+
+  passes() {
+    return Object.keys(this.validationErrors).length === 0;
+  }
+
+  fails() {
+    return Object.keys(this.validationErrors).length > 0;
+  }
+}
+
+module.exports = Validation;
+
+},{"./validator":10}],2:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -87,7 +179,7 @@ AsyncResolvers.prototype = {
 
 module.exports = AsyncResolvers;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -296,7 +388,7 @@ module.exports = {
   formatter: formatter,
 };
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -409,7 +501,7 @@ Errors.prototype = {
 
 module.exports = Errors;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -494,7 +586,7 @@ var container = {
 
 module.exports = container;
 
-},{"./lang/en":5,"./messages":6}],5:[function(require,module,exports){
+},{"./lang/en":6,"./messages":7}],6:[function(require,module,exports){
 module.exports = {
   accepted: "The :attribute must be accepted.",
   after: "The :attribute must be after :after.",
@@ -606,7 +698,7 @@ module.exports = {
   attributes: {},
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -769,7 +861,7 @@ Messages.prototype = {
 
 module.exports = Messages;
 
-},{"./attributes":2}],7:[function(require,module,exports){
+},{"./attributes":3}],8:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -1801,7 +1893,7 @@ var manager = {
 
 module.exports = manager;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -1914,7 +2006,7 @@ Success.prototype = {
 
 module.exports = Success;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*-------------------------------------------------------------------------------------------
  * validatorjs
  *
@@ -2609,5 +2701,5 @@ Validator.registerMissedRuleValidator = function (fn, message) {
 
 module.exports = Validator;
 
-},{"./async":1,"./attributes":2,"./errors":3,"./lang":4,"./rules":7,"./success":8}]},{},[9])(9)
+},{"./async":2,"./attributes":3,"./errors":4,"./lang":5,"./rules":8,"./success":9}]},{},[1])(1)
 });

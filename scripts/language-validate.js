@@ -40,6 +40,9 @@ fs.readdir("./src/lang", (err, files) => {
         if (missingKeys.includes("def")) {
           console.log(chalk.red("     missing `def`"));
         }
+        if (missingKeys.includes("attributes")) {
+          console.log(chalk.red("     missing `attributes`"));
+        }
         if (verbose) {
           missingKeys.forEach((missingKey) => {
             console.log("     " + missingKey);

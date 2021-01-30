@@ -1,6 +1,13 @@
-var Attributes = require('./attributes');
+/*-------------------------------------------------------------------------------------------
+ * validatorjs
+ *
+ * Copyright (c) 2021 Mike Erickson / Codedungeon.  All rights reserved.
+ * Licensed under the MIT license.  See LICENSE in the project root for license information.
+ * -----------------------------------------------------------------------------------------*/
 
-var Messages = function(lang, messages) {
+var Attributes = require("./attributes");
+
+var Messages = function (lang, messages) {
   this.lang = lang;
   this.messages = messages;
   this.customMessages = {};
@@ -16,7 +23,7 @@ Messages.prototype = {
    * @param {object} customMessages
    * @return {void}
    */
-  _setCustom: function(customMessages) {
+  _setCustom: function (customMessages) {
     this.customMessages = customMessages || {};
   },
 
@@ -25,7 +32,7 @@ Messages.prototype = {
    *
    * @param {object} attributes
    */
-  _setAttributeNames: function(attributes) {
+  _setAttributeNames: function (attributes) {
     this.attributeNames = attributes;
   },
 
@@ -35,7 +42,7 @@ Messages.prototype = {
    * @param {fuction} func
    * @return {void}
    */
-  _setAttributeFormatter: function(func) {
+  _setAttributeFormatter: function (func) {
     this.attributeFormatter = func;
   },
 
@@ -45,11 +52,12 @@ Messages.prototype = {
    * @param  {string} attribute
    * @return {string}
    */
-  _getAttributeName: function(attribute) {
+  _getAttributeName: function (attribute) {
     var name = attribute;
-    if (this.attributeNames.hasOwnProperty(attribute)) {
+
+    if (this.attributeNames && this.attributeNames.hasOwnProperty(attribute)) {
       return this.attributeNames[attribute];
-    } else if (this.messages.attributes.hasOwnProperty(attribute)) {
+    } else if (this.messages && this.messages.attributes.hasOwnProperty(attribute)) {
       name = this.messages.attributes[attribute];
     }
 
@@ -65,7 +73,7 @@ Messages.prototype = {
    *
    * @return {object}
    */
-  all: function() {
+  all: function () {
     return this.messages;
   },
 
@@ -75,7 +83,7 @@ Messages.prototype = {
    * @param  {Rule} rule
    * @return {string}
    */
-  render: function(rule) {
+  render: function (rule, aliases = {}) {
     if (rule.customMessage) {
       return rule.customMessage;
     }
@@ -85,7 +93,7 @@ Messages.prototype = {
     if (Attributes.replacements[rule.name]) {
       message = Attributes.replacements[rule.name].apply(this, [template, rule]);
     } else {
-      message = this._replacePlaceholders(rule, template, {});
+      message = this._replacePlaceholders(rule, template, {}, aliases);
     }
 
     return message;
@@ -97,12 +105,11 @@ Messages.prototype = {
    * @param  {Rule} rule
    * @return {string}
    */
-  _getTemplate: function(rule) {
-
+  _getTemplate: function (rule) {
     var messages = this.messages;
     var template = messages.def;
     var customMessages = this.customMessages;
-    var formats = [rule.name + '.' + rule.attribute, rule.name];
+    var formats = [rule.name + "." + rule.attribute, rule.name];
 
     for (var i = 0, format; i < formats.length; i++) {
       format = formats[i];
@@ -115,7 +122,7 @@ Messages.prototype = {
       }
     }
 
-    if (typeof template === 'object') {
+    if (typeof template === "object") {
       template = template[rule._getValueType()];
     }
 
@@ -130,23 +137,25 @@ Messages.prototype = {
    * @param  {object} data
    * @return {string}
    */
-  _replacePlaceholders: function(rule, template, data) {
+  _replacePlaceholders: function (rule, template, data, alias = {}) {
     var message, attribute;
 
     data.attribute = this._getAttributeName(rule.attribute);
-    data[rule.name] = data[rule.name] || rule.getParameters().join(',');
+    data[rule.name] = data[rule.name] || rule.getParameters().join(",");
 
-    if (typeof template === 'string' && typeof data === 'object') {
+    if (typeof template === "string" && typeof data === "object") {
       message = template;
 
       for (attribute in data) {
-        message = message.replace(new RegExp(':' + attribute, 'g'), data[attribute]);
+        message = message.replace(new RegExp(":" + attribute, "g"), data[attribute]);
+        if (alias.hasOwnProperty(data[attribute])) {
+          message = message.replace(data[attribute], alias[data[attribute]]);
+        }
       }
     }
 
     return message;
-  }
-
+  },
 };
 
 module.exports = Messages;

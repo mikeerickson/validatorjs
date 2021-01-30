@@ -1,3 +1,10 @@
+/*-------------------------------------------------------------------------------------------
+ * validatorjs
+ *
+ * Copyright (c) 2021 Mike Erickson / Codedungeon.  All rights reserved.
+ * Licensed under the MIT license.  See LICENSE in the project root for license information.
+ * -----------------------------------------------------------------------------------------*/
+
 // https://docs.microsoft.com/en-us/office/troubleshoot/excel/determine-a-leap-year
 function leapYear(year) {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -162,7 +169,7 @@ var rules = {
   required_if: function (val, req, attribute) {
     req = this.getParameters();
     if (req.splice(1, req.length - 1).includes(this.validator._objectPath(this.validator.input, req[0]))) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule("required").validate(val, req, attribute);
     }
 
     return true;
@@ -198,8 +205,9 @@ var rules = {
 
   required_unless: function (val, req, attribute) {
     req = this.getParameters();
+
     if (this.validator._objectPath(this.validator.input, req[0]) !== req[1]) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule("required").validate(val, req, attribute);
     }
 
     return true;
@@ -207,7 +215,7 @@ var rules = {
 
   required_with: function (val, req, attribute) {
     if (this.validator._objectPath(this.validator.input, req)) {
-      return this.validator.getRule("required").validate(val);
+      return this.validator.getRule("required").validate(val, req, attribute);
     }
 
     return true;
@@ -222,7 +230,7 @@ var rules = {
       }
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule("required").validate(val, req, attribute);
   },
 
   required_without: function (val, req, attribute) {
@@ -230,7 +238,7 @@ var rules = {
       return true;
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule("required").validate(val, req, attribute);
   },
 
   required_without_all: function (val, req, attribute) {
@@ -242,7 +250,7 @@ var rules = {
       }
     }
 
-    return this.validator.getRule("required").validate(val);
+    return this.validator.getRule("required").validate(val, req, attribute);
   },
 
   boolean: function (val) {
@@ -419,12 +427,31 @@ var rules = {
     return true;
   },
 
-  in_array: function (val, req) {
+  in_array: function (val, req, attrs) {
+    if (typeof req === "undefined") {
+      return true;
+    }
+
     let arr = req
       .replace(/["'\[\]]/g, "")
       .replace(/[|]/g, ",")
       .split(/, ?/);
-    return arr.includes(val);
+
+    if (typeof val === "string") {
+      let [, flag] = req.split(":");
+
+      if (flag === "true") {
+        return arr.includes(val);
+      } else {
+        const test = (arr, q) => arr.findIndex((item) => q.toLowerCase() === item.toLowerCase());
+        return test(arr, val) !== -1;
+      }
+    } else {
+      arr = arr.map((item) => {
+        return parseInt(item);
+      });
+      return arr.includes(val);
+    }
   },
 
   json: function (val, req) {
@@ -492,23 +519,23 @@ var rules = {
     return val === null;
   },
 
-  digits: function (val, req) {
+  digits: function (val, req, attribute) {
     var numericRule = this.validator.getRule("numeric");
-    if (numericRule.validate(val) && String(val.trim()).length === parseInt(req)) {
+    if (numericRule.validate(val, req, attribute) && String(val.trim()).length === parseInt(req)) {
       return true;
     }
 
     return false;
   },
 
-  digits_between: function (val) {
+  digits_between: function (val, req, attribute) {
     var numericRule = this.validator.getRule("numeric");
-    var req = this.getParameters();
+    var params = this.getParameters();
     var valueDigitsCount = String(val).length;
-    var min = parseFloat(req[0], 10);
-    var max = parseFloat(req[1], 10);
+    var min = parseFloat(params[0], 10);
+    var max = parseFloat(params[1], 10);
 
-    if (numericRule.validate(val) && valueDigitsCount >= min && valueDigitsCount <= max) {
+    if (numericRule.validate(val, params, attribute) && valueDigitsCount >= min && valueDigitsCount <= max) {
       return true;
     }
 

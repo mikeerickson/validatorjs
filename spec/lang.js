@@ -32,10 +32,11 @@ describe("lang / messages", () => {
     Validator.useLang(oldLang);
   });
 
-  // it("should use english fallback if language `attribute` or default `def` does not exists", () => {
-  //   Validator.useLang("es");
-  //   const validator = new Validator({ value: 18 }, { value: "greater_than:21" });
-  //   expect(validator.fails()).to.be.true;
-  //   expect(validator.errors.first("value")).to.equal("The value attribute has errors.");
-  // });
+  it("should use alternate language feature using validator instance", () => {
+    if (typeof require !== "undefined") {
+      const validator = new Validator({ zip: "" }, { zip: "required" }, null, "se");
+      expect(validator.fails()).to.be.true;
+      expect(validator.errors.first("zip")).to.equal("zip måste vara ifyllt.");
+    }
+  });
 });

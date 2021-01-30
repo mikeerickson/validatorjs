@@ -6,3 +6,7 @@ scripts/
 karma.conf.js
 Gruntfile.js
 gulpfile.js
+/coverage
+/examples
+*.md
+.eslintrc.js

@@ -8,3 +8,5 @@ NOTES.md
 npm-debug.log
 sandbox/
 spec/checklist.md
+coverage/
+RULES.md

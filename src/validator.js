@@ -1,13 +1,21 @@
-var Rules = require("./rules");
+/*-------------------------------------------------------------------------------------------
+ * validatorjs
+ *
+ * Copyright (c) 2021 Mike Erickson / Codedungeon.  All rights reserved.
+ * Licensed under the MIT license.  See LICENSE in the project root for license information.
+ * -----------------------------------------------------------------------------------------*/
+
 var Lang = require("./lang");
+var Rules = require("./rules");
 var Errors = require("./errors");
 var Success = require("./success");
-var Attributes = require("./attributes");
 var AsyncResolvers = require("./async");
+var Attributes = require("./attributes");
 
-var Validator = function (input, rules, customMessages) {
-  var lang = Validator.getDefaultLang();
+var Validator = function (input, rules, customMessages, language = null, aliases = {}) {
+  let lang = language ? language : Validator.getDefaultLang();
   this.input = input || {};
+  this.aliases = aliases || {};
 
   this.messages = Lang._make(lang);
   this.messages._setCustom(customMessages);
@@ -161,7 +169,7 @@ Validator.prototype = {
    * @param {Rule} rule
    */
   _addFailure: function (rule) {
-    var msg = this.messages.render(rule);
+    var msg = this.messages.render(rule, this.aliases);
     this.errors.add(rule.attribute, msg);
     this.errorCount++;
   },
@@ -172,7 +180,7 @@ Validator.prototype = {
    * @param {Rule} rule
    */
   _addSuccess: function (rule) {
-    var msg = this.messages.render(rule);
+    var msg = this.messages.render(rule, this.aliases);
     this.successes.add(rule.attribute, msg);
     this.successCount++;
   },

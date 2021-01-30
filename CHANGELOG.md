@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Version 3.3.0] -- 2020.12.16
+## [Version 3.5.0] -- 2021.01.11
 
 ### Added
 
@@ -57,19 +57,47 @@ validator.successes.has("email"); // returns true if success has `email` otherwi
 validator.successes.successCount(); // returns number of success rules
 ```
 
+#### Language per Validator instance
+
+You can now supply desired language on a per Validator instance (instead of globally) as follows:
+
+```js
+const validator = new Validator({ zip: "" }, { zip: "required" }, null, "se");
+const message = validator.errors.first("zip")); // returns `zip måste vara ifyllt.`
+```
+
+#### Error Message Aliases
+
+You can supply error message field aliases, to better explain resulting error
+
+```js
+const Validator = require("validatorjs");
+
+let data = { fname: "", lname: "" };
+let rules = { fname: "required", lname: "required" };
+let aliases = { fname: "First Name", lname: "Last Name" };
+
+const validator = new Validator(data, rules, null, null, aliases);
+
+let result = validator.passes(); // true
+let messages = validator.errors.all();
+
+console.log("messages", messages);
+```
+
 ### Fixed
 
 - Fixed email validation, returning false when email ends with period (eg "mike.erickson.@codedungeon.io" should fail)
-  https://github.com/mikeerickson/validatorjs/issues/393
+  [https://github.com/mikeerickson/validatorjs/issues/393](https://github.com/mikeerickson/validatorjs/issues/393)
 
 - Added support for `localhost` pattern matching
-  https://github.com/mikeerickson/validatorjs/issues/284
+  [https://github.com/mikeerickson/validatorjs/issues/284](https://github.com/mikeerickson/validatorjs/issues/284)
 
 - Fixed URL edge case
-  https://github.com/mikeerickson/validatorjs/issues/399
+  [https://github.com/mikeerickson/validatorjs/issues/399](https://github.com/mikeerickson/validatorjs/issues/399)
 
 - Added support for multiple values when using `required_if` rule
-  https://github.com/mikeerickson/validatorjs/issues/361
+  [https://github.com/mikeerickson/validatorjs/issues/361](https://github.com/mikeerickson/validatorjs/issues/361)
 
 ### Changes
 
@@ -162,3 +190,7 @@ https://github.com/skaterdav85/validatorjs/pull/316
 ## References
 
 [keep a changelog](https://keepachangelog.com/en/1.0.0/)
+
+```
+
+```

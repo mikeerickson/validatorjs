@@ -10,7 +10,6 @@ describe("conditional rule tests", () => {
   it("should perform greater than validation", () => {
     let validator = new Validator({ date: "2020-11-31" }, { date: "greater_than:2020-12-01" });
     expect(validator.passes()).to.be.false;
-    console.log(validator.errors);
 
     expect(validator.errors.first("date")).to.equal("The date must be greater than 2020-12-01.");
 

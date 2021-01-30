@@ -1,370 +1,372 @@
 /*global module:false*/
-module.exports = function(grunt) {
-  'use strict';
+module.exports = function (grunt) {
+  "use strict";
 
-  require('jit-grunt')(grunt);
+  require("jit-grunt")(grunt);
 
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: grunt.file.readJSON("package.json"),
     browserify: {
       arLang: {
         src: [],
         options: {
-          require: ['./src/lang/ar:./lang/ar']
+          require: ["./src/lang/ar:./lang/ar"],
         },
-        dest: 'dist/lang/ar.js'
+        dest: "dist/lang/ar.js",
       },
       azLang: {
         src: [],
         options: {
-          require: ['./src/lang/az:./lang/az']
+          require: ["./src/lang/az:./lang/az"],
         },
-        dest: 'dist/lang/az.js'
+        dest: "dist/lang/az.js",
       },
       beLang: {
         src: [],
         options: {
-          require: ['./src/lang/be:./lang/be']
+          require: ["./src/lang/be:./lang/be"],
         },
-        dest: 'dist/lang/be.js'
+        dest: "dist/lang/be.js",
       },
       bgLang: {
         src: [],
         options: {
-          require: ['./src/lang/bg:./lang/bg']
+          require: ["./src/lang/bg:./lang/bg"],
         },
-        dest: 'dist/lang/bg.js'
+        dest: "dist/lang/bg.js",
       },
       bsLang: {
         src: [],
         options: {
-          require: ['./src/lang/bs:./lang/bs']
+          require: ["./src/lang/bs:./lang/bs"],
         },
-        dest: 'dist/lang/bs.js'
+        dest: "dist/lang/bs.js",
       },
       caLang: {
         src: [],
         options: {
-          require: ['./src/lang/ca:./lang/ca']
+          require: ["./src/lang/ca:./lang/ca"],
         },
-        dest: 'dist/lang/ca.js'
+        dest: "dist/lang/ca.js",
       },
       csLang: {
         src: [],
         options: {
-          require: ['./src/lang/cs:./lang/cs']
+          require: ["./src/lang/cs:./lang/cs"],
         },
-        dest: 'dist/lang/cs.js'
+        dest: "dist/lang/cs.js",
       },
       cyLang: {
         src: [],
         options: {
-          require: ['./src/lang/cy:./lang/cy']
+          require: ["./src/lang/cy:./lang/cy"],
         },
-        dest: 'dist/lang/cy.js'
+        dest: "dist/lang/cy.js",
       },
       daLang: {
         src: [],
         options: {
-          require: ['./src/lang/da:./lang/da']
+          require: ["./src/lang/da:./lang/da"],
         },
-        dest: 'dist/lang/da.js'
+        dest: "dist/lang/da.js",
       },
       deLang: {
         src: [],
         options: {
-          require: ['./src/lang/de:./lang/de']
+          require: ["./src/lang/de:./lang/de"],
         },
-        dest: 'dist/lang/de.js'
+        dest: "dist/lang/de.js",
       },
       elLang: {
         src: [],
         options: {
-          require: ['./src/lang/el:./lang/el']
+          require: ["./src/lang/el:./lang/el"],
         },
-        dest: 'dist/lang/el.js'
+        dest: "dist/lang/el.js",
       },
       enLang: {
         src: [],
         options: {
-          require: ['./src/lang/en:./lang/en']
+          require: ["./src/lang/en:./lang/en"],
         },
-        dest: 'dist/lang/en.js'
+        dest: "dist/lang/en.js",
       },
       esLang: {
         src: [],
         options: {
-          require: ['./src/lang/es:./lang/es']
+          require: ["./src/lang/es:./lang/es"],
         },
-        dest: 'dist/lang/es.js'
+        dest: "dist/lang/es.js",
       },
       etLang: {
         src: [],
         options: {
-          require: ['./src/lang/et:./lang/et']
+          require: ["./src/lang/et:./lang/et"],
         },
-        dest: 'dist/lang/et.js'
+        dest: "dist/lang/et.js",
       },
       euLang: {
         src: [],
         options: {
-          require: ['./src/lang/eu:./lang/eu']
+          require: ["./src/lang/eu:./lang/eu"],
         },
-        dest: 'dist/lang/eu.js'
+        dest: "dist/lang/eu.js",
       },
       faLang: {
         src: [],
         options: {
-          require: ['./src/lang/fa:./lang/fa']
+          require: ["./src/lang/fa:./lang/fa"],
         },
-        dest: 'dist/lang/fa.js'
+        dest: "dist/lang/fa.js",
       },
       fiLang: {
         src: [],
         options: {
-          require: ['./src/lang/fi:./lang/fi']
+          require: ["./src/lang/fi:./lang/fi"],
         },
-        dest: 'dist/lang/fi.js'
+        dest: "dist/lang/fi.js",
       },
       frLang: {
         src: [],
         options: {
-          require: ['./src/lang/fr:./lang/fr']
+          require: ["./src/lang/fr:./lang/fr"],
         },
-        dest: 'dist/lang/fr.js'
+        dest: "dist/lang/fr.js",
       },
       hrLang: {
         src: [],
         options: {
-          require: ['./src/lang/hr:./lang/hr']
+          require: ["./src/lang/hr:./lang/hr"],
         },
-        dest: 'dist/lang/hr.js'
+        dest: "dist/lang/hr.js",
       },
       huLang: {
         src: [],
         options: {
-          require: ['./src/lang/hu:./lang/hu']
+          require: ["./src/lang/hu:./lang/hu"],
         },
-        dest: 'dist/lang/hu.js'
+        dest: "dist/lang/hu.js",
       },
       idLang: {
         src: [],
         options: {
-          require: ['./src/lang/id:./lang/id']
+          require: ["./src/lang/id:./lang/id"],
         },
-        dest: 'dist/lang/id.js'
+        dest: "dist/lang/id.js",
       },
       itLang: {
         src: [],
         options: {
-          require: ['./src/lang/it:./lang/it']
+          require: ["./src/lang/it:./lang/it"],
         },
-        dest: 'dist/lang/it.js'
+        dest: "dist/lang/it.js",
       },
       jaLang: {
         src: [],
         options: {
-          require: ['./src/lang/ja:./lang/ja']
+          require: ["./src/lang/ja:./lang/ja"],
         },
-        dest: 'dist/lang/ja.js'
+        dest: "dist/lang/ja.js",
       },
       kaLang: {
         src: [],
         options: {
-          require: ['./src/lang/ka:./lang/ka']
+          require: ["./src/lang/ka:./lang/ka"],
         },
-        dest: 'dist/lang/ka.js'
+        dest: "dist/lang/ka.js",
       },
       koLang: {
         src: [],
         options: {
-          require: ['./src/lang/ko:./lang/ko']
+          require: ["./src/lang/ko:./lang/ko"],
         },
-        dest: 'dist/lang/ko.js'
+        dest: "dist/lang/ko.js",
       },
       ltLang: {
         src: [],
         options: {
-          require: ['./src/lang/lt:./lang/lt']
+          require: ["./src/lang/lt:./lang/lt"],
         },
-        dest: 'dist/lang/lt.js'
+        dest: "dist/lang/lt.js",
       },
       lvLang: {
         src: [],
         options: {
-          require: ['./src/lang/lv:./lang/lv']
+          require: ["./src/lang/lv:./lang/lv"],
         },
-        dest: 'dist/lang/lv.js'
+        dest: "dist/lang/lv.js",
       },
       mkLang: {
         src: [],
         options: {
-          require: ['./src/lang/mk:./lang/mk']
+          require: ["./src/lang/mk:./lang/mk"],
         },
-        dest: 'dist/lang/mk.js'
+        dest: "dist/lang/mk.js",
       },
       mnLang: {
         src: [],
         options: {
-          require: ['./src/lang/mn:./lang/mn']
+          require: ["./src/lang/mn:./lang/mn"],
         },
-        dest: 'dist/lang/mn.js'
+        dest: "dist/lang/mn.js",
       },
       msLang: {
         src: [],
         options: {
-          require: ['./src/lang/ms:./lang/ms']
+          require: ["./src/lang/ms:./lang/ms"],
         },
-        dest: 'dist/lang/ms.js'
+        dest: "dist/lang/ms.js",
       },
       nbNOLang: {
         src: [],
         options: {
-          require: ['./src/lang/nb_NO:./lang/nb_NO']
+          require: ["./src/lang/nb_NO:./lang/nb_NO"],
         },
-        dest: 'dist/lang/nb_NO.js'
+        dest: "dist/lang/nb_NO.js",
       },
       nlLang: {
         src: [],
         options: {
-          require: ['./src/lang/nl:./lang/nl']
+          require: ["./src/lang/nl:./lang/nl"],
         },
-        dest: 'dist/lang/nl.js'
+        dest: "dist/lang/nl.js",
       },
       plLang: {
         src: [],
         options: {
-          require: ['./src/lang/pl:./lang/pl']
+          require: ["./src/lang/pl:./lang/pl"],
         },
-        dest: 'dist/lang/pl.js'
+        dest: "dist/lang/pl.js",
       },
       ptLang: {
         src: [],
         options: {
-          require: ['./src/lang/pt:./lang/pt']
+          require: ["./src/lang/pt:./lang/pt"],
         },
-        dest: 'dist/lang/pt.js'
+        dest: "dist/lang/pt.js",
       },
       ptBRLang: {
         src: [],
         options: {
-          require: ['./src/lang/pt_BR:./lang/pt_BR']
+          require: ["./src/lang/pt_BR:./lang/pt_BR"],
         },
-        dest: 'dist/lang/pt_BR.js'
+        dest: "dist/lang/pt_BR.js",
       },
       roLang: {
         src: [],
         options: {
-          require: ['./src/lang/ro:./lang/ro']
+          require: ["./src/lang/ro:./lang/ro"],
         },
-        dest: 'dist/lang/ro.js'
+        dest: "dist/lang/ro.js",
       },
       ruLang: {
         src: [],
         options: {
-          require: ['./src/lang/ru:./lang/ru']
+          require: ["./src/lang/ru:./lang/ru"],
         },
-        dest: 'dist/lang/ru.js'
+        dest: "dist/lang/ru.js",
       },
       seLang: {
         src: [],
         options: {
-          require: ['./src/lang/sl:./lang/se']
+          require: ["./src/lang/sl:./lang/se"],
         },
-        dest: 'dist/lang/se.js'
+        dest: "dist/lang/se.js",
       },
       slLang: {
         src: [],
         options: {
-          require: ['./src/lang/sl:./lang/sl']
+          require: ["./src/lang/sl:./lang/sl"],
         },
-        dest: 'dist/lang/sl.js'
+        dest: "dist/lang/sl.js",
       },
       sqLang: {
         src: [],
         options: {
-          require: ['./src/lang/sq:./lang/sq']
+          require: ["./src/lang/sq:./lang/sq"],
         },
-        dest: 'dist/lang/sq.js'
+        dest: "dist/lang/sq.js",
       },
       srLang: {
         src: [],
         options: {
-          require: ['./src/lang/sr:./lang/sr']
+          require: ["./src/lang/sr:./lang/sr"],
         },
-        dest: 'dist/lang/sr.js'
+        dest: "dist/lang/sr.js",
       },
       svLang: {
         src: [],
         options: {
-          require: ['./src/lang/sv:./lang/sv']
+          require: ["./src/lang/sv:./lang/sv"],
         },
-        dest: 'dist/lang/sv.js'
+        dest: "dist/lang/sv.js",
       },
       trLang: {
         src: [],
         options: {
-          require: ['./src/lang/tr:./lang/tr']
+          require: ["./src/lang/tr:./lang/tr"],
         },
-        dest: 'dist/lang/tr.js'
+        dest: "dist/lang/tr.js",
       },
       uaLang: {
         src: [],
         options: {
-          require: ['./src/lang/ua:./lang/ua']
+          require: ["./src/lang/ua:./lang/ua"],
         },
-        dest: 'dist/lang/ua.js'
+        dest: "dist/lang/ua.js",
       },
       ukLang: {
         src: [],
         options: {
-          require: ['./src/lang/uk:./lang/uk']
+          require: ["./src/lang/uk:./lang/uk"],
         },
-        dest: 'dist/lang/uk.js'
+        dest: "dist/lang/uk.js",
       },
       viLang: {
         src: [],
         options: {
-          require: ['./src/lang/vi:./lang/vi']
+          require: ["./src/lang/vi:./lang/vi"],
         },
-        dest: 'dist/lang/vi.js'
+        dest: "dist/lang/vi.js",
       },
       zhLang: {
         src: [],
         options: {
-          require: ['./src/lang/zh:./lang/zh']
+          require: ["./src/lang/zh:./lang/zh"],
         },
-        dest: 'dist/lang/zh.js'
+        dest: "dist/lang/zh.js",
       },
       zhTWLang: {
         src: [],
         options: {
-          require: ['./src/lang/zh_TW:./lang/zh_TW']
+          require: ["./src/lang/zh_TW:./lang/zh_TW"],
         },
-        dest: 'dist/lang/zh_TW.js'
+        dest: "dist/lang/zh_TW.js",
       },
 
       dist: {
         files: {
-          'dist/validator.js': 'src/validator.js'
+          "dist/validator.js": "src/validator.js",
+          "dist/Validation.js": "src/Validation.js",
+          "dist/ValidationMessage.js": "src/ValidationMessage.js",
         },
         options: {
-          banner: '/*! <%= pkg.name %> - <%= pkg.homepage %>' + '<%= grunt.template.today(\'yyyy-mm-dd\') %> */',
+          banner: "/*! <%= pkg.name %> - <%= pkg.homepage %>" + "<%= grunt.template.today('yyyy-mm-dd') %> */",
           browserifyOptions: {
-            standalone: 'Validator'
-          }
-        }
-      }
+            standalone: "Validator",
+          },
+        },
+      },
     },
     watch: {
-      files: ['src/**/*.js'],
-      tasks: ['default']
-    }
+      files: ["src/**/*.js"],
+      tasks: ["default"],
+    },
   });
 
   // Default task.
-  grunt.registerTask('build', ['browserify']);
-  grunt.registerTask('dist', ['build']);
-  grunt.registerTask('default', ['dist']);
+  grunt.registerTask("build", ["browserify"]);
+  grunt.registerTask("dist", ["build"]);
+  grunt.registerTask("default", ["dist"]);
 };

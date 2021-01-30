@@ -1,11 +1,11 @@
 {
   "name": "validatorjs",
-  "description": "Validation library inspired by Laravel's Validator",
-  "version": "3.5.0",
+  "description": "Validation library inspired by Laravel Validator",
+  "version": "3.5.0-beta",
   "contributors": [
     {
       "name": "Mike Erickson",
-      "email": "codedungeon@gmail.com"
+      "email": "mike.erickson@codedungeon.io"
     },
     {
       "name": "David Tang",
@@ -14,10 +14,6 @@
     {
       "name": "Gary Green",
       "email": "holegary@gmail.com"
-    },
-    {
-      "name": "Karol Janyst",
-      "email": "lapkom@gmail.com"
     }
   ],
   "license": "MIT",
@@ -42,6 +38,7 @@
     "laravel-validator-for-js"
   ],
   "devDependencies": {
+    "babel-eslint": "10.1.0",
     "browserify": "^13.0.1",
     "chai": "~3.5.0",
     "chalk": "2.4.2",
@@ -74,10 +71,11 @@
     "lint": "eslint \"./src/**/*.js\" --fix",
     "lint:spec": "eslint \"./spec/**/*.js\" --rule 'no-redeclare: off'",
     "lint:fix": "eslint \"./src/**/*.js\" --fix",
-    "test:node": "node node_modules/mocha/bin/mocha spec --slow 500 --reporter mocha-better-spec-reporter || true",
-    "test:watch": "node node_modules/mocha/bin/mocha --watch spec --slow 500 --reporter mocha-better-spec-reporter",
+    "test:ci": "node_modules/mocha/bin/mocha spec --reporter dot --slow 500",
+    "test:node": "node_modules/mocha/bin/mocha spec --slow 500 --reporter mocha-better-spec-reporter || true",
+    "test:watch": "node_modules/mocha/bin/mocha --watch spec --slow 500 --reporter dot",
     "test:browser": "npm run build:all && node node_modules/karma/bin/karma start --single-run",
-    "test:all": "npm run test:node && npm run test:browser",
+    "test:all": "npm run test:ci && npm run test:browser",
     "test": "npm run test:node",
     "todo": "node scripts/todo.js"
   }

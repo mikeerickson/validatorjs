@@ -1,11 +1,17 @@
-var Messages = require('./messages');
+/*-------------------------------------------------------------------------------------------
+ * validatorjs
+ *
+ * Copyright (c) 2021 Mike Erickson / Codedungeon.  All rights reserved.
+ * Licensed under the MIT license.  See LICENSE in the project root for license information.
+ * -----------------------------------------------------------------------------------------*/
 
-require('./lang/en');
+var Messages = require("./messages");
+
+require("./lang/en");
 
 var require_method = require;
 
 var container = {
-
   messages: {},
 
   /**
@@ -15,7 +21,7 @@ var container = {
    * @param {object} rawMessages
    * @return {void}
    */
-  _set: function(lang, rawMessages) {
+  _set: function (lang, rawMessages) {
     this.messages[lang] = rawMessages;
   },
 
@@ -27,7 +33,7 @@ var container = {
    * @param {string|object} message
    * @return {void}
    */
-  _setRuleMessage: function(lang, attribute, message) {
+  _setRuleMessage: function (lang, attribute, message) {
     this._load(lang);
     if (message === undefined) {
       message = this.messages[lang].def;
@@ -42,10 +48,10 @@ var container = {
    * @param  {string} lang
    * @return {void}
    */
-  _load: function(lang) {
+  _load: function (lang) {
     if (!this.messages[lang]) {
       try {
-        var rawMessages = require_method('./lang/' + lang);
+        var rawMessages = require_method("./lang/" + lang);
         this._set(lang, rawMessages);
       } catch (e) {}
     }
@@ -57,7 +63,7 @@ var container = {
    * @param  {string} lang
    * @return {object}
    */
-  _get: function(lang) {
+  _get: function (lang) {
     this._load(lang);
     return this.messages[lang];
   },
@@ -68,11 +74,10 @@ var container = {
    * @param  {string} lang
    * @return {Messages}
    */
-  _make: function(lang) {
+  _make: function (lang) {
     this._load(lang);
     return new Messages(lang, this.messages[lang]);
-  }
-
+  },
 };
 
 module.exports = container;
