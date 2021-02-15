@@ -32,6 +32,8 @@ module.exports = {
     string: 'Il campo :attribute deve essere di :size caratteri.'
   },
   string: 'Il campo :attribute deve essere una stringa.',
+  object: 'Il campo :attribute deve essere un oggetto.',
+  array: 'Il campo :attribute deve essere un array.',
   url: 'Il formato del campo :attribute non è valido.',
   regex: 'Il formato del campo :attribute non è valido.',
   attributes: {}
