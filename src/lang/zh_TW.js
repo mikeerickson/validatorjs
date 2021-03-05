@@ -5,6 +5,8 @@ module.exports = {
   alpha: ':attribute 只能包含字母。',
   alpha_dash: ':attribute 只能包含字母，連結號(-)和底線(_)。',
   alpha_num: ':attribute 只能包含字母和數字。',
+  before: ':attribute 必須在 :before 之前。',
+  before_or_equal: ':attribute 必須跟 :before_or_equal 同一天或是在 :before_or_equal 之後。',
   between: {
     numeric: ':attribute 的值只能在 :min 和 :max 之間。',
     string: ':attribute 的長度必須在 :min 和 :max 之間。',
