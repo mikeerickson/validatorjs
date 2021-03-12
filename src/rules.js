@@ -4,8 +4,9 @@ function leapYear(year) {
   return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
 
-function checkFalsePositiveDates(dateString = '') {
-
+function checkFalsePositiveDates(dateString) {
+  
+  dateString = dateString || '';
   if (dateString.length === 10) {
 
     // massage input to use yyyy-mm-dd format
