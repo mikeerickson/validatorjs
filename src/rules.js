@@ -5,7 +5,8 @@ function leapYear(year) {
 }
 
 function checkFalsePositiveDates(dateString) {
-  let dateString = dateString || '';
+  
+  dateString = dateString || '';
   if (dateString.length === 10) {
 
     // massage input to use yyyy-mm-dd format
