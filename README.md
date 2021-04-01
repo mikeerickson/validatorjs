@@ -370,7 +370,9 @@ __name__ {String} - The name of the rule.
 
 __callbackFn__ {Function} - Returns a boolean to represent a successful or failed validation.
 
-__errorMessage__ {String} - An optional string where you can specify a custom error message. _:attribute_ inside errorMessage will be replaced with the attribute name.
+__errorMessage__ {String} - An optional string where you can specify a custom error message. 
+- **_:attribute_** inside errorMessage will be replaced with the attribute name.
+- **_:inputValue_** inside errorMessage will be replaced with the attribute value passed. If input value is a `Object({})` it will be coalesced to _"[Object]"_.
 
 ```js
 Validator.register('telephone', function(value, requirement, attribute) { // requirement parameter defaults to null

@@ -134,13 +134,17 @@ Messages.prototype = {
     var message, attribute;
 
     data.attribute = this._getAttributeName(rule.attribute);
+    data.inputValue = rule.inputValue;
     data[rule.name] = data[rule.name] || rule.getParameters().join(',');
 
     if (typeof template === 'string' && typeof data === 'object') {
       message = template;
 
       for (attribute in data) {
-        message = message.replace(new RegExp(':' + attribute, 'g'), data[attribute]);
+        const attrValue = data[attribute];
+        message = message.replace(new RegExp(':' + attribute, 'g'), 
+          !!attrValue && attrValue.constructor === Object ? '[Object]' : attrValue
+        );
       }
     }
 
