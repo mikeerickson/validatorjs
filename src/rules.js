@@ -245,7 +245,7 @@ var rules = {
 
     num = Number(val); // tries to convert value to a number. useful if value is coming from form element
 
-    if (typeof num === "number" && !isNaN(num) && typeof val !== "boolean") {
+    if (typeof num === "number" && !isNaN(num) && typeof val !== "boolean" && !Array.isArray(val)) {
       return true;
     } else {
       return false;
@@ -368,7 +368,7 @@ var rules = {
   },
 
   integer: function (val) {
-    return String(parseInt(val, 10)) === String(val);
+    return !Array.isArray(val) && String(parseInt(val, 10)) === String(val);
   },
 
   digits: function (val, req) {
