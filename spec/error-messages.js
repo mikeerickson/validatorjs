@@ -77,6 +77,14 @@ describe("Error messages", function() {
       );
     });
 
+    it("should fail with non alpha space characters", function() {
+      const validator = new Validator({ name: "Daniel ." }, { name: "alpha_space" });
+      expect(validator.passes()).to.be.false;
+      expect(validator.errors.first("name")).to.equal(
+        "The name field may only contain alphabetic characters, as well as space."
+      );
+    });
+
     it("should fail without a matching confirmation field for the field under validation", function() {
       const validator = new Validator({ password: "abc" }, { password: "confirmed" });
       expect(validator.passes()).to.be.false;
