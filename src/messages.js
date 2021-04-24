@@ -5,6 +5,7 @@
  * Licensed under the MIT license.  See LICENSE in the project root for license information.
  * -----------------------------------------------------------------------------------------*/
 
+const attributes = require("./attributes");
 var Attributes = require("./attributes");
 
 var Messages = function (lang, messages) {
@@ -108,6 +109,7 @@ Messages.prototype = {
   _getTemplate: function (rule) {
     var messages = this.messages;
     var template = messages.def;
+
     var customMessages = this.customMessages;
     var formats = [rule.name + "." + rule.attribute, rule.name];
 
@@ -141,20 +143,48 @@ Messages.prototype = {
     var message, attribute;
 
     data.attribute = this._getAttributeName(rule.attribute);
+    // data.ATTRIBUTE = data.attribute.toLocaleUpperCase();
+    // data.attribute = data.attribute.charAt(0).toLocaleUpperCase() + data.attribute.substring(1);
+
     data[rule.name] = data[rule.name] || rule.getParameters().join(",");
 
     if (typeof template === "string" && typeof data === "object") {
       message = template;
 
       for (attribute in data) {
-        message = message.replace(new RegExp(":" + attribute, "g"), data[attribute]);
-        if (alias.hasOwnProperty(data[attribute])) {
-          message = message.replace(data[attribute], alias[data[attribute]]);
-        }
+        // support alternating attributes (normal, ucfirst, uppercase)
+
+        let attrs = [attribute, this._ucfirst(attribute), attribute ? attribute.toLocaleUpperCase() : attribute];
+        attrs.forEach((attr) => {
+          message = message.replace(new RegExp(":" + attr, "g"), data[attribute]);
+          message = message.replace(new RegExp(":" + this._ucfirst(attr), "g"), this._ucfirst(data[attribute]));
+          if (data[attribute]) {
+            message = message.replace(new RegExp(":" + attr.toLocaleUpperCase(), "g"), data[attribute].toLocaleUpperCase());
+          }
+        });
+
+        // if we supplied alias, then use it over anything else
+        message = alias.hasOwnProperty(data[attribute]) ? message.replace(data[attribute], alias[data[attribute]]) : message;
       }
     }
 
     return message;
+  },
+  _ucfirst: (data) => {
+    if (typeof data === "string") {
+      return data.charAt(0).toLocaleUpperCase() + data.substring(1);
+    }
+  },
+
+  _titlecase: (str) => {
+    if (str) {
+      str = str.toLowerCase().split(" ");
+      for (var i = 0; i < str.length; i++) {
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+      }
+      return str.join(" ");
+    }
+    return str;
   },
 };
 

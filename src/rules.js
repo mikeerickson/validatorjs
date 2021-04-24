@@ -217,7 +217,6 @@ var rules = {
     if (this.validator._objectPath(this.validator.input, req)) {
       return this.validator.getRule("required").validate(val, req, attribute);
     }
-
     return true;
   },
 
@@ -283,6 +282,10 @@ var rules = {
     return val.startsWith(req);
   },
 
+  begins_with: function (val, req, attribute) {
+    return val.startsWith(req);
+  },
+
   ends_with: function (val, req, attribute) {
     return val.endsWith(req);
   },
@@ -341,6 +344,10 @@ var rules = {
 
   array: function (val) {
     return val instanceof Array;
+  },
+
+  object: function (val) {
+    return val instanceof Object;
   },
 
   url: function (url) {

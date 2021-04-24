@@ -80,6 +80,7 @@ module.exports = {
   not_in: "Вибране для :attribute значення не коректне.",
   not_regex: "The :attribute format is invalid.",
   numeric: "Поле :attribute повинно містити число.",
+  object: "Поле :attribute має бути масивом.",
   present: "Поле :attribute повинне бути присутнє.",
   regex: "Поле :attribute має хибний формат.",
   required: "Поле :attribute є обов'язковим для заповнення.",

@@ -7,6 +7,12 @@ if (typeof require !== "undefined") {
 }
 
 describe("object rule define", () => {
+  it("should pass when object", () => {
+    const validator = new Validator({ users: {} }, { users: "object" });
+    expect(validator.passes()).to.be.true;
+    expect(validator.fails()).to.be.false;
+  });
+
   it("mixed rule definition", () => {
     const validator = new Validator({ age: 30, name: "Joe" }, { name: [{ required_if: ["age", 30], min: 2 }, "max:3"] });
     expect(validator.passes()).to.be.true;

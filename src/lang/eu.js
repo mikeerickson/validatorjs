@@ -80,6 +80,7 @@ module.exports = {
   not_in: "Hautatutako :attribute baliogabea da.",
   not_regex: "The :attribute format is invalid.",
   numeric: ":attribute zenbaki bat izan behar da.",
+  object: ":attribute bilduma izan behar da.",
   present: ":attribute bertan egon behar da.",
   regex: ":attribute-k ez dauka formatu egokirik.",
   required: ":attribute derrigorrezkoa da.",

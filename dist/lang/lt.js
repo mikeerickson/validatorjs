@@ -81,6 +81,7 @@ module.exports = {
   not_in: "Pasirinkta negaliojanti reikšmė :attribute.",
   not_regex: "The :attribute format is invalid.",
   numeric: "Lauko :attribute reikšmė turi būti skaičius.",
+  object: "Laukas :attribute turi būti masyvas.",
   present: "Laukas :attribute turi egzistuoti.",
   regex: "Negaliojantis lauko :attribute formatas.",
   required: "Privaloma užpildyti lauką :attribute.",

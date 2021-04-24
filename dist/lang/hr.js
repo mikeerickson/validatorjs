@@ -81,6 +81,7 @@ module.exports = {
   not_in: "Odabrano polje :attribute nije ispravno.",
   not_regex: "Format polja :attribute je neispravan.",
   numeric: "Polje :attribute mora biti broj.",
+  object: "The :attribute must be an object",
   present: "Polje :attribute mora biti prisutno.",
   regex: "Polje :attribute se ne podudara s formatom.",
   required: "Polje :attribute je obavezno.",

@@ -37,4 +37,23 @@ describe("required with", () => {
     expect(validator.passes()).to.be.true;
     expect(validator.fails()).to.be.false;
   });
+
+  // it.only("should fail if not all values are met", () => {
+  //   let data = {
+  //     field1: "a",
+  //     field2: "B",
+  //     field3: "c",
+  //     field4: null,
+  //   };
+
+  //   const rules = {
+  //     field4: "required_with:field1",
+  //   };
+
+  //   const validator = new Validator(data, rules);
+
+  //   validator.passes();
+  //   // expect(validator.passes()).to.be.true;
+  //   console.log(validator.errors.all());
+  // });
 });

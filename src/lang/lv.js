@@ -80,6 +80,7 @@ module.exports = {
   not_in: " izvēlieties :attribute ir nederīgs.",
   not_regex: "The :attribute format is invalid.",
   numeric: " :attribute jābūt skaitlim.",
+  object: " :attribute ir jābūt sakārtotam.",
   present: " :attribute laikums ir nepieciešams.",
   regex: " :attribute formāts ir nederīgs.",
   required: " :attribute laukums ir nepieciešams.",

@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: ":attribute får endast innehålla bokstäver, siffror och bindestreck.",
   alpha_num: ":attribute får endast innehålla bokstäver och siffror.",
   array: ":attribute måste vara en array.",
+  attributes: {},
   before: ":attribute måste vara ett datum innan den :date.",
   before_or_equal: ":attribute måste vara ett datum före eller samma dag som :date.",
   between: {
@@ -79,6 +80,7 @@ module.exports = {
   not_in: ":attribute är ogiltigt.",
   not_regex: "Formatet för :attribute är ogiltigt.",
   numeric: ":attribute måste vara en siffra.",
+  object: ":attribute måste vara en object.",
   present: ":attribute måste finnas med.",
   regex: ":attribute har ogiltigt format.",
   required: ":attribute är obligatoriskt.",

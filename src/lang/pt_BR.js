@@ -7,6 +7,7 @@ module.exports = {
   alpha_dash: "O campo :attribute deve conter apenas letras, números e traços.",
   alpha_num: "O campo :attribute deve conter apenas letras e números .",
   array: "O campo :attribute deve conter um array.",
+  attributes: {},
   before: "O campo :attribute deve conter uma data anterior a :date.",
   before_or_equal: "O campo :attribute deve conter uma data inferior ou igual a :date.",
   between: {
@@ -79,6 +80,7 @@ module.exports = {
   not_in: "O campo :attribute contém um valor inválido.",
   not_regex: "O formato do valor :attribute é inválido.",
   numeric: "O campo :attribute deve conter um valor numérico.",
+  object: "O campo :attribute deve conter um object.",
   present: "O campo :attribute deve estar presente.",
   regex: "O formato do valor informado no campo :attribute é inválido.",
   required: "O campo :attribute é obrigatório.",

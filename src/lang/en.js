@@ -1,4 +1,5 @@
 module.exports = {
+  attributes: {},
   accepted: "The :attribute must be accepted.",
   after: "The :attribute must be after :after.",
   after_or_equal: "The :attribute must be equal or after :after_or_equal.",
@@ -6,8 +7,10 @@ module.exports = {
   alpha_dash: "The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.",
   alpha_num: "The :attribute field must be alphanumeric.",
   alpha_numeric: "The :attribute field must be alphanumeric.",
+  array: "The :attribute must be an array",
   before: "The :attribute must be before :before.",
   before_or_equal: "The :attribute must be equal or before :before_or_equal.",
+  begins_with: "The :attribute must begin with :value.",
   between: {
     numeric: "The :attribute field must be between :min and :max.",
     string: "The :attribute field must be between :min and :max characters.",
@@ -88,6 +91,7 @@ module.exports = {
   not_in: "The selected :attribute is invalid.",
   nullable: "the :attribute is nullable.",
   numeric: "The :attribute must be a number.",
+  object: "The :attribute must be an object",
   present: "The :attribute field must be present (but can be empty).",
   required: "The :attribute field is required.",
   required_if: "The :attribute field is required when :other is :value.",
@@ -101,10 +105,10 @@ module.exports = {
     numeric: "The :attribute must be :size.",
     string: "The :attribute must be :size characters.",
   },
+  starts_with: "The :attribute must start with :value.",
   string: "The :attribute must be a string.",
   uuid: "The :attribute must be a valid v1 or v4 uuid",
   url: "The :attribute format is invalid.",
   regex: "The :attribute format is invalid.",
   not_regex: "The :attribute format is must not match regex.",
-  attributes: {},
 };

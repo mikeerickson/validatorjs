@@ -1,7 +1,7 @@
 {
   "name": "validatorjs",
   "description": "Validation library inspired by Laravel Validator",
-  "version": "3.5.0-beta",
+  "version": "3.5.0",
   "contributors": [
     {
       "name": "Mike Erickson",
@@ -27,22 +27,24 @@
   },
   "keywords": [
     "codedungeon",
-    "validatorjs",
-    "validator.js",
     "data validation",
-    "validator",
+    "data",
+    "laravel-validator-for-js",
+    "laravel",
     "validate",
     "validation",
-    "data",
-    "laravel",
-    "laravel-validator-for-js"
+    "validator.js",
+    "validator",
+    "validatorjs"
   ],
   "devDependencies": {
+    "@codedungeon/messenger": "0.9.1",
     "babel-eslint": "10.1.0",
     "browserify": "^13.0.1",
     "chai": "~3.5.0",
     "chalk": "2.4.2",
     "eslint": "5.8.0",
+    "execa": "5.0.0",
     "grunt": "1.0.4",
     "grunt-browserify": "^5.0.0",
     "grunt-cli": "^1.2.0",
@@ -57,26 +59,30 @@
     "karma-growl-notifications-reporter": "0.0.2",
     "karma-mocha": "2.0.1",
     "karma-mocha-reporter": "2.2.5",
+    "lodash.orderby": "4.6.0",
     "mocha": "~2.5.3",
     "mocha-better-spec-reporter": "github:mikeerickson/mocha-better-spec-reporter",
+    "pad": "3.2.0",
     "puppeteer": "1.19.0",
-    "rimraf": "3.0.0"
+    "rimraf": "3.0.0",
+    "valid-filename": "3.1.0",
+    "yargs-parser": "18.1.3"
   },
   "scripts": {
-    "verify": "node ./scripts/language-validate",
-    "pre-commit": "npm run lint:spec && npm run lint && npm run test",
-    "publish": "np --no-cleanup",
     "build:all": "./scripts/build.sh",
     "build": "rimraf dist && grunt dist",
     "lint": "eslint \"./src/**/*.js\" --fix",
     "lint:spec": "eslint \"./spec/**/*.js\" --rule 'no-redeclare: off'",
     "lint:fix": "eslint \"./src/**/*.js\" --fix",
     "test:ci": "node_modules/mocha/bin/mocha spec --reporter dot --slow 500",
-    "test:node": "node_modules/mocha/bin/mocha spec --slow 500 --reporter mocha-better-spec-reporter || true",
+    "test:node": "node_modules/mocha/bin/mocha spec --slow 500 --reporter mocha-better-spec-reporter",
     "test:watch": "node_modules/mocha/bin/mocha --watch spec --slow 500 --reporter dot",
     "test:browser": "npm run build:all && node node_modules/karma/bin/karma start --single-run",
-    "test:all": "npm run test:ci && npm run test:browser",
-    "test": "npm run test:node",
-    "todo": "node scripts/todo.js"
+    "test:all": "npm run test:node && npm run test:browser",
+    "test": "./scripts/test.js",
+    "todo": "node scripts/todo.js",
+    "publish": "np --no-cleanup",
+    "pre-commit": "npm run test:all",
+    "validate": "node ./scripts/language-validate"
   }
 }

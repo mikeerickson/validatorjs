@@ -81,6 +81,7 @@ module.exports = {
   not_in: "Valitud :attribute on vigane.",
   not_regex: "The :attribute format is invalid.",
   numeric: ":attribute peab olema number.",
+  object: ":attribute peab olema object.",
   present: ":attribute väli peab olema esindatud.",
   regex: ":attribute vorming on vigane.",
   required: ":attribute väli on nõutud.",

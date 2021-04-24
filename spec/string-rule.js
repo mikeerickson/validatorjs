@@ -28,6 +28,14 @@ describe("string validation rule", () => {
     expect(validator.passes()).to.be.false;
   });
 
+  it("should begins with", () => {
+    let validator = new Validator({ name: "Mike" }, { name: "begins_with:M" });
+    expect(validator.passes()).to.be.true;
+
+    validator = new Validator({ name: "Kira" }, { name: "starts_with:M" });
+    expect(validator.passes()).to.be.false;
+  });
+
   it("should end with", () => {
     let validator = new Validator({ name: "Mike" }, { name: "ends_with:e" });
     expect(validator.passes()).to.be.true;

@@ -588,8 +588,24 @@ Validator.getMessages = function (lang) {
  * @param {string} lang
  * @return {void}
  */
-Validator.useLang = function (lang) {
+Validator.useLang = function (lang = "en") {
   this.prototype.lang = lang;
+};
+
+/**
+ * Resets lanague to english
+ * @return {void}
+ */
+Validator.resetLang = function () {
+  this.prototype.lang = "en";
+};
+
+/**
+ * Resets lanague to english
+ * @return {void}
+ */
+Validator.useDefaultLang = function () {
+  this.prototype.lang = "en";
 };
 
 /**

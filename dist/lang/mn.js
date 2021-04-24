@@ -81,6 +81,7 @@ module.exports = {
   not_in: "Буруу :attribute сонгогдсон байна.",
   not_regex: "The :attribute format is invalid.",
   numeric: ":Attribute талбарт тоон утга оруулна уу.",
+  object: ":Attribute талбар массив байх шаардлагатай.",
   present: ":Attribute талбар байх шаардлагатай.",
   regex: ":Attribute талбарт оруулсан утга буруу байна.",
   required: ":Attribute талбар шаардлагатай.",

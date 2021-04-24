@@ -11,11 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-Over 20 new validators have been added, bringing it close to complete parity with Laravel 8 Validators.
+Over 25 new validators have been added, bringing it close to complete parity with Laravel 8 Validators.
 
 #### Rules
 
 - Added `bail` rule which can be used to stop further process of errors after first failure
+- Added `begins_with` rule (`starts_with` alias) which will ensure field under test beings with string
 - Added `boolean` rule which will test if field under test is boolean
 - Added `email` rule which will test if field under test is a valid email address
 - Added `ends_with` rule which will test if field under test ends with string
@@ -33,6 +34,7 @@ Over 20 new validators have been added, bringing it close to complete parity wit
 - Added `lt` rule is alias for `less_than` and is less verbose
 - Added `less_than_or_equal` rule which will test if field under test is less than or equal to condition
 - Added `lte` rule is alias to `less_than_or_equal` and is less verbose
+- Added `object` rule which will ensure field under test is an object (similar to `array` rule)
 - Added `present` rule will test if field under test is present
 - Added `regex` rule to test if field under test meets supplied regex pattern
 - Added `not_regex` rule to test if field under test does not meet supplied regex pattern
@@ -83,6 +85,32 @@ let result = validator.passes(); // true
 let messages = validator.errors.all();
 
 console.log("messages", messages);
+```
+
+#### Enhanced Attribute Casing
+
+You can now use two new attribute formats `:Attribute` and `ATTRIBUTE` to extend error messages.
+
+Please refer to documentation for more information
+
+Using `:Attribute`
+
+```js
+const customMessage = { required: "You forgot to give a :Attribute" };
+const validator = new Validator({ name: null }, { name: "required" }, customMessage);
+
+expect(validator.passes()).to.be.false;
+expect(validator.errors.first("name")).to.equal("You forgot to give a Name");
+```
+
+Using `:ATTRIBUTE`
+
+```js
+const customMessage = { required: "You forgot to give a :ATTRIBUTE" };
+const validator = new Validator({ name: null }, { name: "required" }, customMessage);
+
+expect(validator.passes()).to.be.false;
+expect(validator.errors.first("name")).to.equal("You forgot to give a NAME");
 ```
 
 ### Fixed
@@ -191,6 +219,9 @@ https://github.com/skaterdav85/validatorjs/pull/316
 
 [keep a changelog](https://keepachangelog.com/en/1.0.0/)
 
+````
+
 ```
 
 ```
+````

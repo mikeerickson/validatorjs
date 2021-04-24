@@ -1,4 +1,4 @@
-/*! validatorjs - 2021-01-29 */
+/*! validatorjs - 2021-04-23 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const Validator = require("./validator");
 
@@ -588,6 +588,7 @@ module.exports = container;
 
 },{"./lang/en":6,"./messages":7}],6:[function(require,module,exports){
 module.exports = {
+  attributes: {},
   accepted: "The :attribute must be accepted.",
   after: "The :attribute must be after :after.",
   after_or_equal: "The :attribute must be equal or after :after_or_equal.",
@@ -595,8 +596,10 @@ module.exports = {
   alpha_dash: "The :attribute field may only contain alpha-numeric characters, as well as dashes and underscores.",
   alpha_num: "The :attribute field must be alphanumeric.",
   alpha_numeric: "The :attribute field must be alphanumeric.",
+  array: "The :attribute must be an array",
   before: "The :attribute must be before :before.",
   before_or_equal: "The :attribute must be equal or before :before_or_equal.",
+  begins_with: "The :attribute must begin with :value.",
   between: {
     numeric: "The :attribute field must be between :min and :max.",
     string: "The :attribute field must be between :min and :max characters.",
@@ -677,6 +680,7 @@ module.exports = {
   not_in: "The selected :attribute is invalid.",
   nullable: "the :attribute is nullable.",
   numeric: "The :attribute must be a number.",
+  object: "The :attribute must be an object",
   present: "The :attribute field must be present (but can be empty).",
   required: "The :attribute field is required.",
   required_if: "The :attribute field is required when :other is :value.",
@@ -690,12 +694,12 @@ module.exports = {
     numeric: "The :attribute must be :size.",
     string: "The :attribute must be :size characters.",
   },
+  starts_with: "The :attribute must start with :value.",
   string: "The :attribute must be a string.",
   uuid: "The :attribute must be a valid v1 or v4 uuid",
   url: "The :attribute format is invalid.",
   regex: "The :attribute format is invalid.",
   not_regex: "The :attribute format is must not match regex.",
-  attributes: {},
 };
 
 },{}],7:[function(require,module,exports){
@@ -706,6 +710,7 @@ module.exports = {
  * Licensed under the MIT license.  See LICENSE in the project root for license information.
  * -----------------------------------------------------------------------------------------*/
 
+const attributes = require("./attributes");
 var Attributes = require("./attributes");
 
 var Messages = function (lang, messages) {
@@ -809,6 +814,7 @@ Messages.prototype = {
   _getTemplate: function (rule) {
     var messages = this.messages;
     var template = messages.def;
+
     var customMessages = this.customMessages;
     var formats = [rule.name + "." + rule.attribute, rule.name];
 
@@ -842,20 +848,48 @@ Messages.prototype = {
     var message, attribute;
 
     data.attribute = this._getAttributeName(rule.attribute);
+    // data.ATTRIBUTE = data.attribute.toLocaleUpperCase();
+    // data.attribute = data.attribute.charAt(0).toLocaleUpperCase() + data.attribute.substring(1);
+
     data[rule.name] = data[rule.name] || rule.getParameters().join(",");
 
     if (typeof template === "string" && typeof data === "object") {
       message = template;
 
       for (attribute in data) {
-        message = message.replace(new RegExp(":" + attribute, "g"), data[attribute]);
-        if (alias.hasOwnProperty(data[attribute])) {
-          message = message.replace(data[attribute], alias[data[attribute]]);
-        }
+        // support alternating attributes (normal, ucfirst, uppercase)
+
+        let attrs = [attribute, this._ucfirst(attribute), attribute ? attribute.toLocaleUpperCase() : attribute];
+        attrs.forEach((attr) => {
+          message = message.replace(new RegExp(":" + attr, "g"), data[attribute]);
+          message = message.replace(new RegExp(":" + this._ucfirst(attr), "g"), this._ucfirst(data[attribute]));
+          if (data[attribute]) {
+            message = message.replace(new RegExp(":" + attr.toLocaleUpperCase(), "g"), data[attribute].toLocaleUpperCase());
+          }
+        });
+
+        // if we supplied alias, then use it over anything else
+        message = alias.hasOwnProperty(data[attribute]) ? message.replace(data[attribute], alias[data[attribute]]) : message;
       }
     }
 
     return message;
+  },
+  _ucfirst: (data) => {
+    if (typeof data === "string") {
+      return data.charAt(0).toLocaleUpperCase() + data.substring(1);
+    }
+  },
+
+  _titlecase: (str) => {
+    if (str) {
+      str = str.toLowerCase().split(" ");
+      for (var i = 0; i < str.length; i++) {
+        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+      }
+      return str.join(" ");
+    }
+    return str;
   },
 };
 
@@ -1081,7 +1115,6 @@ var rules = {
     if (this.validator._objectPath(this.validator.input, req)) {
       return this.validator.getRule("required").validate(val, req, attribute);
     }
-
     return true;
   },
 
@@ -1147,6 +1180,10 @@ var rules = {
     return val.startsWith(req);
   },
 
+  begins_with: function (val, req, attribute) {
+    return val.startsWith(req);
+  },
+
   ends_with: function (val, req, attribute) {
     return val.endsWith(req);
   },
@@ -1205,6 +1242,10 @@ var rules = {
 
   array: function (val) {
     return val instanceof Array;
+  },
+
+  object: function (val) {
+    return val instanceof Object;
   },
 
   url: function (url) {
@@ -2597,8 +2638,24 @@ Validator.getMessages = function (lang) {
  * @param {string} lang
  * @return {void}
  */
-Validator.useLang = function (lang) {
+Validator.useLang = function (lang = "en") {
   this.prototype.lang = lang;
+};
+
+/**
+ * Resets lanague to english
+ * @return {void}
+ */
+Validator.resetLang = function () {
+  this.prototype.lang = "en";
+};
+
+/**
+ * Resets lanague to english
+ * @return {void}
+ */
+Validator.useDefaultLang = function () {
+  this.prototype.lang = "en";
 };
 
 /**

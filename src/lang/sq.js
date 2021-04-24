@@ -80,6 +80,7 @@ module.exports = {
   not_in: ":attribute përzgjedhur është i/e pasaktë.",
   not_regex: "The :attribute format is invalid.",
   numeric: ":attribute duhet të jetë një numër.",
+  object: ":attribute duhet të jetë një bashkësi object.",
   present: "The :attribute field must be present.",
   regex: "Formati i :attribute është i pasaktë.",
   required: "Fusha :attribute është e kërkuar.",
