@@ -363,6 +363,13 @@ module.exports = function (grunt) {
       files: ["src/**/*.js"],
       tasks: ["default"],
     },
+    uglify: {
+      validatorjs: {
+        files: {
+          "dist/validator.min.js": ["dist/validator.js"],
+        },
+      },
+    },
   });
 
   // Default task.

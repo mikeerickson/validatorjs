@@ -13,7 +13,7 @@ class ValidationMessage {
   }
 
   first(attribute = "") {
-    let msg = "";
+    var msg = "";
     if (this.messages.hasOwnProperty(attribute)) {
       if (this.messages[attribute].length > 0) {
         msg = this.messages[attribute][0];

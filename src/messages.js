@@ -154,7 +154,7 @@ Messages.prototype = {
       for (attribute in data) {
         // support alternating attributes (normal, ucfirst, uppercase)
 
-        let attrs = [attribute, this._ucfirst(attribute), attribute ? attribute.toLocaleUpperCase() : attribute];
+        var attrs = [attribute, this._ucfirst(attribute), attribute ? attribute.toLocaleUpperCase() : attribute];
         attrs.forEach((attr) => {
           message = message.replace(new RegExp(":" + attr, "g"), data[attribute]);
           message = message.replace(new RegExp(":" + this._ucfirst(attr), "g"), this._ucfirst(data[attribute]));

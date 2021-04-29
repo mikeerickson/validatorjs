@@ -76,4 +76,14 @@ describe("numeric validation rule", () => {
     expect(validator.passes()).to.be.false;
     expect(validator.errors.first("value")).to.equal("The value is not multiple of 64");
   });
+
+  it("should handle numeric values", () => {
+    const data = { value: 3 };
+    const rules = { value: "digits" };
+
+    const validation = new Validator(data, rules);
+
+    expect(validation.passes()).to.be.true;
+    expect(validation.errors.first("value")).to.be.false;
+  });
 });

@@ -38,6 +38,30 @@ describe("required with all", () => {
     expect(validator.fails()).to.be.false;
   });
 
+  it("should fail with required_with_all containing multiple fields", () => {
+    const data = { field1: "a", field2: "b", field3: null };
+    const rules = { field3: "required_with_all:field1,field2" };
+
+    let validation = new Validator(data, rules);
+    expect(validation.passes()).to.be.false;
+  });
+
+  it("should fail with required_with_all containing multiple fields and test field exist", () => {
+    const data = { field1: "a", field2: "b", field3: "c" };
+    const rules = { field3: "required_with_all:field1,field2" };
+
+    let validation = new Validator(data, rules);
+    expect(validation.passes()).to.be.true;
+  });
+
+  it("should fail with required_with_all containing multiple fields but missing one field", () => {
+    const data = { field1: "a", field2: null, field3: null };
+    const rules = { field3: "required_with_all:field1,field2" };
+
+    let validation = new Validator(data, rules);
+    expect(validation.passes()).to.be.true;
+  });
+
   it("should pass (not all required field are set)", () => {
     const validator = new Validator(
       {

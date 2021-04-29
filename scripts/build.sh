@@ -14,6 +14,8 @@ success "Creating TODOs...\n"
 printf "\n"
 success "Building...\n"
 npm run build
+./node_modules/.bin/grunt uglify:validatorjs
+
 printf "\n"
 
 success "Build Process Complete" " SUCCESS "

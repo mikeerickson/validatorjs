@@ -1,4 +1,4 @@
-/*! validatorjs - 2021-04-23 */
+/*! validatorjs - 2021-04-29 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const Validator = require("./validator");
 
@@ -47,7 +47,7 @@ class Validation {
   }
 
   first(attribute = "") {
-    let msg = "";
+    var msg = "";
     if (this.validationErrors[attribute].length > 0) {
       msg = this.validationErrors[attribute][0];
     }
@@ -859,7 +859,7 @@ Messages.prototype = {
       for (attribute in data) {
         // support alternating attributes (normal, ucfirst, uppercase)
 
-        let attrs = [attribute, this._ucfirst(attribute), attribute ? attribute.toLocaleUpperCase() : attribute];
+        var attrs = [attribute, this._ucfirst(attribute), attribute ? attribute.toLocaleUpperCase() : attribute];
         attrs.forEach((attr) => {
           message = message.replace(new RegExp(":" + attr, "g"), data[attribute]);
           message = message.replace(new RegExp(":" + this._ucfirst(attr), "g"), this._ucfirst(data[attribute]));
@@ -909,17 +909,19 @@ function leapYear(year) {
 }
 
 function checkFalsePositiveDates(dateString = "") {
+  // fix issue with IE11 https://github.com/mikeerickson/validatorjs/pull/415/files
+  dateString = dateString || "";
   if (dateString.length === 10) {
     // massage input to use yyyy-mm-dd format
     // we support yyyy/mm/dd or yyyy.mm.dd
-    let normalizedDate = dateString.replace(".", "-").replace("/", "-");
-    let parts = normalizedDate.split("-");
+    var normalizedDate = dateString.replace(".", "-").replace("/", "-");
+    var parts = normalizedDate.split("-");
     if (parts.length === 3) {
       if (parts[0].length === 4) {
         // yyyy-mm-dd format
-        let y = parseInt(parts[0]);
-        let m = parseInt(parts[1]);
-        let d = parseInt(parts[2]);
+        var y = parseInt(parts[0]);
+        var m = parseInt(parts[1]);
+        var d = parseInt(parts[2]);
         if (m === 2) {
           // return leapYear(y) ? d <= 29 : d <= 28;
           if (leapYear(y)) {
@@ -945,7 +947,7 @@ function checkFalsePositiveDates(dateString = "") {
 }
 
 function isValidDate(dateString) {
-  let testDate;
+  var testDate;
   if (typeof dateString === "number") {
     testDate = new Date(dateString);
     if (typeof testDate === "object") {
@@ -1112,9 +1114,19 @@ var rules = {
   },
 
   required_with: function (val, req, attribute) {
-    if (this.validator._objectPath(this.validator.input, req)) {
-      return this.validator.getRule("required").validate(val, req, attribute);
+    var parts = req.split(",");
+    if (parts.length > 0) {
+      var errors = 0;
+      parts.forEach((part) => {
+        !this.validator.getRule("required").validate(val, part, attribute) ? errors++ : null;
+      });
+      return errors === 0;
+    } else {
+      if (this.validator._objectPath(this.validator.input, req)) {
+        return this.validator.getRule("required").validate(val, req, attribute);
+      }
     }
+
     return true;
   },
 
@@ -1220,9 +1232,9 @@ var rules = {
       re = /^((?:[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]|[^\u0000-\u007F])+@(?:[a-zA-Z0-9]|[^\u0000-\u007F])(?:(?:[a-zA-Z0-9-]|[^\u0000-\u007F]){0,61}(?:[a-zA-Z0-9]|[^\u0000-\u007F]))?(?:\.(?:[a-zA-Z0-9]|[^\u0000-\u007F])(?:(?:[a-zA-Z0-9-]|[^\u0000-\u007F]){0,61}(?:[a-zA-Z0-9]|[^\u0000-\u007F]))?)+)*$/;
     }
 
-    let result = re.test(val);
+    var result = re.test(val);
     if (result) {
-      let parts = val.split("@");
+      var parts = val.split("@");
       result = parts.length > 0 ? !parts[0].endsWith(".") : false;
     }
     return result;
@@ -1337,13 +1349,13 @@ var rules = {
       return true;
     }
 
-    let arr = req
+    var arr = req
       .replace(/["'\[\]]/g, "")
       .replace(/[|]/g, ",")
       .split(/, ?/);
 
     if (typeof val === "string") {
-      let [, flag] = req.split(":");
+      var [, flag] = req.split(":");
 
       if (flag === "true") {
         return arr.includes(val);
@@ -1412,7 +1424,7 @@ var rules = {
   },
 
   distinct: function (val, req) {
-    let distinct = [...new Set(val)];
+    var distinct = [...new Set(val)];
     return distinct.length === val.length;
   },
 
@@ -1426,8 +1438,13 @@ var rules = {
 
   digits: function (val, req, attribute) {
     var numericRule = this.validator.getRule("numeric");
-    if (numericRule.validate(val, req, attribute) && String(val.trim()).length === parseInt(req)) {
-      return true;
+
+    if (typeof val === "number") {
+      return numericRule.validate(val, req, attribute);
+    } else {
+      if (numericRule.validate(val, req, attribute) && String(val.trim()).length === parseInt(req)) {
+        return true;
+      }
     }
 
     return false;
@@ -1448,7 +1465,7 @@ var rules = {
   },
 
   regex: function (val, req) {
-    let reqPattern = req;
+    var reqPattern = req;
     var mod = /[g|i|m]{1,3}$/;
     var flag = req.match(mod);
     flag = flag ? flag[0] : "";
@@ -1459,7 +1476,7 @@ var rules = {
   },
 
   not_regex: function (val, req) {
-    let reqPattern = req;
+    var reqPattern = req;
     var mod = /[g|i|m]{1,3}$/;
     var flag = req.match(mod);
     flag = flag ? flag[0] : "";
@@ -1595,7 +1612,7 @@ var rules = {
     // check 1: ipv4 address should contains 4 octets
     if (octets.length != 4) return false;
 
-    for (let i = 0; i < octets.length; i++) {
+    for (var i = 0; i < octets.length; i++) {
       const element = octets[i];
       // check 2: each octet should be integer bigger than 0
       if (!er.test(element)) return false;
@@ -1638,7 +1655,7 @@ var rules = {
     // check 5: ipv6 should contain exactly one consecutive colons if it has less than 8 sectors
     if (hextets.length != 8 && colons == null) return false;
 
-    for (let i = 0; i < hextets.length; i++) {
+    for (var i = 0; i < hextets.length; i++) {
       const element = hextets[i];
 
       if (element.length == 0) continue;
@@ -1942,7 +1959,7 @@ module.exports = manager;
  * Licensed under the MIT license.  See LICENSE in the project root for license information.
  * -----------------------------------------------------------------------------------------*/
 
-let Success = function () {
+var Success = function () {
   this.successes = {};
 };
 
@@ -2063,7 +2080,7 @@ var AsyncResolvers = require("./async");
 var Attributes = require("./attributes");
 
 var Validator = function (input, rules, customMessages, language = null, aliases = {}) {
-  let lang = language ? language : Validator.getDefaultLang();
+  var lang = language ? language : Validator.getDefaultLang();
   this.input = input || {};
   this.aliases = aliases || {};
 
@@ -2129,7 +2146,7 @@ Validator.prototype = {
           continue;
         }
 
-        let ruleKeys = [];
+        var ruleKeys = [];
         attributeRules.forEach((item) => {
           return ruleKeys.push(item.name);
         });

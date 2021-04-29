@@ -22,14 +22,7 @@ describe("async rule tests", function (done) {
       ":attribute is an invalid username",
     );
 
-    var validator = new Validator(
-      {
-        username: "test",
-      },
-      {
-        username: "username",
-      },
-    );
+    var validator = new Validator({ username: "test" }, { username: "username" });
     validator.passes(done);
   });
 
@@ -46,14 +39,7 @@ describe("async rule tests", function (done) {
       ":attribute is an invalid username",
     );
 
-    var validator = new Validator(
-      {
-        username: "test",
-      },
-      {
-        username: "username",
-      },
-    );
+    var validator = new Validator({ username: "test" }, { username: "username" });
     validator.fails(done);
   });
 
@@ -86,14 +72,7 @@ describe("async rule tests", function (done) {
       ":attribute is an invalid username",
     );
 
-    var validator = new Validator(
-      {
-        username: "test",
-      },
-      {
-        username: "username1|username2",
-      },
-    );
+    var validator = new Validator({ username: "test" }, { username: "username1|username2" });
     validator.passes(() => {
       expect(passCount).to.equal(2);
       done();
@@ -130,14 +109,7 @@ describe("async rule tests", function (done) {
       ":attribute is an invalid username",
     );
 
-    var validator = new Validator(
-      {
-        username: "test",
-      },
-      {
-        username: "username1|username2",
-      },
-    );
+    var validator = new Validator({ username: "test" }, { username: "username1|username2" });
     validator.fails(() => {
       expect(passCount).to.equal(1);
       expect(failedCount).to.equal(1);
@@ -158,14 +130,7 @@ describe("async rule tests", function (done) {
       ":attribute is an invalid username",
     );
 
-    var validator = new Validator(
-      {
-        username: "admin",
-      },
-      {
-        username: "username",
-      },
-    );
+    var validator = new Validator({ username: "admin" }, { username: "username" });
     validator.fails(() => {
       expect(validator.errors.first("username")).to.equal("This username is banned");
       done();
@@ -173,16 +138,7 @@ describe("async rule tests", function (done) {
   });
 
   it("should allow validating by async when no async rules", function (done) {
-    var validator = new Validator(
-      {
-        username: "admin",
-        email: "blah",
-      },
-      {
-        username: "required|min:3",
-        email: "required|email",
-      },
-    );
+    var validator = new Validator({ username: "admin", email: "blah" }, { username: "required|min:3", email: "required|email" });
     validator.fails(() => {
       done();
     });
@@ -205,26 +161,12 @@ describe("async rule tests", function (done) {
       ":attribute is an invalid username",
     );
 
-    var validator = new Validator(
-      {
-        username: "test",
-      },
-      {
-        username: "required|min:3|username",
-      },
-    );
+    var validator = new Validator({ username: "test" }, { username: "required|min:3|username" });
     validator.passes(done);
   });
 
   it("should it not call passes if using just fails callback", function (done) {
-    var validator = new Validator(
-      {
-        name: "gary",
-      },
-      {
-        name: "required",
-      },
-    );
+    var validator = new Validator({ name: "gary" }, { name: "required" });
     validator.fails(() => {
       throw "Should not be called.";
     });
@@ -235,14 +177,7 @@ describe("async rule tests", function (done) {
   });
 
   it("should it not call fails if using just passes callback", function (done) {
-    var validator = new Validator(
-      {
-        name: "",
-      },
-      {
-        name: "required",
-      },
-    );
+    var validator = new Validator({ name: "" }, { name: "required" });
     validator.passes(() => {
       throw "Should not be called.";
     });

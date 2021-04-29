@@ -45,7 +45,7 @@ class Validation {
   }
 
   first(attribute = "") {
-    let msg = "";
+    var msg = "";
     if (this.validationErrors[attribute].length > 0) {
       msg = this.validationErrors[attribute][0];
     }

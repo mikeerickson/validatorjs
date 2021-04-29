@@ -13,7 +13,7 @@ var AsyncResolvers = require("./async");
 var Attributes = require("./attributes");
 
 var Validator = function (input, rules, customMessages, language = null, aliases = {}) {
-  let lang = language ? language : Validator.getDefaultLang();
+  var lang = language ? language : Validator.getDefaultLang();
   this.input = input || {};
   this.aliases = aliases || {};
 
@@ -79,7 +79,7 @@ Validator.prototype = {
           continue;
         }
 
-        let ruleKeys = [];
+        var ruleKeys = [];
         attributeRules.forEach((item) => {
           return ruleKeys.push(item.name);
         });
