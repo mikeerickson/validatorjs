@@ -196,6 +196,10 @@ The field under validation may have alpha-numeric characters, as well as dashes 
 
 The field under validation must be entirely alpha-numeric characters.
 
+#### alpha_space
+
+The field under validation may have alphabetic characters, as well as space.
+
 #### array
 
 The field under validation must be an array.

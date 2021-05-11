@@ -272,6 +272,10 @@ var rules = {
     return /^[a-zA-Z0-9]+$/.test(val);
   },
 
+  alpha_space: function (val) {
+    return /^[a-zA-Z ]+$/.test(val);
+  },
+
   same: function (val, req) {
     var val1 = this.validator._flattenObject(this.validator.input)[req];
     var val2 = val;
