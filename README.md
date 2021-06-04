@@ -182,7 +182,7 @@ The field under validation must be after the given date.
 
 #### after_or_equal:date
 
-The field unter validation must be after or equal to the given field
+The field under validation must be after or equal to the given field
 
 #### alpha
 
