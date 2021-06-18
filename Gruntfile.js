@@ -1,5 +1,5 @@
 /*global module:false*/
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   'use strict';
 
   require('jit-grunt')(grunt);
@@ -344,7 +344,13 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/zh_TW.js'
       },
-
+      uzLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/uz:./lang/uz']
+        },
+        dest: 'dist/lang/uz.js'
+      },
       dist: {
         files: {
           'dist/validator.js': 'src/validator.js'
