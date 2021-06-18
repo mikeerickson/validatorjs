@@ -16,18 +16,18 @@ module.exports = {
   integer: 'Поле :attribute должно быть целым числом.',
   hex: 'Поле :attribute должно иметь шестнадцатеричный формат',
   min: {
-    numeric: 'Значение поля :attribute должно быть больше или равно :min.',
-    string: 'Количество символов в поле :attribute должно быть не менее :min.'
+    numeric: ':attribute maydonining qiymati :min dan katta yoki unga teng bo`lishi kerak.',
+    string: ':attribute maydonidagi belgilar soni kamida :min bo`lishi kerak.'
   },
   max: {
-    numeric: 'Значение поля :attribute должно быть меньше или равно :max.',
-    string: 'Количество символов в поле :attribute не может превышать :max.'
+    numeric: ':attribute maydonining qiymati :max dan kam yoki unga teng bo`lishi kerak.',
+    string: ':attribute maydonidagi belgilar soni :max dan oshmasligi kerak.'
   },
-  not_in: 'Выбранное значение для :attribute ошибочно.',
-  numeric: 'Поле :attribute должно быть числом.',
-  present: 'Поле :attribute должно присутствовать (но может быть пустым).',
-  required: 'Поле :attribute обязательно для заполнения.',
-  required_if: 'Поле :attribute требуется когда значения поля :other равно :value.',
+  not_in: ':attribute uchun tanlangan qiymat xato.',
+  numeric: ':attribute maydoni raqamlardan iborat bo`lishi kerak.',
+  present: ':attribute maydoni mavjud bo`lishi kerak (lekin bo`sh bo`lishi mumkin).',
+  required: ':attribute maydoni to`ldirilishi talab qilinadi.',
+  required_if: 'Поле :attribute требуется когда значения поля :other равно :value. :attribute maydoni :other maydonining qiymati :value bo`lganida talab qilinadi.',
   same: ':atribute qiymati :same bilan mos kelishi kerak.',
   size: {
     numeric: ':attribute maydonining qiymati :size o`lchamiga teng bo`lishi kerak.',
