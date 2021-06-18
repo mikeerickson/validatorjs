@@ -1,5 +1,5 @@
 
-require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/ru":[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"./lang/uz":[function(require,module,exports){
 module.exports = {
   accepted: 'Вы должны принять :attribute.',
   alpha: 'Поле :attribute может содержать только буквы.',
@@ -28,13 +28,13 @@ module.exports = {
   present: 'Поле :attribute должно присутствовать (но может быть пустым).',
   required: 'Поле :attribute обязательно для заполнения.',
   required_if: 'Поле :attribute требуется когда значения поля :other равно :value.',
-  same: 'Значение :attribute должно совпадать с :same.',
+  same: ':atribute qiymati :same bilan mos kelishi kerak.',
   size: {
-    numeric: 'Значение поля :attribute должно быть равным :size.',
-    string: 'Количество символов в поле :attribute должно быть равно :size.'
+    numeric: ':attribute maydonining qiymati :size o`lchamiga teng bo`lishi kerak.',
+    string: ':attribute maydonidagi belgilar soni :size ta bo`lishi kerak.'
   },
-  url: 'Поле :attribute должно содержать валидный URL.',
-  regex: 'Неверный формат поля :attribute.',
+  url: ':attribute maydonida to`g`ri URL manzili kiritilishi kerak.',
+  regex: ':attribute maydon formati noto`g`ri.',
   attributes: {}
 };
 
