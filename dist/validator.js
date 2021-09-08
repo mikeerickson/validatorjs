@@ -1,4 +1,4 @@
-/*! validatorjs - 2020-12-03 */
+/*! validatorjs - 2021-09-08 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -1574,7 +1574,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
+      if (this._passesOptionalCheck(attribute)) {
         continue;
       }
 
@@ -1639,7 +1639,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
+      if (this._passesOptionalCheck(attribute)) {
         continue;
       }
 
@@ -1740,7 +1740,6 @@ Validator.prototype = {
    * @return {object}
    */
   _parseRules: function (rules) {
-
     var parsedRules = {};
     rules = this._flattenObject(rules);
 
@@ -1751,8 +1750,6 @@ Validator.prototype = {
       this._parseRulesCheck(attribute, rulesArray, parsedRules);
     }
     return parsedRules;
-
-
   },
 
   _parseRulesCheck: function (attribute, rulesArray, parsedRules, wildCardValues) {
@@ -1804,7 +1801,6 @@ Validator.prototype = {
   },
 
   _replaceWildCards: function (path, nums) {
-
     if (!nums) {
       return path;
     }
@@ -1839,6 +1835,7 @@ Validator.prototype = {
 
     this.messages._setCustom(customMessages);
   },
+
   /**
    * Prepare rules if it comes in Array. Check for objects. Need for type validation.
    *
@@ -1865,13 +1862,37 @@ Validator.prototype = {
   },
 
   /**
+   * Determine if the attribute passes any optional check.
+   *
+   * @param {string} attribute
+   * @return {boolean}
+   */
+  _passesOptionalCheck: function (attribute) {
+    return this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute);
+  },
+
+  /**
    * Determines if the attribute is supplied with the original data object.
    *
    * @param  {array} attribute
    * @return {boolean}
    */
   _suppliedWithData: function (attribute) {
-    return this.input.hasOwnProperty(attribute);
+    function hasNested(obj, key,  ...rest) {
+      if (obj === undefined) {
+        return false;
+      }
+
+      if (rest.length == 0 && obj.hasOwnProperty(key)) {
+        return true;
+      }
+
+      return hasNested(obj[key], ...rest);
+    }
+
+    var keys = attribute.split('.');
+
+    return hasNested(this.input, ...keys);
   },
 
   /**

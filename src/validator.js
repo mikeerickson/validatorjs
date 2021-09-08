@@ -56,7 +56,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
+      if (this._passesOptionalCheck(attribute)) {
         continue;
       }
 
@@ -121,7 +121,7 @@ Validator.prototype = {
       var attributeRules = this.rules[attribute];
       var inputValue = this._objectPath(this.input, attribute);
 
-      if (this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute)) {
+      if (this._passesOptionalCheck(attribute)) {
         continue;
       }
 
@@ -222,7 +222,6 @@ Validator.prototype = {
    * @return {object}
    */
   _parseRules: function (rules) {
-
     var parsedRules = {};
     rules = this._flattenObject(rules);
 
@@ -233,8 +232,6 @@ Validator.prototype = {
       this._parseRulesCheck(attribute, rulesArray, parsedRules);
     }
     return parsedRules;
-
-
   },
 
   _parseRulesCheck: function (attribute, rulesArray, parsedRules, wildCardValues) {
@@ -286,7 +283,6 @@ Validator.prototype = {
   },
 
   _replaceWildCards: function (path, nums) {
-
     if (!nums) {
       return path;
     }
@@ -321,6 +317,7 @@ Validator.prototype = {
 
     this.messages._setCustom(customMessages);
   },
+
   /**
    * Prepare rules if it comes in Array. Check for objects. Need for type validation.
    *
@@ -347,13 +344,37 @@ Validator.prototype = {
   },
 
   /**
+   * Determine if the attribute passes any optional check.
+   *
+   * @param {string} attribute
+   * @return {boolean}
+   */
+  _passesOptionalCheck: function (attribute) {
+    return this._hasRule(attribute, ['sometimes']) && !this._suppliedWithData(attribute);
+  },
+
+  /**
    * Determines if the attribute is supplied with the original data object.
    *
-   * @param  {array} attribute
+   * @param  {string} attribute
    * @return {boolean}
    */
   _suppliedWithData: function (attribute) {
-    return this.input.hasOwnProperty(attribute);
+    function hasNested(obj, key,  ...rest) {
+      if (obj === undefined) {
+        return false;
+      }
+
+      if (rest.length == 0 && obj.hasOwnProperty(key)) {
+        return true;
+      }
+
+      return hasNested(obj[key], ...rest);
+    }
+
+    var keys = attribute.split('.');
+
+    return hasNested(this.input, ...keys);
   },
 
   /**
