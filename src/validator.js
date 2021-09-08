@@ -356,7 +356,7 @@ Validator.prototype = {
   /**
    * Determines if the attribute is supplied with the original data object.
    *
-   * @param  {array} attribute
+   * @param  {string} attribute
    * @return {boolean}
    */
   _suppliedWithData: function (attribute) {
