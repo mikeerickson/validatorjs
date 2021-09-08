@@ -303,6 +303,18 @@ The field under validation must be present and not empty only when any of the ot
 
 The field under validation must be present and not empty only when all of the other specified fields are not present.
 
+#### sometimes
+
+In some situations, you may wish to run validation checks against a field only if that field is present in the data being validated. To quickly accomplish this, add the sometimes rule to your rule list:
+
+```js
+let rules = {
+    email: 'sometimes|required|email'    
+}
+```
+
+In the example above, the email field will only be validated if it is present in the input.
+
 #### same:attribute
 
 The given field must match the field under validation.

@@ -50,4 +50,20 @@ describe("sometimes validation pass rules", function() {
     const validator = new Validator({ username: "test" }, { username: "username", email: "email|sometimes" });
     validator.passes(done);
   });
+
+  it("should pass when the nested property is passed with data", function() {
+    const validator = new Validator(
+      { user: { firstname: "Johnny", lastname: "Appleseed" } },
+      { "user.firstname": "required", "user.lastname": "sometimes|required|string" }
+    );
+    expect(validator.passes()).to.be.true;
+  });
+
+  it("should fail validation when the nested property is passed with invalid data", function() {
+    const validator = new Validator(
+      { user: { firstname: "Johnny", lastname: '' } },
+      { "user.firstname": "required", 'user.lastname': "sometimes|required|string" }
+    );
+    expect(validator.passes()).to.be.false;
+  });
 });
