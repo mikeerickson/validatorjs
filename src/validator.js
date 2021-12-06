@@ -554,18 +554,25 @@ Validator.prototype = {
   /**
    * Filter input only the keys defined in the rules.
    * 
+   * @param {any} obj
+   * @param {string} keyPrefix
    * @returns {object}
    */
-  _onlyInputWithRules: function () {
-    var newObj = { };
-  
-    Object.keys(this.input).forEach((key) => {
-      if (this.input[key] !== undefined && Object.keys(this.rules).includes(key)) {
-        newObj[key] = this.input[key];
+  _onlyInputWithRules: function (obj, keyPrefix) {
+    var prefix = keyPrefix === undefined ? '' : keyPrefix;
+    var values = JSON.parse(JSON.stringify(obj === undefined ? this.input : obj));
+
+    Object.keys(values).forEach((key) => {
+      if (values[key] !== null && typeof values[key] === 'object') {
+        values[key] = this._onlyInputWithRules(values[key], prefix + key + '.');
+      } else {
+        if (values[key] === undefined || !Object.keys(this.rules).includes(prefix + key)) {
+          delete values[key];
+        }
       }
     });
 
-    return newObj;
+    return values;
   }
 
 };
