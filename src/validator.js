@@ -525,6 +525,47 @@ Validator.prototype = {
     }
 
     return this.hasAsync || hasCallback;
+  },
+
+  /**
+   * Get the attributes and values that were validated.
+   *
+   * @param {function} passes
+   * @param {function} fails
+   * @return {object|undefined}
+   */
+  validated: function (passes, fails) {
+    if (this._checkAsync('passes', passes)) {
+      return this.checkAsync(
+        function () {
+          passes(this._onlyInputWithRules());
+        }.bind(this),
+        fails
+      );
+    } else {
+      if (this.check()) {
+        return this._onlyInputWithRules();
+      } else {
+        throw new Error('Validation failed!');
+      }
+    }
+  },
+
+  /**
+   * Filter input only the keys defined in the rules.
+   * 
+   * @returns {object}
+   */
+  _onlyInputWithRules: function () {
+    var newObj = { };
+  
+    Object.keys(this.input).forEach((key) => {
+      if (this.input[key] !== undefined && Object.keys(this.rules).includes(key)) {
+        newObj[key] = this.input[key];
+      }
+    });
+
+    return newObj;
   }
 
 };

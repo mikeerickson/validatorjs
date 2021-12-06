@@ -412,6 +412,66 @@ validator.checkAsync(passes, fails);
 
 ```
 
+### Working with validated input
+
+Use `validated()` method to retrieve only the validated data and to filter out attributes not found on rules provided.
+
+```js
+let validation = new Validator({
+  name: 'John',
+  email: 'johndoe@gmail.com',
+  age: 28,
+  gender: 'male'
+}, {
+  name: 'required',
+  age: 'min:18'
+});
+
+validation.validated(); // will return `{ "name": "John", "age": 28 }`
+```
+
+`validated()` method will thrown an error when current validation is failing.
+
+```js
+let validation = new Validator({
+  name: 'John',
+  email: 'johndoe@gmail.com',
+  age: 28,
+  gender: 'male'
+}, {
+  name: 'required',
+  age: 'min:40'
+});
+
+validation.validated(); // will throw `Error('Validation failed!')`
+```
+
+`validated()` method also works with asynchronous validation. In this case,
+`passes()` callback will receive only the validated data (without the
+attributes not found on rules provided) as the first argument.
+
+```js
+let validation = new Validator({
+  name: 'John',
+  email: 'johndoe@gmail.com',
+  age: 28,
+  gender: 'male'
+}, {
+  name: 'required|some_async_rule',
+  age: 'min:18'
+});
+
+function passes(validated) {
+  console.log(validated); // will output `{ "name": "John", "age": 28 }` if `some_async_rule` validates `'John'`
+}
+
+function fails() {
+  // will be called if `some_async_rule` does not validate `'John'`
+}
+
+validation.validated(passes, fails);
+```
+
 ### Error Messages
 
 This constructor will automatically generate error messages for validation rules that failed.
