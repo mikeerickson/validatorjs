@@ -64,7 +64,7 @@ Validator.prototype = {
         ruleOptions = attributeRules[i];
         rule = this.getRule(ruleOptions.name);
 
-        if (!this._isValidatable(rule, inputValue)) {
+        if (inputValue !== null && !this._isValidatable(rule, inputValue)) {
           continue;
         }
 
