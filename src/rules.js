@@ -414,7 +414,7 @@ var rules = {
   },
 
   after: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = this.getParameters()[0];
     var val2 = val;
 
     if (!isValidDate(val1)) {
@@ -432,7 +432,7 @@ var rules = {
   },
 
   after_or_equal: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = this.getParameters()[0];
     var val2 = val;
 
     if (!isValidDate(val1)) {
@@ -450,7 +450,7 @@ var rules = {
   },
 
   before: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = this.getParameters()[0];
     var val2 = val;
 
     if (!isValidDate(val1)) {
@@ -468,7 +468,7 @@ var rules = {
   },
 
   before_or_equal: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = this.getParameters()[0];
     var val2 = val;
 
     if (!isValidDate(val1)) {
