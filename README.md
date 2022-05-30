@@ -180,9 +180,34 @@ The field under validation must be yes, on, 1 or true. This is useful for valida
 
 The field under validation must be after the given date.
 
+`date` may be any date string which is supported by the JavaScript [Date constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date).
+
+##### Example
+
+```javascript
+const rules = {
+  date: 'required|date|after:2022-05-27',
+};
+
+// Will validate date to be after May 27 2022
+```
+
+Optionally `date` may also be the reference to another field
+
+##### Example
+
+```javascript
+const rules = {
+  date: 'required|date|after:anotherDate',
+};
+
+// Will validate date to be after the value of the field `anotherDate`
+```
+
 #### after_or_equal:date
 
-The field unter validation must be after or equal to the given field
+The field unter validation must be after or equal to the given field.
+For more information see the [after](#afterdate) rule.
 
 #### alpha
 
@@ -203,11 +228,12 @@ The field under validation must be an array.
 #### before:date
 
 The field under validation must be before the given date.
-
+For more information see the [after](#afterdate) rule.
 
 #### before_or_equal:date
 
 The field under validation must be before or equal to the given date.
+For more information see the [after](#afterdate) rule.
 
 #### between:min,max
 
