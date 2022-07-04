@@ -414,14 +414,14 @@ var rules = {
   },
 
   after: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
     if (!isValidDate(val1)) {
-      return false;
+      return true;
     }
     if (!isValidDate(val2)) {
-      return false;
+      return true;
     }
 
     if (new Date(val1).getTime() < new Date(val2).getTime()) {
@@ -432,14 +432,14 @@ var rules = {
   },
 
   after_or_equal: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
     if (!isValidDate(val1)) {
-      return false;
+      return true;
     }
     if (!isValidDate(val2)) {
-      return false;
+      return true;
     }
 
     if (new Date(val1).getTime() <= new Date(val2).getTime()) {
@@ -450,14 +450,14 @@ var rules = {
   },
 
   before: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
     if (!isValidDate(val1)) {
-      return false;
+      return true;
     }
     if (!isValidDate(val2)) {
-      return false;
+      return true;
     }
 
     if (new Date(val1).getTime() > new Date(val2).getTime()) {
@@ -468,14 +468,14 @@ var rules = {
   },
 
   before_or_equal: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
     if (!isValidDate(val1)) {
-      return false;
+      return true;
     }
     if (!isValidDate(val2)) {
-      return false;
+      return true;
     }
 
     if (new Date(val1).getTime() >= new Date(val2).getTime()) {
