@@ -1,4 +1,4 @@
-/*! validatorjs - 2020-12-03 */
+/*! validatorjs - 2022-07-04 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Validator = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 function AsyncResolvers(onFailedOne, onResolvedAll) {
   this.onResolvedAll = onResolvedAll;
@@ -1066,15 +1066,15 @@ var rules = {
   },
 
   after: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
-    if (!isValidDate(val1)) {
-      return false;
-    }
-    if (!isValidDate(val2)) {
-      return false;
-    }
+    // if (!isValidDate(val1)) {
+    //   return false;
+    // }
+    // if (!isValidDate(val2)) {
+    //   return false;
+    // }
 
     if (new Date(val1).getTime() < new Date(val2).getTime()) {
       return true;
@@ -1084,15 +1084,15 @@ var rules = {
   },
 
   after_or_equal: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
-    if (!isValidDate(val1)) {
-      return false;
-    }
-    if (!isValidDate(val2)) {
-      return false;
-    }
+    // if (!isValidDate(val1)) {
+    //   return false;
+    // }
+    // if (!isValidDate(val2)) {
+    //   return false;
+    // }
 
     if (new Date(val1).getTime() <= new Date(val2).getTime()) {
       return true;
@@ -1102,15 +1102,15 @@ var rules = {
   },
 
   before: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
-    if (!isValidDate(val1)) {
-      return false;
-    }
-    if (!isValidDate(val2)) {
-      return false;
-    }
+    // if (!isValidDate(val1)) {
+    //   return false;
+    // }
+    // if (!isValidDate(val2)) {
+    //   return false;
+    // }
 
     if (new Date(val1).getTime() > new Date(val2).getTime()) {
       return true;
@@ -1120,15 +1120,15 @@ var rules = {
   },
 
   before_or_equal: function (val, req) {
-    var val1 = this.validator.input[req];
+    var val1 = req;
     var val2 = val;
 
-    if (!isValidDate(val1)) {
-      return false;
-    }
-    if (!isValidDate(val2)) {
-      return false;
-    }
+    // if (!isValidDate(val1)) {
+    //   return false;
+    // }
+    // if (!isValidDate(val2)) {
+    //   return false;
+    // }
 
     if (new Date(val1).getTime() >= new Date(val2).getTime()) {
       return true;
