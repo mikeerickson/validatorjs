@@ -1069,12 +1069,12 @@ var rules = {
     var val1 = req;
     var val2 = val;
 
-    // if (!isValidDate(val1)) {
-    //   return false;
-    // }
-    // if (!isValidDate(val2)) {
-    //   return false;
-    // }
+    if (!isValidDate(val1)) {
+      return true;
+    }
+    if (!isValidDate(val2)) {
+      return true;
+    }
 
     if (new Date(val1).getTime() < new Date(val2).getTime()) {
       return true;
@@ -1087,12 +1087,12 @@ var rules = {
     var val1 = req;
     var val2 = val;
 
-    // if (!isValidDate(val1)) {
-    //   return false;
-    // }
-    // if (!isValidDate(val2)) {
-    //   return false;
-    // }
+    if (!isValidDate(val1)) {
+      return true;
+    }
+    if (!isValidDate(val2)) {
+      return true;
+    }
 
     if (new Date(val1).getTime() <= new Date(val2).getTime()) {
       return true;
@@ -1105,12 +1105,12 @@ var rules = {
     var val1 = req;
     var val2 = val;
 
-    // if (!isValidDate(val1)) {
-    //   return false;
-    // }
-    // if (!isValidDate(val2)) {
-    //   return false;
-    // }
+    if (!isValidDate(val1)) {
+      return true;
+    }
+    if (!isValidDate(val2)) {
+      return true;
+    }
 
     if (new Date(val1).getTime() > new Date(val2).getTime()) {
       return true;
@@ -1123,12 +1123,12 @@ var rules = {
     var val1 = req;
     var val2 = val;
 
-    // if (!isValidDate(val1)) {
-    //   return false;
-    // }
-    // if (!isValidDate(val2)) {
-    //   return false;
-    // }
+    if (!isValidDate(val1)) {
+      return true;
+    }
+    if (!isValidDate(val2)) {
+      return true;
+    }
 
     if (new Date(val1).getTime() >= new Date(val2).getTime()) {
       return true;
