@@ -23,11 +23,13 @@ module.exports = {
   hex: 'The :attribute field should have hexadecimal format',
   min: {
     numeric: 'The :attribute must be at least :min.',
-    string: 'The :attribute must be at least :min characters.'
+    string: 'The :attribute must be at least :min characters.',
+    array: 'The :attribute must be at least :min item'
   },
   max: {
     numeric: 'The :attribute may not be greater than :max.',
-    string: 'The :attribute may not be greater than :max characters.'
+    string: 'The :attribute may not be greater than :max characters.',
+    array: 'The :attribute may not be greater than :max item'
   },
   not_in: 'The selected :attribute is invalid.',
   numeric: 'The :attribute must be a number.',
