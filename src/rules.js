@@ -702,8 +702,9 @@ Rule.prototype = {
   _getValueType: function () {
     if (typeof this.inputValue === "number" || this.validator._hasNumericRule(this.attribute)) {
       return "numeric";
+    } else if (Array.isArray(this.inputValue)){
+      return "array";
     }
-
     return "string";
   },
 
