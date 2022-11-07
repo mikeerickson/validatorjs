@@ -302,6 +302,13 @@ module.exports = function(grunt) {
         },
         dest: 'dist/lang/sv.js'
       },
+      thLang: {
+        src: [],
+        options: {
+          require: ['./src/lang/th:./lang/th']
+        },
+        dest: 'dist/lang/th.js'
+      },
       trLang: {
         src: [],
         options: {
