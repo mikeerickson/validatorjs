@@ -1814,7 +1814,7 @@ Validator.prototype = {
       if(Array.isArray(path2)){
         path2 = path2[0];
       }
-      const pos = path2.indexOf('*');
+      const pos = path2.indexOf !== undefined ? path2.indexOf('*') : -1;
       if (pos === -1) {
         return path2;
       }
