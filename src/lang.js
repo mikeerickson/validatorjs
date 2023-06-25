@@ -32,7 +32,9 @@ var container = {
     if (message === undefined) {
       message = this.messages[lang].def;
     }
-
+    if (typeof this.messages[lang] === 'undefined') {
+      this.messages[lang] = {}
+    }
     this.messages[lang][attribute] = message;
   },
 
